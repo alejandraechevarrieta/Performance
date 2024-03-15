@@ -1,0 +1,107 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="PerformanceModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="AutoEvaluacion">
+    <Key>
+      <PropertyRef Name="idAutoEvaluacion" />
+    </Key>
+    <Property Name="idAutoEvaluacion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="idPerformance" Type="Int32" Nullable="false" />
+    <Property Name="idHabilidad" Type="Int32" Nullable="false" />
+    <Property Name="idCalificacion" Type="Int32" Nullable="false" />
+    <Property Name="fechaCalificacion" Type="DateTime" Nullable="false" Precision="0" />
+  </EntityType>
+  <EntityType Name="Calificacion">
+    <Key>
+      <PropertyRef Name="idCalificacion" />
+    </Key>
+    <Property Name="idCalificacion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nombre" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="formulario" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="activo" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="Encuesta">
+    <Key>
+      <PropertyRef Name="idEncuesta" />
+    </Key>
+    <Property Name="idEncuesta" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="idPerformance" Type="Int32" Nullable="false" />
+    <Property Name="recibido" Type="Int32" Nullable="false" />
+    <Property Name="calidad" Type="Int32" Nullable="false" />
+    <Property Name="comentario" Type="String" MaxLength="2500" FixedLength="false" Unicode="true" Nullable="false" />
+  </EntityType>
+  <EntityType Name="EvaluacionPerformance">
+    <Key>
+      <PropertyRef Name="idEvaluacion" />
+    </Key>
+    <Property Name="idEvaluacion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="idPerformance" Type="Int32" Nullable="false" />
+    <Property Name="idCalificacion" Type="Int32" Nullable="false" />
+    <Property Name="idResponsable" Type="Int32" Nullable="false" />
+    <Property Name="fechaPerfomance" Type="DateTime" Nullable="false" Precision="0" />
+  </EntityType>
+  <EntityType Name="Habilidades">
+    <Key>
+      <PropertyRef Name="idHabilidad" />
+    </Key>
+    <Property Name="idHabilidad" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="habilidad" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="formulario" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Menu">
+    <Key>
+      <PropertyRef Name="idMenu" />
+    </Key>
+    <Property Name="idMenu" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nombre" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="codigo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="icono" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="activo" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="MenuPerfil">
+    <Key>
+      <PropertyRef Name="idMenuPerfil" />
+    </Key>
+    <Property Name="idMenuPerfil" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="idMenu" Type="Int32" Nullable="false" />
+    <Property Name="idPerfil" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Perfiles">
+    <Key>
+      <PropertyRef Name="idPerfil" />
+    </Key>
+    <Property Name="idPerfil" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nombre" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="activo" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="PerfilUsuario">
+    <Key>
+      <PropertyRef Name="idPerfilUsuario" />
+    </Key>
+    <Property Name="idPerfilUsuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="idUsuario" Type="Int32" Nullable="false" />
+    <Property Name="idPerfil" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PerformanceColaborador">
+    <Key>
+      <PropertyRef Name="idPerformance" />
+    </Key>
+    <Property Name="idPerformance" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="idUsuario" Type="Int32" Nullable="false" />
+    <Property Name="nombre" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="ano" Type="Int32" Nullable="false" />
+    <Property Name="atiguedado" Type="Int32" Nullable="false" />
+    <Property Name="idJefe" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityContainer Name="PerformanceEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="AutoEvaluacion" EntityType="Self.AutoEvaluacion" />
+    <EntitySet Name="Calificacion" EntityType="Self.Calificacion" />
+    <EntitySet Name="Encuesta" EntityType="Self.Encuesta" />
+    <EntitySet Name="EvaluacionPerformance" EntityType="Self.EvaluacionPerformance" />
+    <EntitySet Name="Habilidades" EntityType="Self.Habilidades" />
+    <EntitySet Name="Menu" EntityType="Self.Menu" />
+    <EntitySet Name="MenuPerfil" EntityType="Self.MenuPerfil" />
+    <EntitySet Name="Perfiles" EntityType="Self.Perfiles" />
+    <EntitySet Name="PerfilUsuario" EntityType="Self.PerfilUsuario" />
+    <EntitySet Name="PerformanceColaborador" EntityType="Self.PerformanceColaborador" />
+  </EntityContainer>
+</Schema>
