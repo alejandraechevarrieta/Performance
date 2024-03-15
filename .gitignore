@@ -51,20 +51,20 @@ Thumbs.db
 *.lock
 
 /.vs/
-/PerformApp.Model/obj
-/PerformApp.Model/bin
+/Performance.Model/obj
+/Performance.Model/bin
 
-/PerformApp.Servicios/obj
-/PerformApp.Servicios/bin
+/Performance.Servicios/obj
+/Performance.Servicios/bin
 
-/PerformApp/bin
-/PerformApp/obj
+/Performance/bin
+/Performance/obj
 
 
-/PerformApp/Web.Release.config
-/PerformApp/Web.Debug.config
-/PerformApp/Web.config
+/Performance/Web.Release.config
+/Performance/Web.Debug.config
+/Performance/Web.config
 
-/PerformApp/.vs
+/Performance/.vs
 
 
