@@ -1,0 +1,107 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="PerformanceModelStoreContainer" CdmEntityContainer="PerformanceEntities">
+    <EntitySetMapping Name="AutoEvaluacion">
+      <EntityTypeMapping TypeName="PerformanceModel.AutoEvaluacion">
+        <MappingFragment StoreEntitySet="AutoEvaluacion">
+          <ScalarProperty Name="idAutoEvaluacion" ColumnName="idAutoEvaluacion" />
+          <ScalarProperty Name="idPerformance" ColumnName="idPerformance" />
+          <ScalarProperty Name="idHabilidad" ColumnName="idHabilidad" />
+          <ScalarProperty Name="idCalificacion" ColumnName="idCalificacion" />
+          <ScalarProperty Name="fechaCalificacion" ColumnName="fechaCalificacion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Calificacion">
+      <EntityTypeMapping TypeName="PerformanceModel.Calificacion">
+        <MappingFragment StoreEntitySet="Calificacion">
+          <ScalarProperty Name="idCalificacion" ColumnName="idCalificacion" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="formulario" ColumnName="formulario" />
+          <ScalarProperty Name="activo" ColumnName="activo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Encuesta">
+      <EntityTypeMapping TypeName="PerformanceModel.Encuesta">
+        <MappingFragment StoreEntitySet="Encuesta">
+          <ScalarProperty Name="idEncuesta" ColumnName="idEncuesta" />
+          <ScalarProperty Name="idPerformance" ColumnName="idPerformance" />
+          <ScalarProperty Name="recibido" ColumnName="recibido" />
+          <ScalarProperty Name="calidad" ColumnName="calidad" />
+          <ScalarProperty Name="comentario" ColumnName="comentario" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EvaluacionPerformance">
+      <EntityTypeMapping TypeName="PerformanceModel.EvaluacionPerformance">
+        <MappingFragment StoreEntitySet="EvaluacionPerformance">
+          <ScalarProperty Name="idEvaluacion" ColumnName="idEvaluacion" />
+          <ScalarProperty Name="idPerformance" ColumnName="idPerformance" />
+          <ScalarProperty Name="idCalificacion" ColumnName="idCalificacion" />
+          <ScalarProperty Name="idResponsable" ColumnName="idResponsable" />
+          <ScalarProperty Name="fechaPerfomance" ColumnName="fechaPerfomance" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Habilidades">
+      <EntityTypeMapping TypeName="PerformanceModel.Habilidades">
+        <MappingFragment StoreEntitySet="Habilidades">
+          <ScalarProperty Name="idHabilidad" ColumnName="idHabilidad" />
+          <ScalarProperty Name="habilidad" ColumnName="habilidad" />
+          <ScalarProperty Name="formulario" ColumnName="formulario" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Menu">
+      <EntityTypeMapping TypeName="PerformanceModel.Menu">
+        <MappingFragment StoreEntitySet="Menu">
+          <ScalarProperty Name="idMenu" ColumnName="idMenu" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="codigo" ColumnName="codigo" />
+          <ScalarProperty Name="icono" ColumnName="icono" />
+          <ScalarProperty Name="activo" ColumnName="activo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MenuPerfil">
+      <EntityTypeMapping TypeName="PerformanceModel.MenuPerfil">
+        <MappingFragment StoreEntitySet="MenuPerfil">
+          <ScalarProperty Name="idMenuPerfil" ColumnName="idMenuPerfil" />
+          <ScalarProperty Name="idMenu" ColumnName="idMenu" />
+          <ScalarProperty Name="idPerfil" ColumnName="idPerfil" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Perfiles">
+      <EntityTypeMapping TypeName="PerformanceModel.Perfiles">
+        <MappingFragment StoreEntitySet="Perfiles">
+          <ScalarProperty Name="idPerfil" ColumnName="idPerfil" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="activo" ColumnName="activo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PerfilUsuario">
+      <EntityTypeMapping TypeName="PerformanceModel.PerfilUsuario">
+        <MappingFragment StoreEntitySet="PerfilUsuario">
+          <ScalarProperty Name="idPerfilUsuario" ColumnName="idPerfilUsuario" />
+          <ScalarProperty Name="idUsuario" ColumnName="idUsuario" />
+          <ScalarProperty Name="idPerfil" ColumnName="idPerfil" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PerformanceColaborador">
+      <EntityTypeMapping TypeName="PerformanceModel.PerformanceColaborador">
+        <MappingFragment StoreEntitySet="PerformanceColaborador">
+          <ScalarProperty Name="idPerformance" ColumnName="idPerformance" />
+          <ScalarProperty Name="idUsuario" ColumnName="idUsuario" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="ano" ColumnName="ano" />
+          <ScalarProperty Name="atiguedado" ColumnName="atiguedado" />
+          <ScalarProperty Name="idJefe" ColumnName="idJefe" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
