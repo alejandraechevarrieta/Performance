@@ -1,0 +1,352 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="PerformanceModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AutoEvaluacion">
+          <Key>
+            <PropertyRef Name="idAutoEvaluacion" />
+          </Key>
+          <Property Name="idAutoEvaluacion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idPerformance" Type="int" Nullable="false" />
+          <Property Name="idHabilidad" Type="int" Nullable="false" />
+          <Property Name="idCalificacion" Type="int" Nullable="false" />
+          <Property Name="fechaCalificacion" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Calificacion">
+          <Key>
+            <PropertyRef Name="idCalificacion" />
+          </Key>
+          <Property Name="idCalificacion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="250" />
+          <Property Name="formulario" Type="varchar" MaxLength="50" />
+          <Property Name="activo" Type="bit" />
+        </EntityType>
+        <EntityType Name="Encuesta">
+          <Key>
+            <PropertyRef Name="idEncuesta" />
+          </Key>
+          <Property Name="idEncuesta" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idPerformance" Type="int" Nullable="false" />
+          <Property Name="recibido" Type="int" Nullable="false" />
+          <Property Name="calidad" Type="int" Nullable="false" />
+          <Property Name="comentario" Type="nvarchar" MaxLength="2500" Nullable="false" />
+        </EntityType>
+        <EntityType Name="EvaluacionPerformance">
+          <Key>
+            <PropertyRef Name="idEvaluacion" />
+          </Key>
+          <Property Name="idEvaluacion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idPerformance" Type="int" Nullable="false" />
+          <Property Name="idCalificacion" Type="int" Nullable="false" />
+          <Property Name="idResponsable" Type="int" Nullable="false" />
+          <Property Name="fechaPerfomance" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Habilidades">
+          <Key>
+            <PropertyRef Name="idHabilidad" />
+          </Key>
+          <Property Name="idHabilidad" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="habilidad" Type="varchar" MaxLength="500" />
+          <Property Name="formulario" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Menu">
+          <Key>
+            <PropertyRef Name="idMenu" />
+          </Key>
+          <Property Name="idMenu" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="250" />
+          <Property Name="codigo" Type="varchar" MaxLength="50" />
+          <Property Name="icono" Type="varchar" MaxLength="50" />
+          <Property Name="activo" Type="bit" />
+        </EntityType>
+        <EntityType Name="MenuPerfil">
+          <Key>
+            <PropertyRef Name="idMenuPerfil" />
+          </Key>
+          <Property Name="idMenuPerfil" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idMenu" Type="int" Nullable="false" />
+          <Property Name="idPerfil" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Perfiles">
+          <Key>
+            <PropertyRef Name="idPerfil" />
+          </Key>
+          <Property Name="idPerfil" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="250" />
+          <Property Name="activo" Type="bit" />
+        </EntityType>
+        <EntityType Name="PerfilUsuario">
+          <Key>
+            <PropertyRef Name="idPerfilUsuario" />
+          </Key>
+          <Property Name="idPerfilUsuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idUsuario" Type="int" Nullable="false" />
+          <Property Name="idPerfil" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PerformanceColaborador">
+          <Key>
+            <PropertyRef Name="idPerformance" />
+          </Key>
+          <Property Name="idPerformance" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idUsuario" Type="int" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="500" />
+          <Property Name="ano" Type="int" Nullable="false" />
+          <Property Name="atiguedado" Type="int" Nullable="false" />
+          <Property Name="idJefe" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="PerformanceModelStoreContainer">
+          <EntitySet Name="AutoEvaluacion" EntityType="Self.AutoEvaluacion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Calificacion" EntityType="Self.Calificacion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Encuesta" EntityType="Self.Encuesta" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EvaluacionPerformance" EntityType="Self.EvaluacionPerformance" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Habilidades" EntityType="Self.Habilidades" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Menu" EntityType="Self.Menu" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MenuPerfil" EntityType="Self.MenuPerfil" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Perfiles" EntityType="Self.Perfiles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PerfilUsuario" EntityType="Self.PerfilUsuario" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PerformanceColaborador" EntityType="Self.PerformanceColaborador" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PerformanceModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="AutoEvaluacion">
+          <Key>
+            <PropertyRef Name="idAutoEvaluacion" />
+          </Key>
+          <Property Name="idAutoEvaluacion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idPerformance" Type="Int32" Nullable="false" />
+          <Property Name="idHabilidad" Type="Int32" Nullable="false" />
+          <Property Name="idCalificacion" Type="Int32" Nullable="false" />
+          <Property Name="fechaCalificacion" Type="DateTime" Nullable="false" Precision="0" />
+        </EntityType>
+        <EntityType Name="Calificacion">
+          <Key>
+            <PropertyRef Name="idCalificacion" />
+          </Key>
+          <Property Name="idCalificacion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="formulario" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="activo" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="Encuesta">
+          <Key>
+            <PropertyRef Name="idEncuesta" />
+          </Key>
+          <Property Name="idEncuesta" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idPerformance" Type="Int32" Nullable="false" />
+          <Property Name="recibido" Type="Int32" Nullable="false" />
+          <Property Name="calidad" Type="Int32" Nullable="false" />
+          <Property Name="comentario" Type="String" MaxLength="2500" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="EvaluacionPerformance">
+          <Key>
+            <PropertyRef Name="idEvaluacion" />
+          </Key>
+          <Property Name="idEvaluacion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idPerformance" Type="Int32" Nullable="false" />
+          <Property Name="idCalificacion" Type="Int32" Nullable="false" />
+          <Property Name="idResponsable" Type="Int32" Nullable="false" />
+          <Property Name="fechaPerfomance" Type="DateTime" Nullable="false" Precision="0" />
+        </EntityType>
+        <EntityType Name="Habilidades">
+          <Key>
+            <PropertyRef Name="idHabilidad" />
+          </Key>
+          <Property Name="idHabilidad" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="habilidad" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="formulario" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Menu">
+          <Key>
+            <PropertyRef Name="idMenu" />
+          </Key>
+          <Property Name="idMenu" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="codigo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="icono" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="activo" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="MenuPerfil">
+          <Key>
+            <PropertyRef Name="idMenuPerfil" />
+          </Key>
+          <Property Name="idMenuPerfil" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idMenu" Type="Int32" Nullable="false" />
+          <Property Name="idPerfil" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Perfiles">
+          <Key>
+            <PropertyRef Name="idPerfil" />
+          </Key>
+          <Property Name="idPerfil" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="activo" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="PerfilUsuario">
+          <Key>
+            <PropertyRef Name="idPerfilUsuario" />
+          </Key>
+          <Property Name="idPerfilUsuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idUsuario" Type="Int32" Nullable="false" />
+          <Property Name="idPerfil" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PerformanceColaborador">
+          <Key>
+            <PropertyRef Name="idPerformance" />
+          </Key>
+          <Property Name="idPerformance" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idUsuario" Type="Int32" Nullable="false" />
+          <Property Name="nombre" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="ano" Type="Int32" Nullable="false" />
+          <Property Name="atiguedado" Type="Int32" Nullable="false" />
+          <Property Name="idJefe" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="PerformanceEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AutoEvaluacion" EntityType="Self.AutoEvaluacion" />
+          <EntitySet Name="Calificacion" EntityType="Self.Calificacion" />
+          <EntitySet Name="Encuesta" EntityType="Self.Encuesta" />
+          <EntitySet Name="EvaluacionPerformance" EntityType="Self.EvaluacionPerformance" />
+          <EntitySet Name="Habilidades" EntityType="Self.Habilidades" />
+          <EntitySet Name="Menu" EntityType="Self.Menu" />
+          <EntitySet Name="MenuPerfil" EntityType="Self.MenuPerfil" />
+          <EntitySet Name="Perfiles" EntityType="Self.Perfiles" />
+          <EntitySet Name="PerfilUsuario" EntityType="Self.PerfilUsuario" />
+          <EntitySet Name="PerformanceColaborador" EntityType="Self.PerformanceColaborador" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="PerformanceModelStoreContainer" CdmEntityContainer="PerformanceEntities">
+          <EntitySetMapping Name="AutoEvaluacion">
+            <EntityTypeMapping TypeName="PerformanceModel.AutoEvaluacion">
+              <MappingFragment StoreEntitySet="AutoEvaluacion">
+                <ScalarProperty Name="idAutoEvaluacion" ColumnName="idAutoEvaluacion" />
+                <ScalarProperty Name="idPerformance" ColumnName="idPerformance" />
+                <ScalarProperty Name="idHabilidad" ColumnName="idHabilidad" />
+                <ScalarProperty Name="idCalificacion" ColumnName="idCalificacion" />
+                <ScalarProperty Name="fechaCalificacion" ColumnName="fechaCalificacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Calificacion">
+            <EntityTypeMapping TypeName="PerformanceModel.Calificacion">
+              <MappingFragment StoreEntitySet="Calificacion">
+                <ScalarProperty Name="idCalificacion" ColumnName="idCalificacion" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="formulario" ColumnName="formulario" />
+                <ScalarProperty Name="activo" ColumnName="activo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Encuesta">
+            <EntityTypeMapping TypeName="PerformanceModel.Encuesta">
+              <MappingFragment StoreEntitySet="Encuesta">
+                <ScalarProperty Name="idEncuesta" ColumnName="idEncuesta" />
+                <ScalarProperty Name="idPerformance" ColumnName="idPerformance" />
+                <ScalarProperty Name="recibido" ColumnName="recibido" />
+                <ScalarProperty Name="calidad" ColumnName="calidad" />
+                <ScalarProperty Name="comentario" ColumnName="comentario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EvaluacionPerformance">
+            <EntityTypeMapping TypeName="PerformanceModel.EvaluacionPerformance">
+              <MappingFragment StoreEntitySet="EvaluacionPerformance">
+                <ScalarProperty Name="idEvaluacion" ColumnName="idEvaluacion" />
+                <ScalarProperty Name="idPerformance" ColumnName="idPerformance" />
+                <ScalarProperty Name="idCalificacion" ColumnName="idCalificacion" />
+                <ScalarProperty Name="idResponsable" ColumnName="idResponsable" />
+                <ScalarProperty Name="fechaPerfomance" ColumnName="fechaPerfomance" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Habilidades">
+            <EntityTypeMapping TypeName="PerformanceModel.Habilidades">
+              <MappingFragment StoreEntitySet="Habilidades">
+                <ScalarProperty Name="idHabilidad" ColumnName="idHabilidad" />
+                <ScalarProperty Name="habilidad" ColumnName="habilidad" />
+                <ScalarProperty Name="formulario" ColumnName="formulario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Menu">
+            <EntityTypeMapping TypeName="PerformanceModel.Menu">
+              <MappingFragment StoreEntitySet="Menu">
+                <ScalarProperty Name="idMenu" ColumnName="idMenu" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="codigo" ColumnName="codigo" />
+                <ScalarProperty Name="icono" ColumnName="icono" />
+                <ScalarProperty Name="activo" ColumnName="activo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MenuPerfil">
+            <EntityTypeMapping TypeName="PerformanceModel.MenuPerfil">
+              <MappingFragment StoreEntitySet="MenuPerfil">
+                <ScalarProperty Name="idMenuPerfil" ColumnName="idMenuPerfil" />
+                <ScalarProperty Name="idMenu" ColumnName="idMenu" />
+                <ScalarProperty Name="idPerfil" ColumnName="idPerfil" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Perfiles">
+            <EntityTypeMapping TypeName="PerformanceModel.Perfiles">
+              <MappingFragment StoreEntitySet="Perfiles">
+                <ScalarProperty Name="idPerfil" ColumnName="idPerfil" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="activo" ColumnName="activo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PerfilUsuario">
+            <EntityTypeMapping TypeName="PerformanceModel.PerfilUsuario">
+              <MappingFragment StoreEntitySet="PerfilUsuario">
+                <ScalarProperty Name="idPerfilUsuario" ColumnName="idPerfilUsuario" />
+                <ScalarProperty Name="idUsuario" ColumnName="idUsuario" />
+                <ScalarProperty Name="idPerfil" ColumnName="idPerfil" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PerformanceColaborador">
+            <EntityTypeMapping TypeName="PerformanceModel.PerformanceColaborador">
+              <MappingFragment StoreEntitySet="PerformanceColaborador">
+                <ScalarProperty Name="idPerformance" ColumnName="idPerformance" />
+                <ScalarProperty Name="idUsuario" ColumnName="idUsuario" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="ano" ColumnName="ano" />
+                <ScalarProperty Name="atiguedado" ColumnName="atiguedado" />
+                <ScalarProperty Name="idJefe" ColumnName="idJefe" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
