@@ -13,5 +13,20 @@ namespace Performance.Controllers
             return View();
         }
 
+        public ActionResult FormularioB()
+        {
+            return View("FormularioB");
+        }
+
+        public ActionResult Dashboard()
+        {
+            return View("Dashboard");
+        }
+
+        public ActionResult Login()
+        {
+            return View("Login");
+        }
+
     }
 }
