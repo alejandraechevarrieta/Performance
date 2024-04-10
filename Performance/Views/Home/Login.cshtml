@@ -2,6 +2,7 @@
 @{
     ViewBag.Title = "Login";
     //Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = null;
 }
 <style>
     #cardLogin {
@@ -226,16 +227,26 @@
     </title>
     <!--     Fonts and icons     -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
+
+
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
+    <link rel="stylesheet" href="~/Content/CssPerformance.css">
+
+    <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+    <script defer data-site="YOUR_DOMAIN_HERE" src="https://api.nepcha.com/js/nepcha-analytics.js"></script>
+
+
     <!-- Nucleo Icons -->
-    <link href="~/Content/css/nucleo-icons.css" rel="stylesheet" />
+    <!--<link href="~/Content/css/nucleo-icons.css" rel="stylesheet" />
     <link href="~/Content/css/nucleo-svg.css" rel="stylesheet" />
     <link href="~/Content/scss/soft-ui-dashboard.scss" rel="stylesheet" />
-    <link href="~/Content/scss/soft-ui-dashboard/forms/_input-group.scss" rel="stylesheet" />
+    <link href="~/Content/scss/soft-ui-dashboard/forms/_input-group.scss" rel="stylesheet" />-->
     <!-- Font Awesome Icons -->
-    <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
-    <link href="~/Content/css/nucleo-svg.css" rel="stylesheet" />
+    <!--<script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+    <link href="~/Content/css/nucleo-svg.css" rel="stylesheet" />-->
     <!-- CSS Files -->
-    <link id="pagestyle" href="~/Content/CssPerformance.css" rel="stylesheet" />
+    <!--<link id="pagestyle" href="~/Content/CssPerformance.css" rel="stylesheet" />-->
 </head>
 
 <body class="g-sidenav-show bg-gray-100">
@@ -257,7 +268,7 @@
                         <input type="password" class="form-control" placeholder="Contraseña" aria-label="Contraseña" aria-describedby="basic-addon1">
                     </div>
                     <div class="text-center">
-                        <button type="button" style="background-color: rgba(80,190,45);" class="btn w-100 my-4 mb-2 text-white">Ingresar</button>
+                        <button type="button" style="background-color: rgba(80,190,45);" class="btn w-100 my-4 mb-2 text-white" onclick="window.location.href ='https://localhost:44303/Home/Index'">Ingresar</button>
                     </div>
                     <div class="row mt-2">
                         <div class="text-l col-5 justify-content-end vertical" style="justify-content:end;">
@@ -273,32 +284,42 @@
                             <a href="../pages/sign-up.html" style="color: #00aec7;" class="font-weight-bold">Registrarse</a>
                         </div>
                     </div>
-                    
+
                 </form>
             </div>
         </div>
     </div>
 
+
     <!--   Core JS Files   -->
-    <script src="~/Content/js/core/popper.min.js"></script>
-    <script src="~/Content/js/core/bootstrap.min.js"></script>
-
-    <!-- Plugin for the charts, full documentation here: https://www.chartjs.org/ -->
-    <script src="~/Content/js/plugins/chartjs.min.js"></script>
-    <script src="~/Content/js/plugins/Chart.extension.js"></script>
-
-    <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
-    <script src="~/Content/JsPerformance.js"></script>
+    <script src="../Content/JsPerformance.js"></script>
 
 
     <!-- Github buttons -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <!--Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc-->
     <script src="../Content/js/soft-ui-dashboard.min.js?v=1.0.7"></script>
-    <script defer src="https://static.cloudflareinsights.com/beacon.min.js/v84a3a4012de94ce1a686ba8c167c359c1696973893317" data-cf-beacon='{"rayId":"866a9418dd4b1ff6","version":"2024.3.0","token":"1b7cbb72744b40c580f8633c6b62637e"}' crossorigin="anonymous"></script>
+    @*<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v84a3a4012de94ce1a686ba8c167c359c1696973893317" data-cf-beacon='{"rayId":"866a9418dd4b1ff6","version":"2024.3.0","token":"1b7cbb72744b40c580f8633c6b62637e"}' crossorigin="anonymous"></script>*@
+
+    @*<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>*@
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
+    <!--<script src="~/Content/JsPerformance.js"></script>-->
+    <!--   Core JS Files   -->
+    <!--<script src="~/Content/js/core/popper.min.js"></script>
+    <script src="~/Content/js/core/bootstrap.min.js"></script>-->
+    <!-- Plugin for the charts, full documentation here: https://www.chartjs.org/ -->
+    <!--<script src="~/Content/js/plugins/chartjs.min.js"></script>
+    <script src="~/Content/js/plugins/Chart.extension.js"></script>-->
+    <!-- Github buttons -->
+    <!--<script async defer src="https://buttons.github.io/buttons.js"></script>-->
+    <!--Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc-->
+    <!--<script src="../Content/js/soft-ui-dashboard.min.js?v=1.0.7"></script>-->
+    @*<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v84a3a4012de94ce1a686ba8c167c359c1696973893317" data-cf-beacon='{"rayId":"866a9418dd4b1ff6","version":"2024.3.0","token":"1b7cbb72744b40c580f8633c6b62637e"}' crossorigin="anonymous"></script>
 
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>*@
 </body>
 
 </html>

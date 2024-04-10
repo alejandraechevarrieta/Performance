@@ -1,5 +1,6 @@
 ﻿@{
     ViewBag.Title = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <style>
     * {
@@ -341,38 +342,6 @@
     }
 </style>
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-@*<div class="container-fluid py-4">
-        <div class="card card-frame">
-            <div class="card-body">
-                <p class="h3">Autoevaluación de habilidades</p>
-                <form>
-                    <div id="divChecks1">
-                        <label class="custom-control-label" for="divChecks1">Autodesarrollo</label>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="option" id="check1" value="option1">
-                            <label class="form-check-label" for="check1">
-                                En progreso
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="option" id="check2" value="option2">
-                            <label class="form-check-label" for="check2">
-                                Autónomo
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="option" id="check3" value="option3">
-                            <label class="form-check-label" for="check2">
-                                Fortaleza
-                            </label>
-                        </div>
-                    </div>
-                </form>
-
-            </div>
-        </div>
-    </div>*@
 <!-- MultiStep Form -->
 <div class="container-fluid" id="grad1">
     <div class="row justify-content-center mt-0">
@@ -402,6 +371,7 @@
                                     </div>
                                 </div>
                                 <input type="button" name="next" class="next action-button" value="Siguiente" />
+                                <button type="button" class="btn bg-gradient-primary btn-tooltip" data-bs-toggle="tooltip" data-bs-placement="top" title="Tooltip on top" data-container="body" data-animation="true">Primary</button>
                             </fieldset>
                             <fieldset>
                                 <div class="form-card">
@@ -481,6 +451,9 @@
         </div>
     </div>
 </div>
+<!--Estos links son para formularios (Si no van aca no funcionan)-->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script>
     //Codigo para checkbox
     const checkboxes = document.querySelectorAll('.form-check-input');
@@ -494,7 +467,6 @@
             });
         });
     });
-
 
     $(document).ready(function () {
 
