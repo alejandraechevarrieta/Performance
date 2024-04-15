@@ -23,23 +23,7 @@ namespace Performance.Servicios
        
         public int? ValidarIngreso(int idUsuario)
         {
-            //var perfilesPerformance = _db.SegUsuarioPerfil.Where(x => x.idUsuario == idUsuario && (x.idPerfil == 117 || x.idPerfil == 118)).Select(x => x.idPerfil).ToList();
-
-            //int? idPerfil = 0;            
-            //if (perfilesPerformance != null)
-            //{
-            //    foreach(var perfil in perfilesPerformance)
-            //    {
-            //        idPerfil = perfil;
-            //    }
-
-            //    return idPerfil; 
-            //}
-            //else
-            //{
-            //return idPerfil;
-            //    
-            //}
+           
             return 0;
         }
 
