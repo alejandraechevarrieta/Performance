@@ -13,6 +13,6 @@ namespace Performance.Controllers
         public ActionResult Index()
         {
             return RedirectToAction("Index", "Index", new { area = "Login" });
-        }        
+        }
     }
 }

@@ -12,6 +12,10 @@ namespace Performance.Areas.Login.Controllers
         {
             return View();
         }
+        public ActionResult _Autoevaluacion()
+        {
+            return View("_Autoevaluacion");
+        }
 
     }
 }
