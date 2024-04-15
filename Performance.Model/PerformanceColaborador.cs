@@ -18,7 +18,7 @@ namespace Performance.Model
         public int idUsuario { get; set; }
         public string nombre { get; set; }
         public int ano { get; set; }
-        public int atiguedado { get; set; }
+        public int antiguedad { get; set; }
         public int idJefe { get; set; }
     }
 }

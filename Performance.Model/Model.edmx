@@ -94,7 +94,7 @@
           <Property Name="idUsuario" Type="int" Nullable="false" />
           <Property Name="nombre" Type="varchar" MaxLength="500" />
           <Property Name="ano" Type="int" Nullable="false" />
-          <Property Name="atiguedado" Type="int" Nullable="false" />
+          <Property Name="antiguedad" Type="int" Nullable="false" />
           <Property Name="idJefe" Type="int" Nullable="false" />
         </EntityType>
         <EntityContainer Name="PerformanceModelStoreContainer">
@@ -203,10 +203,10 @@
           <Property Name="idUsuario" Type="Int32" Nullable="false" />
           <Property Name="nombre" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="ano" Type="Int32" Nullable="false" />
-          <Property Name="atiguedado" Type="Int32" Nullable="false" />
+          <Property Name="antiguedad" Type="Int32" Nullable="false" />
           <Property Name="idJefe" Type="Int32" Nullable="false" />
         </EntityType>
-        <EntityContainer Name="PerformanceEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="AutoEvaluacion" EntityType="Self.AutoEvaluacion" />
           <EntitySet Name="Calificacion" EntityType="Self.Calificacion" />
           <EntitySet Name="Encuesta" EntityType="Self.Encuesta" />
@@ -223,7 +223,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="PerformanceModelStoreContainer" CdmEntityContainer="PerformanceEntities">
+        <EntityContainerMapping StorageEntityContainer="PerformanceModelStoreContainer" CdmEntityContainer="Entities">
           <EntitySetMapping Name="AutoEvaluacion">
             <EntityTypeMapping TypeName="PerformanceModel.AutoEvaluacion">
               <MappingFragment StoreEntitySet="AutoEvaluacion">
@@ -321,7 +321,7 @@
                 <ScalarProperty Name="idUsuario" ColumnName="idUsuario" />
                 <ScalarProperty Name="nombre" ColumnName="nombre" />
                 <ScalarProperty Name="ano" ColumnName="ano" />
-                <ScalarProperty Name="atiguedado" ColumnName="atiguedado" />
+                <ScalarProperty Name="antiguedad" ColumnName="antiguedad" />
                 <ScalarProperty Name="idJefe" ColumnName="idJefe" />
               </MappingFragment>
             </EntityTypeMapping>
