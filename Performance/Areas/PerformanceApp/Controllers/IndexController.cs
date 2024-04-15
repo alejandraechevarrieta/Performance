@@ -8,8 +8,9 @@ namespace Performance.Areas.PerformanceApp.Controllers
 {
     public class IndexController : Controller
     {
-        public ActionResult Index()
+        public ActionResult Index(string perfil)
         {
+            ViewBag.Perfil = perfil;
             return View();
         }
         public ActionResult Crud()
