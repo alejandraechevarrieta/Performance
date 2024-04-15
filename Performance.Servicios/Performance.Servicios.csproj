@@ -54,12 +54,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="ServicioLogin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="System\Web\HttpContext.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Performance.Model\Performance.Model.csproj">
+      <Project>{b835edf6-b0cc-44ff-a93e-c524e408e8aa}</Project>
+      <Name>Performance.Model</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

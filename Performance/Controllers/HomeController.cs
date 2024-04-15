@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Net.Http;
 
 namespace Performance.Controllers
 {
@@ -10,23 +12,7 @@ namespace Performance.Controllers
     {
         public ActionResult Index()
         {
-            return View();
-        }
-
-        public ActionResult FormularioB()
-        {
-            return View("FormularioB");
-        }
-
-        public ActionResult Dashboard()
-        {
-            return View("Dashboard");
-        }
-
-        public ActionResult Login()
-        {
-            return View("Login");
-        }
-
+            return RedirectToAction("Index", "Index", new { area = "Login" });
+        }        
     }
 }

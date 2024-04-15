@@ -1,0 +1,20 @@
+﻿
+@{
+    ViewBag.Title = "Crud";
+    //var idPerfil = Session["idPerfil"];
+}
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid"> 
+    <div id="autoEvaluacion">
+        @Html.Partial("_Autoevaluacion")
+    </div>
+    <div id="evaluacion">
+        @Html.Partial("_Evaluacion")
+    </div>
+    <div id="calibracion">
+        @Html.Partial("_Calibracion")
+    </div>
+</div>

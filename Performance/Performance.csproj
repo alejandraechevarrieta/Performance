@@ -59,6 +59,7 @@
       <HintPath>..\packages\System.Data.SqlClient.4.8.6\lib\net461\System.Data.SqlClient.dll</HintPath>
     </Reference>
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -130,6 +131,12 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Areas\Login\Controllers\Api\LoginController.cs" />
+    <Compile Include="Areas\Login\Controllers\IndexController.cs" />
+    <Compile Include="Areas\Login\LoginAreaRegistration.cs" />
+    <Compile Include="Areas\PerformanceApp\Controllers\Api\PerformanceAppController.cs" />
+    <Compile Include="Areas\PerformanceApp\Controllers\IndexController.cs" />
+    <Compile Include="Areas\PerformanceApp\PerformanceAppAreaRegistration.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -233,6 +240,7 @@
     <Content Include="assets\js\soft-ui-dashboard.js" />
     <Content Include="assets\js\soft-ui-dashboard.min.js" />
     <Content Include="Content\CssPerformance.css" />
+    <Content Include="Content\img\puntos.gif" />
     <Content Include="Content\JsPerformance.js" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
@@ -421,6 +429,14 @@
     <Content Include="assets\scss\soft-ui-dashboard\_utilities-extend.scss" />
     <Content Include="assets\scss\soft-ui-dashboard\_utilities.scss" />
     <Content Include="assets\scss\soft-ui-dashboard\_variables.scss" />
+    <Content Include="Areas\Login\Views\Index\Index.cshtml" />
+    <Content Include="Areas\Login\Views\Web.config" />
+    <Content Include="Areas\PerformanceApp\Views\Index\Index.cshtml" />
+    <Content Include="Areas\PerformanceApp\Views\Web.config" />
+    <Content Include="Areas\PerformanceApp\Views\Shared\_Evaluacion.cshtml" />
+    <Content Include="Areas\PerformanceApp\Views\Shared\_Autoevaluacion.cshtml" />
+    <Content Include="Areas\PerformanceApp\Views\Shared\_Calibracion.cshtml" />
+    <Content Include="Areas\PerformanceApp\Views\Index\Crud.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />

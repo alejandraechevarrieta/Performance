@@ -1,0 +1,170 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    //var idPerfil = Session["idPerfil"];
+    var idPerfil = 118;
+}
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link rel="stylesheet" href="~/Content/CssPerformance.css">
+
+
+<div style="margin-left: 50%; margin-block: 0.5%">
+    <button id="nuevaEvaluacion" class="btn btn-primary" onclick="location.href='/PerformanceApp/Index/Crud'">Autoevaluación<i class="fa fa-briefcase"></i></button>
+</div>
+@*FILTROS*@
+<div class="row" style="margin: 30px; overflow:hidden;" id="rowFiltro">
+    <div class="form-group2 col-md-2" id="filtroColaborador">
+        <label>Colaborador:</label>
+        <div></div>
+        <div style="font-weight: normal !important;">
+            <select class="form-control" id="selectColaborador"></select>
+        </div>
+    </div>
+    <div class="form-group2 col-md-1" id="filtroAno">
+        <label>Año:</label>
+        <div></div>
+        <select class="form-control" id="select">
+            <option value="0">Seleccionar</option>
+            <option value="1">2023</option>
+            <option value="2">2024</option>
+        </select>
+    </div>
+    <div class="form-group2 col-md-1" style="padding-top: 2%;" id="btnBuscarFiltro">
+        <button id="btnFiltrar" type="button" class="btn btn-primary" style="width: 120px; cursor: pointer;">
+            Buscar
+        </button>
+    </div>
+    <div class="form-group2 col-md-1" style="padding-top: 2%; ">
+        <button id="btnLimpiar" type="button" class="btn btn-warning" style="width: 120px; cursor: pointer;">
+            Limpiar
+        </button>
+    </div>
+</div>
+@*TABLA SOLICITANTE O APRUEBA*@
+<div class="container-responsive" style="margin-left: 2.5%; margin-block: 0.5%; margin-right: 2.5%" id="tablaUsuarios">
+    <div class="contenedor__tabla hov">
+        <table id="table_id" class="table table-hover" style="width:100%">
+            <thead class="cabecera__tabla">
+                <tr>
+                    <th class="text-center">Colaborador</th>
+                    <th class="text-center">Año</th>
+                    <th class="text-center">Lider</th>
+                    <th class="text-center">Estado</th>
+                    <th class="text-center">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!--Estos links son para formularios (Si no van aca no funcionan)-->
+@*<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>*@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script>
+    var perfil = "@idPerfil";
+
+
+
+    function Inicio() {
+        if (perfil == 118) {
+
+        }
+    }
+
+    //$(document).ready(function () {
+    //    Inicio();
+    //    var current_fs, next_fs, previous_fs; //fieldsets
+    //    var opacity;
+
+    //    $(".next").click(function () {
+
+    //        current_fs = $(this).parent();
+    //        next_fs = $(this).parent().next();
+
+    //        //Add Class Active
+    //        $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
+
+    //        //show the next fieldset
+    //        next_fs.show();
+    //        //hide the current fieldset with style
+    //        current_fs.animate({ opacity: 0 }, {
+    //            step: function (now) {
+    //                // for making fielset appear animation
+    //                opacity = 1 - now;
+
+    //                current_fs.css({
+    //                    'display': 'none',
+    //                    'position': 'relative'
+    //                });
+    //                next_fs.css({ 'opacity': opacity });
+    //            },
+    //            duration: 600
+    //        });
+    //    });
+
+    //    $(".previous").click(function () {
+
+    //        current_fs = $(this).parent();
+    //        previous_fs = $(this).parent().prev();
+
+    //        //Remove class active
+    //        $("#progressbar li").eq($("fieldset").index(current_fs)).removeClass("active");
+
+    //        //show the previous fieldset
+    //        previous_fs.show();
+
+    //        //hide the current fieldset with style
+    //        current_fs.animate({ opacity: 0 }, {
+    //            step: function (now) {
+    //                // for making fielset appear animation
+    //                opacity = 1 - now;
+
+    //                current_fs.css({
+    //                    'display': 'none',
+    //                    'position': 'relative'
+    //                });
+    //                previous_fs.css({ 'opacity': opacity });
+    //            },
+    //            duration: 600
+    //        });
+    //    });
+
+    //    $('.radio-group .radio').click(function () {
+    //        $(this).parent().find('.radio').removeClass('selected');
+    //        $(this).addClass('selected');
+    //    });
+
+    //    $(".submit").click(function () {
+    //        return false;
+    //    })
+
+    //});
+
+    ////funcion para que ande el popover
+    //$(document).ready(function () {
+    //    $('[data-toggle="popover"]').popover();
+    //});
+    ////Funcion para que ande el tooltip
+    //$(document).ready(function () {
+    //    $('[data-toggle="tooltip"]').tooltip();
+    //});
+
+
+    //function CambiarFieldset(posicion) {
+    //    //var button = document.getElementsByClassName('');
+    //    //for (var i = posicion; i == 1; i--) {
+    //    //    button.click();
+    //    //}
+
+    //}
+    ////function MostrarAlerta() {
+    ////    $('#infoToast').removeClass('hidden');
+    ////    $('#infoToast').addClass('show');
+    ////}
+
+</script>
+
