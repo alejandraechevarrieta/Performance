@@ -23,4 +23,17 @@ namespace Performance.Model
         public int idCalificacion { get; set; }
         public DateTime fechaCalificacion { get; set; }
     }
+    public class PerformanceVM
+    {
+        public int idPerformance { get; set; }
+        public int idUsuario { get; set; }
+        public string nombre { get; set; }
+        public int ano { get; set; }
+        public int antiguedad { get; set; }
+        public int idJefe { get; set; }
+        public int idAutoevaluacion { get; set; }
+        public int idHabilidad { get; set; }
+        public int idCalificacion { get; set; }
+        public DateTime fechaCalificacion { get; set; }
+    }
 }

@@ -18,6 +18,6 @@ namespace Performance.Model
         public int idPerformance { get; set; }
         public int idCalificacion { get; set; }
         public int idResponsable { get; set; }
-        public System.DateTime fechaPerfomance { get; set; }
+        public System.DateTime fechaEvaluacion { get; set; }
     }
 }
