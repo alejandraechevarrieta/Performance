@@ -310,264 +310,269 @@
     <div style="margin-left: 50%; margin-block: 0.5%">
         <button id="nuevaEvaluacion" class="btn btn-primary" onclick="location.href='/PerformanceApp/Index/Crud'">Autoevaluación<i class="fa fa-briefcase"></i></button>
     </div> 
+    
     <!-- MultiStep Form -->
     <div class="container-fluid py-4" id="grad1">
-        <div class="row">
-            <div class="col-12">
-                <div class="card mb-4">
-                    <div class="card-header pb-0">
-                        <h6>Tabla de postulantes</h6>
-                    </div>
-                    <div class="card-body px-0 pt-0 pb-2">
-                        <div class="table-responsive p-0">
-                            <table class="table align-items-center mb-0">
-                                <thead>
-                                    <tr>
-                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nombre</th>
-                                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Estado</th>
-                                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Fecha de envío</th>
-                                        <th class="text-secondary opacity-7"></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            <div class="d-flex px-2 py-1">
-                                                <div class="d-flex flex-column justify-content-center">
-                                                    <h6 class="mb-0 text-sm">John Michael</h6>
-                                                    <p class="text-xs text-secondary mb-0">john@creative-tim.com</p>
+        @if (perfil == 1)
+        {
+            <div class="row">
+                <div class="col-12">
+                    <div class="card mb-4">
+                        <div class="card-header pb-0">
+                            <h6>Tabla de postulantes</h6>
+                        </div>
+                        <div class="card-body px-0 pt-0 pb-2">
+                            <div class="table-responsive p-0">
+                                <table class="table align-items-center mb-0" id="tablaLider">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nombre</th>
+                                            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Estado</th>
+                                            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Fecha de envío</th>
+                                            <th class="text-secondary opacity-7"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <div class="d-flex px-2 py-1">
+                                                    <div class="d-flex flex-column justify-content-center">
+                                                        <h6 class="mb-0 text-sm">John Michael</h6>
+                                                        <p class="text-xs text-secondary mb-0">john@creative-tim.com</p>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </td>
-                                        <td class="align-middle text-center text-sm">
-                                            <span class="badge badge-sm bg-gradient-success">Online</span>
-                                        </td>
-                                        <td class="align-middle text-center">
-                                            <span class="text-secondary text-xs font-weight-bold">23/04/18</span>
-                                        </td>
-                                        <td class="align-middle">
-                                            <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
-                                                Edit
-                                            </a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="d-flex px-2 py-1">
-                                                <div class="d-flex flex-column justify-content-center">
-                                                    <h6 class="mb-0 text-sm">Alexa Liras</h6>
-                                                    <p class="text-xs text-secondary mb-0">alexa@creative-tim.com</p>
+                                            </td>
+                                            <td class="align-middle text-center text-sm">
+                                                <span class="badge badge-sm bg-gradient-success">Online</span>
+                                            </td>
+                                            <td class="align-middle text-center">
+                                                <span class="text-secondary text-xs font-weight-bold">23/04/18</span>
+                                            </td>
+                                            <td class="align-middle">
+                                                <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                                                    Edit
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="d-flex px-2 py-1">
+                                                    <div class="d-flex flex-column justify-content-center">
+                                                        <h6 class="mb-0 text-sm">Alexa Liras</h6>
+                                                        <p class="text-xs text-secondary mb-0">alexa@creative-tim.com</p>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </td>
-                                        <td class="align-middle text-center text-sm">
-                                            <span class="badge badge-sm bg-gradient-secondary">Offline</span>
-                                        </td>
-                                        <td class="align-middle text-center">
-                                            <span class="text-secondary text-xs font-weight-bold">11/01/19</span>
-                                        </td>
-                                        <td class="align-middle">
-                                            <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
-                                                Edit
-                                            </a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="d-flex px-2 py-1">
-                                                <div class="d-flex flex-column justify-content-center">
-                                                    <h6 class="mb-0 text-sm">Laurent Perrier</h6>
-                                                    <p class="text-xs text-secondary mb-0">laurent@creative-tim.com</p>
+                                            </td>
+                                            <td class="align-middle text-center text-sm">
+                                                <span class="badge badge-sm bg-gradient-secondary">Offline</span>
+                                            </td>
+                                            <td class="align-middle text-center">
+                                                <span class="text-secondary text-xs font-weight-bold">11/01/19</span>
+                                            </td>
+                                            <td class="align-middle">
+                                                <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                                                    Edit
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="d-flex px-2 py-1">
+                                                    <div class="d-flex flex-column justify-content-center">
+                                                        <h6 class="mb-0 text-sm">Laurent Perrier</h6>
+                                                        <p class="text-xs text-secondary mb-0">laurent@creative-tim.com</p>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </td>
-                                        <td class="align-middle text-center text-sm">
-                                            <span class="badge badge-sm bg-gradient-success">Online</span>
-                                        </td>
-                                        <td class="align-middle text-center">
-                                            <span class="text-secondary text-xs font-weight-bold">19/09/17</span>
-                                        </td>
-                                        <td class="align-middle">
-                                            <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
-                                                Edit
-                                            </a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="d-flex px-2 py-1">
-                                                <div class="d-flex flex-column justify-content-center">
-                                                    <h6 class="mb-0 text-sm">Michael Levi</h6>
-                                                    <p class="text-xs text-secondary mb-0">michael@creative-tim.com</p>
+                                            </td>
+                                            <td class="align-middle text-center text-sm">
+                                                <span class="badge badge-sm bg-gradient-success">Online</span>
+                                            </td>
+                                            <td class="align-middle text-center">
+                                                <span class="text-secondary text-xs font-weight-bold">19/09/17</span>
+                                            </td>
+                                            <td class="align-middle">
+                                                <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                                                    Edit
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="d-flex px-2 py-1">
+                                                    <div class="d-flex flex-column justify-content-center">
+                                                        <h6 class="mb-0 text-sm">Michael Levi</h6>
+                                                        <p class="text-xs text-secondary mb-0">michael@creative-tim.com</p>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </td>
-                                        <td class="align-middle text-center text-sm">
-                                            <span class="badge badge-sm bg-gradient-success">Online</span>
-                                        </td>
-                                        <td class="align-middle text-center">
-                                            <span class="text-secondary text-xs font-weight-bold">24/12/08</span>
-                                        </td>
-                                        <td class="align-middle">
-                                            <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
-                                                Edit
-                                            </a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="d-flex px-2 py-1">
-                                                <div class="d-flex flex-column justify-content-center">
-                                                    <h6 class="mb-0 text-sm">Richard Gran</h6>
-                                                    <p class="text-xs text-secondary mb-0">richard@creative-tim.com</p>
+                                            </td>
+                                            <td class="align-middle text-center text-sm">
+                                                <span class="badge badge-sm bg-gradient-success">Online</span>
+                                            </td>
+                                            <td class="align-middle text-center">
+                                                <span class="text-secondary text-xs font-weight-bold">24/12/08</span>
+                                            </td>
+                                            <td class="align-middle">
+                                                <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                                                    Edit
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="d-flex px-2 py-1">
+                                                    <div class="d-flex flex-column justify-content-center">
+                                                        <h6 class="mb-0 text-sm">Richard Gran</h6>
+                                                        <p class="text-xs text-secondary mb-0">richard@creative-tim.com</p>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </td>
-                                        <td class="align-middle text-center text-sm">
-                                            <span class="badge badge-sm bg-gradient-secondary">Offline</span>
-                                        </td>
-                                        <td class="align-middle text-center">
-                                            <span class="text-secondary text-xs font-weight-bold">04/10/21</span>
-                                        </td>
-                                        <td class="align-middle">
-                                            <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
-                                                Edit
-                                            </a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="d-flex px-2 py-1">
-                                                <div class="d-flex flex-column justify-content-center">
-                                                    <h6 class="mb-0 text-sm">Miriam Eric</h6>
-                                                    <p class="text-xs text-secondary mb-0">miriam@creative-tim.com</p>
+                                            </td>
+                                            <td class="align-middle text-center text-sm">
+                                                <span class="badge badge-sm bg-gradient-secondary">Offline</span>
+                                            </td>
+                                            <td class="align-middle text-center">
+                                                <span class="text-secondary text-xs font-weight-bold">04/10/21</span>
+                                            </td>
+                                            <td class="align-middle">
+                                                <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                                                    Edit
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="d-flex px-2 py-1">
+                                                    <div class="d-flex flex-column justify-content-center">
+                                                        <h6 class="mb-0 text-sm">Miriam Eric</h6>
+                                                        <p class="text-xs text-secondary mb-0">miriam@creative-tim.com</p>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </td>
-                                        <td class="align-middle text-center text-sm">
-                                            <span class="badge badge-sm bg-gradient-secondary">Offline</span>
-                                        </td>
-                                        <td class="align-middle text-center">
-                                            <span class="text-secondary text-xs font-weight-bold">14/09/20</span>
-                                        </td>
-                                        <td class="align-middle">
-                                            <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
-                                                Edit
-                                            </a>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                                            </td>
+                                            <td class="align-middle text-center text-sm">
+                                                <span class="badge badge-sm bg-gradient-secondary">Offline</span>
+                                            </td>
+                                            <td class="align-middle text-center">
+                                                <span class="text-secondary text-xs font-weight-bold">14/09/20</span>
+                                            </td>
+                                            <td class="align-middle">
+                                                <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                                                    Edit
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="row justify-content-center mt-0" hidden>
-            <div class="col-11 col-sm-9 col-md-7 col-lg-6 text-center p-0 mt-3 mb-2">
-                <div class="card px-0 pt-4 pb-0 mt-3 mb-3">
-                    <p class="h2"><strong>Autoevaluación de habilidades</strong></p>
-                    <p class="h4">Hola usuario, a continuación debes contestar el formulario A.</p>
-                    <div class="row">
-                        <div class="col-md-12 mx-0">
-                            <form id="msform">
-                                <!-- progressbar -->
-                                <ul id="progressbar" class="p-0">
-                                    <li class="active" id="descripcion"><strong>Inicio</strong></li>
-                                    <li id="account" data-toggle="popover" data-bs-placement="bottom" data-bs-content="Actitud de superación permanente.  Búsqueda constante del crecimiento personal y profesional, siendo consciente de sus fortalezas y aspectos de mejora. Disposición a  experimentar nuevas ideas, conocimientos y experiencias."><strong>Aprendizaje continuo</strong></li>
-                                    <li id="personal" data-toggle="popover" data-bs-placement="bottom" data-bs-content="Capacidad de tomar decisiones, actuar y asumir los impactos de las mismas. La autonomia se fundamenta en la voluntad, la disciplina y responsabilidad."><strong>Autonomía</strong></li>
-                                    <li id="payment" data-toggle="popover" data-bs-placement="bottom" data-bs-content="Actitud genuina para cooperar y colaborar con otros miembros de la empresa apuntando al logro de objetivos comunes, produciendo colectivamente resultados superiores a los individuales."><strong>Colaboración</strong></li>
-                                    <li id="interpersonal" data-toggle="popover" data-bs-placement="bottom" data-bs-content="Capacidad de transmitir mensajes de manera clara, concisa y comprensible, así como de escuchar activamente y comprender las ideas y perspectivas de los demás."><strong>Comunicación efectiva</strong></li>
-                                    <li id="cambio" data-toggle="popover" data-bs-placement="bottom" data-bs-content="Capacidad para actuar en escenarios dinámicos, ambiguos e inciertos, buscando de manera permanente y proactiva, oportunidades para generar ideas y soluciones que agreguen valor a la organización, inspirando a los demas."><strong>Gestion del cambio</strong></li>
-                                    <li id="confirm" data-toggle="popover" data-bs-placement="bottom" data-bs-content="Capacidad de entender y considerar el sistema completo en el que opera la organización, reconociendo las interconexiones y las interdependencias entre diferentes actores y procesos. "><strong>Visión sistémica</strong></li>
-                                </ul>
-                                <!-- fieldsets -->
-                                <fieldset>
-                                    <div class="form-card">
-                                        <h2 class="fs-title">Bienvenido</h2>
-                                        <div class="row">
-                                            <p class="h5">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+            <div class="row justify-content-center mt-0" hidden>
+                <div class="col-11 col-sm-9 col-md-7 col-lg-6 text-center p-0 mt-3 mb-2">
+                    <div class="card px-0 pt-4 pb-0 mt-3 mb-3">
+                        <p class="h2"><strong>Autoevaluación de habilidades</strong></p>
+                        <p class="h4">Hola usuario, a continuación debes contestar el formulario A.</p>
+                        <div class="row">
+                            <div class="col-md-12 mx-0">
+                                <form id="msform">
+                                    <!-- progressbar -->
+                                    <ul id="progressbar" class="p-0">
+                                        <li class="active" id="descripcion"><strong>Inicio</strong></li>
+                                        <li id="account" data-toggle="popover" data-bs-placement="bottom" data-bs-content="Actitud de superación permanente.  Búsqueda constante del crecimiento personal y profesional, siendo consciente de sus fortalezas y aspectos de mejora. Disposición a  experimentar nuevas ideas, conocimientos y experiencias."><strong>Aprendizaje continuo</strong></li>
+                                        <li id="personal" data-toggle="popover" data-bs-placement="bottom" data-bs-content="Capacidad de tomar decisiones, actuar y asumir los impactos de las mismas. La autonomia se fundamenta en la voluntad, la disciplina y responsabilidad."><strong>Autonomía</strong></li>
+                                        <li id="payment" data-toggle="popover" data-bs-placement="bottom" data-bs-content="Actitud genuina para cooperar y colaborar con otros miembros de la empresa apuntando al logro de objetivos comunes, produciendo colectivamente resultados superiores a los individuales."><strong>Colaboración</strong></li>
+                                        <li id="interpersonal" data-toggle="popover" data-bs-placement="bottom" data-bs-content="Capacidad de transmitir mensajes de manera clara, concisa y comprensible, así como de escuchar activamente y comprender las ideas y perspectivas de los demás."><strong>Comunicación efectiva</strong></li>
+                                        <li id="cambio" data-toggle="popover" data-bs-placement="bottom" data-bs-content="Capacidad para actuar en escenarios dinámicos, ambiguos e inciertos, buscando de manera permanente y proactiva, oportunidades para generar ideas y soluciones que agreguen valor a la organización, inspirando a los demas."><strong>Gestion del cambio</strong></li>
+                                        <li id="confirm" data-toggle="popover" data-bs-placement="bottom" data-bs-content="Capacidad de entender y considerar el sistema completo en el que opera la organización, reconociendo las interconexiones y las interdependencias entre diferentes actores y procesos. "><strong>Visión sistémica</strong></li>
+                                    </ul>
+                                    <!-- fieldsets -->
+                                    <fieldset>
+                                        <div class="form-card">
+                                            <h2 class="fs-title">Bienvenido</h2>
+                                            <div class="row">
+                                                <p class="h5">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <input type="button" name="next" class="next action-button" value="Siguiente" />
-                                </fieldset>
-                                <fieldset>
-                                    <div class="form-card">
-                                        <h2 class="fs-title">Autodesarrollo</h2>
-                                        <div class="button-container">
-                                            <input type="button" data-toggle="tooltip" data-bs-placement="bottom" title="Necesita ayuda para mostrar esta habilidad" value="En progreso" />
-                                            <input type="button" data-toggle="tooltip" data-bs-placement="bottom" title="Se desenvuelve bien sin ayuda" value="Autónomo" />
-                                            <input type="button" data-toggle="tooltip" data-bs-placement="bottom" title="Es capaz de ayudar y enseñar a otros miembros del equipo" value="Fortaleza" />
+                                        <input type="button" name="next" class="next action-button" value="Siguiente" />
+                                    </fieldset>
+                                    <fieldset>
+                                        <div class="form-card">
+                                            <h2 class="fs-title">Autodesarrollo</h2>
+                                            <div class="button-container">
+                                                <input type="button" data-toggle="tooltip" data-bs-placement="bottom" title="Necesita ayuda para mostrar esta habilidad" value="En progreso" />
+                                                <input type="button" data-toggle="tooltip" data-bs-placement="bottom" title="Se desenvuelve bien sin ayuda" value="Autónomo" />
+                                                <input type="button" data-toggle="tooltip" data-bs-placement="bottom" title="Es capaz de ayudar y enseñar a otros miembros del equipo" value="Fortaleza" />
+                                            </div>
                                         </div>
-                                    </div>
-                                    <input type="button" name="previous" class="previous action-button-previous" value="Volver" />
-                                    <input type="button" name="next" class="next action-button" value="Siguiente" />
-                                </fieldset>
-                                <fieldset>
-                                    <div class="form-card">
-                                        <h2 class="fs-title">Empoderamiento</h2>
-                                        <div class="button-container">
-                                            <input type="button" data-toggle="tooltip" data-bs-placement="bottom" title="Necesita ayuda para mostrar esta habilidad" value="En progreso" />
-                                            <input type="button" data-toggle="tooltip" data-bs-placement="bottom" title="Se desenvuelve bien sin ayuda" value="Autónomo" />
-                                            <input type="button" data-toggle="tooltip" data-bs-placement="bottom" title="Es capaz de ayudar y enseñar a otros miembros del equipo" value="Fortaleza" />
+                                        <input type="button" name="previous" class="previous action-button-previous" value="Volver" />
+                                        <input type="button" name="next" class="next action-button" value="Siguiente" />
+                                    </fieldset>
+                                    <fieldset>
+                                        <div class="form-card">
+                                            <h2 class="fs-title">Empoderamiento</h2>
+                                            <div class="button-container">
+                                                <input type="button" data-toggle="tooltip" data-bs-placement="bottom" title="Necesita ayuda para mostrar esta habilidad" value="En progreso" />
+                                                <input type="button" data-toggle="tooltip" data-bs-placement="bottom" title="Se desenvuelve bien sin ayuda" value="Autónomo" />
+                                                <input type="button" data-toggle="tooltip" data-bs-placement="bottom" title="Es capaz de ayudar y enseñar a otros miembros del equipo" value="Fortaleza" />
+                                            </div>
                                         </div>
-                                    </div>
-                                    <input type="button" name="previous" class="previous action-button-previous" value="Volver" />
-                                    <input type="button" name="next" class="next action-button" value="Siguiente" />
-                                </fieldset>
-                                <fieldset>
-                                    <div class="form-card">
-                                        <h2 class="fs-title">Espíritu del trabajo</h2>
-                                        <div class="button-container">
-                                            <input type="button" data-toggle="tooltip" data-bs-placement="bottom" title="Necesita ayuda para mostrar esta habilidad" value="En progreso" />
-                                            <input type="button" data-toggle="tooltip" data-bs-placement="bottom" title="Se desenvuelve bien sin ayuda" value="Autónomo" />
-                                            <input type="button" data-toggle="tooltip" data-bs-placement="bottom" title="Es capaz de ayudar y enseñar a otros miembros del equipo" value="Fortaleza" />
+                                        <input type="button" name="previous" class="previous action-button-previous" value="Volver" />
+                                        <input type="button" name="next" class="next action-button" value="Siguiente" />
+                                    </fieldset>
+                                    <fieldset>
+                                        <div class="form-card">
+                                            <h2 class="fs-title">Espíritu del trabajo</h2>
+                                            <div class="button-container">
+                                                <input type="button" data-toggle="tooltip" data-bs-placement="bottom" title="Necesita ayuda para mostrar esta habilidad" value="En progreso" />
+                                                <input type="button" data-toggle="tooltip" data-bs-placement="bottom" title="Se desenvuelve bien sin ayuda" value="Autónomo" />
+                                                <input type="button" data-toggle="tooltip" data-bs-placement="bottom" title="Es capaz de ayudar y enseñar a otros miembros del equipo" value="Fortaleza" />
+                                            </div>
                                         </div>
-                                    </div>
-                                    <input type="button" name="previous" class="previous action-button-previous" value="Volver" />
-                                    <input type="button" name="make_payment" class="next action-button" value="Siguiente" />
-                                </fieldset>
-                                <fieldset>
-                                    <div class="form-card">
-                                        <h2 class="fs-title">Habilidad interpersonal</h2>
-                                        <div class="button-container">
-                                            <input type="button" data-toggle="tooltip" data-bs-placement="bottom" title="Necesita ayuda para mostrar esta habilidad" value="En progreso" />
-                                            <input type="button" data-toggle="tooltip" data-bs-placement="bottom" title="Se desenvuelve bien sin ayuda" value="Autónomo" />
-                                            <input type="button" data-toggle="tooltip" data-bs-placement="bottom" title="Es capaz de ayudar y enseñar a otros miembros del equipo" value="Fortaleza" />
+                                        <input type="button" name="previous" class="previous action-button-previous" value="Volver" />
+                                        <input type="button" name="make_payment" class="next action-button" value="Siguiente" />
+                                    </fieldset>
+                                    <fieldset>
+                                        <div class="form-card">
+                                            <h2 class="fs-title">Habilidad interpersonal</h2>
+                                            <div class="button-container">
+                                                <input type="button" data-toggle="tooltip" data-bs-placement="bottom" title="Necesita ayuda para mostrar esta habilidad" value="En progreso" />
+                                                <input type="button" data-toggle="tooltip" data-bs-placement="bottom" title="Se desenvuelve bien sin ayuda" value="Autónomo" />
+                                                <input type="button" data-toggle="tooltip" data-bs-placement="bottom" title="Es capaz de ayudar y enseñar a otros miembros del equipo" value="Fortaleza" />
+                                            </div>
                                         </div>
-                                    </div>
-                                    <input type="button" name="previous" class="previous action-button-previous" value="Volver" />
-                                    <input type="button" name="make_payment" class="next action-button" value="Siguiente" />
-                                </fieldset>
-                                <fieldset>
-                                    <div class="form-card">
-                                        <h2 class="fs-title">Gestión del cambio</h2>
-                                        <div class="button-container">
-                                            <input type="button" data-toggle="tooltip" data-bs-placement="bottom" title="Necesita ayuda para mostrar esta habilidad" value="En progreso" />
-                                            <input type="button" data-toggle="tooltip" data-bs-placement="bottom" title="Se desenvuelve bien sin ayuda" value="Autónomo" />
-                                            <input type="button" data-toggle="tooltip" data-bs-placement="bottom" title="Es capaz de ayudar y enseñar a otros miembros del equipo" value="Fortaleza" />
+                                        <input type="button" name="previous" class="previous action-button-previous" value="Volver" />
+                                        <input type="button" name="make_payment" class="next action-button" value="Siguiente" />
+                                    </fieldset>
+                                    <fieldset>
+                                        <div class="form-card">
+                                            <h2 class="fs-title">Gestión del cambio</h2>
+                                            <div class="button-container">
+                                                <input type="button" data-toggle="tooltip" data-bs-placement="bottom" title="Necesita ayuda para mostrar esta habilidad" value="En progreso" />
+                                                <input type="button" data-toggle="tooltip" data-bs-placement="bottom" title="Se desenvuelve bien sin ayuda" value="Autónomo" />
+                                                <input type="button" data-toggle="tooltip" data-bs-placement="bottom" title="Es capaz de ayudar y enseñar a otros miembros del equipo" value="Fortaleza" />
+                                            </div>
                                         </div>
-                                    </div>
-                                    <input type="button" name="previous" class="previous action-button-previous" value="Volver" />
-                                    <input type="button" name="make_payment" class="next action-button" value="Siguiente" />
-                                </fieldset>
-                                <fieldset>
-                                    <div class="form-card">
-                                        <h2 class="fs-title text-center">Visión estratégia</h2>
-                                        <div class="button-container">
-                                            <input type="button" data-toggle="tooltip" data-bs-placement="bottom" title="Necesita ayuda para mostrar esta habilidad" value="En progreso" />
-                                            <input type="button" data-toggle="tooltip" data-bs-placement="bottom" title="Se desenvuelve bien sin ayuda" value="Autónomo" />
-                                            <input type="button" data-toggle="tooltip" data-bs-placement="bottom" title="Es capaz de ayudar y enseñar a otros miembros del equipo" value="Fortaleza" />
+                                        <input type="button" name="previous" class="previous action-button-previous" value="Volver" />
+                                        <input type="button" name="make_payment" class="next action-button" value="Siguiente" />
+                                    </fieldset>
+                                    <fieldset>
+                                        <div class="form-card">
+                                            <h2 class="fs-title text-center">Visión estratégia</h2>
+                                            <div class="button-container">
+                                                <input type="button" data-toggle="tooltip" data-bs-placement="bottom" title="Necesita ayuda para mostrar esta habilidad" value="En progreso" />
+                                                <input type="button" data-toggle="tooltip" data-bs-placement="bottom" title="Se desenvuelve bien sin ayuda" value="Autónomo" />
+                                                <input type="button" data-toggle="tooltip" data-bs-placement="bottom" title="Es capaz de ayudar y enseñar a otros miembros del equipo" value="Fortaleza" />
+                                            </div>
                                         </div>
-                                    </div>
-                                    <input type="button" name="make_payment" class="next action-button" value="Confirmar" />
-                                </fieldset>
-                            </form>
+                                        <input type="button" name="make_payment" class="next action-button" value="Confirmar" />
+                                    </fieldset>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        }
+
     </div>
 </main>
 
@@ -671,5 +676,21 @@
     //$(document).ready(function () {
     //    $('[data-toggle="tooltip"]').tooltip();
     //});
+
+    //Tabla del lider
+    function FiltrarTablaLider() {
+        let url = "/Documental/Api/Gestion/ListarDocumentos?&tipo=" + $('#selectTipoI').val() + "&negocio=" + $('#selectNegocioI').val() + "&palabrasClaves=" + $('#palabrasclaves').val() + "&aprueba=" + $('#selectAprueba').val();
+        $('#tablaLider').DataTable().clear().destroy();
+        CargartablaLider(url);
+    }
+
+    function IniciarTablaLider() {
+        let url = "/Documental/Api/Gestion/ListarDocumentos?&tipo=" + $('#selectTipoI').val() + "&negocio=" + $('#selectNegocioI').val() + "&palabrasClaves=" + $('#palabrasclaves').val() + "&aprueba=" + $('#selectAprueba').val();
+
+        $('#table_id').DataTable().clear().destroy();
+        Cargartabla(url);
+        var table = $('#table_id').DataTable();
+        table.page('first').draw('page');
+    }
 
 </script>
