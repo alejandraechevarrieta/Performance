@@ -2,15 +2,8 @@
 using Performance.Servicios;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
-using System.Data.Entity.Validation;
-using System.IO;
-using System.IO.Compression;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Net.Http.Formatting;
-using System.Net.Http.Headers;
 using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
@@ -23,23 +16,31 @@ namespace Performance.Areas.PerformanceApp.Controllers.Api
         {
             return View();
         }
-        public List<PerformanceColaboradorVM> listarColaborador(int idUsuario)
+        //public List<PerformanceColaboradorVM> listarColaborador(int idUsuario)
+        //{
+        //    ServicioPerformance servicio = new ServicioPerformance();
+        //    return servicio.listarColaboradores(idUsuario);
+        //}
+        [System.Web.Http.Route("api/PerformanceApp/listarColaborador")]
+        [System.Web.Http.ActionName("listarColaborador")]
+        [System.Web.Http.HttpGet]
+        public int listarColaborador()
         {
             ServicioPerformance servicio = new ServicioPerformance();
-            return servicio.listarColaboradores(idUsuario);
+            return 0;
         }
 
-        [ActionName("ListarPerformance")]
-        [HttpPost]
+        //[ActionName("Api/PerformanceApp/ListarPerformance")]
+        //[HttpPost]
         //[System.Web.Mvc.ActionName("ListarPerformance")]
         //[System.Web.Http.HttpPost]
         //[System.Web.Http.Route("Api/PerformanceApp/ListarPerformance")]
         //[System.Web.Http.ActionName("ListarPerformance")]
         //[System.Web.Http.HttpPost]
         //[Route("PerformanceApp/Api/PerformanceApp/ListarPerformance")]
-        //[System.Web.Http.Route("Api/PerformanceApp/ListarPerformance")]
-        //[System.Web.Http.ActionName("ListarPerformance")]
-        //[System.Web.Http.HttpPost]
+        [System.Web.Http.Route("Api/PerformanceApp/ListarPerformance")]
+        [System.Web.Http.ActionName("ListarPerformance")]
+        [System.Web.Http.HttpGet]
         public ActionResult ListarPerformance(FormDataCollection form, int? colaborador, int? estado, string idPerfil)
         {
             var draw = form.Get("draw");

@@ -515,8 +515,11 @@
         IniciarTabla();
         var colaborador = $("#selectColaborador").val();
         var estado = $("#selectEstado").val();
+         //var url = "api/PerformanceApp/listarColaborador";
+
 
         var url = "Api/PerformanceApp/ListarPerformance";
+        url = url + "?colaborador=" + colaborador;
         url = url + "?colaborador=" + colaborador;
         url = url + "&estado=" + estado;
         url = url + "&idPerfil=" + "@perfil";
@@ -546,7 +549,7 @@
             },
             "ajax": {
                 "url": url,
-                "type": "POST",
+                "type": "GET",
                 "datatype": "json"
             },
             "pageLength": 25,

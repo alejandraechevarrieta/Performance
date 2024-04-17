@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Routing;
+using System.Net.Http;
 
 namespace Performance
 {
@@ -14,11 +15,17 @@ namespace Performance
         {
             //routes.MapHttpRoute(
             //               name: "DefaultApi",
-            //               routeTemplate: "api/PerformanceApp/{controller}/{id}",
+            //              routeTemplate: "api/{controller}/{id}",
             //               defaults: new { id = RouteParameter.Optional }
             //           );
 
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+
+            routes.MapHttpRoute(
+                    name: "DefaultApi",
+                    routeTemplate: "api/PerformanceApp/{controller}/{id}",
+                    defaults: new { id = RouteParameter.Optional }
+                );
 
             routes.MapRoute(
                 name: "Default",
