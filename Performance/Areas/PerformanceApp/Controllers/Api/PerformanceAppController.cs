@@ -2,9 +2,17 @@
 using Performance.Servicios;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Data.Entity.Validation;
+using System.IO;
+using System.IO.Compression;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Threading.Tasks;
+using System.Net.Http.Formatting;
+using System.Net.Http.Headers;
+using System.Web;
+using System.Web.Http;
 using System.Web.Mvc;
 
 namespace Performance.Areas.PerformanceApp.Controllers.Api
@@ -19,6 +27,51 @@ namespace Performance.Areas.PerformanceApp.Controllers.Api
         {
             ServicioPerformance servicio = new ServicioPerformance();
             return servicio.listarColaboradores(idUsuario);
+        }
+
+        [ActionName("ListarPerformance")]
+        [HttpPost]
+        //[System.Web.Mvc.ActionName("ListarPerformance")]
+        //[System.Web.Http.HttpPost]
+        //[System.Web.Http.Route("Api/PerformanceApp/ListarPerformance")]
+        //[System.Web.Http.ActionName("ListarPerformance")]
+        //[System.Web.Http.HttpPost]
+        //[Route("PerformanceApp/Api/PerformanceApp/ListarPerformance")]
+        //[System.Web.Http.Route("Api/PerformanceApp/ListarPerformance")]
+        //[System.Web.Http.ActionName("ListarPerformance")]
+        //[System.Web.Http.HttpPost]
+        public ActionResult ListarPerformance(FormDataCollection form, int? colaborador, int? estado, string idPerfil)
+        {
+            var draw = form.Get("draw");
+            var start = form.Get("start");
+            var length = form.Get("length");
+            var sortColumn = (form.Get("columns[" + form.Get("order[0][column]").FirstOrDefault() + "][data]").ToString()).ToString();
+            var sortColumnDir = form.Get("order[0][dir]").ToString();
+            var searchValue = form.Get("search[value]").ToString();
+            int pageSize = length != null ? Convert.ToInt32(length) : 0;
+            int skip = start != null ? Convert.ToInt32(start) : 0;
+            int recordsTotal = 0;
+
+            Servicios.ServicioPerformance _servicio = new Servicios.ServicioPerformance();
+
+            var listaPpal = new List<PerformanceVM>();
+
+            var listFiltr = listaPpal.Where(x => x.idPerformance > 0).Distinct().ToList();
+
+            recordsTotal = listFiltr.Count();
+            var toTake = pageSize;
+            if (recordsTotal < pageSize)
+            {
+                toTake = recordsTotal;
+            }
+
+            var lst = listFiltr.Skip(skip).Take(toTake).ToList();
+            var lista = lst.ToList();
+
+            var responseData = new { draw = draw, recordsFiltered = recordsTotal, recordsTotal = recordsTotal, data = lista };
+
+            // Devuelve los datos como JSON
+            return Json(responseData, JsonRequestBehavior.AllowGet);
         }
 
     }
