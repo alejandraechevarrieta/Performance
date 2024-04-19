@@ -1,0 +1,652 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    html {
+        height: 100%;
+    }
+
+    /*Background color*/
+    #grad1 {
+        background-color: #f3f3f3;
+    }
+
+    /*form styles*/
+    #msform {
+        text-align: center;
+        position: relative;
+        margin-top: 20px;
+    }
+
+        #msform fieldset .form-card {
+            background: white;
+            border: 0 none;
+            border-radius: 0px;
+            box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.2);
+            padding: 20px 40px 30px 40px;
+            box-sizing: border-box;
+            width: 94%;
+            margin: 0 3% 20px 3%;
+            /*stacking fieldsets above each other*/
+            position: relative;
+        }
+
+        #msform fieldset {
+            background: white;
+            border: 0 none;
+            border-radius: 0.5rem;
+            box-sizing: border-box;
+            width: 100%;
+            margin: 0;
+            padding-bottom: 20px;
+            /*stacking fieldsets above each other*/
+            position: relative;
+        }
+
+            /*Hide all except first fieldset*/
+            #msform fieldset:not(:first-of-type) {
+                display: none;
+            }
+
+            #msform fieldset .form-card {
+                text-align: left;
+                color: #9E9E9E;
+            }
+
+        #msform input, #msform textarea {
+            padding: 0px 8px 4px 8px;
+            border: none;
+            border-bottom: 1px solid #ccc;
+            border-radius: 0px;
+            margin-bottom: 25px;
+            margin-top: 2px;
+            width: 100%;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+            color: #2C3E50;
+            font-size: 16px;
+            letter-spacing: 1px;
+        }
+
+            #msform input:focus, #msform textarea:focus {
+                -moz-box-shadow: none !important;
+                -webkit-box-shadow: none !important;
+                box-shadow: none !important;
+                border: none;
+                font-weight: bold;
+                border-bottom: 2px solid skyblue;
+                outline-width: 0;
+            }
+
+        /*Blue Buttons*/
+        #msform .action-button {
+            width: 100px;
+            background: #00aec7;
+            font-weight: bold;
+            color: white;
+            border: 0 none;
+            border-radius: 0px;
+            cursor: pointer;
+            padding: 10px 5px;
+            margin: 10px 5px;
+        }
+
+            #msform .action-button:hover, #msform .action-button:focus {
+                box-shadow: 0 0 0 2px white, 0 0 0 3px skyblue;
+            }
+
+        /*Previous Buttons*/
+        #msform .action-button-previous {
+            width: 100px;
+            background: #616161;
+            font-weight: bold;
+            color: white;
+            border: 0 none;
+            border-radius: 0px;
+            cursor: pointer;
+            padding: 10px 5px;
+            margin: 10px 5px;
+        }
+
+            #msform .action-button-previous:hover, #msform .action-button-previous:focus {
+                box-shadow: 0 0 0 2px white, 0 0 0 3px #616161;
+            }
+
+    /*Dropdown List Exp Date*/
+    select.list-dt {
+        border: none;
+        outline: 0;
+        border-bottom: 1px solid #ccc;
+        padding: 2px 5px 3px 5px;
+        margin: 2px;
+    }
+
+        select.list-dt:focus {
+            border-bottom: 2px solid skyblue;
+        }
+
+    /*The background card*/
+    .card {
+        z-index: 0;
+        border: none;
+        border-radius: 0.5rem;
+        position: relative;
+    }
+
+    /*FieldSet headings*/
+    .fs-title {
+        font-size: 25px;
+        color: #2C3E50;
+        margin-bottom: 10px;
+        font-weight: bold;
+        text-align: left;
+        margin-left: 20px; /* Agrega margen izquierdo */
+    }
+
+
+    /*progressbar*/
+    #progressbar {
+        margin-bottom: 30px;
+        overflow: hidden;
+        color: lightgrey;
+        display: flex; /* Cambia el comportamiento del contenedor a flex */
+    }
+
+        #progressbar .active {
+            color: #000000;
+        }
+
+        #progressbar li {
+            list-style-type: none;
+            font-size: 12px;
+            width: auto; /* Cambia el ancho a automático para que los elementos se ajusten automáticamente */
+            flex: 1; /* Ajusta el ancho de cada elemento automáticamente */
+            position: relative;
+            text-align: center; /* Centra el contenido */
+        }
+
+        /*Icons in the ProgressBar*/
+        #progressbar #descripcion:before {
+            font-family: FontAwesome;
+            content: "\f2b5";
+        }
+
+        #progressbar #account:before {
+            font-family: FontAwesome;
+            content: "\f0eb";
+        }
+
+        #progressbar #personal:before {
+            font-family: FontAwesome;
+            content: "\f6de";
+        }
+
+        #progressbar #payment:before {
+            font-family: FontAwesome;
+            content: "\f102";
+        }
+
+        #progressbar #interpersonal:before {
+            font-family: FontAwesome;
+            content: "\f007";
+        }
+
+        #progressbar #cambio:before {
+            font-family: FontAwesome;
+            content: "\f362";
+        }
+
+        #progressbar #confirm:before {
+            font-family: FontAwesome;
+            content: "\f06e";
+        }
+
+        /*ProgressBar before any progress*/
+        #progressbar li:before {
+            width: 50px;
+            height: 50px;
+            line-height: 45px;
+            display: block;
+            font-size: 18px;
+            color: #ffffff;
+            background: lightgray;
+            border-radius: 50%;
+            margin: 0 auto 10px auto;
+            padding: 2px;
+        }
+
+        /*ProgressBar connectors*/
+        #progressbar li:after {
+            content: '';
+            width: 100%;
+            height: 2px;
+            background: lightgray;
+            position: absolute;
+            left: 0;
+            top: 25px;
+            z-index: -1;
+        }
+
+        /*Color number of the step and the connector before it*/
+        #progressbar li.active:before, #progressbar li.active:after {
+            background: #00aec7;
+        }
+
+        /*LAPIZ*/
+    .lapiz {
+        color: #676464;
+        cursor: default;
+        transition: color 0.3s;
+        position: relative;
+        margin-top: 35px;
+        margin-right: 10px;
+    }
+
+        .lapiz:hover {
+            cursor: pointer;
+        }
+
+        .lapiz:active {
+            color: #13bcf5;
+        }
+
+    /*Imaged Radio Buttons*/
+   
+    .radio-group {
+        position: relative;
+        margin-bottom: 25px;       
+    }
+
+    .radio {
+        display: inline-block;
+        width: 204px;
+        height: 104px;
+        border-radius: 0;
+        background: lightblue;
+        box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.2);
+        box-sizing: border-box;
+        cursor: pointer;
+        margin: 8px 2px;
+    }
+
+        .radio:hover {
+            box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        .radio.selected {
+            box-shadow: 1px 1px 2px 2px rgba(0, 0, 0, 0.1);
+        }
+
+    /*Fit image in bootstrap div*/
+    .fit-image {
+        width: 100%;
+        object-fit: cover;
+    }   
+
+    .form-card {
+        display: inline-block; /* Mostrar los botones en línea */
+    }
+
+        /* Ajuste para el último botón dentro de .form-card */
+        .form-card input[type="button"]:last-child {
+            margin-right: 0; /* Elimina el margen derecho del último botón */
+        }
+
+    /* Estilos para los botones dentro de .form-card */
+    .form-card {
+        display: flex; /* Usar flexbox para alinear los elementos */
+        justify-content: space-between; /* Espacio uniforme entre los elementos */
+    }
+
+        .form-card input[type="button"] {
+            flex: 1; /* Los botones ocupan igualmente todo el espacio disponible */
+            margin-right: 10px; /* Espacio entre los botones */
+        }
+
+            /* Ajuste para el último botón dentro de .form-card */
+            .form-card input[type="button"]:last-child {
+                margin-right: 0; /* Elimina el margen derecho del último botón */
+            }
+    /* Estilos para los botones dentro de .form-card */
+    .form-card {
+        display: flex; /* Utilizar flexbox para alinear los elementos */
+        flex-direction: column; /* Alinear elementos verticalmente */
+    }
+
+    .button-container {
+        display: flex; /* Utilizar flexbox para alinear los botones */
+        justify-content: space-between; /* Espaciar uniformemente los botones */
+    }
+
+    .separator {
+        margin-top: 20px; /* Ajustar el margen superior según sea necesario */
+        margin: 0 auto; /* Eliminar los márgenes laterales y centrar el separador */
+        border-bottom: 3px solid #7380C4; /* Aumentar el grosor del borde inferior */
+        padding: 10px 10px; /* Aumentar el espacio interior del separador */
+        color: #034;
+        clear: both;
+    }
+
+
+    .description {
+        font-size: 14px;
+        color: #666;
+        margin-top: 20px;
+    }
+    
+    /* RADIO */
+    .radio-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+    .radio-group {
+        flex-basis: calc(33.33% - 20px); /* Esto ajusta el ancho de cada grupo de radios con espacio entre ellos */
+        margin-bottom: 10px; /* Espacio entre los grupos */
+    }
+
+        .radio-group input[type="radio"] {
+            display: none; /* Oculta el radio predeterminado */
+        }
+
+            .radio-group input[type="radio"] + label {
+                position: relative;
+                padding-left: 25px; /* Espacio para el marcador de radio */
+                cursor: pointer;
+                font-size: 16px; /* Tamaño del texto */
+                display: block;
+                margin-bottom: 5px; /* Espacio entre cada radio y su etiqueta */
+            }
+
+                .radio-group input[type="radio"] + label:before {
+                    content: '';
+                    position: absolute;
+                    left: 0;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    width: 20px; /* Ancho del marcador de radio */
+                    height: 20px; /* Altura del marcador de radio */
+                    border: 1px solid #ccc; /* Borde del marcador de radio */
+                    border-radius: 50%; /* Borde redondeado */
+                    margin-top: -10px; /* Ajuste para centrar verticalmente */
+                }
+
+            .radio-group input[type="radio"]:checked + label:before {
+                background-color: #007bff; /* Color de fondo del marcador de radio cuando está seleccionado */
+            }
+
+
+
+    .radio-group {
+        flex-basis: 10%; /* Esto ajusta el ancho de cada grupo de checkbox */
+        margin-bottom: 10px; /* Espacio entre los grupos */
+        margin-right: 60px;
+        margin-top: 50px;
+    }
+
+        .radio-group input[type="radio"] {
+            margin-right: 50px; /* Espacio entre el checkbox y la etiqueta */
+        }
+        .radio-group label {
+            white-space: nowrap; /* Evita que las palabras se dividan en múltiples líneas */
+        }
+
+
+</style>
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- Popper.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.10.2/umd/popper.min.js"></script>
+<!-- Bootstrap JavaScript -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
+<main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+    <!-- MultiStep Form -->
+    <div class="container-fluid" id="grad1">
+        <div class="row justify-content-center mt-0">
+            <div class="col-11 col-sm-9 col-md-7 col-lg-8 text-center p-0 mt-3 mb-2">
+                <div class="card px-0 pt-4 pb-0 mt-3 mb-3">
+                    <p class="h2"><strong>Autoevaluación de Habilidades</strong></p>
+                    <p class="h4">Revise sus respuestas, una vez enviadas no podrá modificarlas.</p>
+                    <form id="msform">
+                        <hr class="separator">
+                        <div class="form-card">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h2 class="fs-title">Autodesarrollo</h2>
+                                <div class="radio-container">
+                                    <div class="radio-group" data-toggle="tooltip" title="Necesita ayuda para mostrar esta habilidad">
+                                        <input type="radio" name="autodesarrollo" value="En proceso" id="en_proceso_radio">
+                                        <label for="en_proceso_radio"> En proceso</label>
+                                    </div>
+                                    <div class="radio-group" data-toggle="tooltip" title="Se desenvuelve bien sin ayuda">
+                                        <input type="radio" name="autodesarrollo" value="Autónomo" id="autonomo_radio">
+                                        <label for="autonomo_radio"> Autónomo</label>
+                                    </div>
+                                    <div class="radio-group" data-toggle="tooltip" title="Es capaz de ayudar y enseñar a otros miembros del equipo">
+                                        <input type="radio" name="autodesarrollo" value="Fortaleza" id="fortaleza_radio">
+                                        <label for="fortaleza_radio"> Fortaleza</label>
+                                    </div>
+                                    <i class="lapiz fas fa-pencil-alt" onclick="miFuncion()"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr class="separator">
+                        <div class="form-card">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h2 class="fs-title">Empoderamiento</h2>
+                                <div class="radio-container">
+                                    <div class="radio-group" data-toggle="tooltip" title="Necesita ayuda para mostrar esta habilidad">
+                                        <input type="radio" name="empoderamiento" value="En proceso" id="empoderamiento_en_proceso_radio">
+                                        <label for="empoderamiento_en_proceso_radio"> En proceso</label>
+                                    </div>
+                                    <div class="radio-group" data-toggle="tooltip" title="Se desenvuelve bien sin ayuda">
+                                        <input type="radio" name="empoderamiento" value="Autónomo" id="empoderamiento_autonomo_radio">
+                                        <label for="empoderamiento_autonomo_radio"> Autónomo</label>
+                                    </div>
+                                    <div class="radio-group" data-toggle="tooltip" title="Es capaz de ayudar y enseñar a otros miembros del equipo">
+                                        <input type="radio" name="empoderamiento" value="Fortaleza" id="empoderamiento_fortaleza_radio">
+                                        <label for="empoderamiento_fortaleza_radio"> Fortaleza</label>
+                                    </div>
+                                    <i class="lapiz fas fa-pencil-alt"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="separator">
+                        <div class="form-card">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h2 class="fs-title">Espíritu del trabajo</h2>
+                                <div class="radio-container">
+                                    <div class="radio-group" data-toggle="tooltip" title="Necesita ayuda para mostrar esta habilidad">
+                                        <input type="radio" name="espiritu_del_trabajo" value="En proceso" id="espiritu_del_trabajo_en_proceso_radio">
+                                        <label for="espiritu_del_trabajo_en_proceso_radio"> En proceso</label>
+                                    </div>
+                                    <div class="radio-group" data-toggle="tooltip" title="Se desenvuelve bien sin ayuda">
+                                        <input type="radio" name="espiritu_del_trabajo" value="Autónomo" id="espiritu_del_trabajo_autonomo_radio">
+                                        <label for="espiritu_del_trabajo_autonomo_radio"> Autónomo</label>
+                                    </div>
+                                    <div class="radio-group" data-toggle="tooltip" title="Es capaz de ayudar y enseñar a otros miembros del equipo">
+                                        <input type="radio" name="espiritu_del_trabajo" value="Fortaleza" id="espiritu_del_trabajo_fortaleza_radio">
+                                        <label for="espiritu_del_trabajo_fortaleza_radio"> Fortaleza</label>
+                                    </div>
+                                    <i class="lapiz fas fa-pencil-alt"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="separator">
+                        <div class="form-card">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h2 class="fs-title">Habilidad interpersonal</h2>
+                                <div class="radio-container">
+                                    <div class="radio-group" data-toggle="tooltip" title="Necesita ayuda para mostrar esta habilidad">
+                                        <input type="radio" name="habilidad_interpersonal" value="En proceso" id="habilidad_interpersonal_en_proceso_radio">
+                                        <label for="habilidad_interpersonal_en_proceso_radio"> En proceso</label>
+                                    </div>
+                                    <div class="radio-group" data-toggle="tooltip" title="Se desenvuelve bien sin ayuda">
+                                        <input type="radio" name="habilidad_interpersonal" value="Autónomo" id="habilidad_interpersonal_autonomo_radio">
+                                        <label for="habilidad_interpersonal_autonomo_radio"> Autónomo</label>
+                                    </div>
+                                    <div class="radio-group" data-toggle="tooltip" title="Es capaz de ayudar y enseñar a otros miembros del equipo">
+                                        <input type="radio" name="habilidad_interpersonal" value="Fortaleza" id="habilidad_interpersonal_fortaleza_radio">
+                                        <label for="habilidad_interpersonal_fortaleza_radio"> Fortaleza</label>
+                                    </div>
+                                    <i class="lapiz fas fa-pencil-alt"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="separator">
+                        <div class="form-card">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h2 class="fs-title">Gestión del cambio</h2>
+                                <div class="radio-container">
+                                    <div class="radio-group" data-toggle="tooltip" title="Necesita ayuda para mostrar esta habilidad">
+                                        <input type="radio" name="gestion_del_cambio" value="En proceso" id="gestion_del_cambio_en_proceso_radio">
+                                        <label for="gestion_del_cambio_en_proceso_radio"> En proceso</label>
+                                    </div>
+                                    <div class="radio-group" data-toggle="tooltip" title="Se desenvuelve bien sin ayuda">
+                                        <input type="radio" name="gestion_del_cambio" value="Autónomo" id="gestion_del_cambio_autonomo_radio">
+                                        <label for="gestion_del_cambio_autonomo_radio"> Autónomo</label>
+                                    </div>
+                                    <div class="radio-group" data-toggle="tooltip" title="Es capaz de ayudar y enseñar a otros miembros del equipo">
+                                        <input type="radio" name="gestion_del_cambio" value="Fortaleza" id="gestion_del_cambio_fortaleza_radio">
+                                        <label for="gestion_del_cambio_fortaleza_radio"> Fortaleza</label>
+                                    </div>
+                                    <i class="lapiz fas fa-pencil-alt"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="separator">
+                        <div class="form-card">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h2 class="fs-title">Visión estratégica</h2>
+                                <div class="radio-container">
+                                    <div class="radio-group" data-toggle="tooltip" title="Necesita ayuda para mostrar esta habilidad">
+                                        <input type="radio" name="vision_estrategica" value="En proceso" id="vision_estrategica_en_proceso_radio">
+                                        <label for="vision_estrategica_en_proceso_radio"> En proceso</label>
+                                    </div>
+                                    <div class="radio-group" data-toggle="tooltip" title="Se desenvuelve bien sin ayuda">
+                                        <input type="radio" name="vision_estrategica" value="Autónomo" id="vision_estrategica_autonomo_radio">
+                                        <label for="vision_estrategica_autonomo_radio"> Autónomo</label>
+                                    </div>
+                                    <div class="radio-group" data-toggle="tooltip" title="Es capaz de ayudar y enseñar a otros miembros del equipo">
+                                        <input type="radio" name="vision_estrategica" value="Fortaleza" id="vision_estrategica_fortaleza_radio">
+                                        <label for="vision_estrategica_fortaleza_radio"> Fortaleza</label>
+                                    </div>
+                                    <i class="lapiz fas fa-pencil-alt"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="separator">
+                        <!-- Repite la misma estructura para otras habilidades si es necesario -->
+                        <input type="button" name="previous" class="previous action-button-previous" value="Volver" />
+                        <input type="button" name="make_payment" class="next action-button" value="Confirmar" />
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<!--Estos links son para formularios (Si no van aca no funcionan)-->
+@*<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>*@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script>
+    //Codigo para checkbox
+    const checkboxes = document.querySelectorAll('.form-check-input');
+
+    checkboxes.forEach(checkbox => {
+        checkbox.addEventListener('click', () => {
+            checkboxes.forEach(otherCheckbox => {
+                if (otherCheckbox !== checkbox) {
+                    otherCheckbox.checked = false;
+                }
+            });
+        });
+    });
+
+    $(document).ready(function () {
+
+        var current_fs, next_fs, previous_fs; //fieldsets
+        var opacity;
+
+        $(".next").click(function () {
+
+            current_fs = $(this).parent();
+            next_fs = $(this).parent().next();
+
+            //Add Class Active
+            $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
+
+            //show the next fieldset
+            next_fs.show();
+            //hide the current fieldset with style
+            current_fs.animate({ opacity: 0 }, {
+                step: function (now) {
+                    // for making fielset appear animation
+                    opacity = 1 - now;
+
+                    current_fs.css({
+                        'display': 'none',
+                        'position': 'relative'
+                    });
+                    next_fs.css({ 'opacity': opacity });
+                },
+                duration: 600
+            });
+        });
+
+        $(".previous").click(function () {
+
+            current_fs = $(this).parent();
+            previous_fs = $(this).parent().prev();
+
+            //Remove class active
+            $("#progressbar li").eq($("fieldset").index(current_fs)).removeClass("active");
+
+            //show the previous fieldset
+            previous_fs.show();
+
+            //hide the current fieldset with style
+            current_fs.animate({ opacity: 0 }, {
+                step: function (now) {
+                    // for making fielset appear animation
+                    opacity = 1 - now;
+
+                    current_fs.css({
+                        'display': 'none',
+                        'position': 'relative'
+                    });
+                    previous_fs.css({ 'opacity': opacity });
+                },
+                duration: 600
+            });
+        });
+
+        $('.radio-group .radio').click(function () {
+            $(this).parent().find('.radio').removeClass('selected');
+            $(this).addClass('selected');
+        });
+
+        $(".submit").click(function () {
+            return false;
+        })
+
+    });
+
+    //Funcion para que ande el popover
+    $(document).ready(function () {
+        $('[data-toggle="popover"]').popover();
+    });
+    //Funcion para que ande el tooltip
+    //$(document).ready(function () {
+    //    $('[data-toggle="tooltip"]').tooltip();
+    //});
+
+</script>

@@ -27427,6 +27427,23 @@ pre[class*="language-"] {
     }
 }
 
+/*LAPIZ*/
+.lapiz {
+    color: #676464;
+    cursor: default;
+    transition: color 0.3s;
+    position: relative;
+    margin-top: 35px;
+    margin-right: 10px;
+}
+
+    .lapiz:hover {
+        cursor: pointer;
+    }
+
+    .lapiz:active {
+        color: #13bcf5;
+    }
 
 /*Codigo css de formulario wizard*/
 
