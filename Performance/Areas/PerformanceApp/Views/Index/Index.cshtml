@@ -510,8 +510,17 @@
         table.page('first').draw('page');
     }
     ///LISTAR PERFORMANCE
-    ListarPerformance();
-    function ListarPerformance() {
+        ListarPerformance();
+
+         function ListarCol() {
+
+
+            var url = "Api/PerformanceApp/listarColaborador";
+
+
+        }
+
+    @*function ListarPerformance() {
         IniciarTabla();
         var colaborador = $("#selectColaborador").val();
         var estado = $("#selectEstado").val();
@@ -529,6 +538,59 @@
             CargarTablaColaborador(url);
         }
     }
+     @*function ListarPerformance() {
+     IniciarTabla();
+     var colaborador = $("#selectColaborador").val();
+     var estado = $("#selectEstado").val();
+      //var url = "api/PerformanceApp/listarColaborador";
+
+
+     var url = "Api/PerformanceApp/ListarPerformance";
+     url = url + "?colaborador=" + colaborador;
+     url = url + "?colaborador=" + colaborador;
+     url = url + "&estado=" + estado;
+     url = url + "&idPerfil=" + "@perfil";
+
+     if ("@perfil" == "127") {
+         $('#tablaColaborador').DataTable().clear().destroy();
+         CargarTablaColaborador(url);
+     }
+ }*@
+    @*function ListarPerformance() {
+    IniciarTabla();
+    var colaborador = $("#selectColaborador").val();
+    var estado = $("#selectEstado").val();
+
+    var url = "Api/PerformanceApp/ListarPerformance";
+    url += "?colaborador=" + colaborador;
+    url += "&estado=" + estado;
+    url += "&idPerfil=@perfil";
+
+    if ("@perfil" == "127") {
+        $('#tablaColaborador').DataTable().clear().destroy();
+
+        // Agregar encabezado Content-Type
+        var headers = new Headers();
+        headers.append('Content-Type', 'application/json'); // Aquí establece el tipo de contenido adecuado
+
+        // Configurar opciones de fetch
+        var fetchOptions = {
+            method: 'GET',
+            headers: headers
+        };
+
+        // Realizar la solicitud fetch
+        fetch(url, fetchOptions)
+            .then(response => response.json())
+            .then(data => {
+                CargarTablaColaborador(data); // Pasar los datos de respuesta a la función de carga de tabla
+            })
+            .catch(error => {
+                console.error('Error al obtener los datos:', error);
+            });
+    }
+}*@
+
     function IniciarTabla() {
         var table = $('#tablaColaborador').DataTable();
         table.page('first').draw('page'); // Vuelve a la página 1 y actualiza la tabla
@@ -537,107 +599,225 @@
 
     ///TABLA COLABORADOR
 
-    function CargarTablaColaborador(url) {
-        moment.locale('es');
-        var table = $("#tablaColaborador").DataTable({
-            "processing": true,
-            "serverSide": true,
-            "stateSave": true,
-            "bDestroy": true,
-            "language": {
-                "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
-            },
-            "ajax": {
-                "url": url,
-                "type": "GET",
-                "datatype": "json"
-            },
-            "pageLength": 25,
-            "filter": true,
-            "responsivePriority": 1,
-            "columnDefs": [
-                { "width": "7%", "targets": 0 },
-                { "width": "7%", "targets": 1 },
-                { "width": "7%", "targets": 2 },
-                { "width": "7%", "targets": 3 },
-                { "width": "17%", "targets": 4 },
-                { "width": "17%", "targets": 5 },
-                { "width": "10%", "targets": 6 },
-            ],
-            "columns": [
-                {
-                    "data": "ano",
-                    "name": "Año",
-                    "autoWidth": false,
-                    "render": function (data, type, row, meta) {
-                        return '<div class="d-flex px-2 py-1">' +
-                            '<div class="d-flex flex-column justify-content-center">' +
-                            '<h6 class="mb-0 text-sm">' + data + '</h6>' +
-                            '</div>' +
-                            '</div>';
-                    }
-                },
-                {
-                    "data": "lider",
-                    "name": "Lider",
-                    "autoWidth": false,
-                    "render": function (data, type, row, meta) {
-                        return '<div class="d-flex px-2 py-1">' +
-                            '<div class="d-flex flex-column justify-content-center">' +
-                            '<h6 class="mb-0 text-sm">' + data + '</h6>' +
-                            '</div>' +
-                            '</div>';
-                    }
-                },
-                {
-                    "data": "fechaAutoevaluacion",
-                    "name": "Fecha de Autoevaluación",
-                    "autoWidth": false,
-                    "render": function (data, type, row, meta) {
-                        return '<span class="text-secondary text-xs font-weight-bold">' + data + '</span>';
-                    }
-                },
-                {
-                    "data": "fechaEvaluacion",
-                    "name": "Fecha de Evaluación",
-                    "autoWidth": false,
-                    "render": function (data, type, row, meta) {
-                        return '<span class="text-secondary text-xs font-weight-bold">' + data + '</span>';
-                    }
-                },
-                {
-                    "data": "fechaCalibracion",
-                    "name": "Fecha de Calibración",
-                    "autoWidth": false,
-                    "render": function (data, type, row, meta) {
-                        return '<span class="text-secondary text-xs font-weight-bold">' + data + '</span>';
-                    }
-                },
-                {
-                    "data": "estado",
-                    "name": "Estado",
-                    "autoWidth": false,
-                    "render": function (data, type, row, meta) {
-                        return '<span class="text-secondary text-xs font-weight-bold">' + data + '</span>';
-                    }
-                },
-                {
-                    "data": "acciones",
-                    "name": "Acciones",
-                    "autoWidth": false,
-                    "render": function (data, type, row, meta) {
-                        return '<span class="text-secondary text-xs font-weight-bold">' + data + '</span>';
-                    }
-                },
+    //function CargarTablaColaborador(url) {
+    //    moment.locale('es');
+    //    var table = $("#tablaColaborador").DataTable({
+    //        "processing": true,
+    //        "serverSide": true,
+    //        "stateSave": true,
+    //        "bDestroy": true,
+    //        "language": {
+    //            "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
+    //        },
+    //        "ajax": {
+    //            "url": url,
+    //            "type": "GET",
+    //            "datatype": "json"
+    //        },
+    //        "pageLength": 25,
+    //        "filter": true,
+    //        "responsivePriority": 1,
+    //        "columnDefs": [
+    //            { "width": "7%", "targets": 0 },
+    //            { "width": "7%", "targets": 1 },
+    //            { "width": "7%", "targets": 2 },
+    //            { "width": "7%", "targets": 3 },
+    //            { "width": "17%", "targets": 4 },
+    //            { "width": "17%", "targets": 5 },
+    //            { "width": "10%", "targets": 6 },
+    //        ],
+    //        "columns": [
+    //            {
+    //                "data": "ano",
+    //                "name": "Año",
+    //                "autoWidth": false,
+    //                "render": function (data, type, row, meta) {
+    //                    return '<div class="d-flex px-2 py-1">' +
+    //                        '<div class="d-flex flex-column justify-content-center">' +
+    //                        '<h6 class="mb-0 text-sm">' + data + '</h6>' +
+    //                        '</div>' +
+    //                        '</div>';
+    //                }
+    //            },
+    //            {
+    //                "data": "lider",
+    //                "name": "Lider",
+    //                "autoWidth": false,
+    //                "render": function (data, type, row, meta) {
+    //                    return '<div class="d-flex px-2 py-1">' +
+    //                        '<div class="d-flex flex-column justify-content-center">' +
+    //                        '<h6 class="mb-0 text-sm">' + data + '</h6>' +
+    //                        '</div>' +
+    //                        '</div>';
+    //                }
+    //            },
+    //            {
+    //                "data": "fechaAutoevaluacion",
+    //                "name": "Fecha de Autoevaluación",
+    //                "autoWidth": false,
+    //                "render": function (data, type, row, meta) {
+    //                    return '<span class="text-secondary text-xs font-weight-bold">' + data + '</span>';
+    //                }
+    //            },
+    //            {
+    //                "data": "fechaEvaluacion",
+    //                "name": "Fecha de Evaluación",
+    //                "autoWidth": false,
+    //                "render": function (data, type, row, meta) {
+    //                    return '<span class="text-secondary text-xs font-weight-bold">' + data + '</span>';
+    //                }
+    //            },
+    //            {
+    //                "data": "fechaCalibracion",
+    //                "name": "Fecha de Calibración",
+    //                "autoWidth": false,
+    //                "render": function (data, type, row, meta) {
+    //                    return '<span class="text-secondary text-xs font-weight-bold">' + data + '</span>';
+    //                }
+    //            },
+    //            {
+    //                "data": "estado",
+    //                "name": "Estado",
+    //                "autoWidth": false,
+    //                "render": function (data, type, row, meta) {
+    //                    return '<span class="text-secondary text-xs font-weight-bold">' + data + '</span>';
+    //                }
+    //            },
+    //            {
+    //                "data": "acciones",
+    //                "name": "Acciones",
+    //                "autoWidth": false,
+    //                "render": function (data, type, row, meta) {
+    //                    return '<span class="text-secondary text-xs font-weight-bold">' + data + '</span>';
+    //                }
+    //            },
 
-            ],
-            "createdRow": function (row, data, index) {
-                // Aquí puedes aplicar estilos o clases a las filas según tus datos
+    //        ],
+    //        "createdRow": function (row, data, index) {
+    //            // Aquí puedes aplicar estilos o clases a las filas según tus datos
+    //        },
+    //        "ordering": true,
+    //        "paging": true
+    //    });
+    //};
+
+    function ListarPerformance() {
+    IniciarTabla();
+    var colaborador = $("#selectColaborador").val();
+    var estado = $("#selectEstado").val();
+    var url = "Api/PerformanceApp/ListarPerformance"; 
+    url = url + "?colaborador=" + colaborador;
+    url = url + "&estado=" + estado;
+    url = url + "&idPerfil=" + "@perfil";
+
+    if ("@perfil" == "127") {
+        $('#tablaColaborador').DataTable().clear().destroy();
+        CargarTablaColaborador(url);
+    }
+}
+
+function CargarTablaColaborador(url) {
+    moment.locale('es');
+    var table = $("#tablaColaborador").DataTable({
+        "processing": true,
+        "serverSide": true,
+        "stateSave": true,
+        "bDestroy": true,
+        "language": {
+            "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
+        },
+        "ajax": {
+            "url": url,
+            "type": "POST",
+            "contentType": "application/json", // Cambio aquí
+            "datatype": "json"
+        },
+        "pageLength": 25,
+        "filter": true,
+        "responsivePriority": 1,
+        "columnDefs": [
+            { "width": "7%", "targets": 0 },
+            { "width": "7%", "targets": 1 },
+            { "width": "7%", "targets": 2 },
+            { "width": "7%", "targets": 3 },
+            { "width": "17%", "targets": 4 },
+            { "width": "17%", "targets": 5 },
+            { "width": "10%", "targets": 6 },
+        ],
+        "columns": [
+            {
+                "data": "ano",
+                "name": "Año",
+                "autoWidth": false,
+                "render": function (data, type, row, meta) {
+                    return '<div class="d-flex px-2 py-1">' +
+                        '<div class="d-flex flex-column justify-content-center">' +
+                        '<h6 class="mb-0 text-sm">' + data + '</h6>' +
+                        '</div>' +
+                        '</div>';
+                }
             },
-            "ordering": true,
-            "paging": true
-        });
-    };
+            {
+                "data": "lider",
+                "name": "Lider",
+                "autoWidth": false,
+                "render": function (data, type, row, meta) {
+                    return '<div class="d-flex px-2 py-1">' +
+                        '<div class="d-flex flex-column justify-content-center">' +
+                        '<h6 class="mb-0 text-sm">' + data + '</h6>' +
+                        '</div>' +
+                        '</div>';
+                }
+            },
+            {
+                "data": "fechaAutoevaluacion",
+                "name": "Fecha de Autoevaluación",
+                "autoWidth": false,
+                "render": function (data, type, row, meta) {
+                    return '<span class="text-secondary text-xs font-weight-bold">' + data + '</span>';
+                }
+            },
+            {
+                "data": "fechaEvaluacion",
+                "name": "Fecha de Evaluación",
+                "autoWidth": false,
+                "render": function (data, type, row, meta) {
+                    return '<span class="text-secondary text-xs font-weight-bold">' + data + '</span>';
+                }
+            },
+            {
+                "data": "fechaCalibracion",
+                "name": "Fecha de Calibración",
+                "autoWidth": false,
+                "render": function (data, type, row, meta) {
+                    return '<span class="text-secondary text-xs font-weight-bold">' + data + '</span>';
+                }
+            },
+            {
+                "data": "estado",
+                "name": "Estado",
+                "autoWidth": false,
+                "render": function (data, type, row, meta) {
+                    return '<span class="text-secondary text-xs font-weight-bold">' + data + '</span>';
+                }
+            },
+            {
+                "data": "acciones",
+                "name": "Acciones",
+                "autoWidth": false,
+                "render": function (data, type, row, meta) {
+                    return '<span class="text-secondary text-xs font-weight-bold">' + data + '</span>';
+                }
+            },
+
+        ],
+        "createdRow": function (row, data, index) {
+            // Aquí puedes aplicar estilos o clases a las filas según tus datos
+        },
+        "ordering": true,
+        "paging": true
+    });
+};
 
 
     </script>
