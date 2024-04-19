@@ -325,9 +325,12 @@
 <body>
 
     <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg">
-        <div style="margin-left: 50%; margin-block: 0.5%">
-            <button id="nuevaEvaluacion" class="btn btn-primary" onclick="location.href='/PerformanceApp/Index/Crud'">Autoevaluación<i class="fa fa-briefcase"></i></button>
+        <div class="row" style="margin: 30px; overflow:hidden; display: flex;" id="rowProvisorio">
+            <a id="a" class="btn btn-primary" href="/PerformanceApp/Index/Crud?view=autoevaluacion" style="max-width: 18%;">Autoevaluación</a>
+            <a id="b" class="btn btn-secondary" href="/PerformanceApp/Index/Crud?view=evaluacion" style="max-width: 18%; ">Evaluación</a>
+            <a id="c" class="btn btn-warning" href="/PerformanceApp/Index/Crud?view=resumenAutoevaluacion" style="max-width: 18%; ">Resumen Autoevaluación</a>
         </div>
+
         @*FILTROS SOLICITUDES*@
         <div class="row" style="margin: 30px; overflow:hidden;" id="rowFiltro">
             <div class="form-group2 col-md-2" id="filtroColaborador">
@@ -336,7 +339,7 @@
                 <div style="font-weight: normal !important;">
                     <select class="form-control" id="selectColaborador"></select>
                 </div>
-            </div>           
+            </div>
             <div class="form-group2 col-md-2" id="filtroEstado">
                 <label>Estado:</label>
                 <div></div>
@@ -344,9 +347,9 @@
                     <option value="0">--Seleccionar--</option>
                     <option value="1">Pendiente</option>
                     <option value="2">Aprobado</option>
-                    <option value="3">Rechazado</option>                   
+                    <option value="3">Rechazado</option>
                 </select>
-            </div>           
+            </div>
             <div class="form-group2 col-md-1" style="padding-top: 2%;" id="btnBuscarFiltro">
                 <button id="btnFiltrar" type="button" class="btn btn-success" style="width: 120px; cursor: pointer;">
                     Buscar

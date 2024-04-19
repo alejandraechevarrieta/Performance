@@ -13,9 +13,11 @@ namespace Performance.Areas.PerformanceApp.Controllers
             ViewBag.Perfil = perfil;
             return View();
         }
-        public ActionResult Crud()
+        public ActionResult Crud(string view)
         {
+            ViewBag.View = view;
             return View();
         }
+
     }
 }
