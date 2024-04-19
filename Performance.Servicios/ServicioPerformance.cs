@@ -9,7 +9,7 @@ namespace Performance.Servicios
 {
     public class ServicioPerformance
     {
-        public List<PerformanceColaboradorVM> listarColaboradores(int idUsuario)
+        public List<PerformanceColaboradorVM> listarColaboradores(int? idUsuario)
         {
             using (var db = new PerformanceEntities())
             {

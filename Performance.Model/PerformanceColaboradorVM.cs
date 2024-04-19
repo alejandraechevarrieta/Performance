@@ -35,5 +35,6 @@ namespace Performance.Model
         public int idHabilidad { get; set; }
         public int idCalificacion { get; set; }
         public DateTime fechaCalificacion { get; set; }
+        public DateTime fechaAutoevaluacion { get; set; }
     }
 }

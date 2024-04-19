@@ -30,11 +30,49 @@ namespace Performance.Areas.PerformanceApp.Controllers.Api
         //}
         [System.Web.Http.Route("Api/PerformanceApp/listarColaborador")]
         [System.Web.Http.ActionName("listarColaborador")]
-        [System.Web.Http.HttpGet]
-        public int listarColaborador()
+        [System.Web.Http.HttpPost]
+        public HttpResponseMessage listarColaborador(FormDataCollection form, int? colaborador, int? estado, string idPerfil)
         {
-            ServicioPerformance servicio = new ServicioPerformance();
-            return 0;
+            //List<PerformanceColaboradorVM>
+
+
+            //var draw = form.Get("draw");
+            //var start = form.Get("start");
+            //var length = form.Get("length");
+            //var sortColumn = (form.Get("columns[" + form.Get("order[0][column]").FirstOrDefault() + "][data]").ToString()).ToString();
+            //var sortColumnDir = form.Get("order[0][dir]").ToString();
+            //var searchValue = form.Get("search[value]").ToString();
+            int pageSize = 25;
+            int skip = 1;
+            int recordsTotal = 0;
+
+            Servicios.ServicioPerformance servicio = new Servicios.ServicioPerformance();
+
+            var listaPpal = servicio.listarColaboradores(colaborador);
+
+            var listFiltr = listaPpal.Where(x => x.idPerformance > 0).Distinct().ToList();
+
+            recordsTotal = listFiltr.Count();
+            var toTake = pageSize;
+            if (recordsTotal < pageSize)
+            {
+                toTake = recordsTotal;
+            }
+
+            var lst = listFiltr.Skip(skip).Take(toTake).ToList();
+            var lista = lst.ToList();
+
+            var responseData = new { draw = "", recordsFiltered = recordsTotal, recordsTotal = recordsTotal, data = lista };
+
+            // Serialize responseData to JSON
+            var jsonResult = JsonConvert.SerializeObject(responseData);
+
+            // Create an HttpResponseMessage with the JSON content
+            var response = Request.CreateResponse(HttpStatusCode.OK);
+            response.Content = new StringContent(jsonResult, Encoding.UTF8, "application/json");
+
+            // Return the HttpResponseMessage
+            return response;
         }
         [System.Web.Http.Route("Api/PerformanceApp/ListarPerformance")]
         [System.Web.Http.ActionName("ListarPerformance")]
