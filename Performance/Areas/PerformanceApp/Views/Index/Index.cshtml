@@ -1,7 +1,7 @@
 ﻿@{
     ViewBag.Title = "Home Page";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    var perfil = Request.QueryString["perfil"];
+    var perfil = "128";
 }
 
 <!DOCTYPE html>
@@ -389,7 +389,39 @@
                     </div>
                 </div>
             }
-          
+            @if (perfil == "128")
+            {
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card mb-4">
+                            <div class="card-header pb-0">
+                                <h6>Performance Líder</h6>
+                            </div>
+                            <div class="card-body px-0 pt-0 pb-2">
+                                <div class="table-responsive p-0">
+                                    <table class="table align-items-center mb-0" id="tablaLider">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Año</th>
+                                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Colaborador</th>
+                                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Fecha de Autoevaluación</th>
+                                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Fecha de Evaluación</th>
+                                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Fecha de Calibración</th>
+                                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Estado</th>
+                                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Acciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <!-- Los datos de la tabla se agregarán aquí dinámicamente desde JavaScript -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+
         </div>
     </main>
 
@@ -494,25 +526,11 @@
     //    $('[data-toggle="tooltip"]').tooltip();
     //});
 
-    //Tabla del lider
-    function FiltrarTablaLider() {
-        let url = "/Documental/Api/Gestion/ListarDocumentos?&tipo=" + $('#selectTipoI').val() + "&negocio=" + $('#selectNegocioI').val() + "&palabrasClaves=" + $('#palabrasclaves').val() + "&aprueba=" + $('#selectAprueba').val();
-        $('#tablaLider').DataTable().clear().destroy();
-        CargartablaLider(url);
-    }
-
-    function IniciarTablaLider() {
-        let url = "/Documental/Api/Gestion/ListarDocumentos?&tipo=" + $('#selectTipoI').val() + "&negocio=" + $('#selectNegocioI').val() + "&palabrasClaves=" + $('#palabrasclaves').val() + "&aprueba=" + $('#selectAprueba').val();
-
-        $('#table_id').DataTable().clear().destroy();
-        Cargartabla(url);
-        var table = $('#table_id').DataTable();
-        table.page('first').draw('page');
-    }
+    
     ///LISTAR PERFORMANCE
     ListarPerformance();
     function ListarPerformance() {
-        IniciarTabla();
+        
         var colaborador = $("#selectColaborador").val();
         var estado = $("#selectEstado").val();
          //var url = "api/PerformanceApp/listarColaborador";
@@ -524,17 +542,22 @@
         url = url + "&estado=" + estado;
         url = url + "&idPerfil=" + "@perfil";
 
-        if ("@perfil" == "127") {
+        if ("@perfil" == "127") {//si es perfil colaborador
+            IniciarTabla();
             $('#tablaColaborador').DataTable().clear().destroy();
             CargarTablaColaborador(url);
+        }
+        if ("@perfil" == "128") {//si es perfil lider
+            IniciarTablaLider
+            $('#tablaLider').DataTable().clear().destroy();
+            CargarTablaLider(url);
         }
     }
     function IniciarTabla() {
         var table = $('#tablaColaborador').DataTable();
         table.page('first').draw('page'); // Vuelve a la página 1 y actualiza la tabla
         table.clear().destroy();
-    }
-
+        }
     ///TABLA COLABORADOR
 
     function CargarTablaColaborador(url) {
@@ -637,7 +660,122 @@
             "ordering": true,
             "paging": true
         });
-    };
+        };
+
+
+        //TABLA DEL LIDER
+        function IniciarTablaLider() {
+            var table = $('#tablaLider').DataTable();
+            table.page('first').draw('page'); // Vuelve a la página 1 y actualiza la tabla
+            table.clear().destroy();
+        }
+        function CargartablaLider(url) {
+            moment.locale('es');
+            var table = $("#tablaLider").DataTable({
+                "processing": true,
+                "serverSide": true,
+                "stateSave": true,
+                "bDestroy": true,
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
+                },
+                "ajax": {
+                    "url": url,
+                    "type": "GET",
+                    "datatype": "json"
+                },
+                "pageLength": 25,
+                "filter": true,
+                "responsivePriority": 1,
+                "columnDefs": [
+                    { "width": "10%", "targets": 0 },
+                    { "width": "20%", "targets": 1 },
+                    { "width": "14%", "targets": 2 },
+                    { "width": "14%", "targets": 3 },
+                    { "width": "14%", "targets": 4 },
+                    { "width": "14%", "targets": 5 },
+                    { "width": "14%", "targets": 6 },
+                ],
+                "columns": [
+                    {
+                        "data": "ano",
+                        "name": "Año",
+                        "autoWidth": false,
+                        "render": function (data, type, row, meta) {
+                            return '<div class="d-flex px-2 py-1">' +
+                                '<div class="d-flex flex-column justify-content-center">' +
+                                '<h6 class="mb-0 text-sm">' + data + '</h6>' +
+                                '</div>' +
+                                '</div>';
+                        }
+                    },
+                    {
+                        "data": "nombre",
+                        "name": "Colaborador",
+                        "autoWidth": false,
+                        "render": function (data, type, row, meta) {
+                            return '<div class="d-flex px-2 py-1">' +
+                                '<div class="d-flex flex-column justify-content-center">' +
+                                '<h6 class="mb-0 text-sm">' + data + '</h6>' +
+                                '</div>' +
+                                '</div>';
+                        }
+                    },
+                    {
+                        "data": "fechaAutoevaluacion",
+                        "name": "Fecha de Autoevaluación",
+                        "autoWidth": false,
+                        "render": function (data, type, row, meta) {
+                            return '<span class="text-secondary text-xs font-weight-bold">' + data + '</span>';
+                        }
+                    },
+                    {
+                        "data": "fechaEvaluacion",
+                        "name": "Fecha de Evaluación",
+                        "autoWidth": false,
+                        "render": function (data, type, row, meta) {
+                            return '<span class="text-secondary text-xs font-weight-bold">' + data + '</span>';
+                        }
+                    },
+                    {
+                        "data": "fechaCalibracion",
+                        "name": "Fecha de Calibración",
+                        "autoWidth": false,
+                        "render": function (data, type, row, meta) {
+                            return '<span class="text-secondary text-xs font-weight-bold">' + data + '</span>';
+                        }
+                    },
+                    {
+                        "data": "estado",
+                        "name": "Estado",
+                        "autoWidth": false,
+                        "render": function (data, type, row, meta) {
+                            if (data == 1) {
+                                return '<span class="badge badge-sm badge-success">Finalizado</span>';
+                            }
+                            else if (data == 2) {
+                                return '<span class="badge badge-sm badge-danger">A realizar</span>';
+                            }
+                            
+                        }
+                    },
+                    {
+                        "data": "acciones",
+                        "name": "Acciones",
+                        "autoWidth": false,
+                        "render": function (data, type, row, meta) {
+                            return '<span class="text-secondary text-xs font-weight-bold">' + data + '</span>';
+                        }
+                    },
+
+                ],
+                "createdRow": function (row, data, index) {
+                    // Aquí puedes aplicar estilos o clases a las filas según tus datos
+                },
+                "ordering": true,
+                "paging": true
+            });
+        };
 
 
     </script>
