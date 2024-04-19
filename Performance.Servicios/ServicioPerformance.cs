@@ -32,10 +32,7 @@ namespace Performance.Servicios
 
         public IQueryable<PerformanceVM> ListarPerformanceTodas()
         {
-            var tmp = (from p in db.PerformanceColaborador
-                       //orderby p.ano
-                       //join a in _dbContext.AutoEvaluacion on p.idPerformance equals a.idPerformance
-                       //join e in _dbContext.EvaluacionPerformance on p.idPerformance equals e.idPerformance
+            var tmp = (from p in db.PerformanceColaborador                       
                        select new PerformanceVM
                        {
                            ano = p.ano,
@@ -43,7 +40,14 @@ namespace Performance.Servicios
                            idUsuario = p.idUsuario,
                            nombre = p.nombre,
                            idJefe = p.idJefe,
-                           //fechaCalificacion = a.fechaCalificacion,
+                           antiguedad = p.antiguedad,
+                           fechaAutoevaluacion = null, // Asignar null a las fechas
+                           fechaEvaluacion = null,
+                           fechaCalibracion = null,
+                           estado = 1
+                           //fechaCalificacion = p.fechaCalificacion,
+                           //fechaAutoevaluacion = p.fechaAutoevaluacion,
+                           //fechaCalibracion = p.fechaCalibracion,
                        }).OrderByDescending(x => x.ano);
 
             return tmp;
