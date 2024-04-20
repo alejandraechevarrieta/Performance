@@ -340,11 +340,7 @@
             <div class="form-group2 col-md-2" id="filtroEstado">
                 <label>Estado:</label>
                 <div></div>
-                <select class="form-control" id="selectEstado">
-                    <option value="0">--Seleccionar--</option>
-                    <option value="1">Pendiente</option>
-                    <option value="2">Aprobado</option>
-                    <option value="3">Rechazado</option>                   
+                <select class="form-control" id="selectEstado">                
                 </select>
             </div>           
             <div class="form-group2 col-md-1" style="padding-top: 2%;" id="btnBuscarFiltro">
@@ -949,7 +945,23 @@ function CargarTablaColaborador(url) {
             });
         };
 
-
+        CargarEstados();
+        function CargarEstados() {
+            var selecEstados = $('#selectEstado');
+            selecEstados.empty();
+            selecEstados.append($('<option/>', { value: '', text: 'Seleccionar' }).hide());
+            var url = "Api/PerformanceApp/listarEstadosPerformance";
+            $.getJSON(url)
+                .done(function (data) {
+                    console.log(data);
+                    $.each(data, function (index, result) {
+                        selecEstados.append($('<option/>', {
+                            value: result.id,
+                            text: result.estado
+                        }));
+                    });
+                });
+        }
     </script>
 
 </body>

@@ -162,5 +162,13 @@ namespace Performance.Areas.PerformanceApp.Controllers.Api
         //    return response;
         //}
 
+        [System.Web.Http.Route("Api/PerformanceApp/listarEstadosPerformance")]
+        [System.Web.Http.ActionName("listarEstadosPerformance")]
+        [System.Web.Http.HttpGet]
+        public List<PerformanceEstados> listarEstadosPerformance()
+        {
+            Servicios.ServicioPerformance servicio = new Servicios.ServicioPerformance();
+            return servicio.listarEstadosPerformance();
+        }
     }
 }

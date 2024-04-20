@@ -37,4 +37,9 @@ namespace Performance.Model
         public DateTime fechaCalificacion { get; set; }
         public DateTime fechaAutoevaluacion { get; set; }
     }
+    public class PerformanceEstados
+    {
+        public int id { get; set; }
+        public string estado { get; set; }
+    }
 }

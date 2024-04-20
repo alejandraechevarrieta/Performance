@@ -363,5 +363,19 @@ namespace Performance.Servicios
             return lista;
         }
 
+        public List<PerformanceEstados> listarEstadosPerformance()
+        {
+            using (var db = new PerformanceEntities())
+            {
+                var query = (from d in db.PerformanceColaborador
+                             select new PerformanceEstados
+                             {
+                                 id = d.idPerformance,
+                                 estado = d.nombre,
+                             });
+                return query.ToList();
+            }
+        }
+
     }
 }
