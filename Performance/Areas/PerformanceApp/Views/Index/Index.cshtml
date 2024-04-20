@@ -1,7 +1,8 @@
 ﻿@{
     ViewBag.Title = "Home Page";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    var perfil = "128";
+    //var perfil = "128";
+    var perfil = Request.QueryString["perfil"];
 }
 
 <!DOCTYPE html>
@@ -10,7 +11,23 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title</title>
+    <!-- Estilos de Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0/css/bootstrap.min.css">
 
+    <!-- Estilos de DataTables -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
+
+    <!-- JavaScript de jQuery (necesario para DataTables) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <!-- JavaScript de DataTables -->
+    <script src="https://cdn.datatables.net/1.12.0/js/jquery.dataTables.min.js"></script>
+
+    <!-- JavaScript de DataTables para Bootstrap -->
+    <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    
     <style>
         * {
             margin: 0;
@@ -313,21 +330,17 @@
         }
     </style>
 
-    <!-- jQuery CDN -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-    <!-- DataTables CSS CDN -->
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 
 </head>
 <body>
 
     <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg">
-        <div style="margin-left: 50%; margin-block: 0.5%">
-            <button id="nuevaEvaluacion" class="btn btn-primary" onclick="location.href='/PerformanceApp/Index/Crud'">Autoevaluación<i class="fa fa-briefcase"></i></button>
+        <div class="row" style="margin: 30px; overflow:hidden; display: flex;" id="rowProvisorio">
+            <a id="a" class="btn btn-primary" href="/PerformanceApp/Index/Crud?view=autoevaluacion" style="max-width: 18%;">Autoevaluación</a>
+            <a id="b" class="btn btn-secondary" href="/PerformanceApp/Index/Crud?view=evaluacion" style="max-width: 18%; ">Evaluación</a>
+            <a id="c" class="btn btn-warning" href="/PerformanceApp/Index/Crud?view=resumenAutoevaluacion" style="max-width: 18%; ">Resumen Autoevaluación</a>
         </div>
+
         @*FILTROS SOLICITUDES*@
         <div class="row" style="margin: 30px; overflow:hidden;" id="rowFiltro">
             <div class="form-group2 col-md-2" id="filtroColaborador">
@@ -336,13 +349,13 @@
                 <div style="font-weight: normal !important;">
                     <select class="form-control" id="selectColaborador"></select>
                 </div>
-            </div>           
+            </div>
             <div class="form-group2 col-md-2" id="filtroEstado">
                 <label>Estado:</label>
                 <div></div>
                 <select class="form-control" id="selectEstado">                
                 </select>
-            </div>           
+            </div>
             <div class="form-group2 col-md-1" style="padding-top: 2%;" id="btnBuscarFiltro">
                 <button id="btnFiltrar" type="button" class="btn btn-success" style="width: 120px; cursor: pointer;">
                     Buscar
@@ -359,7 +372,7 @@
                     <div class="col-12">
                         <div class="card mb-4">
                             <div class="card-header pb-0">
-                                <h6>Performance Colaborador</h6>
+                                <div class="text-uppercase text-xl-center  font-weight-bolder opacity-7">Performance Colaborador</div>
                             </div>
                             <div class="card-body px-0 pt-0 pb-2">
                                 <div class="table-responsive p-0">
@@ -372,7 +385,6 @@
                                                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Fecha de Evaluación</th>
                                                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Fecha de Calibración</th>
                                                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Estado</th>
-                                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Acciones</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -524,196 +536,13 @@
 
     
     ///LISTAR PERFORMANCE
-        ListarPerformance();
-
-         function ListarCol() {
-
-
-            var url = "Api/PerformanceApp/listarColaborador";
-
-
-        }
-
-    @*function ListarPerformance() {
-        IniciarTabla();
-        var colaborador = $("#selectColaborador").val();
-        var estado = $("#selectEstado").val();
-         //var url = "api/PerformanceApp/listarColaborador";
-
-
-        var url = "Api/PerformanceApp/ListarPerformance";
-        url = url + "?colaborador=" + colaborador;
-        url = url + "?colaborador=" + colaborador;
-        url = url + "&estado=" + estado;
-        url = url + "&idPerfil=" + "@perfil";
-
-        if ("@perfil" == "127") {
-            $('#tablaColaborador').DataTable().clear().destroy();
-            CargarTablaColaborador(url);
-        }
-    }
-     @*function ListarPerformance() {
-     IniciarTabla();
-     var colaborador = $("#selectColaborador").val();
-     var estado = $("#selectEstado").val();
-      //var url = "api/PerformanceApp/listarColaborador";
-
-
-     var url = "Api/PerformanceApp/ListarPerformance";
-     url = url + "?colaborador=" + colaborador;
-     url = url + "?colaborador=" + colaborador;
-     url = url + "&estado=" + estado;
-     url = url + "&idPerfil=" + "@perfil";
-
-     if ("@perfil" == "127") {
-         $('#tablaColaborador').DataTable().clear().destroy();
-         CargarTablaColaborador(url);
-     }
- }*@
-    @*function ListarPerformance() {
-    IniciarTabla();
-    var colaborador = $("#selectColaborador").val();
-    var estado = $("#selectEstado").val();
-
-    var url = "Api/PerformanceApp/ListarPerformance";
-    url += "?colaborador=" + colaborador;
-    url += "&estado=" + estado;
-    url += "&idPerfil=@perfil";
-
-    if ("@perfil" == "127") {
-        $('#tablaColaborador').DataTable().clear().destroy();
-
-        // Agregar encabezado Content-Type
-        var headers = new Headers();
-        headers.append('Content-Type', 'application/json'); // Aquí establece el tipo de contenido adecuado
-
-        // Configurar opciones de fetch
-        var fetchOptions = {
-            method: 'GET',
-            headers: headers
-        };
-
-        // Realizar la solicitud fetch
-        fetch(url, fetchOptions)
-            .then(response => response.json())
-            .then(data => {
-                CargarTablaColaborador(data); // Pasar los datos de respuesta a la función de carga de tabla
-            })
-            .catch(error => {
-                console.error('Error al obtener los datos:', error);
-            });
-    }
-}*@
-
+        ListarPerformance();     
     function IniciarTabla() {
         var table = $('#tablaColaborador').DataTable();
         table.page('first').draw('page'); // Vuelve a la página 1 y actualiza la tabla
         table.clear().destroy();
         }
     ///TABLA COLABORADOR
-
-    //function CargarTablaColaborador(url) {
-    //    moment.locale('es');
-    //    var table = $("#tablaColaborador").DataTable({
-    //        "processing": true,
-    //        "serverSide": true,
-    //        "stateSave": true,
-    //        "bDestroy": true,
-    //        "language": {
-    //            "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
-    //        },
-    //        "ajax": {
-    //            "url": url,
-    //            "type": "GET",
-    //            "datatype": "json"
-    //        },
-    //        "pageLength": 25,
-    //        "filter": true,
-    //        "responsivePriority": 1,
-    //        "columnDefs": [
-    //            { "width": "7%", "targets": 0 },
-    //            { "width": "7%", "targets": 1 },
-    //            { "width": "7%", "targets": 2 },
-    //            { "width": "7%", "targets": 3 },
-    //            { "width": "17%", "targets": 4 },
-    //            { "width": "17%", "targets": 5 },
-    //            { "width": "10%", "targets": 6 },
-    //        ],
-    //        "columns": [
-    //            {
-    //                "data": "ano",
-    //                "name": "Año",
-    //                "autoWidth": false,
-    //                "render": function (data, type, row, meta) {
-    //                    return '<div class="d-flex px-2 py-1">' +
-    //                        '<div class="d-flex flex-column justify-content-center">' +
-    //                        '<h6 class="mb-0 text-sm">' + data + '</h6>' +
-    //                        '</div>' +
-    //                        '</div>';
-    //                }
-    //            },
-    //            {
-    //                "data": "lider",
-    //                "name": "Lider",
-    //                "autoWidth": false,
-    //                "render": function (data, type, row, meta) {
-    //                    return '<div class="d-flex px-2 py-1">' +
-    //                        '<div class="d-flex flex-column justify-content-center">' +
-    //                        '<h6 class="mb-0 text-sm">' + data + '</h6>' +
-    //                        '</div>' +
-    //                        '</div>';
-    //                }
-    //            },
-    //            {
-    //                "data": "fechaAutoevaluacion",
-    //                "name": "Fecha de Autoevaluación",
-    //                "autoWidth": false,
-    //                "render": function (data, type, row, meta) {
-    //                    return '<span class="text-secondary text-xs font-weight-bold">' + data + '</span>';
-    //                }
-    //            },
-    //            {
-    //                "data": "fechaEvaluacion",
-    //                "name": "Fecha de Evaluación",
-    //                "autoWidth": false,
-    //                "render": function (data, type, row, meta) {
-    //                    return '<span class="text-secondary text-xs font-weight-bold">' + data + '</span>';
-    //                }
-    //            },
-    //            {
-    //                "data": "fechaCalibracion",
-    //                "name": "Fecha de Calibración",
-    //                "autoWidth": false,
-    //                "render": function (data, type, row, meta) {
-    //                    return '<span class="text-secondary text-xs font-weight-bold">' + data + '</span>';
-    //                }
-    //            },
-    //            {
-    //                "data": "estado",
-    //                "name": "Estado",
-    //                "autoWidth": false,
-    //                "render": function (data, type, row, meta) {
-    //                    return '<span class="text-secondary text-xs font-weight-bold">' + data + '</span>';
-    //                }
-    //            },
-    //            {
-    //                "data": "acciones",
-    //                "name": "Acciones",
-    //                "autoWidth": false,
-    //                "render": function (data, type, row, meta) {
-    //                    return '<span class="text-secondary text-xs font-weight-bold">' + data + '</span>';
-    //                }
-    //            },
-
-    //        ],
-    //        "createdRow": function (row, data, index) {
-    //            // Aquí puedes aplicar estilos o clases a las filas según tus datos
-    //        },
-    //        "ordering": true,
-    //        "paging": true
-    //    });
-    //};
-
     function ListarPerformance() {
     IniciarTabla();
     var colaborador = $("#selectColaborador").val();
@@ -742,7 +571,10 @@ function CargarTablaColaborador(url) {
         "ajax": {
             "url": url,
             "type": "POST",
-            "contentType": "application/json", // Cambio aquí
+            "contentType": "application/json",
+            "data": function (d) {
+                return JSON.stringify(d);
+            },
             "datatype": "json"
         },
         "pageLength": 25,
@@ -750,12 +582,11 @@ function CargarTablaColaborador(url) {
         "responsivePriority": 1,
         "columnDefs": [
             { "width": "7%", "targets": 0 },
-            { "width": "7%", "targets": 1 },
+            { "width": "20%", "targets": 1 },
             { "width": "7%", "targets": 2 },
             { "width": "7%", "targets": 3 },
-            { "width": "17%", "targets": 4 },
-            { "width": "17%", "targets": 5 },
-            { "width": "10%", "targets": 6 },
+            { "width": "7%", "targets": 4 },
+            { "width": "10%", "targets": 5 },
         ],
         "columns": [
             {
@@ -771,11 +602,11 @@ function CargarTablaColaborador(url) {
                 }
             },
             {
-                "data": "lider",
+                "data": "idJefe",
                 "name": "Lider",
                 "autoWidth": false,
                 "render": function (data, type, row, meta) {
-                    return '<div class="d-flex px-2 py-1">' +
+                    return '<div class="d-flex justify-content-center align-items-center" style="height: 100%;">' +
                         '<div class="d-flex flex-column justify-content-center">' +
                         '<h6 class="mb-0 text-sm">' + data + '</h6>' +
                         '</div>' +
@@ -787,7 +618,13 @@ function CargarTablaColaborador(url) {
                 "name": "Fecha de Autoevaluación",
                 "autoWidth": false,
                 "render": function (data, type, row, meta) {
-                    return '<span class="text-secondary text-xs font-weight-bold">' + data + '</span>';
+                    if (data !== null) {
+                        return '<div class="d-flex justify-content-center align-items-center" style="height: 100%;">' +
+                            '<span class="text-secondary text-xs font-weight-bold">' + data + '</span>' +
+                            '</div>';
+                    } else {
+                        return ''; 
+                    }
                 }
             },
             {
@@ -795,7 +632,13 @@ function CargarTablaColaborador(url) {
                 "name": "Fecha de Evaluación",
                 "autoWidth": false,
                 "render": function (data, type, row, meta) {
-                    return '<span class="text-secondary text-xs font-weight-bold">' + data + '</span>';
+                    if (data !== null) {
+                        return '<div class="d-flex justify-content-center align-items-center" style="height: 100%;">' +
+                            '<span class="text-secondary text-xs font-weight-bold">' + data + '</span>' +
+                            '</div>';
+                    } else {
+                        return '';
+                    }
                 }
             },
             {
@@ -803,34 +646,35 @@ function CargarTablaColaborador(url) {
                 "name": "Fecha de Calibración",
                 "autoWidth": false,
                 "render": function (data, type, row, meta) {
-                    return '<span class="text-secondary text-xs font-weight-bold">' + data + '</span>';
+                    if (data !== null) {
+                        return '<div class="d-flex justify-content-center align-items-center" style="height: 100%;">' +
+                            '<span class="text-secondary text-xs font-weight-bold">' + data + '</span>' +
+                            '</div>';
+                    } else {
+                        return ''; 
+                    }
                 }
             },
             {
                 "data": "estado",
                 "name": "Estado",
                 "autoWidth": false,
-                "render": function (data, type, row, meta) {
-                    return '<span class="text-secondary text-xs font-weight-bold">' + data + '</span>';
+                "render": function (data, type, row, meta) {                 
+                    if (data == 1) {
+                        return '<a href="/PerformanceApp/Index/Crud?view=autoevaluacion" class="btn btn-block btn-warning" title="Incompleto" style="font-size: 100% !important;">Incompleto</a>';
+                    } else if (data == 2) {
+                        return '<span class="btn btn-block btn-success" title="Completa" style="font-size: 100%  !important;";>Completa</span >'
+                    }
                 }
-            },
-            {
-                "data": "acciones",
-                "name": "Acciones",
-                "autoWidth": false,
-                "render": function (data, type, row, meta) {
-                    return '<span class="text-secondary text-xs font-weight-bold">' + data + '</span>';
-                }
-            },
-
+            },          
         ],
         "createdRow": function (row, data, index) {
-            // Aquí puedes aplicar estilos o clases a las filas según tus datos
+
         },
         "ordering": true,
         "paging": true
     });
-};
+        };
 //TABLA DEL LIDER
         function IniciarTablaLider() {
             var table = $('#tablaLider').DataTable();

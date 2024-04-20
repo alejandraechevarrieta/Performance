@@ -77,22 +77,23 @@ namespace Performance.Areas.PerformanceApp.Controllers.Api
         [System.Web.Http.Route("Api/PerformanceApp/ListarPerformance")]
         [System.Web.Http.ActionName("ListarPerformance")]
         [System.Web.Http.HttpPost]
-        public HttpResponseMessage ListarPerformance(FormDataCollection form, int? colaborador, int? estado, string idPerfil)
+        public HttpResponseMessage ListarPerformance(DataTableRequestModel requestModel, int? colaborador, int? estado, string idPerfil)
         {
-            var draw = form.Get("draw");
-            var start = form.Get("start");
-            var length = form.Get("length");
-            var sortColumn = (form.Get("columns[" + form.Get("order[0][column]").FirstOrDefault() + "][data]").ToString()).ToString();
-            var sortColumnDir = form.Get("order[0][dir]").ToString();
-            var searchValue = form.Get("search[value]").ToString();
+            var draw = requestModel.draw;
+            var start = requestModel.start;
+            var length = requestModel.length;
+            var sortColumn = 1;
+            var searchValue = 1;
             int pageSize = length != null ? Convert.ToInt32(length) : 0;
             int skip = start != null ? Convert.ToInt32(start) : 0;
             int recordsTotal = 0;
 
             Servicios.ServicioPerformance _servicio = new Servicios.ServicioPerformance();
 
-            var listaPpal = new List<PerformanceVM>();
+            // Consulta a tu servicio para obtener los datos
+            var listaPpal = _servicio.listarPerformance(colaborador, estado, idPerfil);
 
+            // Filtrar y paginar los datos según los parámetros recibidos
             var listFiltr = listaPpal.Where(x => x.idPerformance > 0).Distinct().ToList();
 
             recordsTotal = listFiltr.Count();
@@ -118,6 +119,15 @@ namespace Performance.Areas.PerformanceApp.Controllers.Api
             return response;
         }
 
+        public class DataTableRequestModel
+        {
+            public int draw { get; set; }
+            public int start { get; set; }
+            public int length { get; set; }
+            public int? colaborador { get; set; }
+            public int? estado { get; set; }
+            public int idPerfil { get; set; }           
+        }
         //[System.Web.Http.Route("Api/PerformanceApp/ListarPerformance")]
         //[System.Web.Http.ActionName("ListarPerformance")]
         //[System.Web.Http.HttpGet]

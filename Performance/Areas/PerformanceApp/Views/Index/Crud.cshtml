@@ -1,24 +1,27 @@
 ﻿
 @{
     ViewBag.Title = "Crud";
+    string view = ViewBag.View;
     //var idPerfil = Session["idPerfil"];
 }
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
-    <div class="container-fluid">
-        @*<div id="autoEvaluacion">
-            @Html.Partial("_Autoevaluacion")
-        </div>*@
-        @*<div id="evaluacion">
-            @Html.Partial("_Evaluacion")
-        </div>*@
-        @*<div id="calibracion">
-            @Html.Partial("_Calibracion")
-        </div>*@
-        <div id="autoEvaluacionResumen">
-            @Html.Partial("_AutoevaluacionResumen")
-        </div>
-    </div>
+    @if (view == "autoevaluacion")
+    {
+        @Html.Partial("_Autoevaluacion")
+    }
+    else if (view == "evaluacion")
+    {
+        @Html.Partial("_Evaluacion")
+    }
+    else if (view == "resumenAutoevaluacion")
+    {
+        @Html.Partial("_AutoevaluacionResumen")
+    }
+    else
+    {
+        @Html.Partial("_Error")
+    }
 </main>
