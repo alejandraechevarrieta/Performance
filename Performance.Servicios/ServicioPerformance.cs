@@ -76,11 +76,11 @@ namespace Performance.Servicios
         {
             using (var db = new PerformanceEntities())
             {
-                var query = (from d in db.PerformanceColaborador
+                var query = (from d in db.Estados
                              select new PerformanceEstados
                              {
-                                 id = d.idPerformance,
-                                 estado = d.nombre,
+                                 id = d.id,
+                                 estado = d.estado,
                              });
                 return query.ToList();
             }

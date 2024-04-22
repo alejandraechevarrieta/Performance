@@ -20,5 +20,9 @@ namespace Performance.Model
         public int ano { get; set; }
         public int antiguedad { get; set; }
         public int idJefe { get; set; }
+        public Nullable<int> estado { get; set; }
+        public Nullable<System.DateTime> fechaAutoevaluacion { get; set; }
+        public Nullable<System.DateTime> fechaEvaluacion { get; set; }
+        public Nullable<System.DateTime> fechaCalibracion { get; set; }
     }
 }

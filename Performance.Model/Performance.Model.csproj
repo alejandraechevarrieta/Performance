@@ -101,6 +101,9 @@
     <Compile Include="Encuesta.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Estados.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="EvaluacionPerformance.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>

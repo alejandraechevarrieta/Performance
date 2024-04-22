@@ -12,13 +12,9 @@ namespace Performance.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class EvaluacionPerformance
+    public partial class Estados
     {
-        public int idEvaluacion { get; set; }
-        public int idPerformance { get; set; }
-        public int idCalificacion { get; set; }
-        public int idResponsable { get; set; }
-        public int idAutoevaluacion { get; set; }
-        public System.DateTime fechaEvaluacion { get; set; }
+        public int id { get; set; }
+        public string estado { get; set; }
     }
 }

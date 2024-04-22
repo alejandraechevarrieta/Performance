@@ -28,12 +28,13 @@ namespace Performance.Model
         public virtual DbSet<AutoEvaluacion> AutoEvaluacion { get; set; }
         public virtual DbSet<Calificacion> Calificacion { get; set; }
         public virtual DbSet<Encuesta> Encuesta { get; set; }
+        public virtual DbSet<Estados> Estados { get; set; }
+        public virtual DbSet<EvaluacionPerformance> EvaluacionPerformance { get; set; }
         public virtual DbSet<Habilidades> Habilidades { get; set; }
         public virtual DbSet<Menu> Menu { get; set; }
         public virtual DbSet<MenuPerfil> MenuPerfil { get; set; }
         public virtual DbSet<Perfiles> Perfiles { get; set; }
         public virtual DbSet<PerfilUsuario> PerfilUsuario { get; set; }
         public virtual DbSet<PerformanceColaborador> PerformanceColaborador { get; set; }
-        public virtual DbSet<EvaluacionPerformance> EvaluacionPerformance { get; set; }
     }
 }
