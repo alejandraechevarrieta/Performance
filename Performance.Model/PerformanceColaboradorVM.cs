@@ -31,13 +31,15 @@ namespace Performance.Model
         public int ano { get; set; }
         public int antiguedad { get; set; }
         public int idJefe { get; set; }
+        public string nombreJefe { get; set; }
         public int idAutoevaluacion { get; set; }
         public int idHabilidad { get; set; }
         public int idCalificacion { get; set; }
         public DateTime? fechaEvaluacion { get; set; }
         public DateTime? fechaAutoevaluacion { get; set; }
         public DateTime? fechaCalibracion { get; set; }
-        public int estado { get; set; }
+        public int? idEstado { get; set; }
+        public string estado { get; set; }
     }
     public class PerformanceEstados
     {

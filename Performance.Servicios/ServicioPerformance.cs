@@ -32,7 +32,8 @@ namespace Performance.Servicios
 
         public IQueryable<PerformanceVM> ListarPerformanceTodas()
         {
-            var tmp = (from p in db.PerformanceColaborador                       
+            var tmp = (from p in db.PerformanceColaborador
+                       join e in db.Estados on p.estado equals e.id
                        select new PerformanceVM
                        {
                            ano = p.ano,
@@ -40,15 +41,18 @@ namespace Performance.Servicios
                            idUsuario = p.idUsuario,
                            nombre = p.nombre,
                            idJefe = p.idJefe,
+                           nombreJefe = "nombre jefe",//Buscar forma de tener el nombre del jefe
                            antiguedad = p.antiguedad,
-                           fechaAutoevaluacion = null, // Asignar null a las fechas
-                           fechaEvaluacion = null,
+                           fechaAutoevaluacion = p.fechaAutoevaluacion, // Asignar null a las fechas
+                           fechaEvaluacion = p.fechaEvaluacion,
                            fechaCalibracion = null,
-                           estado = 1
+                           idEstado = p.estado,
+                           estado = e.estado,
                            //fechaCalificacion = p.fechaCalificacion,
                            //fechaAutoevaluacion = p.fechaAutoevaluacion,
                            //fechaCalibracion = p.fechaCalibracion,
                        }).OrderByDescending(x => x.ano);
+            var algo = tmp.ToList();
 
             return tmp;
         }
@@ -59,7 +63,13 @@ namespace Performance.Servicios
 
             if (colaborador != null)
             {
-                listaPpal = listaPpal.Where(p => p.idUsuario == colaborador).ToList();
+                if(idPerfil == "127")
+                {
+                    listaPpal = listaPpal.Where(p => p.idJefe == colaborador).ToList();
+                }
+                if(idPerfil == "128") {
+                    listaPpal = listaPpal.Where(p => p.idJefe == colaborador).ToList();
+                }
             }
 
           

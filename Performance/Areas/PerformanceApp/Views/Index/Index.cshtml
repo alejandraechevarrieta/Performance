@@ -343,13 +343,26 @@
 
         @*FILTROS SOLICITUDES*@
         <div class="row" style="margin: 30px; overflow:hidden;" id="rowFiltro">
-            <div class="form-group2 col-md-2" id="filtroColaborador">
-                <label>Colaborador:</label>
-                <div></div>
-                <div style="font-weight: normal !important;">
-                    <select class="form-control" id="selectColaborador"></select>
+            @if (perfil == "127" || perfil == "128")
+            {
+                <div class="form-group2 col-md-2" id="filtroColaborador">
+                    <label>Colaborador:</label>
+                    <div></div>
+                    <div style="font-weight: normal !important;">
+                        <select class="form-control" id="selectColaborador"></select>
+                    </div>
                 </div>
-            </div>
+            }
+            @if (perfil == "129")
+            {
+                <div class="form-group2 col-md-2" id="filtroLider">
+                    <label>Líder:</label>
+                    <div></div>
+                    <div style="font-weight: normal !important;">
+                        <select class="form-control" id="selectLider"></select>
+                    </div>
+                </div>
+            }
             <div class="form-group2 col-md-2" id="filtroEstado">
                 <label>Estado:</label>
                 <div></div>
@@ -429,7 +442,38 @@
                     </div>
                 </div>
             }
-
+            @if (perfil == "129")
+            {
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card mb-4">
+                            <div class="card-header pb-0">
+                                <h6>Performance RRHH</h6>
+                            </div>
+                            <div class="card-body px-0 pt-0 pb-2">
+                                <div class="table-responsive p-0">
+                                    <table class="table align-items-center mb-0" id="tablaRRHH">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Año</th>
+                                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Líder</th>
+                                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Fecha de Autoevaluación</th>
+                                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Fecha de Evaluación</th>
+                                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Fecha de Calibración</th>
+                                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Estado</th>
+                                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Acciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <!-- Los datos de la tabla se agregarán aquí dinámicamente desde JavaScript -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
         </div>
     </main>
 
@@ -534,148 +578,159 @@
     //    $('[data-toggle="tooltip"]').tooltip();
     //});
 
-    
+
     ///LISTAR PERFORMANCE
-        ListarPerformance();     
-    function IniciarTabla() {
-        var table = $('#tablaColaborador').DataTable();
-        table.page('first').draw('page'); // Vuelve a la página 1 y actualiza la tabla
-        table.clear().destroy();
+        ListarPerformance();
+
+        function ListarPerformance() {
+            
+            var colaborador = $("#selectColaborador").val();
+            var estado = $("#selectEstado").val();
+            var url = "Api/PerformanceApp/ListarPerformance";
+            url = url + "?colaborador=" + colaborador;
+            url = url + "&estado=" + estado;
+            url = url + "&idPerfil=" + "@perfil";
+            if ("@perfil" == "127") {//Tabla del colaborador
+                IniciarTabla();
+                $('#tablaColaborador').DataTable().clear().destroy();
+                CargarTablaColaborador(url);
+            }
+            if ("@perfil" == "128") {//Tabla del lider
+                IniciarTablaLider();
+                $('#tablaColaborador').DataTable().clear().destroy();
+                CargartablaLider(url);
+            }
+            if ("@perfil" == "129") {//Tabla del RRHH
+                IniciarTablaRRHH();
+                $('#tablaRRHH').DataTable().clear().destroy();
+                CargartablaRRHH(url);
+            }
         }
-    ///TABLA COLABORADOR
-    function ListarPerformance() {
-    IniciarTabla();
-    var colaborador = $("#selectColaborador").val();
-    var estado = $("#selectEstado").val();
-    var url = "Api/PerformanceApp/ListarPerformance"; 
-    url = url + "?colaborador=" + colaborador;
-    url = url + "&estado=" + estado;
-    url = url + "&idPerfil=" + "@perfil";
 
-    if ("@perfil" == "127") {
-        $('#tablaColaborador').DataTable().clear().destroy();
-        CargarTablaColaborador(url);
-    }
-}
+        //INICIAR TABLA DEL COLABORADOR
+        function IniciarTabla() {
+            var table = $('#tablaColaborador').DataTable();
+            table.page('first').draw('page'); // Vuelve a la página 1 y actualiza la tabla
+            table.clear().destroy();
+        }
+        function CargarTablaColaborador(url) {
+            moment.locale('es');
+            var table = $("#tablaColaborador").DataTable({
+                "processing": true,
+                "serverSide": true,
+                "stateSave": true,
+                "bDestroy": true,
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
+                },
+                "ajax": {
+                    "url": url,
+                    "type": "POST",
+                    "contentType": "application/json",
+                    "data": function (d) {
+                        return JSON.stringify(d);
+                    },
+                    "datatype": "json"
+                },
+                "pageLength": 25,
+                "filter": true,
+                "responsivePriority": 1,
+                "columnDefs": [
+                    { "width": "7%", "targets": 0 },
+                    { "width": "20%", "targets": 1 },
+                    { "width": "7%", "targets": 2 },
+                    { "width": "7%", "targets": 3 },
+                    { "width": "7%", "targets": 4 },
+                    { "width": "10%", "targets": 5 },
+                ],
+                "columns": [
+                    {
+                        "data": "ano",
+                        "name": "Año",
+                        "autoWidth": false,
+                        "render": function (data, type, row, meta) {
+                            return '<div class="d-flex px-2 py-1">' +
+                                '<div class="d-flex flex-column justify-content-center">' +
+                                '<h6 class="mb-0 text-sm">' + data + '</h6>' +
+                                '</div>' +
+                                '</div>';
+                        }
+                    },
+                    {
+                        "data": "idJefe",
+                        "name": "Lider",
+                        "autoWidth": false,
+                        "render": function (data, type, row, meta) {
+                            return '<div class="d-flex justify-content-center align-items-center" style="height: 100%;">' +
+                                '<div class="d-flex flex-column justify-content-center">' +
+                                '<h6 class="mb-0 text-sm">' + data + '</h6>' +
+                                '</div>' +
+                                '</div>';
+                        }
+                    },
+                    {
+                        "data": "fechaAutoevaluacion",
+                        "name": "Fecha de Autoevaluación",
+                        "autoWidth": false,
+                        "render": function (data, type, row, meta) {
+                            if (data !== null) {
+                                return '<div class="d-flex justify-content-center align-items-center" style="height: 100%;">' +
+                                    '<span class="text-secondary text-xs font-weight-bold">' + data + '</span>' +
+                                    '</div>';
+                            } else {
+                                return '';
+                            }
+                        }
+                    },
+                    {
+                        "data": "fechaEvaluacion",
+                        "name": "Fecha de Evaluación",
+                        "autoWidth": false,
+                        "render": function (data, type, row, meta) {
+                            if (data !== null) {
+                                return '<div class="d-flex justify-content-center align-items-center" style="height: 100%;">' +
+                                    '<span class="text-secondary text-xs font-weight-bold">' + data + '</span>' +
+                                    '</div>';
+                            } else {
+                                return '';
+                            }
+                        }
+                    },
+                    {
+                        "data": "fechaCalibracion",
+                        "name": "Fecha de Calibración",
+                        "autoWidth": false,
+                        "render": function (data, type, row, meta) {
+                            if (data !== null) {
+                                return '<div class="d-flex justify-content-center align-items-center" style="height: 100%;">' +
+                                    '<span class="text-secondary text-xs font-weight-bold">' + data + '</span>' +
+                                    '</div>';
+                            } else {
+                                return '';
+                            }
+                        }
+                    },
+                    {
+                        "data": "idEstado",
+                        "name": "Estado",
+                        "autoWidth": false,
+                        "render": function (data, type, row, meta) {
+                            if (data == 1) {
+                                return '<a href="/PerformanceApp/Index/Crud?view=autoevaluacion" class="btn btn-block btn-warning" title="Incompleto" style="font-size: 100% !important;">Incompleto</a>';
+                            } else if (data == 2) {
+                                return '<a href="/PerformanceApp/Index/Crud?view=autoevaluacion" class="btn btn-block btn-warning" title="Incompleto" style="font-size: 100% !important;">Incompleto</a>';
+                            }
+                        }
+                    },
+                ],
+                "createdRow": function (row, data, index) {
 
-function CargarTablaColaborador(url) {
-    moment.locale('es');
-    var table = $("#tablaColaborador").DataTable({
-        "processing": true,
-        "serverSide": true,
-        "stateSave": true,
-        "bDestroy": true,
-        "language": {
-            "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
-        },
-        "ajax": {
-            "url": url,
-            "type": "POST",
-            "contentType": "application/json",
-            "data": function (d) {
-                return JSON.stringify(d);
-            },
-            "datatype": "json"
-        },
-        "pageLength": 25,
-        "filter": true,
-        "responsivePriority": 1,
-        "columnDefs": [
-            { "width": "7%", "targets": 0 },
-            { "width": "20%", "targets": 1 },
-            { "width": "7%", "targets": 2 },
-            { "width": "7%", "targets": 3 },
-            { "width": "7%", "targets": 4 },
-            { "width": "10%", "targets": 5 },
-        ],
-        "columns": [
-            {
-                "data": "ano",
-                "name": "Año",
-                "autoWidth": false,
-                "render": function (data, type, row, meta) {
-                    return '<div class="d-flex px-2 py-1">' +
-                        '<div class="d-flex flex-column justify-content-center">' +
-                        '<h6 class="mb-0 text-sm">' + data + '</h6>' +
-                        '</div>' +
-                        '</div>';
-                }
-            },
-            {
-                "data": "idJefe",
-                "name": "Lider",
-                "autoWidth": false,
-                "render": function (data, type, row, meta) {
-                    return '<div class="d-flex justify-content-center align-items-center" style="height: 100%;">' +
-                        '<div class="d-flex flex-column justify-content-center">' +
-                        '<h6 class="mb-0 text-sm">' + data + '</h6>' +
-                        '</div>' +
-                        '</div>';
-                }
-            },
-            {
-                "data": "fechaAutoevaluacion",
-                "name": "Fecha de Autoevaluación",
-                "autoWidth": false,
-                "render": function (data, type, row, meta) {
-                    if (data !== null) {
-                        return '<div class="d-flex justify-content-center align-items-center" style="height: 100%;">' +
-                            '<span class="text-secondary text-xs font-weight-bold">' + data + '</span>' +
-                            '</div>';
-                    } else {
-                        return ''; 
-                    }
-                }
-            },
-            {
-                "data": "fechaEvaluacion",
-                "name": "Fecha de Evaluación",
-                "autoWidth": false,
-                "render": function (data, type, row, meta) {
-                    if (data !== null) {
-                        return '<div class="d-flex justify-content-center align-items-center" style="height: 100%;">' +
-                            '<span class="text-secondary text-xs font-weight-bold">' + data + '</span>' +
-                            '</div>';
-                    } else {
-                        return '';
-                    }
-                }
-            },
-            {
-                "data": "fechaCalibracion",
-                "name": "Fecha de Calibración",
-                "autoWidth": false,
-                "render": function (data, type, row, meta) {
-                    if (data !== null) {
-                        return '<div class="d-flex justify-content-center align-items-center" style="height: 100%;">' +
-                            '<span class="text-secondary text-xs font-weight-bold">' + data + '</span>' +
-                            '</div>';
-                    } else {
-                        return ''; 
-                    }
-                }
-            },
-            {
-                "data": "estado",
-                "name": "Estado",
-                "autoWidth": false,
-                "render": function (data, type, row, meta) {                 
-                    if (data == 1) {
-                        return '<a href="/PerformanceApp/Index/Crud?view=autoevaluacion" class="btn btn-block btn-warning" title="Incompleto" style="font-size: 100% !important;">Incompleto</a>';
-                    } else if (data == 2) {
-                        return '<span class="btn btn-block btn-success" title="Completa" style="font-size: 100%  !important;";>Completa</span >'
-                    }
-                }
-            },          
-        ],
-        "createdRow": function (row, data, index) {
-
-        },
-        "ordering": true,
-        "paging": true
-    });
+                },
+                "ordering": true,
+                "paging": true
+            });
         };
-//TABLA DEL LIDER
+        //INICIAR TABLA DEL LIDER
         function IniciarTablaLider() {
             var table = $('#tablaLider').DataTable();
             table.page('first').draw('page'); // Vuelve a la página 1 y actualiza la tabla
@@ -693,7 +748,127 @@ function CargarTablaColaborador(url) {
                 },
                 "ajax": {
                     "url": url,
-                    "type": "GET",
+                    "type": "POST",
+                    "data": function (d) {
+                        return JSON.stringify(d);
+                    },
+                    "datatype": "json"
+                },
+                "pageLength": 25,
+                "filter": true,
+                "responsivePriority": 1,
+                "columnDefs": [
+                    { "width": "10%", "targets": 0 },
+                    { "width": "20%", "targets": 1 },
+                    { "width": "14%", "targets": 2 },
+                    { "width": "14%", "targets": 3 },
+                    { "width": "14%", "targets": 4 },
+                    { "width": "14%", "targets": 5 },
+                    { "width": "14%", "targets": 6 },
+                ],
+                "columns": [
+                    {
+                        "data": "ano",
+                        "name": "ano",
+                        "autoWidth": false,
+                        "render": function (data, type, row, meta) {
+                            return '<div class="d-flex px-2 py-1">' +
+                                '<div class="d-flex flex-column justify-content-center">' +
+                                '<h6 class="mb-0 text-sm">' + data + '</h6>' +
+                                '</div>' +
+                                '</div>';
+                        }
+                    },
+                    {
+                        "data": "nombre",
+                        "name": "nombre",
+                        "autoWidth": false,
+                        "render": function (data, type, row, meta) {
+                            return '<div class="d-flex px-2 py-1">' +
+                                '<div class="d-flex flex-column justify-content-center">' +
+                                '<h6 class="mb-0 text-sm">' + data + '</h6>' +
+                                '</div>' +
+                                '</div>';
+                        }
+                    },
+                    {
+                        "data": "fechaAutoevaluacion",
+                        "name": "fechaAutoevaluacion",
+                        "autoWidth": false,
+                        "render": function (data, type, row, meta) {
+                            return '<span class="text-secondary text-xs font-weight-bold">' + data + '</span>';
+                        }
+                    },
+                    {
+                        "data": "fechaEvaluacion",
+                        "name": "fechaEvaluacion",
+                        "autoWidth": false,
+                        "render": function (data, type, row, meta) {
+                            return '<span class="text-secondary text-xs font-weight-bold">' + data + '</span>';
+                        }
+                    },
+                    {
+                        "data": "fechaCalibracion",
+                        "name": "fechaCalibracion",
+                        "autoWidth": false,
+                        "render": function (data, type, row, meta) {
+                            return '<span class="text-secondary text-xs font-weight-bold">' + data + '</span>';
+                        }
+                    },
+                    {
+                        "data": "estado",
+                        "name": "estado",
+                        "autoWidth": false,
+                        "render": function (data, type, row, meta) {
+                            if (data == 1) {
+                                return '<span class="badge badge-sm badge-success">Finalizado</span>';
+                            }
+                            else if (data == 2) {
+                                return '<span class="badge badge-sm badge-danger">A realizar</span>';
+                            }
+
+                        }
+                    },
+                    {
+                        "data": "acciones",
+                        "name": "Acciones",
+                        "autoWidth": false,
+                        "render": function (data, type, row, meta) {
+                            return '<span class="text-secondary text-xs font-weight-bold">' + data + '</span>';
+                        }
+                    },
+
+                ],
+                "createdRow": function (row, data, index) {
+                    // Aquí puedes aplicar estilos o clases a las filas según tus datos
+                },
+                "ordering": true,
+                "paging": true
+            });
+        };
+
+        //INICIAR TABLA RRHH
+        function IniciarTablaRRHH() {
+            var table = $('#tablaRRHH').DataTable();
+            table.page('first').draw('page'); // Vuelve a la página 1 y actualiza la tabla
+            table.clear().destroy();
+        }
+        function CargartablaRRHH(url) {
+            moment.locale('es');
+            var table = $("#tablaRRHH").DataTable({
+                "processing": true,
+                "serverSide": true,
+                "stateSave": true,
+                "bDestroy": true,
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
+                },
+                "ajax": {
+                    "url": url,
+                    "type": "POST",
+                    "data": function (d) {
+                        return JSON.stringify(d);
+                    },
                     "datatype": "json"
                 },
                 "pageLength": 25,
@@ -722,8 +897,8 @@ function CargarTablaColaborador(url) {
                         }
                     },
                     {
-                        "data": "nombre",
-                        "name": "Colaborador",
+                        "data": "nombreJefe",
+                        "name": "Líder",
                         "autoWidth": false,
                         "render": function (data, type, row, meta) {
                             return '<div class="d-flex px-2 py-1">' +
@@ -768,7 +943,7 @@ function CargarTablaColaborador(url) {
                             else if (data == 2) {
                                 return '<span class="badge badge-sm badge-danger">A realizar</span>';
                             }
-                            
+
                         }
                     },
                     {
