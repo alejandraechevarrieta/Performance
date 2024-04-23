@@ -203,6 +203,10 @@
             font-family: FontAwesome;
             content: "\f06e";
         }
+        #progressbar #resu:before {
+            font-family: FontAwesome;
+            content: "\f03a";
+        }
 
         /*ProgressBar before any progress*/
         #progressbar li:before {
@@ -339,6 +343,163 @@
         display: flex; /* Utilizar flexbox para alinear los botones */
         justify-content: space-between; /* Espaciar uniformemente los botones */
     }
+
+    /*LAPIZ*/
+    .lapiz {
+        color: #676464;
+        cursor: default;
+        transition: color 0.3s;
+        position: relative;
+        margin-top: 35px;
+        margin-right: 10px;
+    }
+
+        .lapiz:hover {
+            cursor: pointer;
+        }
+
+        .lapiz:active {
+            color: #13bcf5;
+        }
+
+    /*Imaged Radio Buttons*/
+
+    .radio-group {
+        position: relative;
+        margin-bottom: 25px;
+    }
+
+    .radio {
+        display: inline-block;
+        width: 204px;
+        height: 104px;
+        border-radius: 0;
+        background: lightblue;
+        box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.2);
+        box-sizing: border-box;
+        cursor: pointer;
+        margin: 8px 2px;
+    }
+
+        .radio:hover {
+            box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        .radio.selected {
+            box-shadow: 1px 1px 2px 2px rgba(0, 0, 0, 0.1);
+        }
+
+    /*Fit image in bootstrap div*/
+    .fit-image {
+        width: 100%;
+        object-fit: cover;
+    }
+
+    .form-card {
+        display: inline-block; /* Mostrar los botones en línea */
+    }
+
+        /* Ajuste para el último botón dentro de .form-card */
+        .form-card input[type="button"]:last-child {
+            margin-right: 0; /* Elimina el margen derecho del último botón */
+        }
+
+    /* Estilos para los botones dentro de .form-card */
+    .form-card {
+        display: flex; /* Usar flexbox para alinear los elementos */
+        justify-content: space-between; /* Espacio uniforme entre los elementos */
+    }
+
+        .form-card input[type="button"] {
+            flex: 1; /* Los botones ocupan igualmente todo el espacio disponible */
+            margin-right: 10px; /* Espacio entre los botones */
+        }
+
+            /* Ajuste para el último botón dentro de .form-card */
+            .form-card input[type="button"]:last-child {
+                margin-right: 0; /* Elimina el margen derecho del último botón */
+            }
+    /* Estilos para los botones dentro de .form-card */
+    .form-card {
+        display: flex; /* Utilizar flexbox para alinear los elementos */
+        flex-direction: column; /* Alinear elementos verticalmente */
+    }
+
+    .button-container {
+        display: flex; /* Utilizar flexbox para alinear los botones */
+        justify-content: space-between; /* Espaciar uniformemente los botones */
+    }
+
+    .separator {
+        margin-top: 20px; /* Ajustar el margen superior según sea necesario */
+        margin: 0 auto; /* Eliminar los márgenes laterales y centrar el separador */
+        border-bottom: 3px solid #7380C4; /* Aumentar el grosor del borde inferior */
+        padding: 10px 10px; /* Aumentar el espacio interior del separador */
+        color: #034;
+        clear: both;
+    }
+
+    .description {
+        font-size: 14px;
+        color: #666;
+        margin-top: 20px;
+    }
+
+    /* RADIO */
+    .radio-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+    .radio-group {
+        flex-basis: calc(33.33% - 20px); /* Esto ajusta el ancho de cada grupo de radios con espacio entre ellos */
+        margin-bottom: 10px; /* Espacio entre los grupos */
+    }
+
+        .radio-group input[type="radio"] {
+            display: none; /* Oculta el radio predeterminado */
+        }
+
+            .radio-group input[type="radio"] + label {
+                position: relative;
+                padding-left: 25px; /* Espacio para el marcador de radio */
+                cursor: pointer;
+                font-size: 16px; /* Tamaño del texto */
+                display: block;
+                margin-bottom: 5px; /* Espacio entre cada radio y su etiqueta */
+            }
+
+                .radio-group input[type="radio"] + label:before {
+                    content: '';
+                    position: absolute;
+                    left: 0;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    width: 20px; /* Ancho del marcador de radio */
+                    height: 20px; /* Altura del marcador de radio */
+                    border: 1px solid #ccc; /* Borde del marcador de radio */
+                    border-radius: 50%; /* Borde redondeado */
+                    margin-top: -10px; /* Ajuste para centrar verticalmente */
+                }
+
+            .radio-group input[type="radio"]:checked + label:before {
+                background-color: #007bff; /* Color de fondo del marcador de radio cuando está seleccionado */
+            }
+    .radio-group {
+        flex-basis: 10%; /* Esto ajusta el ancho de cada grupo de checkbox */
+        margin-bottom: 10px; /* Espacio entre los grupos */
+        margin-right: 60px;
+        margin-top: 50px;
+    }
+
+        .radio-group input[type="radio"] {
+            margin-right: 50px; /* Espacio entre el checkbox y la etiqueta */
+        }
+
+        .radio-group label {
+            white-space: nowrap; /* Evita que las palabras se dividan en múltiples líneas */
+        }
 </style>
 
 <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
@@ -361,6 +522,7 @@
                                     <li id="interpersonal"><strong>Comunicación efectiva</strong></li>
                                     <li id="cambio"><strong>Gestion del cambio</strong></li>
                                     <li id="confirm"><strong>Visión sistémica</strong></li>
+                                    <li id="resu"><strong>Resumen</strong></li>
                                 </ul>
                                 <!-- fieldsets -->
                                 <fieldset>
@@ -462,6 +624,134 @@
                                     <input type="button" name="previous" class="previous action-button-previous" value="Volver" />
                                     <input type="button" name="make_payment" class="next action-button" value="Confirmar" />
                                 </fieldset>
+                                <fieldset>
+                                    <div class="form-card">
+                                        <p class="h2"><strong>Autoevaluación de Habilidades</strong></p>
+                                        <p class="h4">Revise sus respuestas, una vez enviadas no podrá modificarlas.</p>
+                                        <div class="form-card">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <h2 class="fs-title">Autodesarrollo</h2>
+                                                <div class="radio-container">
+                                                    <div class="radio-group" data-toggle="tooltip" title="Necesita ayuda para mostrar esta habilidad">
+                                                        <input type="radio" name="autodesarrollo" value="En proceso" id="en_proceso_radio">
+                                                        <label for="en_proceso_radio"> En proceso</label>
+                                                    </div>
+                                                    <div class="radio-group" data-toggle="tooltip" title="Se desenvuelve bien sin ayuda">
+                                                        <input type="radio" name="autodesarrollo" value="Autónomo" id="autonomo_radio">
+                                                        <label for="autonomo_radio"> Autónomo</label>
+                                                    </div>
+                                                    <div class="radio-group" data-toggle="tooltip" title="Es capaz de ayudar y enseñar a otros miembros del equipo">
+                                                        <input type="radio" name="autodesarrollo" value="Fortaleza" id="fortaleza_radio">
+                                                        <label for="fortaleza_radio"> Fortaleza</label>
+                                                    </div>
+                                                    <i class="lapiz fas fa-pencil-alt" onclick="miFuncion()"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-card">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <h2 class="fs-title">Empoderamiento</h2>
+                                                <div class="radio-container">
+                                                    <div class="radio-group" data-toggle="tooltip" title="Necesita ayuda para mostrar esta habilidad">
+                                                        <input type="radio" name="empoderamiento" value="En proceso" id="empoderamiento_en_proceso_radio">
+                                                        <label for="empoderamiento_en_proceso_radio"> En proceso</label>
+                                                    </div>
+                                                    <div class="radio-group" data-toggle="tooltip" title="Se desenvuelve bien sin ayuda">
+                                                        <input type="radio" name="empoderamiento" value="Autónomo" id="empoderamiento_autonomo_radio">
+                                                        <label for="empoderamiento_autonomo_radio"> Autónomo</label>
+                                                    </div>
+                                                    <div class="radio-group" data-toggle="tooltip" title="Es capaz de ayudar y enseñar a otros miembros del equipo">
+                                                        <input type="radio" name="empoderamiento" value="Fortaleza" id="empoderamiento_fortaleza_radio">
+                                                        <label for="empoderamiento_fortaleza_radio"> Fortaleza</label>
+                                                    </div>
+                                                    <i class="lapiz fas fa-pencil-alt"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-card">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <h2 class="fs-title">Espíritu del trabajo</h2>
+                                                <div class="radio-container">
+                                                    <div class="radio-group" data-toggle="tooltip" title="Necesita ayuda para mostrar esta habilidad">
+                                                        <input type="radio" name="espiritu_del_trabajo" value="En proceso" id="espiritu_del_trabajo_en_proceso_radio">
+                                                        <label for="espiritu_del_trabajo_en_proceso_radio"> En proceso</label>
+                                                    </div>
+                                                    <div class="radio-group" data-toggle="tooltip" title="Se desenvuelve bien sin ayuda">
+                                                        <input type="radio" name="espiritu_del_trabajo" value="Autónomo" id="espiritu_del_trabajo_autonomo_radio">
+                                                        <label for="espiritu_del_trabajo_autonomo_radio"> Autónomo</label>
+                                                    </div>
+                                                    <div class="radio-group" data-toggle="tooltip" title="Es capaz de ayudar y enseñar a otros miembros del equipo">
+                                                        <input type="radio" name="espiritu_del_trabajo" value="Fortaleza" id="espiritu_del_trabajo_fortaleza_radio">
+                                                        <label for="espiritu_del_trabajo_fortaleza_radio"> Fortaleza</label>
+                                                    </div>
+                                                    <i class="lapiz fas fa-pencil-alt"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-card">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <h2 class="fs-title">Habilidad interpersonal</h2>
+                                                <div class="radio-container">
+                                                    <div class="radio-group" data-toggle="tooltip" title="Necesita ayuda para mostrar esta habilidad">
+                                                        <input type="radio" name="habilidad_interpersonal" value="En proceso" id="habilidad_interpersonal_en_proceso_radio">
+                                                        <label for="habilidad_interpersonal_en_proceso_radio"> En proceso</label>
+                                                    </div>
+                                                    <div class="radio-group" data-toggle="tooltip" title="Se desenvuelve bien sin ayuda">
+                                                        <input type="radio" name="habilidad_interpersonal" value="Autónomo" id="habilidad_interpersonal_autonomo_radio">
+                                                        <label for="habilidad_interpersonal_autonomo_radio"> Autónomo</label>
+                                                    </div>
+                                                    <div class="radio-group" data-toggle="tooltip" title="Es capaz de ayudar y enseñar a otros miembros del equipo">
+                                                        <input type="radio" name="habilidad_interpersonal" value="Fortaleza" id="habilidad_interpersonal_fortaleza_radio">
+                                                        <label for="habilidad_interpersonal_fortaleza_radio"> Fortaleza</label>
+                                                    </div>
+                                                    <i class="lapiz fas fa-pencil-alt"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-card">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <h2 class="fs-title">Gestión del cambio</h2>
+                                                <div class="radio-container">
+                                                    <div class="radio-group" data-toggle="tooltip" title="Necesita ayuda para mostrar esta habilidad">
+                                                        <input type="radio" name="gestion_del_cambio" value="En proceso" id="gestion_del_cambio_en_proceso_radio">
+                                                        <label for="gestion_del_cambio_en_proceso_radio"> En proceso</label>
+                                                    </div>
+                                                    <div class="radio-group" data-toggle="tooltip" title="Se desenvuelve bien sin ayuda">
+                                                        <input type="radio" name="gestion_del_cambio" value="Autónomo" id="gestion_del_cambio_autonomo_radio">
+                                                        <label for="gestion_del_cambio_autonomo_radio"> Autónomo</label>
+                                                    </div>
+                                                    <div class="radio-group" data-toggle="tooltip" title="Es capaz de ayudar y enseñar a otros miembros del equipo">
+                                                        <input type="radio" name="gestion_del_cambio" value="Fortaleza" id="gestion_del_cambio_fortaleza_radio">
+                                                        <label for="gestion_del_cambio_fortaleza_radio"> Fortaleza</label>
+                                                    </div>
+                                                    <i class="lapiz fas fa-pencil-alt"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-card">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <h2 class="fs-title">Visión estratégica</h2>
+                                                <div class="radio-container">
+                                                    <div class="radio-group" data-toggle="tooltip" title="Necesita ayuda para mostrar esta habilidad">
+                                                        <input type="radio" name="vision_estrategica" value="En proceso" id="vision_estrategica_en_proceso_radio">
+                                                        <label for="vision_estrategica_en_proceso_radio"> En proceso</label>
+                                                    </div>
+                                                    <div class="radio-group" data-toggle="tooltip" title="Se desenvuelve bien sin ayuda">
+                                                        <input type="radio" name="vision_estrategica" value="Autónomo" id="vision_estrategica_autonomo_radio">
+                                                        <label for="vision_estrategica_autonomo_radio"> Autónomo</label>
+                                                    </div>
+                                                    <div class="radio-group" data-toggle="tooltip" title="Es capaz de ayudar y enseñar a otros miembros del equipo">
+                                                        <input type="radio" name="vision_estrategica" value="Fortaleza" id="vision_estrategica_fortaleza_radio">
+                                                        <label for="vision_estrategica_fortaleza_radio"> Fortaleza</label>
+                                                    </div>
+                                                    <i class="lapiz fas fa-pencil-alt"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <input type="button" name="previous" class="action-button-previous" value="Cancelar" />
+                                    <input type="button" name="make_payment" class="action-button" value="Confirmar" />
+                                </fieldset>
                             </form>
                         </div>
                     </div>
@@ -476,17 +766,17 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script>
     //Codigo para checkbox
-    const checkboxes = document.querySelectorAll('.form-check-input');
+    //const checkboxes = document.querySelectorAll('.form-check-input');
 
-    checkboxes.forEach(checkbox => {
-        checkbox.addEventListener('click', () => {
-            checkboxes.forEach(otherCheckbox => {
-                if (otherCheckbox !== checkbox) {
-                    otherCheckbox.checked = false;
-                }
-            });
-        });
-    });
+    //checkboxes.forEach(checkbox => {
+    //    checkbox.addEventListener('click', () => {
+    //        checkboxes.forEach(otherCheckbox => {
+    //            if (otherCheckbox !== checkbox) {
+    //                otherCheckbox.checked = false;
+    //            }
+    //        });
+    //    });
+    //});
 
     $(document).ready(function () {
 
