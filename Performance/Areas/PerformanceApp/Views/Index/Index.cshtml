@@ -1,8 +1,8 @@
 ﻿@{
     ViewBag.Title = "Home Page";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    //var perfil = "128";
-    var perfil = Request.QueryString["perfil"];
+    var perfil = "127";
+    //var perfil = Request.QueryString["perfil"];
 }
 
 <!DOCTYPE html>
@@ -12,7 +12,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title</title>
     <!-- Estilos de Bootstrap -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0/css/bootstrap.min.css">
+    @*<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0/css/bootstrap.min.css">*@
 
     <!-- Estilos de DataTables -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
@@ -587,7 +587,7 @@
             var colaborador = $("#selectColaborador").val();
             var estado = $("#selectEstado").val();
             var url = "Api/PerformanceApp/ListarPerformance";
-            url = url + "?colaborador=" + colaborador;
+            url = url + "?colaborador=" + 2125;
             url = url + "&estado=" + estado;
             url = url + "&idPerfil=" + "@perfil";
             if ("@perfil" == "127") {//Tabla del colaborador
@@ -597,7 +597,7 @@
             }
             if ("@perfil" == "128") {//Tabla del lider
                 IniciarTablaLider();
-                $('#tablaColaborador').DataTable().clear().destroy();
+                $('#tablaLider').DataTable().clear().destroy();
                 CargartablaLider(url);
             }
             if ("@perfil" == "129") {//Tabla del RRHH
@@ -732,9 +732,9 @@
         };
         //INICIAR TABLA DEL LIDER
         function IniciarTablaLider() {
+            $('#tablaLider').DataTable().clear().destroy();
             var table = $('#tablaLider').DataTable();
             table.page('first').draw('page'); // Vuelve a la página 1 y actualiza la tabla
-            table.clear().destroy();
         }
         function CargartablaLider(url) {
             moment.locale('es');
@@ -769,7 +769,7 @@
                 "columns": [
                     {
                         "data": "ano",
-                        "name": "ano",
+                        "name": "Año",
                         "autoWidth": false,
                         "render": function (data, type, row, meta) {
                             return '<div class="d-flex px-2 py-1">' +
@@ -781,7 +781,7 @@
                     },
                     {
                         "data": "nombre",
-                        "name": "nombre",
+                        "name": "Colaborador",
                         "autoWidth": false,
                         "render": function (data, type, row, meta) {
                             return '<div class="d-flex px-2 py-1">' +
@@ -793,7 +793,7 @@
                     },
                     {
                         "data": "fechaAutoevaluacion",
-                        "name": "fechaAutoevaluacion",
+                        "name": "Fecha de Autoevaluación",
                         "autoWidth": false,
                         "render": function (data, type, row, meta) {
                             return '<span class="text-secondary text-xs font-weight-bold">' + data + '</span>';
@@ -801,7 +801,7 @@
                     },
                     {
                         "data": "fechaEvaluacion",
-                        "name": "fechaEvaluacion",
+                        "name": "Fecha de Evaluación",
                         "autoWidth": false,
                         "render": function (data, type, row, meta) {
                             return '<span class="text-secondary text-xs font-weight-bold">' + data + '</span>';
@@ -809,15 +809,15 @@
                     },
                     {
                         "data": "fechaCalibracion",
-                        "name": "fechaCalibracion",
+                        "name": "Fecha de Calibración",
                         "autoWidth": false,
                         "render": function (data, type, row, meta) {
                             return '<span class="text-secondary text-xs font-weight-bold">' + data + '</span>';
                         }
                     },
                     {
-                        "data": "estado",
-                        "name": "estado",
+                        "data": "idEstado",
+                        "name": "Estado",
                         "autoWidth": false,
                         "render": function (data, type, row, meta) {
                             if (data == 1) {
@@ -830,7 +830,7 @@
                         }
                     },
                     {
-                        "data": "acciones",
+                        "data": "idEstado",
                         "name": "Acciones",
                         "autoWidth": false,
                         "render": function (data, type, row, meta) {
