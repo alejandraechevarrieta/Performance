@@ -41,16 +41,13 @@ namespace Performance.Servicios
                            idUsuario = p.idUsuario,
                            nombre = p.nombre,
                            idJefe = p.idJefe,
-                           nombreJefe = "nombre jefe",//Buscar forma de tener el nombre del jefe
+                           nombreJefe = p.nombreJefe,
                            antiguedad = p.antiguedad,
-                           fechaAutoevaluacion = p.fechaAutoevaluacion, // Asignar null a las fechas
+                           fechaAutoevaluacion = p.fechaAutoevaluacion, 
                            fechaEvaluacion = p.fechaEvaluacion,
-                           fechaCalibracion = null,
+                           fechaCalibracion = p.fechaCalibracion,
                            idEstado = p.estado,
-                           estado = e.estado,
-                           //fechaCalificacion = p.fechaCalificacion,
-                           //fechaAutoevaluacion = p.fechaAutoevaluacion,
-                           //fechaCalibracion = p.fechaCalibracion,
+                           estado = e.estado,                           
                        }).OrderByDescending(x => x.ano);
             var algo = tmp.ToList();
 
@@ -70,9 +67,7 @@ namespace Performance.Servicios
                 if(idPerfil == "128") {
                     listaPpal = listaPpal.Where(p => p.idJefe == colaborador).ToList();
                 }
-            }
-
-          
+            }          
 
             return listaPpal;
         }
