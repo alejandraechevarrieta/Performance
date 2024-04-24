@@ -500,6 +500,9 @@
         .radio-group label {
             white-space: nowrap; /* Evita que las palabras se dividan en múltiples líneas */
         }
+        .tituloResumen{
+            margin-right: inherit;
+        }
 </style>
 
 <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
@@ -541,6 +544,7 @@
                                             <p class="h5">Actitud de superación permanente.  Búsqueda constante del crecimiento personal y profesional, siendo consciente de sus fortalezas y aspectos de mejora. Disposición a  experimentar nuevas ideas, conocimientos y experiencias.</p>
                                         </div>
                                         <div class="button-container mt-2">
+                                            <input type="button" data-toggle="tooltip" data-bs-placement="bottom" title="No es requerida por la posición" value="No aplica" />
                                             <input type="button" data-toggle="tooltip" data-bs-placement="bottom" title="Necesita ayuda para mostrar esta habilidad" value="En progreso" />
                                             <input type="button" data-toggle="tooltip" data-bs-placement="bottom" title="Se desenvuelve bien sin ayuda" value="Autónomo" />
                                             <input type="button" data-toggle="tooltip" data-bs-placement="bottom" title="Es capaz de ayudar y enseñar a otros miembros del equipo" value="Fortaleza" />
@@ -556,6 +560,7 @@
                                             <p class="h5">Capacidad de tomar decisiones, actuar y asumir los impactos de las mismas. La autonomia se fundamenta en la voluntad, la disciplina y responsabilidad.</p>
                                         </div>
                                         <div class="button-container mt-2">
+                                            <input type="button" data-toggle="tooltip" data-bs-placement="bottom" title="No es requerida por la posición" value="No aplica" />
                                             <input type="button" data-toggle="tooltip" data-bs-placement="bottom" title="Necesita ayuda para mostrar esta habilidad" value="En progreso" />
                                             <input type="button" data-toggle="tooltip" data-bs-placement="bottom" title="Se desenvuelve bien sin ayuda" value="Autónomo" />
                                             <input type="button" data-toggle="tooltip" data-bs-placement="bottom" title="Es capaz de ayudar y enseñar a otros miembros del equipo" value="Fortaleza" />
@@ -571,6 +576,7 @@
                                             <p class="h5">Actitud genuina para cooperar y colaborar con otros miembros de la empresa apuntando al logro de objetivos comunes, produciendo colectivamente resultados superiores a los individuales.</p>
                                         </div>
                                         <div class="button-container mt-2">
+                                            <input type="button" data-toggle="tooltip" data-bs-placement="bottom" title="No es requerida por la posición" value="No aplica" />
                                             <input type="button" data-toggle="tooltip" data-bs-placement="bottom" title="Necesita ayuda para mostrar esta habilidad" value="En progreso" />
                                             <input type="button" data-toggle="tooltip" data-bs-placement="bottom" title="Se desenvuelve bien sin ayuda" value="Autónomo" />
                                             <input type="button" data-toggle="tooltip" data-bs-placement="bottom" title="Es capaz de ayudar y enseñar a otros miembros del equipo" value="Fortaleza" />
@@ -586,6 +592,7 @@
                                             <p class="h5">Capacidad de transmitir mensajes de manera clara, concisa y comprensible, así como de escuchar activamente y comprender las ideas y perspectivas de los demás.</p>
                                         </div>
                                         <div class="button-container mt-2">
+                                            <input type="button" data-toggle="tooltip" data-bs-placement="bottom" title="No es requerida por la posición" value="No aplica" />
                                             <input type="button" data-toggle="tooltip" data-bs-placement="bottom" title="Necesita ayuda para mostrar esta habilidad" value="En progreso" />
                                             <input type="button" data-toggle="tooltip" data-bs-placement="bottom" title="Se desenvuelve bien sin ayuda" value="Autónomo" />
                                             <input type="button" data-toggle="tooltip" data-bs-placement="bottom" title="Es capaz de ayudar y enseñar a otros miembros del equipo" value="Fortaleza" />
@@ -601,6 +608,7 @@
                                             <p class="h5">Capacidad para actuar en escenarios dinámicos, ambiguos e inciertos, buscando de manera permanente y proactiva, oportunidades para generar ideas y soluciones que agreguen valor a la organización, inspirando a los demas.</p>
                                         </div>
                                         <div class="button-container mt-2">
+                                            <input type="button" data-toggle="tooltip" data-bs-placement="bottom" title="No es requerida por la posición" value="No aplica" />
                                             <input type="button" data-toggle="tooltip" data-bs-placement="bottom" title="Necesita ayuda para mostrar esta habilidad" value="En progreso" />
                                             <input type="button" data-toggle="tooltip" data-bs-placement="bottom" title="Se desenvuelve bien sin ayuda" value="Autónomo" />
                                             <input type="button" data-toggle="tooltip" data-bs-placement="bottom" title="Es capaz de ayudar y enseñar a otros miembros del equipo" value="Fortaleza" />
@@ -616,6 +624,7 @@
                                             <p class="h5">Capacidad de entender y considerar el sistema completo en el que opera la organización, reconociendo las interconexiones y las interdependencias entre diferentes actores y procesos.</p>
                                         </div>
                                         <div class="button-container mt-2">
+                                            <input type="button" data-toggle="tooltip" data-bs-placement="bottom" title="No es requerida por la posición" value="No aplica" />
                                             <input type="button" data-toggle="tooltip" data-bs-placement="bottom" title="Necesita ayuda para mostrar esta habilidad" value="En progreso" />
                                             <input type="button" data-toggle="tooltip" data-bs-placement="bottom" title="Se desenvuelve bien sin ayuda" value="Autónomo" />
                                             <input type="button" data-toggle="tooltip" data-bs-placement="bottom" title="Es capaz de ayudar y enseñar a otros miembros del equipo" value="Fortaleza" />
@@ -625,126 +634,150 @@
                                     <input type="button" name="make_payment" class="next action-button" value="Confirmar" />
                                 </fieldset>
                                 <fieldset>
-                                    <div class="form-card">
+                                    <div class="form-card p-2">
                                         <p class="h2"><strong>Autoevaluación de Habilidades</strong></p>
                                         <p class="h4">Revise sus respuestas, una vez enviadas no podrá modificarlas.</p>
-                                        <div class="form-card">
-                                            <div class="d-flex justify-content-between align-items-center">
-                                                <h2 class="fs-title">Autodesarrollo</h2>
-                                                <div class="radio-container">
-                                                    <div class="radio-group" data-toggle="tooltip" title="Necesita ayuda para mostrar esta habilidad">
+                                        <div class="form-card p-1">
+                                            <div class="d-flex justify-content-center align-items-center m-4">
+                                                <h2 class="fs-title tituloResumen">Autodesarrollo</h2>
+                                                <div class="radio-container justify-content-between align-items-center">
+                                                    <div class="radio-group m-1 mt-3" data-toggle="tooltip" title="No es requerida por la posición">
+                                                        <input type="radio" name="autodesarrollo" value="No aplica" id="no_aplica_radio">
+                                                        <label for="no_aplica_radio"> No aplica</label>
+                                                    </div>
+                                                    <div class="radio-group m-1 mt-3" data-toggle="tooltip" title="Necesita ayuda para mostrar esta habilidad">
                                                         <input type="radio" name="autodesarrollo" value="En proceso" id="en_proceso_radio">
                                                         <label for="en_proceso_radio"> En proceso</label>
                                                     </div>
-                                                    <div class="radio-group" data-toggle="tooltip" title="Se desenvuelve bien sin ayuda">
+                                                    <div class="radio-group m-1 mt-3" data-toggle="tooltip" title="Se desenvuelve bien sin ayuda">
                                                         <input type="radio" name="autodesarrollo" value="Autónomo" id="autonomo_radio">
                                                         <label for="autonomo_radio"> Autónomo</label>
                                                     </div>
-                                                    <div class="radio-group" data-toggle="tooltip" title="Es capaz de ayudar y enseñar a otros miembros del equipo">
+                                                    <div class="radio-group m-1 mt-3" data-toggle="tooltip" title="Es capaz de ayudar y enseñar a otros miembros del equipo">
                                                         <input type="radio" name="autodesarrollo" value="Fortaleza" id="fortaleza_radio">
                                                         <label for="fortaleza_radio"> Fortaleza</label>
                                                     </div>
-                                                    <i class="lapiz fas fa-pencil-alt" onclick="miFuncion()"></i>
+                                                    <i class="lapiz fas fa-pencil-alt m-3" onclick="miFuncion()"></i>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="form-card">
-                                            <div class="d-flex justify-content-between align-items-center">
-                                                <h2 class="fs-title">Empoderamiento</h2>
-                                                <div class="radio-container">
-                                                    <div class="radio-group" data-toggle="tooltip" title="Necesita ayuda para mostrar esta habilidad">
+                                        <div class="form-card p-1">
+                                            <div class="d-flex justify-content-center align-items-center m-4">
+                                                <h2 class="fs-title tituloResumen">Empoderamiento</h2>
+                                                <div class="radio-container justify-content-between align-items-center">
+                                                    <div class="radio-group m-1 mt-3" data-toggle="tooltip" title="No es requerida por la posición">
+                                                        <input type="radio" name="autodesarrollo" value="No aplica" id="no_aplica_radio">
+                                                        <label for="no_aplica_radio"> No aplica</label>
+                                                    </div>
+                                                    <div class="radio-group m-1 mt-3" data-toggle="tooltip" title="Necesita ayuda para mostrar esta habilidad">
                                                         <input type="radio" name="empoderamiento" value="En proceso" id="empoderamiento_en_proceso_radio">
                                                         <label for="empoderamiento_en_proceso_radio"> En proceso</label>
                                                     </div>
-                                                    <div class="radio-group" data-toggle="tooltip" title="Se desenvuelve bien sin ayuda">
+                                                    <div class="radio-group m-1 mt-3" data-toggle="tooltip" title="Se desenvuelve bien sin ayuda">
                                                         <input type="radio" name="empoderamiento" value="Autónomo" id="empoderamiento_autonomo_radio">
                                                         <label for="empoderamiento_autonomo_radio"> Autónomo</label>
                                                     </div>
-                                                    <div class="radio-group" data-toggle="tooltip" title="Es capaz de ayudar y enseñar a otros miembros del equipo">
+                                                    <div class="radio-group m-1 mt-3" data-toggle="tooltip" title="Es capaz de ayudar y enseñar a otros miembros del equipo">
                                                         <input type="radio" name="empoderamiento" value="Fortaleza" id="empoderamiento_fortaleza_radio">
                                                         <label for="empoderamiento_fortaleza_radio"> Fortaleza</label>
                                                     </div>
-                                                    <i class="lapiz fas fa-pencil-alt"></i>
+                                                    <i class="lapiz fas fa-pencil-alt m-3"></i>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="form-card">
-                                            <div class="d-flex justify-content-between align-items-center">
-                                                <h2 class="fs-title">Espíritu del trabajo</h2>
-                                                <div class="radio-container">
-                                                    <div class="radio-group" data-toggle="tooltip" title="Necesita ayuda para mostrar esta habilidad">
+                                        <div class="form-card p-1">
+                                            <div class="d-flex justify-content-center align-items-center m-4">
+                                                <h2 class="fs-title tituloResumen">Espíritu del trabajo</h2>
+                                                <div class="radio-container justify-content-between align-items-center">
+                                                    <div class="radio-group m-1 mt-3" data-toggle="tooltip" title="No es requerida por la posición">
+                                                        <input type="radio" name="autodesarrollo" value="No aplica" id="no_aplica_radio">
+                                                        <label for="no_aplica_radio"> No aplica</label>
+                                                    </div>
+                                                    <div class="radio-group m-1 mt-3" data-toggle="tooltip" title="Necesita ayuda para mostrar esta habilidad">
                                                         <input type="radio" name="espiritu_del_trabajo" value="En proceso" id="espiritu_del_trabajo_en_proceso_radio">
                                                         <label for="espiritu_del_trabajo_en_proceso_radio"> En proceso</label>
                                                     </div>
-                                                    <div class="radio-group" data-toggle="tooltip" title="Se desenvuelve bien sin ayuda">
+                                                    <div class="radio-group m-1 mt-3" data-toggle="tooltip" title="Se desenvuelve bien sin ayuda">
                                                         <input type="radio" name="espiritu_del_trabajo" value="Autónomo" id="espiritu_del_trabajo_autonomo_radio">
                                                         <label for="espiritu_del_trabajo_autonomo_radio"> Autónomo</label>
                                                     </div>
-                                                    <div class="radio-group" data-toggle="tooltip" title="Es capaz de ayudar y enseñar a otros miembros del equipo">
+                                                    <div class="radio-group m-1 mt-3" data-toggle="tooltip" title="Es capaz de ayudar y enseñar a otros miembros del equipo">
                                                         <input type="radio" name="espiritu_del_trabajo" value="Fortaleza" id="espiritu_del_trabajo_fortaleza_radio">
                                                         <label for="espiritu_del_trabajo_fortaleza_radio"> Fortaleza</label>
                                                     </div>
-                                                    <i class="lapiz fas fa-pencil-alt"></i>
+                                                    <i class="lapiz fas fa-pencil-alt m-3"></i>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="form-card">
-                                            <div class="d-flex justify-content-between align-items-center">
-                                                <h2 class="fs-title">Habilidad interpersonal</h2>
-                                                <div class="radio-container">
-                                                    <div class="radio-group" data-toggle="tooltip" title="Necesita ayuda para mostrar esta habilidad">
+                                        <div class="form-card p-1">
+                                            <div class="d-flex justify-content-center align-items-center m-4">
+                                                <h2 class="fs-title tituloResumen" style="width: 30%;">Habilidad interpersonal</h2>
+                                                <div class="radio-container justify-content-between align-items-center">
+                                                    <div class="radio-group m-1 mt-3" data-toggle="tooltip" title="No es requerida por la posición">
+                                                        <input type="radio" name="autodesarrollo" value="No aplica" id="no_aplica_radio">
+                                                        <label for="no_aplica_radio"> No aplica</label>
+                                                    </div>
+                                                    <div class="radio-group m-1 mt-3" data-toggle="tooltip" title="Necesita ayuda para mostrar esta habilidad">
                                                         <input type="radio" name="habilidad_interpersonal" value="En proceso" id="habilidad_interpersonal_en_proceso_radio">
                                                         <label for="habilidad_interpersonal_en_proceso_radio"> En proceso</label>
                                                     </div>
-                                                    <div class="radio-group" data-toggle="tooltip" title="Se desenvuelve bien sin ayuda">
+                                                    <div class="radio-group m-1 mt-3" data-toggle="tooltip" title="Se desenvuelve bien sin ayuda">
                                                         <input type="radio" name="habilidad_interpersonal" value="Autónomo" id="habilidad_interpersonal_autonomo_radio">
                                                         <label for="habilidad_interpersonal_autonomo_radio"> Autónomo</label>
                                                     </div>
-                                                    <div class="radio-group" data-toggle="tooltip" title="Es capaz de ayudar y enseñar a otros miembros del equipo">
+                                                    <div class="radio-group m-1 mt-3" data-toggle="tooltip" title="Es capaz de ayudar y enseñar a otros miembros del equipo">
                                                         <input type="radio" name="habilidad_interpersonal" value="Fortaleza" id="habilidad_interpersonal_fortaleza_radio">
                                                         <label for="habilidad_interpersonal_fortaleza_radio"> Fortaleza</label>
                                                     </div>
-                                                    <i class="lapiz fas fa-pencil-alt"></i>
+                                                    <i class="lapiz fas fa-pencil-alt m-3"></i>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="form-card">
-                                            <div class="d-flex justify-content-between align-items-center">
-                                                <h2 class="fs-title">Gestión del cambio</h2>
-                                                <div class="radio-container">
-                                                    <div class="radio-group" data-toggle="tooltip" title="Necesita ayuda para mostrar esta habilidad">
+                                        <div class="form-card p-1">
+                                            <div class="d-flex justify-content-center align-items-center m-4">
+                                                <h2 class="fs-title tituloResumen">Gestión del cambio</h2>
+                                                <div class="radio-container justify-content-between align-items-center">
+                                                    <div class="radio-group m-1 mt-3" data-toggle="tooltip" title="No es requerida por la posición">
+                                                        <input type="radio" name="autodesarrollo" value="No aplica" id="no_aplica_radio">
+                                                        <label for="no_aplica_radio"> No aplica</label>
+                                                    </div>
+                                                    <div class="radio-group m-1 mt-3" data-toggle="tooltip" title="Necesita ayuda para mostrar esta habilidad">
                                                         <input type="radio" name="gestion_del_cambio" value="En proceso" id="gestion_del_cambio_en_proceso_radio">
                                                         <label for="gestion_del_cambio_en_proceso_radio"> En proceso</label>
                                                     </div>
-                                                    <div class="radio-group" data-toggle="tooltip" title="Se desenvuelve bien sin ayuda">
+                                                    <div class="radio-group m-1 mt-3" data-toggle="tooltip" title="Se desenvuelve bien sin ayuda">
                                                         <input type="radio" name="gestion_del_cambio" value="Autónomo" id="gestion_del_cambio_autonomo_radio">
                                                         <label for="gestion_del_cambio_autonomo_radio"> Autónomo</label>
                                                     </div>
-                                                    <div class="radio-group" data-toggle="tooltip" title="Es capaz de ayudar y enseñar a otros miembros del equipo">
+                                                    <div class="radio-group m-1 mt-3" data-toggle="tooltip" title="Es capaz de ayudar y enseñar a otros miembros del equipo">
                                                         <input type="radio" name="gestion_del_cambio" value="Fortaleza" id="gestion_del_cambio_fortaleza_radio">
                                                         <label for="gestion_del_cambio_fortaleza_radio"> Fortaleza</label>
                                                     </div>
-                                                    <i class="lapiz fas fa-pencil-alt"></i>
+                                                    <i class="lapiz fas fa-pencil-alt m-3"></i>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="form-card">
-                                            <div class="d-flex justify-content-between align-items-center">
-                                                <h2 class="fs-title">Visión estratégica</h2>
-                                                <div class="radio-container">
-                                                    <div class="radio-group" data-toggle="tooltip" title="Necesita ayuda para mostrar esta habilidad">
+                                        <div class="form-card p-1">
+                                            <div class="d-flex justify-content-center align-items-center m-4">
+                                                <h2 class="fs-title tituloResumen">Visión estratégica</h2>
+                                                <div class="radio-container justify-content-between align-items-center">
+                                                    <div class="radio-group m-1 mt-3" data-toggle="tooltip" title="No es requerida por la posición">
+                                                        <input type="radio" name="autodesarrollo" value="No aplica" id="no_aplica_radio">
+                                                        <label for="no_aplica_radio"> No aplica</label>
+                                                    </div>
+                                                    <div class="radio-group m-1 mt-3" data-toggle="tooltip" title="Necesita ayuda para mostrar esta habilidad">
                                                         <input type="radio" name="vision_estrategica" value="En proceso" id="vision_estrategica_en_proceso_radio">
                                                         <label for="vision_estrategica_en_proceso_radio"> En proceso</label>
                                                     </div>
-                                                    <div class="radio-group" data-toggle="tooltip" title="Se desenvuelve bien sin ayuda">
+                                                    <div class="radio-group m-1 mt-3" data-toggle="tooltip" title="Se desenvuelve bien sin ayuda">
                                                         <input type="radio" name="vision_estrategica" value="Autónomo" id="vision_estrategica_autonomo_radio">
                                                         <label for="vision_estrategica_autonomo_radio"> Autónomo</label>
                                                     </div>
-                                                    <div class="radio-group" data-toggle="tooltip" title="Es capaz de ayudar y enseñar a otros miembros del equipo">
+                                                    <div class="radio-group m-1 mt-3" data-toggle="tooltip" title="Es capaz de ayudar y enseñar a otros miembros del equipo">
                                                         <input type="radio" name="vision_estrategica" value="Fortaleza" id="vision_estrategica_fortaleza_radio">
                                                         <label for="vision_estrategica_fortaleza_radio"> Fortaleza</label>
                                                     </div>
-                                                    <i class="lapiz fas fa-pencil-alt"></i>
+                                                    <i class="lapiz fas fa-pencil-alt m-3"></i>
                                                 </div>
                                             </div>
                                         </div>
