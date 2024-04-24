@@ -750,7 +750,7 @@
                                         </div>
                                     </div>
                                     <input type="button" name="previous" class="action-button-previous" value="Cancelar" />
-                                    <input type="button" name="make_payment" class="action-button" value="Confirmar" />
+                                    <input type="button" name="make_payment" class="action-button" onclick="GuardarAutoevaluacion()" value="Confirmar" />
                                 </fieldset>
                             </form>
                         </div>
@@ -855,5 +855,38 @@
     $(document).ready(function () {
         $('[data-toggle="tooltip"]').tooltip();
     });
+
+
+    //GUARDAR AUTOEVALUACION 
+    function GuardarAutoevaluacion() {
+        /*  $('#modal-aguarde').show();*/
+        var detalleAutoevaluacion = new Object();
+
+        //personal
+        detalleAutoevaluacion.idUsuario = "1982";
+        // detalleSolicitud.nombreUsuario = $("#nombre").val();       
+
+        $.ajax({
+            type: "POST",
+            url: "/PerformanceApp/Api/PerformanceApp/GuardarAutoevaluacion",
+            data: detalleAutoevaluacion,
+            dataType: "json",
+            success: function (response) {
+                if (response == 0) {
+                    //$('#modal-aguarde').hide();
+                    //$('#modal-error').show();
+                } else {
+                    //setTimeout(function () {
+                    //    vaciarSolicitud();
+                    //    window.location.href = '/Viaticos/Viaticos';
+                    //}, 3000);
+                }
+            },
+            error: function (jqxhr) {
+                //$('#modal-error').show();
+                console.log(jqxhr);
+            }
+        });
+    }
 
 </script>
