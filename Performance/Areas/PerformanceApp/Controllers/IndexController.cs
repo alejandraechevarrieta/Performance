@@ -13,11 +13,14 @@ namespace Performance.Areas.PerformanceApp.Controllers
             ViewBag.Perfil = perfil;
             return View();
         }
-        public ActionResult Crud(string view)
+        public ActionResult Crud(string view, int idPerformance)
         {
             ViewBag.View = view;
+            ViewBag.IdPerformance = idPerformance;
+
             return View();
         }
+
 
     }
 }

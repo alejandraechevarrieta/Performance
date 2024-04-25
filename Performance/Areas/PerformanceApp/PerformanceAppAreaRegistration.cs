@@ -26,11 +26,11 @@ namespace Performance.Areas.PerformanceApp
                    );
 
             context.Routes.MapHttpRoute(
-                    name: "AdminPanelPerformanceAppGApi",
+                    name: "AdminPanelPerformanceAppApi",
                     routeTemplate: "PerformanceApp/Api/{controller}"
                 );
             context.Routes.MapHttpRoute(
-                name: "DefaultPerformanceApplApi",
+                name: "DefaultPerformanceAppApi",
                 routeTemplate: "PerformanceApp/Api/{controller}/{action}/{id}",
                 defaults: new { id = RouteParameter.Optional });
 

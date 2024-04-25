@@ -2,7 +2,7 @@
     ViewBag.Title = "Home Page";
     Layout = "~/Views/Shared/_Layout.cshtml";
     //var perfil = "127";
-    var perfil = Request.QueryString["perfil"];
+    var perfil = Request.QueryString["perfil"];    
 }
 
 <!DOCTYPE html>
@@ -335,11 +335,11 @@
 <body>
 
     <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg">
-        <div class="row" style="margin: 30px; overflow:hidden; display: flex;" id="rowProvisorio">
+        @*<div class="row" style="margin: 30px; overflow:hidden; display: flex;" id="rowProvisorio">
             <a id="a" class="btn btn-primary" href="/PerformanceApp/Index/Crud?view=autoevaluacion" style="max-width: 18%;">Autoevaluación</a>
             <a id="b" class="btn btn-secondary" href="/PerformanceApp/Index/Crud?view=evaluacion" style="max-width: 18%; ">Evaluación</a>
             <a id="c" class="btn btn-warning" href="/PerformanceApp/Index/Crud?view=resumenAutoevaluacion" style="max-width: 18%; ">Resumen Autoevaluación</a>
-        </div>
+        </div>*@
 
         @*FILTROS SOLICITUDES*@
         <div class="row" style="margin: 30px; overflow:hidden;" id="rowFiltro">
@@ -383,7 +383,7 @@
             {
                 <div class="row">
                     <div class="col-12">
-                        <div class="card mb-4">
+                        <div class="card mb-4 p-4">
                             <div class="card-header pb-0">
                                 <div class="text-uppercase text-xl-center  font-weight-bolder opacity-7">Performance Colaborador</div>
                             </div>
@@ -395,8 +395,7 @@
                                                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Año</th>
                                                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Líder</th>
                                                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Fecha de Autoevaluación</th>
-                                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Fecha de Evaluación</th>
-                                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Fecha de Calibración</th>
+                                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Fecha de Feedback</th>                                           
                                                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Estado</th>
                                             </tr>
                                         </thead>
@@ -498,71 +497,8 @@
 
     $(document).ready(function () {
 
-        var current_fs, next_fs, previous_fs; //fieldsets
-        var opacity;
-
-        $(".next").click(function () {
-
-            current_fs = $(this).parent();
-            next_fs = $(this).parent().next();
-
-            //Add Class Active
-            $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
-
-            //show the next fieldset
-            next_fs.show();
-            //hide the current fieldset with style
-            current_fs.animate({ opacity: 0 }, {
-                step: function (now) {
-                    // for making fielset appear animation
-                    opacity = 1 - now;
-
-                    current_fs.css({
-                        'display': 'none',
-                        'position': 'relative'
-                    });
-                    next_fs.css({ 'opacity': opacity });
-                },
-                duration: 600
-            });
-        });
-
-        $(".previous").click(function () {
-
-            current_fs = $(this).parent();
-            previous_fs = $(this).parent().prev();
-
-            //Remove class active
-            $("#progressbar li").eq($("fieldset").index(current_fs)).removeClass("active");
-
-            //show the previous fieldset
-            previous_fs.show();
-
-            //hide the current fieldset with style
-            current_fs.animate({ opacity: 0 }, {
-                step: function (now) {
-                    // for making fielset appear animation
-                    opacity = 1 - now;
-
-                    current_fs.css({
-                        'display': 'none',
-                        'position': 'relative'
-                    });
-                    previous_fs.css({ 'opacity': opacity });
-                },
-                duration: 600
-            });
-        });
-
-        $('.radio-group .radio').click(function () {
-            $(this).parent().find('.radio').removeClass('selected');
-            $(this).addClass('selected');
-        });
-
-        $(".submit").click(function () {
-            return false;
-        })
-
+      
+        ListarPerformance();
     });
 
     //Funcion para que ande el popover
@@ -587,7 +523,7 @@
             var colaborador = $("#selectColaborador").val();
             var estado = $("#selectEstado").val();
             var url = "Api/PerformanceApp/ListarPerformance";
-            url = url + "?colaborador=" + 2125;
+            url = url + "?colaborador=" + colaborador;
             url = url + "&estado=" + estado;
             url = url + "&idPerfil=" + "@perfil";
             if ("@perfil" == "127") {//Tabla del colaborador
@@ -640,8 +576,8 @@
                     { "width": "20%", "targets": 1 },
                     { "width": "7%", "targets": 2 },
                     { "width": "7%", "targets": 3 },
-                    { "width": "7%", "targets": 4 },
-                    { "width": "10%", "targets": 5 },
+                    { "width": "10%", "targets": 4 },
+                  
                 ],
                 "columns": [
                     {
@@ -683,32 +619,16 @@
                                 return '';
                             }
                         }
-                    },
-                    {
-                        "data": "fechaCalibracion",
-                        "name": "Fecha de Calibración",
-                        "autoWidth": false,
-                        "render": function (data, type, row, meta) {
-                            if (data !== null) {
-                               return '<div style="text-align: center;">' + moment(data).format('DD/MM/YYYY') + '</div>'   
-                            } else {
-                                return '';
-                            }
-                        }
-                    },
+                    },                   
                     {
                         "data": "idEstado",
                         "name": "Estado",
                         "autoWidth": false,
                         "render": function (data, type, row, meta) {
                             if (data == 1) {
-                                return '<a href="/PerformanceApp/Index/Crud?view=autoevaluacion" class="btn btn-block btn-danger" title="A COMPLETAR" style="font-size: 100% !important;">' + row.estado + '</a>';
-                            } else if (data == 2) {
-                                return '<a href="" class="btn btn-sm btn-warning" title="A EVALUAR" style="font-size: 100% !important;">' + row.estado + '</a>';
-                            }  else if (data == 3) {
-                                return '<a href="" class="btn btn-sm btn-info" title="A CALIBRAR" style="font-size: 100% !important;">' + row.estado + '</a>';
-                            }  else if (data == 4) {
-                                return '<a href="" class="btn btn-sm btn-success" title="FINALIZADO" style="font-size: 100% !important;">' + row.estado + '</a>';
+                                return '<a href="/PerformanceApp/Index/Crud?view=autoevaluacion&idPerformance=' + row.idPerformance + '" class="btn btn-sm btn-info" title="COMPLETAR" style="font-size: 100% !important;">' + row.estado + '</a>';
+                            } else {
+                                return '<a href="" class="btn btn-sm btn-success" title="FINALIZADO" style="font-size: 100% !important;">' + 'COMPLETO' + '</a>';
                             } 
                         }
                     },
@@ -971,6 +891,8 @@
                     });
                 });
         }
+
+      
     </script>
 
 </body>
