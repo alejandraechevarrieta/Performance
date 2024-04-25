@@ -2,7 +2,8 @@
     ViewBag.Title = "Home Page";
     Layout = "~/Views/Shared/_Layout.cshtml";
     //var perfil = "127";
-    var perfil = Request.QueryString["perfil"];    
+    //var perfil = Request.QueryString["perfil"];    
+    var perfil = Session["perfil"];
 }
 
 <!DOCTYPE html>
@@ -343,7 +344,7 @@
 
         @*FILTROS SOLICITUDES*@
         <div class="row" style="margin: 30px; overflow:hidden;" id="rowFiltro">
-            @if (perfil == "127" || perfil == "128")
+            @if (Convert.ToInt32(perfil) == 127 || Convert.ToInt32(perfil) == 128)
             {
                 <div class="form-group2 col-md-2" id="filtroColaborador">
                     <label>Colaborador:</label>
@@ -353,7 +354,7 @@
                     </div>
                 </div>
             }
-            @if (perfil == "129")
+            @if (Convert.ToInt32(perfil) == 129)
             {
                 <div class="form-group2 col-md-2" id="filtroLider">
                     <label>Líder:</label>
@@ -379,7 +380,7 @@
         <!-- MultiStep Form -->
         <div class="container-fluid py-4" id="grad1">
             <!-- TABLA COLABORADOR -->
-            @if (perfil == "127")
+            @if (Convert.ToInt32(perfil) == 127)
             {
                 <div class="row">
                     <div class="col-12">
@@ -409,7 +410,7 @@
                     </div>
                 </div>
             }
-            @if (perfil == "128")
+            @if (Convert.ToInt32(perfil) == 128)
             {
                 <div class="row">
                     <div class="col-12">
@@ -441,7 +442,7 @@
                     </div>
                 </div>
             }
-            @if (perfil == "129")
+            @if (Convert.ToInt32(perfil) == 129)
             {
                 <div class="row">
                     <div class="col-12">

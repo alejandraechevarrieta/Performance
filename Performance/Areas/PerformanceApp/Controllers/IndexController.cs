@@ -10,7 +10,8 @@ namespace Performance.Areas.PerformanceApp.Controllers
     {
         public ActionResult Index(string perfil)
         {
-            ViewBag.Perfil = perfil;
+            //ViewBag.Perfil = perfil;
+            System.Web.HttpContext.Current.Session["perfil"] = perfil;
             return View();
         }
         public ActionResult Crud(string view, int idPerformance)
