@@ -16,6 +16,6 @@ namespace Performance.Model
     {
         public int idHabilidad { get; set; }
         public string habilidad { get; set; }
-        public string formulario { get; set; }
+        public Nullable<bool> activo { get; set; }
     }
 }
