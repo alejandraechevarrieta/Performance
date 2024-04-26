@@ -1,6 +1,7 @@
 ﻿using Performance.Model;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Core.Metadata.Edm;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -91,86 +92,71 @@ namespace Performance.Servicios
                              });
                 return query.ToList();
             }
-        }      
+        }
         public int GuardarAutoevaluacion(PerformanceAutoevaluacionVM autoevaluacion)
         {
             try
             {
-                var habilidad1 = db.Habilidades.Where(x => x.idHabilidad == 1).FirstOrDefault();
-                var habilidad2 = db.Habilidades.Where(x => x.idHabilidad == 2).FirstOrDefault();
-                var habilidad3 = db.Habilidades.Where(x => x.idHabilidad == 3).FirstOrDefault();
-                var habilidad4 = db.Habilidades.Where(x => x.idHabilidad == 4).FirstOrDefault();
-                var habilidad5 = db.Habilidades.Where(x => x.idHabilidad == 5).FirstOrDefault();
-                var habilidad6 = db.Habilidades.Where(x => x.idHabilidad == 6).FirstOrDefault();
+                var habilidades = db.Habilidades.Where(x => x.activo == true).ToList();
 
                 AutoEvaluacion nuevaAutoevaluacion = new AutoEvaluacion();
-               
+
+                List<string> calificacion = new List<string>();
+                calificacion.Add(autoevaluacion.habilidad1);
+                calificacion.Add(autoevaluacion.habilidad2);
+                calificacion.Add(autoevaluacion.habilidad3);
+                calificacion.Add(autoevaluacion.habilidad4);
+                calificacion.Add(autoevaluacion.habilidad5);
+                calificacion.Add(autoevaluacion.habilidad6);
+
                 //AutoEvaluacion
-                if(autoevaluacion != null)
+                var numero = 1; // Inicializar numero en 0
+
+                foreach (var habilidad in habilidades)
                 {
-                    if(autoevaluacion.habilidad1 != null)
+                    if (autoevaluacion != null)
                     {
                         nuevaAutoevaluacion.idPerformance = autoevaluacion.idPerformance;
-                        nuevaAutoevaluacion.idHabilidad = habilidad1.idHabilidad;
+                        nuevaAutoevaluacion.idHabilidad = habilidad.idHabilidad;
                         nuevaAutoevaluacion.fechaAutoEvaluacion = DateTime.Now;
-                        db.AutoEvaluacion.Add(nuevaAutoevaluacion);
-                        db.SaveChanges();
+
+                        // Obtener la calificación correspondiente a la habilidad actual
+                        var habilidadIndex = habilidades.IndexOf(habilidad);
+                        var item = calificacion.ElementAtOrDefault(habilidadIndex); // Obtener la calificación para la habilidad actual
+                        if (item != null)
+                        {
+                            var idCalificacion = db.Calificacion
+                                .Where(x => x.activo == true && x.formulario == "A" && x.nombre.Contains(item))
+                                .Select(x => x.idCalificacion)
+                                .FirstOrDefault();
+
+                            if (idCalificacion != 0)
+                            {
+                                nuevaAutoevaluacion.idCalificacion = idCalificacion;
+
+                                db.AutoEvaluacion.Add(nuevaAutoevaluacion);
+                                db.SaveChanges();
+                            }
+                            else
+                            {
+                                // Manejar la situación donde no se encuentra una calificación para la habilidad actual
+                            }
+                        }
                     }
-                    if (autoevaluacion.habilidad2 != null)
-                    {
-                        nuevaAutoevaluacion.idPerformance = autoevaluacion.idPerformance;
-                        nuevaAutoevaluacion.idHabilidad = habilidad2.idHabilidad;
-                        nuevaAutoevaluacion.fechaAutoEvaluacion = DateTime.Now;
-                        db.AutoEvaluacion.Add(nuevaAutoevaluacion);
-                        db.SaveChanges();
-                    }
-                    if (autoevaluacion.habilidad3 != null)
-                    {
-                        nuevaAutoevaluacion.idPerformance = autoevaluacion.idPerformance;
-                        nuevaAutoevaluacion.idHabilidad = habilidad3.idHabilidad;
-                        nuevaAutoevaluacion.fechaAutoEvaluacion = DateTime.Now;
-                        db.AutoEvaluacion.Add(nuevaAutoevaluacion);
-                        db.SaveChanges();
-                    }
-                    if (autoevaluacion.habilidad4 != null)
-                    {
-                        nuevaAutoevaluacion.idPerformance = autoevaluacion.idPerformance;
-                        nuevaAutoevaluacion.idHabilidad = habilidad4.idHabilidad;
-                        nuevaAutoevaluacion.fechaAutoEvaluacion = DateTime.Now;
-                        db.AutoEvaluacion.Add(nuevaAutoevaluacion);
-                        db.SaveChanges();
-                    }
-                    if (autoevaluacion.habilidad5 != null)
-                    {
-                        nuevaAutoevaluacion.idPerformance = autoevaluacion.idPerformance;
-                        nuevaAutoevaluacion.idHabilidad = habilidad5.idHabilidad;
-                        nuevaAutoevaluacion.fechaAutoEvaluacion = DateTime.Now;
-                        db.AutoEvaluacion.Add(nuevaAutoevaluacion);
-                        db.SaveChanges();
-                    }
-                    if (autoevaluacion.habilidad6 != null)
-                    {
-                        nuevaAutoevaluacion.idPerformance = autoevaluacion.idPerformance;
-                        nuevaAutoevaluacion.idHabilidad = habilidad6.idHabilidad;
-                        nuevaAutoevaluacion.fechaAutoEvaluacion = DateTime.Now;
-                        db.AutoEvaluacion.Add(nuevaAutoevaluacion);
-                        db.SaveChanges();
-                    }
-                   
-                }    
+                }
+
 
                 //Performance
                 var performance = db.PerformanceColaborador.Where(x => x.idPerformance == autoevaluacion.idPerformance).FirstOrDefault();
-               
-                if(performance != null)
+
+                if (performance != null)
                 {
                     performance.estado = 2;
                     performance.fechaAutoevaluacion = DateTime.Now;
 
                     db.SaveChanges();
                 }
-               
-             
+
                 return nuevaAutoevaluacion.idPerformance;
             }
             catch (Exception e)
