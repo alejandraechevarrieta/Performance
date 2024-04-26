@@ -329,19 +329,29 @@
             display: flex; /* Utilizar flexbox para alinear los botones */
             justify-content: space-between; /* Espaciar uniformemente los botones */
         }
+        .modalLoading {
+            position: fixed;
+            z-index: 1000;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            background: rgba(214, 214, 214, 0.8) url('../../Content/img/puntos.gif') 50% 50% no-repeat;
+            background-size: 300px 240px;
+        }
     </style>
 
 
 </head>
 <body>
-
+   
     <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg">
         @*<div class="row" style="margin: 30px; overflow:hidden; display: flex;" id="rowProvisorio">
             <a id="a" class="btn btn-primary" href="/PerformanceApp/Index/Crud?view=autoevaluacion" style="max-width: 18%;">Autoevaluación</a>
             <a id="b" class="btn btn-secondary" href="/PerformanceApp/Index/Crud?view=evaluacion" style="max-width: 18%; ">Evaluación</a>
             <a id="c" class="btn btn-warning" href="/PerformanceApp/Index/Crud?view=resumenAutoevaluacion" style="max-width: 18%; ">Resumen Autoevaluación</a>
         </div>*@
-
+        <div id="divLoading" class="modalLoading"></div>
         @*FILTROS SOLICITUDES*@
         <div class="row" style="margin: 30px; overflow:hidden;" id="rowFiltro">
             @if (Convert.ToInt32(perfil) == 128 || Convert.ToInt32(perfil) == 129)
@@ -400,7 +410,7 @@
                                                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Año</th>
                                                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Líder</th>
                                                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Fecha de Autoevaluación</th>
-                                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Fecha de Feedback</th>                                           
+                                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Fecha de Feedback</th>
                                                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Estado</th>
                                             </tr>
                                         </thead>
@@ -523,7 +533,7 @@
         //ListarPerformance();
 
         function ListarPerformance() {
-            
+
             var colaborador = $("#selectColaborador").val();
             var estado = $("#selectEstado").val();
             var url = "Api/PerformanceApp/ListarPerformance";
@@ -581,7 +591,7 @@
                     { "width": "7%", "targets": 2 },
                     { "width": "7%", "targets": 3 },
                     { "width": "10%", "targets": 4 },
-                  
+
                 ],
                 "columns": [
                     {
@@ -589,15 +599,15 @@
                         "name": "Año",
                         "autoWidth": false,
                         "render": function (data, type, row, meta) {
-                            return '<div style="text-align: center;">' + data + '</div>'  
+                            return '<div style="text-align: center;">' + data + '</div>'
                         }
                     },
                     {
                         "data": "nombreJefe",
                         "name": "Lider",
                         "autoWidth": false,
-                        "render": function (data, type, row, meta) {                           
-                                return '<div style="text-align: center;">' + data + '</div>'  
+                        "render": function (data, type, row, meta) {
+                                return '<div style="text-align: center;">' + data + '</div>'
                         }
                     },
                     {
@@ -606,7 +616,7 @@
                         "autoWidth": false,
                         "render": function (data, type, row, meta) {
                             if (data !== null) {
-                                return '<div style="text-align: center;">' + moment(data).format('DD/MM/YYYY') + '</div>'                               
+                                return '<div style="text-align: center;">' + moment(data).format('DD/MM/YYYY') + '</div>'
                             } else {
                                 return '';
                             }
@@ -618,12 +628,12 @@
                         "autoWidth": false,
                         "render": function (data, type, row, meta) {
                             if (data !== null) {
-                                return '<div style="text-align: center;">' + moment(data).format('DD/MM/YYYY') + '</div>'   
+                                return '<div style="text-align: center;">' + moment(data).format('DD/MM/YYYY') + '</div>'
                             } else {
                                 return '';
                             }
                         }
-                    },                   
+                    },
                     {
                         "data": "idEstado",
                         "name": "Estado",
@@ -633,12 +643,12 @@
                                 return '<a href="/PerformanceApp/Index/Crud?view=autoevaluacion&idPerformance=' + row.idPerformance + '" class="btn btn-sm btn-info" title="COMPLETAR" style="font-size: 100% !important;">' + row.estado + '</a>';
                             } else {
                                 return '<a href="" class="btn btn-sm btn-success" title="FINALIZADO" style="font-size: 100% !important;">' + 'COMPLETO' + '</a>';
-                            } 
+                            }
                         }
                     },
                 ],
                 "createdRow": function (row, data, index) {
-
+                    $("#divLoading").hide();
                 },
                 "ordering": true,
                 "paging": true
@@ -878,7 +888,7 @@
             });
         };
 
-        
+
         function CargarEstados() {
             var selecEstados = $('#selectEstado');
             selecEstados.empty();
@@ -896,7 +906,7 @@
                 });
         }
 
-      
+
     </script>
 
 </body>
