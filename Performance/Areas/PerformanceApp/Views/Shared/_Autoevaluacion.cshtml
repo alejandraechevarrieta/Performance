@@ -18,7 +18,9 @@
     #grad1 {
         background-color: #f3f3f3;
     }
-
+    .modal {
+        background-color: rgba(0, 0, 0, 0.5);
+    }
     /*form styles*/
     #msform {
         text-align: center;
@@ -543,7 +545,7 @@
                                                 ¡Bienvenido al proceso de “Performance 2024”, en búsqueda de tu mejor versión!
                                                 Este proceso está diseñado para ayudarte a reconocer y desarrollar tus habilidades blandas clave, así como para promover una cultura de retroalimentación constructiva y crecimiento continuo en nuestra organización.
                                                 <br />
-                                                Revisando el instructivo, podrás profundizar en las etapas que recorreremos durante este proceso:  
+                                                Revisando el instructivo, podrás profundizar en las etapas que recorreremos durante este proceso:
                                                 <br />
                                                 •    Autoevaluación <br />
                                                 •    Valoración del Líder <br />
@@ -566,7 +568,7 @@
                                         <div class="row">
                                             <p class="h5">Actitud de superación permanente.  Búsqueda constante del crecimiento personal y profesional, siendo consciente de sus fortalezas y aspectos de mejora. Disposición a  experimentar nuevas ideas, conocimientos y experiencias.</p>
                                         </div>
-                                        <div class="button-container mt-6">                                            
+                                        <div class="button-container mt-6">
                                             <input id="a2" type="button" data-toggle="tooltip" data-bs-placement="bottom" title="Necesita ayuda para mostrar esta habilidad" value="En progreso" />
                                             <input id="a3" type="button" data-toggle="tooltip" data-bs-placement="bottom" title="Se desenvuelve bien sin ayuda" value="Autónomo" />
                                             <input id="a4" type="button" data-toggle="tooltip" data-bs-placement="bottom" title="Es capaz de ayudar y enseñar a otros miembros del equipo" value="Fortaleza" />
@@ -582,7 +584,7 @@
                                         <div class="row">
                                             <p class="h5">Capacidad de tomar decisiones, actuar y asumir los impactos de las mismas. La autonomia se fundamenta en la voluntad, la disciplina y responsabilidad.</p>
                                         </div>
-                                        <div class="button-container mt-6">                                            
+                                        <div class="button-container mt-6">
                                             <input id="b2" type="button" data-toggle="tooltip" data-bs-placement="bottom" title="Necesita ayuda para mostrar esta habilidad" value="En progreso" />
                                             <input id="b3" type="button" data-toggle="tooltip" data-bs-placement="bottom" title="Se desenvuelve bien sin ayuda" value="Autónomo" />
                                             <input id="b4" type="button" data-toggle="tooltip" data-bs-placement="bottom" title="Es capaz de ayudar y enseñar a otros miembros del equipo" value="Fortaleza" />
@@ -808,7 +810,7 @@
                                         </div>
                                     </div>
                                     <input type="button" name="previous" class="action-button-previous" value="Cancelar" onclick="window.history.back()" />
-                                    <input type="button" name="make_payment" class="action-button" onclick="GuardarAutoevaluacion()" value="Enviar a tu lider" />
+                                    <input type="button" name="make_payment" class="action-button" onclick="AbrirModalEnviar()" value="Enviar a tu lider" />
                                 </fieldset>
                             </form>
                         </div>
@@ -817,6 +819,35 @@
             </div>
         </div>
     </div>
+    @*modal preguntar si esta seguro *@
+    <div class="modal" id="modalDeseaEnviar" style="display: none!important; margin-top: 0%;">
+        <div class="modal-dialog" style="max-width: 900px!important;">
+            <div class="modal-content p-2">
+                <div class="row mb-3 m-2" style="justify-content:center">
+                    <p class="h4" style="margin-left: 0px; margin-right:0px;"> Recuerde que una vez enviado no podrá modificar su autoevaluación. ¿Desea enviar la autoevaluación a su líder?</p>
+                </div>
+                <div class="row mb-3 pr-2">
+                    <div class="col-md-6">
+                        <a href="#" role="button" class="btn btn-danger btn-sm btn-block" onclick="CerrarModalEnviar();" id="CerrarModalEnviar" style="margin-left: 60%; width: 40%;">Cancelar</a>
+                    </div>
+                    <div class="col-md-6">
+                        <a href="#" role="button" class="btn btn-info btn-sm btn-block" onclick="GuardarAutoevaluacion();" id="GuardarAutoevaluacion" style="width: 40%;">Enviar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>   
+    @*modal guardado*@
+    <div class="modal modal-success" id="modal-enviado" style="display: none">
+        <div class="modal-dialog" style="margin-left: 35%;margin-top: 15%;">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <p>Su autoevaluación se envió correctamente</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </main>
 
 <!--Estos links son para formularios (Si no van aca no funcionan)-->
@@ -984,66 +1015,74 @@
         }
     }
 
-    //GUARDAR AUTOEVALUACION
-    // Función para manejar clic en botones
-    $('input[type="button"]').click(function () {
-        var calificacion = $(this).val(); // Obtener el valor del botón
-        var idCalificacion = $(this).attr('id'); // Obtener el ID del botón
-        var idHabilidad = $(this).closest('.form-card').attr('id'); // Obtener el ID de la tarjeta
-        var tarjetaHabilidad = idCalificacion ? idCalificacion.substring(0, 1) : null; // Obtener la categoría del botón (primer carácter del id)
+      //GUARDAR AUTOEVALUACION
+//Modal
+function AbrirModalEnviar() {
+    $('#modalDeseaEnviar').show();
+}
+function CerrarModalEnviar() {
+    $('#modalDeseaEnviar').hide();
+}
+// Función para manejar clic en botones
+$('input[type="button"]').click(function () {
+    var calificacion = $(this).val(); // Obtener el valor del botón
+    var idCalificacion = $(this).attr('id'); // Obtener el ID del botón
+    var idHabilidad = $(this).closest('.form-card').attr('id'); // Obtener el ID de la tarjeta
+    var tarjetaHabilidad = idCalificacion ? idCalificacion.substring(0, 1) : null; // Obtener la categoría del botón (primer carácter del id)
 
-        // Eliminar la selección anterior en la misma tarjeta y categoría
-        if (tarjetaHabilidad) {
-            $('#' + idHabilidad + ' input[id^="' + tarjetaHabilidad + '"]').removeClass('selected');        }
+    // Eliminar la selección anterior en la misma tarjeta y categoría
+    if (tarjetaHabilidad) {
+        $('#' + idHabilidad + ' input[id^="' + tarjetaHabilidad + '"]').removeClass('selected');        }
 
-        $(this).addClass('selected');   // Agregar clase 'selected' al botón clicado
+    $(this).addClass('selected');   // Agregar clase 'selected' al botón clicado
 
-        localStorage.setItem(idHabilidad, JSON.stringify({ calificacion: calificacion, idCalificacion: idCalificacion }));  // Guardar la selección y el ID del botón en localStorage
+    localStorage.setItem(idHabilidad, JSON.stringify({ calificacion: calificacion, idCalificacion: idCalificacion }));  // Guardar la selección y el ID del botón en localStorage
+});
+
+function GuardarAutoevaluacion() {
+    var detalleAutoevaluacion = {};
+
+    // Obtener las selecciones guardadas en localStorage
+    $('.form-card').each(function () {
+        var cardId = $(this).attr('id');
+        if (cardId) { // Verificar si el ID de la tarjeta es válido
+            var storedData = localStorage.getItem(cardId);
+            if (storedData) {
+                var data = JSON.parse(storedData);
+                // Agregar la selección al objeto de detalleAutoevaluacion
+                detalleAutoevaluacion['Habilidad' + cardId.charAt(cardId.length - 1)] = data.calificacion;
+            }
+        }
     });
 
-    function GuardarAutoevaluacion() {
-        var detalleAutoevaluacion = {};
+    // Agregar el ID de usuario
+    detalleAutoevaluacion.idUsuario = "1982";
+    detalleAutoevaluacion.idPerformance = "@idPerformance";
 
-        // Obtener las selecciones guardadas en localStorage
-        $('.form-card').each(function () {
-            var cardId = $(this).attr('id');
-            if (cardId) { // Verificar si el ID de la tarjeta es válido
-                var storedData = localStorage.getItem(cardId);
-                if (storedData) {
-                    var data = JSON.parse(storedData);
-                    // Agregar la selección al objeto de detalleAutoevaluacion
-                    detalleAutoevaluacion['Habilidad' + cardId.charAt(cardId.length - 1)] = data.calificacion;
-                }
+    // Realizar la solicitud AJAX
+    $.ajax({
+        type: "POST",
+        url: "/PerformanceApp/Api/PerformanceApp/GuardarAutoevaluacion",
+        data: detalleAutoevaluacion,
+        dataType: "json",
+        success: function (response) {
+            if (response == 0) {
+                // Error al guardar
+                console.log("Error al guardar la autoevaluación");
+            } else {
+                // Éxito al guardar
+                $('#modalDeseaEnviar').hide();
+                alert("Autoevaluación guardada con éxito");
+                var url = "/PerformanceApp/Index?perfil=" + encodeURIComponent('@perfil');
+                window.location.href = url;
             }
-        });
-
-        // Agregar el ID de usuario
-        detalleAutoevaluacion.idUsuario = "1982";
-        detalleAutoevaluacion.idPerformance = "@idPerformance";
-
-        // Realizar la solicitud AJAX
-        $.ajax({
-            type: "POST",
-            url: "/PerformanceApp/Api/PerformanceApp/GuardarAutoevaluacion",
-            data: detalleAutoevaluacion,
-            dataType: "json",
-            success: function (response) {
-                if (response == 0) {
-                    // Error al guardar
-                    console.log("Error al guardar la autoevaluación");
-                } else {
-                    // Éxito al guardar
-                    console.log("Autoevaluación guardada con éxito");
-                    var url = '@Url.Action("Index", "Index", new { area = "PerformanceApp", perfil = "__perfil__" })'.replace('__perfil__', perfil);
-                }
-            },
-            error: function (jqxhr) {
-                // Error en la solicitud AJAX
-                console.log("Error en la solicitud AJAX:", jqxhr);
-            }
-        });
-    }
-
+        },
+        error: function (jqxhr) {
+            // Error en la solicitud AJAX
+            console.log("Error en la solicitud AJAX:", jqxhr);
+        }
+    });
+}
 
 
 
