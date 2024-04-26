@@ -418,7 +418,7 @@
             {
                 <div class="row">
                     <div class="col-12">
-                        <div class="card mb-4">
+                        <div class="card mb-4 p-4">
                             <div class="card-header pb-0">
                                 <h6>Performance Líder</h6>
                             </div>
@@ -450,7 +450,7 @@
             {
                 <div class="row">
                     <div class="col-12">
-                        <div class="card mb-4">
+                        <div class="card mb-4 p-4">
                             <div class="card-header pb-0">
                                 <h6>Performance RRHH</h6>
                             </div>
@@ -500,11 +500,10 @@
         });
     });
 
-    $(document).ready(function () {
-
-      
-        ListarPerformance();
-    });
+        $(document).ready(function () {
+            CargarEstados();
+            ListarPerformance();
+        });
 
     //Funcion para que ande el popover
     $(document).ready(function () {
@@ -521,7 +520,7 @@
 
 
     ///LISTAR PERFORMANCE
-        ListarPerformance();
+        //ListarPerformance();
 
         function ListarPerformance() {
             
@@ -879,7 +878,7 @@
             });
         };
 
-        CargarEstados();
+        
         function CargarEstados() {
             var selecEstados = $('#selectEstado');
             selecEstados.empty();
