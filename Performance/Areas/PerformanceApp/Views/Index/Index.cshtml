@@ -361,7 +361,7 @@
                 </button>
             </div>
         }
-        <div class="row" style="margin: 30px; overflow:hidden;" id="rowFiltro">
+        <div class="row m-3" style="overflow:hidden;" id="rowFiltro">
             @if (Convert.ToInt32(perfil) == 128 || Convert.ToInt32(perfil) == 129)
             {
                 if (Convert.ToInt32(perfil) == 128)
@@ -390,7 +390,7 @@
                     <select class="form-control" id="selectEstado">
                     </select>
                 </div>
-                <div class="form-group2 col-md-1" style="padding-top: 2%;" id="btnBuscarFiltro">
+                <div class="form-group2 col-md-1 mt-2" style="padding-top: 1.9%;" id="btnBuscarFiltro">
                     <button id="btnFiltrar" type="button" class="btn btn-success" style="width: 120px; cursor: pointer;">
                         Buscar
                     </button>
@@ -406,12 +406,12 @@
             {
                 <div class="row">
                     <div class="col-12">
-                        <div class="card mb-4 p-4">
+                        <div class="card mb-4">
                             <div class="card-header pb-0">
                                 <div class="text-uppercase text-xl-center  font-weight-bolder opacity-7">Performance Colaborador</div>
                             </div>
                             <div class="card-body px-0 pt-0 pb-2">
-                                <div class="table-responsive p-0">
+                                <div class="table-responsive p-4">
                                     <table class="table align-items-center mb-0" id="tablaColaborador">
                                         <thead>
                                             <tr>
@@ -436,16 +436,16 @@
             {
                 <div class="row">
                     <div class="col-12">
-                        <div class="card mb-4 p-4">
+                        <div class="card mb-4">
                             <div class="card-header pb-0">
                                 <h6>Performance Líder</h6>
                             </div>
                             <div class="card-body px-0 pt-0 pb-2">
-                                <div class="table-responsive p-0">
+                                <div class="table-responsive p-4">
                                     <table class="table align-items-center mb-0" id="tablaLider">
                                         <thead>
                                             <tr>
-                                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Año</th>
+                                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Año</th>
                                                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Colaborador</th>
                                                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Fecha de Autoevaluación</th>
                                                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Fecha de Evaluación</th>
@@ -467,8 +467,8 @@
             {
                 <div class="row">
                     <div class="col-12">
-                        <div class="card mb-4 p-4">
-                            <div class="card-header pb-0">
+                        <div class="card mb-4">
+                            <div class="card-header pb-4">
                                 <h6>Performance RRHH</h6>
                             </div>
                             <div class="card-body px-0 pt-0 pb-2">
@@ -647,9 +647,9 @@
                         "autoWidth": false,
                         "render": function (data, type, row, meta) {
                             if (data == 1) {
-                                return '<a href="/PerformanceApp/Index/Crud?view=autoevaluacion&idPerformance=' + row.idPerformance + '" class="btn btn-sm btn-info" title="COMPLETAR" style="font-size: 100% !important;">' + row.estado + '</a>';
+                                return '<div style="text-align: center;"><a href="/PerformanceApp/Index/Crud?view=autoevaluacion&idPerformance=' + row.idPerformance + '" class="btn btn-sm btn-info" title="COMPLETAR" style="font-size: 100% !important;">' + row.estado + '</a></div>';
                             } else {
-                                return '<a href="" class="btn btn-sm btn-success" title="FINALIZADO" style="font-size: 100% !important;">' + 'COMPLETO' + '</a>';
+                                return '<div style="text-align: center;"><a href="" class="btn btn-sm btn-success" title="FINALIZADO" style="font-size: 100% !important;">' + 'COMPLETO' + '</a></div>';
                             }
                         }
                     },
@@ -691,11 +691,11 @@
                 "responsivePriority": 1,
                 "columnDefs": [
                     { "width": "10%", "targets": 0 },
-                    { "width": "20%", "targets": 1 },
-                    { "width": "14%", "targets": 2 },
-                    { "width": "14%", "targets": 3 },
-                    { "width": "14%", "targets": 4 },
-                    { "width": "14%", "targets": 5 },
+                    { "width": "26%", "targets": 1 },
+                    { "width": "16%", "targets": 2 },
+                    { "width": "16%", "targets": 3 },
+                    { "width": "16%", "targets": 4 },
+                    { "width": "16%", "targets": 5 },
                 ],
                 "columns": [
                     {
@@ -703,8 +703,8 @@
                         "name": "Año",
                         "autoWidth": false,
                         "render": function (data, type, row, meta) {
-                            return '<div class="d-flex px-2 py-1">' +
-                                '<div style="text-align: center;" class="d-flex flex-column justify-content-center">' +
+                            return '<div style="text-align: center;" class="px-2 py-1">' +
+                                '<div style="text-align: center;" class="flex-column justify-content-center">' +
                                 '<h6 class="mb-0 text-sm">' + data + '</h6>' +
                                 '</div>' +
                                 '</div>';
@@ -727,7 +727,7 @@
                         "name": "Fecha de Autoevaluación",
                         "autoWidth": false,
                         "render": function (data, type, row, meta) {
-                            return '<div style="text-align: center;"><span class="text-secondary text-xs font-weight-bold">' + data + '</span></div>';
+                            return '<div style="text-align: center;"><span class="text-secondary text-xs font-weight-bold">' + moment(data).format('DD/MM/YYYY') + '</span></div>';
                         }
                     },
                     {
@@ -752,10 +752,10 @@
                         "autoWidth": false,
                         "render": function (data, type, row, meta) {
                             if (data == 1) {
-                                return '<a href="/PerformanceApp/Index/Crud?view=evaluacion&idPerformance=' + row.idPerformance + '" class="btn btn-sm btn-info" title="COMPLETAR" style="font-size: 100% !important;">' + row.estado + '</a>';
+                                return '<div style="text-align: center;"><a href="/PerformanceApp/Index/Crud?view=evaluacion&idPerformance=' + row.idPerformance + '" class="btn btn-sm btn-info" title="COMPLETAR" style="font-size: 100% !important;">' + row.estado + '</a></div>';
                             }
                             else {
-                                return '<a href="" class="btn btn-sm btn-success" title="FINALIZADO" style="font-size: 100% !important;">' + 'COMPLETO' + '</a>';
+                                return '<div style="text-align: center;"><a href="" class="btn btn-sm btn-success" title="FINALIZADO" style="font-size: 100% !important;">' + 'COMPLETO' + '</a></div>';
                             } 
 
                         }
