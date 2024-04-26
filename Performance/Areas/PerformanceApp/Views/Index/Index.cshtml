@@ -353,6 +353,14 @@
         </div>*@
         <div id="divLoading" class="modalLoading"></div>
         @*FILTROS SOLICITUDES*@
+        @if (Convert.ToInt32(perfil) == 129)
+        {
+            <div class="form-group2 col-md-1" style="padding-top: 2%;" data-toggle="tooltip" title="Alta performance año anterior">
+                <button id="altaPerfromance" type="button" class="btn btn-block btn-warning" style="width: 250px; cursor: pointer;">
+                    Alta Performance
+                </button>
+            </div>
+        }
         <div class="row" style="margin: 30px; overflow:hidden;" id="rowFiltro">
             @if (Convert.ToInt32(perfil) == 128 || Convert.ToInt32(perfil) == 129)
             {
@@ -673,6 +681,7 @@
                 "ajax": {
                     "url": url,
                     "type": "POST",
+                    "contentType": "application/json",
                     "data": function (d) {
                         return JSON.stringify(d);
                     },
@@ -765,6 +774,7 @@
                 ],
                 "createdRow": function (row, data, index) {
                     // Aquí puedes aplicar estilos o clases a las filas según tus datos
+                    $("#divLoading").hide();
                 },
                 "ordering": true,
                 "paging": true
@@ -790,6 +800,7 @@
                 "ajax": {
                     "url": url,
                     "type": "POST",
+                    "contentType": "application/json",
                     "data": function (d) {
                         return JSON.stringify(d);
                     },
@@ -882,6 +893,7 @@
                 ],
                 "createdRow": function (row, data, index) {
                     // Aquí puedes aplicar estilos o clases a las filas según tus datos
+                    $("#divLoading").hide();
                 },
                 "ordering": true,
                 "paging": true
