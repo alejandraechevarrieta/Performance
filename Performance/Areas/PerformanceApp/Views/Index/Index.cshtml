@@ -1,7 +1,7 @@
 ﻿@{
     ViewBag.Title = "Home Page";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    //var perfil = "127";
+    //var perfil = "128";
     //var perfil = Request.QueryString["perfil"];    
     var perfil = Session["perfil"];
 }
@@ -401,7 +401,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <!-- Los datos de la tabla se agregarán aquí dinámicamente desde JavaScript -->
+                                             <!-- Los datos de la tabla se agregarán aquí dinámicamente desde JavaScript -->
                                         </tbody>
                                     </table>
                                 </div>
@@ -429,7 +429,6 @@
                                                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Fecha de Evaluación</th>
                                                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Fecha de Calibración</th>
                                                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Estado</th>
-                                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Acciones</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -674,7 +673,6 @@
                     { "width": "14%", "targets": 3 },
                     { "width": "14%", "targets": 4 },
                     { "width": "14%", "targets": 5 },
-                    { "width": "14%", "targets": 6 },
                 ],
                 "columns": [
                     {
@@ -683,7 +681,7 @@
                         "autoWidth": false,
                         "render": function (data, type, row, meta) {
                             return '<div class="d-flex px-2 py-1">' +
-                                '<div class="d-flex flex-column justify-content-center">' +
+                                '<div style="text-align: center;" class="d-flex flex-column justify-content-center">' +
                                 '<h6 class="mb-0 text-sm">' + data + '</h6>' +
                                 '</div>' +
                                 '</div>';
@@ -694,8 +692,8 @@
                         "name": "Colaborador",
                         "autoWidth": false,
                         "render": function (data, type, row, meta) {
-                            return '<div class="d-flex px-2 py-1">' +
-                                '<div class="d-flex flex-column justify-content-center">' +
+                            return '<div style="text-align: center;" class="px-2 py-1">' +
+                                '<div style="text-align: center;" class="flex-column justify-content-center">' +
                                 '<h6 class="mb-0 text-sm">' + data + '</h6>' +
                                 '</div>' +
                                 '</div>';
@@ -706,7 +704,7 @@
                         "name": "Fecha de Autoevaluación",
                         "autoWidth": false,
                         "render": function (data, type, row, meta) {
-                            return '<span class="text-secondary text-xs font-weight-bold">' + data + '</span>';
+                            return '<div style="text-align: center;"><span class="text-secondary text-xs font-weight-bold">' + data + '</span></div>';
                         }
                     },
                     {
@@ -714,7 +712,7 @@
                         "name": "Fecha de Evaluación",
                         "autoWidth": false,
                         "render": function (data, type, row, meta) {
-                            return '<span class="text-secondary text-xs font-weight-bold">' + data + '</span>';
+                            return '<div style="text-align: center;"><span class="text-secondary text-xs font-weight-bold">' + "" + '</span></div>';
                         }
                     },
                     {
@@ -722,7 +720,7 @@
                         "name": "Fecha de Calibración",
                         "autoWidth": false,
                         "render": function (data, type, row, meta) {
-                            return '<span class="text-secondary text-xs font-weight-bold">' + data + '</span>';
+                            return '<div style="text-align: center;"><span class="text-secondary text-xs font-weight-bold">' + "" + '</span></div>';
                         }
                     },
                     {
@@ -731,20 +729,12 @@
                         "autoWidth": false,
                         "render": function (data, type, row, meta) {
                             if (data == 1) {
-                                return '<span class="badge badge-sm badge-success">Finalizado</span>';
+                                return '<a href="/PerformanceApp/Index/Crud?view=evaluacion&idPerformance=' + row.idPerformance + '" class="btn btn-sm btn-info" title="COMPLETAR" style="font-size: 100% !important;">' + row.estado + '</a>';
                             }
-                            else if (data == 2) {
-                                return '<span class="badge badge-sm badge-danger">A realizar</span>';
-                            }
+                            else {
+                                return '<a href="" class="btn btn-sm btn-success" title="FINALIZADO" style="font-size: 100% !important;">' + 'COMPLETO' + '</a>';
+                            } 
 
-                        }
-                    },
-                    {
-                        "data": "idEstado",
-                        "name": "Acciones",
-                        "autoWidth": false,
-                        "render": function (data, type, row, meta) {
-                            return '<span class="text-secondary text-xs font-weight-bold">' + data + '</span>';
                         }
                     },
 
