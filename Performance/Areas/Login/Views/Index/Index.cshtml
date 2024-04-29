@@ -102,7 +102,7 @@
 
     //URL
     //var API_BASE_URL = "https://buhogestion.distrocuyo.com/";
-    var API_BASE_URL = "https://192.168.1.37:45456/"; 
+    var API_BASE_URL = "https://192.168.1.37:45459/"; 
     //http://192.168.1.38:45456/
    
     //INICIO
@@ -115,7 +115,7 @@ $('#Ingresar').click(function () {
     var splitEmail = usuario.split("@@");
     if (splitEmail[1] == "" || splitEmail[1] == null) {
         $.ajax({
-            url: API_BASE_URL + "/Ingenieria/Api/Login/GetUsuario",
+            url: API_BASE_URL + "Ingenieria/api/Login/GetUsuario",
             type: 'GET',
             data: {
                 usuario: usuario,
