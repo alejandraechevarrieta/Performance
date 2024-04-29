@@ -4,6 +4,7 @@
     //var perfil = "128";
     //var perfil = Request.QueryString["perfil"];    
     var perfil = Session["perfil"];
+    var bienvenida = 0;
 }
 
 <!DOCTYPE html>
@@ -351,7 +352,23 @@
             <a id="b" class="btn btn-secondary" href="/PerformanceApp/Index/Crud?view=evaluacion" style="max-width: 18%; ">Evaluación</a>
             <a id="c" class="btn btn-warning" href="/PerformanceApp/Index/Crud?view=resumenAutoevaluacion" style="max-width: 18%; ">Resumen Autoevaluación</a>
         </div>*@
-        <div id="divLoading" class="modalLoading"></div>
+        @*---MODAL DE BIENVEIDA---*@
+
+        @*OCULTO BOTON PORQUE EN LA DOCUMENTACION SOLO LO MUESTRA CON BOTON(SE HACE CLICK EN EL BOTON DESDE JS)*@
+        <!-- Button trigger modal -->
+        <button id="botonModalBienvenida" type="button" class="btn bg-gradient-primary d-none" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            Launch demo modal
+        </button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                <div class="modal-content">
+                    <img src="~/Content/img/Bienvenida.jpg">
+                </div>
+            </div>
+        </div>
+
         @*FILTROS SOLICITUDES*@
         @if (Convert.ToInt32(perfil) == 129)
         {
@@ -423,7 +440,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                             <!-- Los datos de la tabla se agregarán aquí dinámicamente desde JavaScript -->
+                                            <!-- Los datos de la tabla se agregarán aquí dinámicamente desde JavaScript -->
                                         </tbody>
                                     </table>
                                 </div>
@@ -518,7 +535,7 @@
     });
 
         $(document).ready(function () {
-            CargarEstados();
+            //CargarEstados();
             ListarPerformance();
         });
 
@@ -530,6 +547,17 @@
     $(document).ready(function () {
         $('#navIndex').addClass('active');
     });
+        //Muestra modal de BIENVENIDA
+        $(document).ready(function () {
+            var bienvenida = localStorage.getItem('bienvenidaLeida');
+            if (bienvenida == 0 || bienvenida == null) {
+                // Obtener el botón por su id
+                var boton = document.getElementById('botonModalBienvenida');
+                // Simular un clic en el botón
+                boton.click();
+                localStorage.setItem('bienvenidaLeida', 1);
+            }
+        });
     //Funcion para que ande el tooltip
     //$(document).ready(function () {
     //    $('[data-toggle="tooltip"]').tooltip();
