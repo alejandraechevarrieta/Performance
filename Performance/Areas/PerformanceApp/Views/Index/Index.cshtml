@@ -340,6 +340,9 @@
             background: rgba(214, 214, 214, 0.8) url('../../Content/img/puntos.gif') 50% 50% no-repeat;
             background-size: 300px 240px;
         }
+        .modal {
+            background-color: rgba(0, 0, 0, 0.5);
+        }
     </style>
 
 
@@ -373,8 +376,8 @@
         @if (Convert.ToInt32(perfil) == 129)
         {
             <div class="form-group2 col-md-1" style="padding-top: 2%;" data-toggle="tooltip" title="Alta performance año anterior">
-                <button id="altaPerfromance" type="button" class="btn btn-block btn-warning" style="width: 250px; cursor: pointer;">
-                    Alta Performance
+                <button id="altaPerformance" type="button" class="btn btn-block btn-warning" style="width: 200px; cursor: pointer;">
+                    Alta Performance @(DateTime.Now.Year - 1)
                 </button>
             </div>
         }
@@ -493,11 +496,13 @@
                                     <table class="table align-items-center mb-0" id="tablaRRHH">
                                         <thead>
                                             <tr>
-                                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Año</th>
+                                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Año</th>
+                                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Colaborador</th>
                                                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Líder</th>
-                                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Fecha de Autoevaluación</th>
-                                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Fecha de Evaluación</th>
-                                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Fecha de Calibración</th>
+                                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">F. Autoevaluación</th>
+                                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">F. Evaluación</th>
+                                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">F. Calibración</th>
+                                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">F. Feedback</th>
                                                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Estado</th>
                                                 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Acciones</th>
                                             </tr>
@@ -512,6 +517,34 @@
                     </div>
                 </div>
             }
+        </div>
+        @*modal preguntar si esta seguro *@
+        <div class="modal" id="modalAltas" style="display: none!important; margin-top: 0%;">
+            <div class="modal-dialog" style="max-width: 900px!important;">
+                <div class="modal-content p-2">
+                    <div class="row mb-3 m-2" style="justify-content:center">
+                        <p class="h4" style="margin-left: 0px; margin-right:0px;"> Desea dar de alta las performance @(DateTime.Now.Year - 1) de los colaboradores</p>
+                    </div>
+                    <div class="row mb-3 pr-2">
+                        <div class="col-md-6">
+                            <a href="#" role="button" class="btn btn-danger btn-sm btn-block" id="cerrarAlta" style="margin-left: 60%; width: 40%;">Cancelar</a>
+                        </div>
+                        <div class="col-md-6">
+                            <a href="#" role="button" class="btn btn-info btn-sm btn-block" id="generarAlta" style="width: 40%;">Generar</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @*modal altas ok *@
+        <div class="modal" id="modalAltasOk" style="display: none!important; margin-top: 0%;">
+            <div class="modal-dialog" style="max-width: 900px!important;">
+                <div class="modal-content p-2">
+                    <div class="row mb-3 m-2" style="justify-content:center">
+                        <p class="h4" style="margin-left: 0px; margin-right:0px;">Se generaron las altas de performance @(DateTime.Now.Year - 1) con éxito</p>
+                    </div>                   
+                </div>
+            </div>
         </div>
     </main>
 
@@ -683,10 +716,13 @@
                     },
                 ],
                 "createdRow": function (row, data, index) {
-                    $("#divLoading").hide();
+                    
                 },
                 "ordering": true,
-                "paging": true
+                "paging": true,
+                "initComplete": function () {
+                    $("#divLoading").hide();
+                }
             });
         };
         //INICIAR TABLA DEL LIDER
@@ -791,11 +827,13 @@
 
                 ],
                 "createdRow": function (row, data, index) {
-                    // Aquí puedes aplicar estilos o clases a las filas según tus datos
-                    $("#divLoading").hide();
+                    // Aquí puedes aplicar estilos o clases a las filas según tus datos                  
                 },
                 "ordering": true,
-                "paging": true
+                "paging": true,
+                "initComplete": function () {
+                    $("#divLoading").hide();
+                }
             });
         };
 
@@ -821,20 +859,23 @@
                     "contentType": "application/json",
                     "data": function (d) {
                         return JSON.stringify(d);
+                       
                     },
-                    "datatype": "json"
+                    "datatype": "json",                   
                 },
                 "pageLength": 25,
                 "filter": true,
                 "responsivePriority": 1,
                 "columnDefs": [
                     { "width": "10%", "targets": 0 },
-                    { "width": "20%", "targets": 1 },
-                    { "width": "14%", "targets": 2 },
-                    { "width": "14%", "targets": 3 },
-                    { "width": "14%", "targets": 4 },
-                    { "width": "14%", "targets": 5 },
-                    { "width": "14%", "targets": 6 },
+                    { "width": "17%", "targets": 1 },
+                    { "width": "17%", "targets": 2 },
+                    { "width": "7%", "targets": 3 },
+                    { "width": "7%", "targets": 4 },
+                    { "width": "7%", "targets": 5 },
+                    { "width": "7%", "targets": 6 },
+                    { "width": "10%", "targets": 7 },
+                    { "width": "10%", "targets": 8 },
                 ],
                 "columns": [
                     {
@@ -850,12 +891,24 @@
                         }
                     },
                     {
+                        "data": "nombre",
+                        "name": "Colaborador",
+                        "autoWidth": false,
+                        "render": function (data, type, row, meta) {
+                            return '<div class="d-flex px-2 py-1 justify-content-center align-items-center">' +
+                                '<div class="d-flex flex-column">' +
+                                '<h6 class="mb-0 text-sm">' + data + '</h6>' +
+                                '</div>' +
+                                '</div>';
+                        }
+                    },
+                    {
                         "data": "nombreJefe",
                         "name": "Líder",
                         "autoWidth": false,
                         "render": function (data, type, row, meta) {
-                            return '<div class="d-flex px-2 py-1">' +
-                                '<div class="d-flex flex-column justify-content-center">' +
+                            return '<div class="d-flex px-2 py-1 justify-content-center align-items-center">' +
+                                '<div class="d-flex flex-column">' +
                                 '<h6 class="mb-0 text-sm">' + data + '</h6>' +
                                 '</div>' +
                                 '</div>';
@@ -866,7 +919,11 @@
                         "name": "Fecha de Autoevaluación",
                         "autoWidth": false,
                         "render": function (data, type, row, meta) {
-                            return '<span class="text-secondary text-xs font-weight-bold">' + data + '</span>';
+                            if (data !== null) {
+                                return '<div style="text-align: center;">' + moment(data).format('DD/MM/YYYY') + '</div>'
+                            } else {
+                                return '';
+                            }
                         }
                     },
                     {
@@ -874,7 +931,11 @@
                         "name": "Fecha de Evaluación",
                         "autoWidth": false,
                         "render": function (data, type, row, meta) {
-                            return '<span class="text-secondary text-xs font-weight-bold">' + data + '</span>';
+                            if (data !== null) {
+                                return '<div style="text-align: center;">' + moment(data).format('DD/MM/YYYY') + '</div>'
+                            } else {
+                                return '';
+                            }
                         }
                     },
                     {
@@ -882,7 +943,23 @@
                         "name": "Fecha de Calibración",
                         "autoWidth": false,
                         "render": function (data, type, row, meta) {
-                            return '<span class="text-secondary text-xs font-weight-bold">' + data + '</span>';
+                            if (data !== null) {
+                                return '<div style="text-align: center;">' + moment(data).format('DD/MM/YYYY') + '</div>'
+                            } else {
+                                return '';
+                            }
+                        }
+                    },
+                    {
+                        "data": "fechaFeedback",
+                        "name": "Fecha de Feedback",
+                        "autoWidth": false,
+                        "render": function (data, type, row, meta) {
+                            if (data !== null) {
+                                return '<div style="text-align: center;">' + moment(data).format('DD/MM/YYYY') + '</div>'
+                            } else {
+                                return '';
+                            }
                         }
                     },
                     {
@@ -890,17 +967,11 @@
                         "name": "Estado",
                         "autoWidth": false,
                         "render": function (data, type, row, meta) {
-                            if (data == 1) {
-                                return '<span class="badge badge-sm badge-success">Finalizado</span>';
-                            }
-                            else if (data == 2) {
-                                return '<span class="badge badge-sm badge-danger">A realizar</span>';
-                            }
-
+                            return '<a href="" class="btn btn-sm btn-success" title="FINALIZADO" style="font-size: 100% !important;">' + row.estado + '</a>';
                         }
                     },
                     {
-                        "data": "acciones",
+                        "data": "estado",
                         "name": "Acciones",
                         "autoWidth": false,
                         "render": function (data, type, row, meta) {
@@ -911,10 +982,13 @@
                 ],
                 "createdRow": function (row, data, index) {
                     // Aquí puedes aplicar estilos o clases a las filas según tus datos
-                    $("#divLoading").hide();
+                    
                 },
                 "ordering": true,
-                "paging": true
+                "paging": true,
+                "initComplete": function () {
+                    $("#divLoading").hide();
+                }
             });
         };
 
@@ -935,7 +1009,40 @@
                     });
                 });
         }
+        //ALTAS
+        $('#altaPerformance').click(function () {
+            $('#modalAltas').show();
+        });
+        $('#cerrarAlta').click(function () {
+            $('#modalAltas').hide();
+        });
+        $('#generarAlta').click(function () {
+            $.ajax({
+                url: "/PerformanceApp/Api/PerformanceApp/GenerarAltasPerformance",
+                type: 'GET',
+                data: {
 
+                },
+                dataType: 'json',
+                success: function (data) {
+                    if (data > 0) {
+                        $('#modalAltas').hide();
+                        $('#modalAltasOk').show();
+                        setTimeout(function () {
+                            $('#modalAltasOk').hide();
+                        }, 3000); 
+                        ListarPerformance();
+                    } else {
+                        alert('Error al generar las altas ' + data)
+                        $('#modalAltas').hide();
+                    }
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    alert("Error en la solicitud: " + errorThrown);
+                }
+            });
+
+        });
 
     </script>
 

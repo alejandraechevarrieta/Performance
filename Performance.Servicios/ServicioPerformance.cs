@@ -49,9 +49,10 @@ namespace Performance.Servicios
                            fechaAutoevaluacion = p.fechaAutoevaluacion, 
                            fechaEvaluacion = p.fechaEvaluacion,
                            fechaCalibracion = p.fechaCalibracion,
+                           fechaFeedback = p.fechaEvaluacion, //cambiar
                            idEstado = p.estado,
-                           estado = e.estado,                           
-                       }).OrderByDescending(x => x.ano);
+                           estado = e.estado,
+                       }).OrderByDescending(x => x.ano).ThenBy(x => x.nombre);
             var algo = tmp.ToList();
 
             return tmp;
@@ -70,8 +71,9 @@ namespace Performance.Servicios
                 if(idPerfil == "128") {
                     listaPpal = listaPpal.Where(p => p.idJefe == colaborador).ToList();
                 }
-            }          
-
+               
+            }
+           
             return listaPpal;
         }
 
@@ -158,6 +160,47 @@ namespace Performance.Servicios
                 }
 
                 return nuevaAutoevaluacion.idPerformance;
+            }
+            catch (Exception e)
+            {
+                var ex = e.GetBaseException();
+                return 0;
+            }
+        }
+
+        public int GenerarAltasPerformance(List<ColaboradorVM> colaboradores)
+        {
+            try
+            {
+                
+                var anoAnterior = DateTime.Now.Year - 1;
+                int anoActual = DateTime.Now.Year;
+
+                PerformanceColaborador nuevaPerformance = new PerformanceColaborador();
+
+                foreach (var item in colaboradores)
+                {
+                    var existe = db.PerformanceColaborador.Where(x => x.ano == anoAnterior && x.idUsuario == item.idUsuario).FirstOrDefault();
+                    if(existe == null)
+                    {
+                        nuevaPerformance.ano = anoAnterior;
+                        nuevaPerformance.idUsuario = item.idUsuario;
+                        nuevaPerformance.nombre = item.nombre;
+                        nuevaPerformance.idJefe = item.idJefe;
+                        nuevaPerformance.nombreJefe = item.nombreJefe;
+                        nuevaPerformance.estado = 1;
+
+                        //calculo antiguedad
+                        int anoIngreso = item.fechaIngreso.Value.Year;
+                        int antiguedad= Math.Abs(anoActual - anoIngreso);
+                        nuevaPerformance.antiguedad = antiguedad;
+                        
+                        db.PerformanceColaborador.Add(nuevaPerformance);
+                        db.SaveChanges();
+                    }                  
+                }
+
+                return anoAnterior;
             }
             catch (Exception e)
             {
