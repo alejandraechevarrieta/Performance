@@ -198,7 +198,39 @@ namespace Performance.Areas.PerformanceApp.Controllers.Api
                 }
             }
         }
+        [System.Web.Http.Route("Api/PerformanceApp/GenerarAltasPerformance")]
+        [System.Web.Http.ActionName("GenerarAltasPerformance")]
+        [System.Web.Http.HttpGet]
+       public async Task<int> GenerarAltasPerformance()
+        {
+            string API_BASE_URL = "https://192.168.1.46:45456/";
+            string endpoint = $"Ingenieria/api/Login/DatosColaboradores";
 
+            using (HttpClient client = new HttpClient())
+            {
+                try
+                {
+                    HttpResponseMessage response = await client.GetAsync(API_BASE_URL + endpoint);
+                    response.EnsureSuccessStatusCode();
+                    string responseBody = await response.Content.ReadAsStringAsync();
+
+                    // Deserializa la respuesta JSON directamente a una lista de objetos ColaboradorVM
+                    List<ColaboradorVM> colaboradores = JsonConvert.DeserializeObject<List<ColaboradorVM>>(responseBody);
+
+                    Servicios.ServicioPerformance _servicio = new Servicios.ServicioPerformance();
+                    var tmp = _servicio.GenerarAltasPerformance(colaboradores.ToList());
+
+                    return tmp;
+                }
+                catch (JsonSerializationException ex)
+                {
+                    Console.WriteLine("Error al deserializar la respuesta JSON:");
+                    Console.WriteLine(ex.Message);
+                    throw;                    
+                }
+            }
+        }
+      
         public class DataTableRequestModel
         {
             public int draw { get; set; }

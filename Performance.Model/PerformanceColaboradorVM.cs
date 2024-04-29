@@ -46,6 +46,7 @@ namespace Performance.Model
         public DateTime? fechaEvaluacion { get; set; }
         public DateTime? fechaAutoevaluacion { get; set; }
         public DateTime? fechaCalibracion { get; set; }
+        public DateTime? fechaFeedback { get; set; }
         public int? idEstado { get; set; }
         public string estado { get; set; }
     }
