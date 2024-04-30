@@ -80,7 +80,7 @@ namespace Performance.Areas.PerformanceApp.Controllers.Api
         [System.Web.Http.Route("Api/PerformanceApp/ListarPerformance")]
         [System.Web.Http.ActionName("ListarPerformance")]
         [System.Web.Http.HttpPost]
-        public HttpResponseMessage ListarPerformance(DataTableRequestModel requestModel, int? colaborador, int? estado, string idPerfil)
+        public HttpResponseMessage ListarPerformance(DataTableRequestModel requestModel, string idUsuario, string idPerfil, int? colaborador, int? estado, int? lider)
         {
             var draw = requestModel.draw;
             var start = requestModel.start;
@@ -94,7 +94,7 @@ namespace Performance.Areas.PerformanceApp.Controllers.Api
             Servicios.ServicioPerformance _servicio = new Servicios.ServicioPerformance();
 
             // Consulta a tu servicio para obtener los datos
-            var listaPpal = _servicio.listarPerformance(colaborador, estado, idPerfil);
+            var listaPpal = _servicio.listarPerformance(idUsuario, idPerfil, colaborador, estado, lider);
 
             // Filtrar y paginar los datos según los parámetros recibidos
             var listFiltr = listaPpal.Where(x => x.idPerformance > 0).Distinct().ToList();

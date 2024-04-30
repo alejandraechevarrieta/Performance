@@ -382,43 +382,43 @@
                 </button>
             </div>
         }
-        <div class="row m-3" style="overflow:hidden;" id="rowFiltro">
-            @if (Convert.ToInt32(perfil) == 128 || Convert.ToInt32(perfil) == 129)
+    <div class="row m-3" style="overflow:hidden;" id="rowFiltro">
+        @if (Convert.ToInt32(perfil) == 128 || Convert.ToInt32(perfil) == 129)
+        {
+            if (Convert.ToInt32(perfil) == 128 || Convert.ToInt32(perfil) == 129)
             {
-                if (Convert.ToInt32(perfil) == 128)
-                {
-                    <div class="form-group2 col-md-2" id="filtroColaborador">
-                        <label>Colaborador:</label>
-                        <div></div>
-                        <div style="font-weight: normal !important;">
-                            <select class="form-control" id="selectColaborador"></select>
-                        </div>
-                    </div>
-                }
-                if (Convert.ToInt32(perfil) == 129)
-                {
-                    <div class="form-group2 col-md-2" id="filtroLider">
-                        <label>Líder:</label>
-                        <div></div>
-                        <div style="font-weight: normal !important;">
-                            <select class="form-control" id="selectLider"></select>
-                        </div>
-                    </div>
-                }
-                <div class="form-group2 col-md-2" id="filtroEstado">
-                    <label>Estado:</label>
+                <div class="form-group2 col-md-2" id="filtroColaborador">
+                    <label>Colaborador:</label>
                     <div></div>
-                    <select class="form-control" id="selectEstado">
-                    </select>
-                </div>
-                <div class="form-group2 col-md-1 mt-2" style="padding-top: 1.9%;" id="btnBuscarFiltro">
-                    <button id="btnFiltrar" type="button" class="btn btn-success" style="width: 120px; cursor: pointer;">
-                        Buscar
-                    </button>
+                    <div style="font-weight: normal !important;">
+                        <select class="form-control" id="selectColaborador"></select>
+                    </div>
                 </div>
             }
+            if (Convert.ToInt32(perfil) == 129)
+            {               
+                <div class="form-group2 col-md-2" id="filtroLider">
+                    <label>Líder:</label>
+                    <div></div>
+                    <div style="font-weight: normal !important;">
+                        <select class="form-control" id="selectLider"></select>
+                    </div>
+                </div>
+            }
+            <div class="form-group2 col-md-2" id="filtroEstado">
+                <label>Estado:</label>
+                <div></div>
+                <select class="form-control" id="selectEstado">
+                </select>
+            </div>
+            <div class="form-group2 col-md-1 mt-2" style="padding-top: 1.9%;" id="btnBuscarFiltro">
+                <button id="btnFiltrar" type="button" class="btn btn-success" style="width: 120px; cursor: pointer;">
+                    Buscar
+                </button>
+            </div>
+        }
 
-        </div>
+    </div>
 
         <!-- MultiStep Form -->
         <div class="container-fluid py-4" id="grad1">
@@ -605,10 +605,14 @@
 
             var colaborador = $("#selectColaborador").val();
             var estado = $("#selectEstado").val();
+            var lider = $("#selectLider").val();
             var url = "Api/PerformanceApp/ListarPerformance";
-            url = url + "?colaborador=" + colaborador;
-            url = url + "&estado=" + estado;
+            url = url + "?idUsuario=" + "@idUsuario";
             url = url + "&idPerfil=" + "@perfil";
+            url = url + "&colaborador=" + colaborador;
+            url = url + "&estado=" + estado;
+            url = url + "&lider=" + lider;
+
             if ("@perfil" == "127") {//Tabla del colaborador
                 IniciarTabla();
                 $('#tablaColaborador').DataTable().clear().destroy();
@@ -717,7 +721,7 @@
                     },
                 ],
                 "createdRow": function (row, data, index) {
-                    
+
                 },
                 "ordering": true,
                 "paging": true,
@@ -821,14 +825,14 @@
                             }
                             else {
                                 return '<div style="text-align: center;"><a href="" class="btn btn-sm btn-success" title="FINALIZADO" style="font-size: 100% !important;">' + 'COMPLETO' + '</a></div>';
-                            } 
+                            }
 
                         }
                     },
 
                 ],
                 "createdRow": function (row, data, index) {
-                    // Aquí puedes aplicar estilos o clases a las filas según tus datos                  
+                    // Aquí puedes aplicar estilos o clases a las filas según tus datos
                 },
                 "ordering": true,
                 "paging": true,
@@ -860,9 +864,9 @@
                     "contentType": "application/json",
                     "data": function (d) {
                         return JSON.stringify(d);
-                       
+
                     },
-                    "datatype": "json",                   
+                    "datatype": "json",
                 },
                 "pageLength": 25,
                 "filter": true,
@@ -983,7 +987,7 @@
                 ],
                 "createdRow": function (row, data, index) {
                     // Aquí puedes aplicar estilos o clases a las filas según tus datos
-                    
+
                 },
                 "ordering": true,
                 "paging": true,
@@ -1031,7 +1035,7 @@
                         $('#modalAltasOk').show();
                         setTimeout(function () {
                             $('#modalAltasOk').hide();
-                        }, 3000); 
+                        }, 3000);
                         ListarPerformance();
                     } else {
                         alert('Error al generar las altas ' + data)
