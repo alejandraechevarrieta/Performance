@@ -16,6 +16,7 @@ using System.Web.Hosting;
 using System.Net.Http.Headers;
 using System.Web.Services.Description;
 using System.Threading.Tasks;
+using System.Configuration;
 
 namespace Performance.Areas.PerformanceApp.Controllers.Api
 {
@@ -147,63 +148,13 @@ namespace Performance.Areas.PerformanceApp.Controllers.Api
                 return 0;
             }
         }
-        //[System.Web.Http.Route("Api/PerformanceApp/GuardarAutoevaluacion")]
-        //[System.Web.Http.ActionName("GuardarAutoevaluacion")]
-        //[System.Web.Http.HttpPost]
-        //public async Task<int> GuardarAutoevaluacion(PerformanceAutoevaluacionVM autoevaluacion)
-        //{
-        //    try
-        //    {
-        //        Servicios.ServicioPerformance _servicio = new Servicios.ServicioPerformance();
-
-        //        List<ColaboradorVM> colaborador = await BuscarDatosUsuario(autoevaluacion.idUsuario);
-
-        //        var tmp = _servicio.GuardarAutoevaluacion(autoevaluacion, colaborador.FirstOrDefault());
-
-        //        return tmp;
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        return 0;
-        //    }
-        //}
-        public async Task<List<ColaboradorVM>> BuscarDatosUsuario(int idUsuario)
-        {
-            //string API_BASE_URL = "https://buhogestion.distrocuyo.com/";
-            string API_BASE_URL = "https://192.168.1.37:45456/";
-            string endpoint = $"Ingenieria/api/Login/DatosColaborador?idUsuario={idUsuario}";
-
-            using (HttpClient client = new HttpClient())
-            {
-                try
-                {
-                    HttpResponseMessage response = await client.GetAsync(API_BASE_URL + endpoint);
-                    response.EnsureSuccessStatusCode();
-                    string responseBody = await response.Content.ReadAsStringAsync();
-
-                    // Deserializa la respuesta JSON en un objeto ColaboradorVM
-                    var datosColaborador = JsonConvert.DeserializeObject<ColaboradorVM>(responseBody);
-
-                    // Crea una lista de un solo elemento con el colaborador obtenido
-                    List<ColaboradorVM> colaboradores = new List<ColaboradorVM>();
-                    colaboradores.Add(datosColaborador);
-
-                    return colaboradores; // Devuelve la lista de colaboradores
-                }
-                catch (JsonSerializationException ex)
-                {
-                    Console.WriteLine("Error al deserializar la respuesta JSON:");
-                    Console.WriteLine(ex.Message);
-                    throw;
-                }
-            }
-        }
+       
         [System.Web.Http.Route("Api/PerformanceApp/GenerarAltasPerformance")]
         [System.Web.Http.ActionName("GenerarAltasPerformance")]
         [System.Web.Http.HttpGet]
        public async Task<int> GenerarAltasPerformance()
         {
-            string API_BASE_URL = "https://192.168.1.46:45456/";
+            string API_BASE_URL = ConfigurationSettings.AppSettings["urlBuho"];
             string endpoint = $"Ingenieria/api/Login/DatosColaboradores";
 
             using (HttpClient client = new HttpClient())
