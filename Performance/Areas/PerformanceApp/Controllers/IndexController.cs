@@ -8,7 +8,7 @@ namespace Performance.Areas.PerformanceApp.Controllers
 {
     public class IndexController : Controller
     {
-        public ActionResult Index(string perfil)
+        public ActionResult Index(string perfil, string idUsuario)
         {
             //ViewBag.Perfil = perfil;
             System.Web.HttpContext.Current.Session["perfil"] = perfil;
