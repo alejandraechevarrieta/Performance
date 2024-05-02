@@ -100,11 +100,7 @@
     //PERFIL
     var perfil = null;
 
-    //URL
-    //var API_BASE_URL = "https://buhogestion.distrocuyo.com/";
-    var API_BASE_URL = "https://192.168.1.37:45459/"; 
-    //http://192.168.1.38:45456/
-   
+    
     //INICIO
     $("#divLoading").hide();
 
@@ -115,7 +111,7 @@ $('#Ingresar').click(function () {
     var splitEmail = usuario.split("@@");
     if (splitEmail[1] == "" || splitEmail[1] == null) {
         $.ajax({
-            url: API_BASE_URL + "Ingenieria/api/Login/GetUsuario",
+            url: "Api/Login/ValidarIngreso",
             type: 'GET',
             data: {
                 usuario: usuario,
@@ -148,22 +144,17 @@ $('#Ingresar').click(function () {
 });
 function validarPerfil(idUsuario) {
     $.ajax({
-        url: API_BASE_URL + "/Ingenieria/Api/Login/GetPerfiles",
+        url: "Api/Login/GetPerfiles",
         type: 'GET',
         data: {
             idUsuario: idUsuario
         },
         dataType: 'json',
         success: function (data) {
-            var perfil = null;
-            data.forEach(function(item) {
-                var perfilId = item.Value;
-                if (perfilId === "127" || perfilId === "128" || perfilId === "129") {
-                    perfil = perfilId;
-                }
-            });
-            if (perfil !== null) {               
-                window.location.href = '@Url.Action("Index", "Index", new { area = "PerformanceApp", perfil = "__perfil__" })'.replace('__perfil__', perfil);
+            var perfil = data;
+            if (perfil !== null && perfil !== 0) {
+               var url = '/PerformanceApp/Index?perfil=' + perfil + '&idUsuario=' + idUsuario;
+                window.location.href = url;
             } else {
                 alert("El usuario no tiene permiso");
                 $("#divLoading").hide();

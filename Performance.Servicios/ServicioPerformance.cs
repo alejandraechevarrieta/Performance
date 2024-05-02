@@ -58,22 +58,35 @@ namespace Performance.Servicios
             return tmp;
         }
 
-        public List<PerformanceVM> listarPerformance(int? colaborador, int? estado, string idPerfil)
+        public List<PerformanceVM> listarPerformance(string idUsuario, string idPerfil, int? colaborador, int? estado, int? lider)
         {
             var listaPpal = ListarPerformanceTodas().ToList();
-
+            var idUsuarioInt = Convert.ToInt16(idUsuario);
+            if (idPerfil != null)
+            {
+                if (idPerfil == "127")
+                {
+                    listaPpal = listaPpal.Where(p => p.idUsuario == idUsuarioInt).ToList();
+                }
+                if (idPerfil == "128")
+                {
+                    listaPpal = listaPpal.Where(p => p.idJefe == idUsuarioInt).ToList();
+                }              
+            }
             if (colaborador != null)
             {
-                if(idPerfil == "127")
-                {
-                    listaPpal = listaPpal.Where(p => p.idUsuario == colaborador).ToList();
-                }
-                if(idPerfil == "128") {
-                    listaPpal = listaPpal.Where(p => p.idJefe == colaborador).ToList();
-                }
-               
+                listaPpal = listaPpal.Where(p => p.idUsuario == colaborador).ToList();
+
             }
-           
+            if (estado != null)
+            {
+                listaPpal = listaPpal.Where(p => p.idEstado == estado).ToList();
+            }
+            if (lider != null)
+            {
+                listaPpal = listaPpal.Where(p => p.idJefe == lider).ToList();
+            }
+
             return listaPpal;
         }
 
