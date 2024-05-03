@@ -124,9 +124,18 @@
                 box-shadow: 0 0 0 2px white, 0 0 0 3px #616161;
             }
         #msform input.selected {
-            border-bottom: 2px solid skyblue;
+            border-bottom: 2px solid skyblue; 
+            background-color: rgba(135, 206, 250, 0.2); 
+            box-shadow: 0 0 5px skyblue;
+            border: 2px solid skyblue; 
         }
 
+    .boton {
+        border-bottom: 2px solid skyblue !important;
+        background-color: #00aec7 !important;
+        box-shadow: 0 0 5px !important;
+        border: 2px solid !important;
+    }
     /*Dropdown List Exp Date*/
     select.list-dt {
         border: none;
@@ -510,9 +519,9 @@
         .radio-group label {
             white-space: nowrap; /* Evita que las palabras se dividan en múltiples líneas */
         }
-        .tituloResumen{
-            margin-right: inherit;
-        }
+    .tituloResumen {
+        margin-right: inherit;
+    }   
 </style>
 
 <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
@@ -561,9 +570,9 @@
                                             </p>
                                         </div>
                                     </div>
-                                    <input type="button" name="next" class="next action-button" value="Siguiente" />
+                                    <input type="button" name="next" class="next action-button boton" value="Siguiente" />
                                 </fieldset>
-                                <fieldset>
+                                <fieldset id="tarj1">
                                     <div class="form-card" id="card1">
                                         <h2 class="fs-title">Aprendizaje continuo</h2>
                                         <div class="row">
@@ -576,10 +585,10 @@
                                             <input id="a1" type="button" data-toggle="tooltip" data-bs-placement="bottom" title="No es requerida por la posición" value="No aplica" />
                                         </div>
                                     </div>
-                                    <input type="button" name="previous" class="previous action-button-previous" value="Volver" />
-                                    <input type="button" name="next" class="next action-button" value="Siguiente" />
+                                    <input type="button" name="previous" class="previous action-button-previous boton" value="Volver" />
+                                    <input type="button" name="next" class="next action-button boton" value="Siguiente" />
                                 </fieldset>
-                                <fieldset>
+                                <fieldset id="tarj2">
                                     <div class="form-card" id="card2">
                                         <h2 class="fs-title">Autonomía</h2>
                                         <div class="row">
@@ -592,10 +601,10 @@
                                             <input id="b1" type="button" data-toggle="tooltip" data-bs-placement="bottom" title="No es requerida por la posición" value="No aplica" />
                                         </div>
                                     </div>
-                                    <input type="button" name="previous" class="previous action-button-previous" value="Volver" />
-                                    <input type="button" name="next" class="next action-button" value="Siguiente" />
+                                    <input type="button" name="previous" class="previous action-button-previous boton" value="Volver" />
+                                    <input type="button" name="next" class="next action-button boton" value="Siguiente" />
                                 </fieldset>
-                                <fieldset>
+                                <fieldset id="tarj3">
                                     <div class="form-card" id="card3">
                                         <h2 class="fs-title">Colaboración</h2>
                                         <div class="row">
@@ -608,10 +617,10 @@
                                             <input id="c1" type="button" data-toggle="tooltip" data-bs-placement="bottom" title="No es requerida por la posición" value="No aplica" />
                                         </div>
                                     </div>
-                                    <input type="button" name="previous" class="previous action-button-previous" value="Volver" />
-                                    <input type="button" name="make_payment" class="next action-button" value="Siguiente" />
+                                    <input type="button" name="previous" class="previous action-button-previous boton" value="Volver" />
+                                    <input type="button" name="make_payment" class="next action-button boton" value="Siguiente" />
                                 </fieldset>
-                                <fieldset>
+                                <fieldset id="tarj4">
                                     <div class="form-card" id="card4">
                                         <h2 class="fs-title">Comunicación efectiva</h2>
                                         <div class="row">
@@ -624,10 +633,10 @@
                                             <input id="d1" type="button" data-toggle="tooltip" data-bs-placement="bottom" title="No es requerida por la posición" value="No aplica" />
                                         </div>
                                     </div>
-                                    <input type="button" name="previous" class="previous action-button-previous" value="Volver" />
-                                    <input type="button" name="make_payment" class="next action-button" value="Siguiente" />
+                                    <input type="button" name="previous" class="previous action-button-previous boton" value="Volver" />
+                                    <input type="button" name="make_payment" class="next action-button boton" value="Siguiente" />
                                 </fieldset>
-                                <fieldset>
+                                <fieldset id="tarj5">
                                     <div class="form-card" id="card5">
                                         <h2 class="fs-title">Gestión del cambio</h2>
                                         <div class="row">
@@ -640,10 +649,10 @@
                                             <input id="e1" type="button" data-toggle="tooltip" data-bs-placement="bottom" title="No es requerida por la posición" value="No aplica" />
                                         </div>
                                     </div>
-                                    <input type="button" name="previous" class="previous action-button-previous" value="Volver" />
-                                    <input type="button" name="make_payment" class="next action-button" value="Siguiente" />
+                                    <input type="button" name="previous" class="previous action-button-previous boton" value="Volver" />
+                                    <input type="button" name="make_payment" class="next action-button boton" value="Siguiente" />
                                 </fieldset>
-                                <fieldset>
+                                <fieldset id="tarj6">
                                     <div class="form-card" id="card6">
                                         <h2 class="fs-title">Visión sistémica</h2>
                                         <div class="row">
@@ -656,10 +665,10 @@
                                             <input id="f1" type="button" data-toggle="tooltip" data-bs-placement="bottom" title="No es requerida por la posición" value="No aplica" />
                                         </div>
                                     </div>
-                                    <input type="button" name="previous" class="previous action-button-previous" value="Volver" />
-                                    <input type="button" name="make_payment" class="next action-button" onclick="CargarDatosResumen();" value="Confirmar" />
+                                    <input type="button" name="previous" class="previous action-button-previous boton" value="Volver" />
+                                    <input type="button" name="make_payment" class="action-button boton" id="confirmar" onclick="VerificarDatos();" value="Confirmar" />
                                 </fieldset>
-                                <fieldset>
+                                <fieldset id="tarj7">
                                     <div class="form-card p-2">
                                         <div class="m-4">
                                             <p class="h2"><strong>Autoevaluación de Habilidades</strong></p>
@@ -685,7 +694,7 @@
                                                         <input type="radio" name="autodesarrollo" value="No aplica" id="ra1">
                                                         <label for="no_aplica_radio"> No aplica</label>
                                                     </div>
-                                                    <i class="lapiz fas fa-pencil-alt m-3 w-3" onclick="miFuncion()"></i>
+                                                    <i class="lapiz fas fa-pencil-alt m-3 w-3" onclick="EditarAutoEvaluacion(1)"></i>
                                                 </div>
                                             </div>
                                         </div>
@@ -709,7 +718,7 @@
                                                         <input type="radio" name="empoderamiento" value="No aplica" id="rb1">
                                                         <label for="no_aplica_radio"> No aplica</label>
                                                     </div>
-                                                    <i class="lapiz fas fa-pencil-alt m-3 w-3"></i>
+                                                    <i class="lapiz fas fa-pencil-alt m-3 w-3" onclick="EditarAutoEvaluacion(2)"></i>
                                                 </div>
                                             </div>
                                         </div>
@@ -733,7 +742,7 @@
                                                         <input type="radio" name="espiritu_del_trabajo" value="No aplica" id="rc1">
                                                         <label for="no_aplica_radio"> No aplica</label>
                                                     </div>
-                                                    <i class="lapiz fas fa-pencil-alt m-3 w-3"></i>
+                                                    <i class="lapiz fas fa-pencil-alt m-3 w-3" onclick="EditarAutoEvaluacion(3)"></i>
                                                 </div>
                                             </div>
                                         </div>
@@ -757,7 +766,7 @@
                                                         <input type="radio" name="habilidad_interpersonal" value="No aplica" id="rd1">
                                                         <label for="no_aplica_radio"> No aplica</label>
                                                     </div>
-                                                    <i class="lapiz fas fa-pencil-alt m-3 w-3"></i>
+                                                    <i class="lapiz fas fa-pencil-alt m-3 w-3" onclick="EditarAutoEvaluacion(4)"></i>
                                                 </div>
                                             </div>
                                         </div>
@@ -781,7 +790,7 @@
                                                         <input type="radio" name="gestion_del_cambio" value="No aplica" id="re1">
                                                         <label for="no_aplica_radio"> No aplica</label>
                                                     </div>
-                                                    <i class="lapiz fas fa-pencil-alt m-3 w-3"></i>
+                                                    <i class="lapiz fas fa-pencil-alt m-3 w-3" onclick="EditarAutoEvaluacion(5)"></i>
                                                 </div>
                                             </div>
                                         </div>
@@ -805,13 +814,13 @@
                                                         <input type="radio" name="vision_estrategica" value="No aplica" id="rf1">
                                                         <label for="no_aplica_radio"> No aplica</label>
                                                     </div>
-                                                    <i class="lapiz fas fa-pencil-alt m-3 w-3"></i>
+                                                    <i class="lapiz fas fa-pencil-alt m-3 w-3" onclick="EditarAutoEvaluacion(6)"></i>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <input type="button" name="previous" class="action-button-previous" value="Cancelar" onclick="window.history.back()" />
-                                    <input type="button" name="make_payment" class="action-button" onclick="AbrirModalEnviar()" value="Enviar a tu lider" />
+                                    <input type="button" name="previous" class="action-button-previous boton" value="Cancelar" onclick="window.history.back()" />
+                                    <input type="button" name="make_payment" class="action-button boton" onclick="AbrirModalEnviar()" value="Enviar a tu lider" />
                                 </fieldset>
                             </form>
                         </div>
@@ -837,7 +846,7 @@
                 </div>
             </div>
         </div>
-    </div>   
+    </div>
     @*modal guardado*@
     <div class="modal modal-success" id="modal-enviado" style="display: none">
         <div class="modal-dialog" style="margin-left: 35%;margin-top: 15%;">
@@ -933,11 +942,9 @@
             $(this).parent().find('.radio').removeClass('selected');
             $(this).addClass('selected');
         });
-
-    });
-
-
-
+      
+        localStorage.clear();
+    });       
     //Funcion para que ande el popover
     $(document).ready(function () {
         $('[data-toggle="popover"]').popover();
@@ -947,7 +954,36 @@
         $('[data-toggle="tooltip"]').tooltip();
     });
 
-    //CARGAR LOS DATOS EN EL RESUMEN
+    ///RESUMEN
+    function VerificarDatos() {
+        var todasLasTarjetasCompletas = true;
+
+        //tarjetas
+        for (var i = 1; i <= 6; i++) {
+            var tarjetaCompleta = false; 
+            var selector = '#tarj' + i;
+            // verificar si hay una selección en la tarjeta actual (excluyendo los botones de "Siguiente" y "Volver")
+            if ($(selector).find('input[type="button"].selected').not('.next, .previous').length > 0) {
+                tarjetaCompleta = true;            }
+           
+            if (!tarjetaCompleta) {               
+                $('#confirmar').addClass('next');
+                todasLasTarjetasCompletas = false;
+                break; 
+               
+            }
+        }
+       
+        if (!todasLasTarjetasCompletas) {           
+            alert('Falta completar una tarjeta.');
+        } else {
+            $("#tarj6").hide();
+            $("#tarj7").show();
+            CargarDatosResumen();
+        }
+    }
+
+    //CARGAR LOS DATOS EN EL RESUMEN  
     function CargarDatosResumen() {
         var detalleAutoevaluacion = {};
         // Obtener las selecciones guardadas en localStorage
@@ -1014,6 +1050,26 @@
                 default:
                     break;
             }
+        }
+    }
+
+
+    ////EDITAR
+    function EditarAutoEvaluacion(numeroTarjeta) {
+        // Ocultar la tarjeta actual
+        $(".form-card").removeClass("active").animate({ opacity: 0 }, 600);
+        $("#tarj7").hide();
+
+        var tarjetaActual = $("#tarj" + numeroTarjeta);
+        tarjetaActual.addClass("active").animate({ opacity: 1 }, 600).show();
+        tarjetaActual.show();
+
+        $(".form-card").addClass("active").animate({ opacity: 1 }, 600);
+        // progreso del formulario
+        $("#progressbar li").removeClass("active");
+        $("#progressbar li").eq(numeroTarjeta).addClass("active");
+        for (var i = -1; i <= numeroTarjeta; i++) {
+            $("#progressbar li").eq(i).addClass("active");
         }
     }
 
