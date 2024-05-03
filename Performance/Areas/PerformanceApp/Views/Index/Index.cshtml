@@ -41,107 +41,16 @@
         #grad1 {
             background-color: #f3f3f3;
         }
-
-        /*form styles*/
-        #msform {
-            text-align: center;
-            position: relative;
-            margin-top: 20px;
+        .modalLoading {
+            position: fixed;
+            z-index: 1000;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            background: rgba(214, 214, 214, 0.8) url('../../Content/img/puntos.gif') 50% 50% no-repeat;
+            background-size: 300px 240px;
         }
-
-            #msform fieldset .form-card {
-                background: white;
-                border: 0 none;
-                border-radius: 0px;
-                box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.2);
-                padding: 20px 40px 30px 40px;
-                box-sizing: border-box;
-                width: 94%;
-                margin: 0 3% 20px 3%;
-                /*stacking fieldsets above each other*/
-                position: relative;
-            }
-
-            #msform fieldset {
-                background: white;
-                border: 0 none;
-                border-radius: 0.5rem;
-                box-sizing: border-box;
-                width: 100%;
-                margin: 0;
-                padding-bottom: 20px;
-                /*stacking fieldsets above each other*/
-                position: relative;
-            }
-
-                /*Hide all except first fieldset*/
-                #msform fieldset:not(:first-of-type) {
-                    display: none;
-                }
-
-                #msform fieldset .form-card {
-                    text-align: left;
-                    color: #9E9E9E;
-                }
-
-            #msform input, #msform textarea {
-                padding: 0px 8px 4px 8px;
-                border: none;
-                border-bottom: 1px solid #ccc;
-                border-radius: 0px;
-                margin-bottom: 25px;
-                margin-top: 2px;
-                width: 100%;
-                box-sizing: border-box;
-                font-family: 'Arial', sans-serif;
-                color: #2C3E50;
-                font-size: 16px;
-                letter-spacing: 1px;
-            }
-
-                #msform input:focus, #msform textarea:focus {
-                    -moz-box-shadow: none !important;
-                    -webkit-box-shadow: none !important;
-                    box-shadow: none !important;
-                    border: none;
-                    font-weight: bold;
-                    border-bottom: 2px solid skyblue;
-                    outline-width: 0;
-                }
-
-            /*Blue Buttons*/
-            #msform .action-button {
-                width: 100px;
-                background: #00aec7;
-                font-weight: bold;
-                color: white;
-                border: 0 none;
-                border-radius: 0px;
-                cursor: pointer;
-                padding: 10px 5px;
-                margin: 10px 5px;
-            }
-
-                #msform .action-button:hover, #msform .action-button:focus {
-                    box-shadow: 0 0 0 2px white, 0 0 0 3px skyblue;
-                }
-
-            /*Previous Buttons*/
-            #msform .action-button-previous {
-                width: 100px;
-                background: #616161;
-                font-weight: bold;
-                color: white;
-                border: 0 none;
-                border-radius: 0px;
-                cursor: pointer;
-                padding: 10px 5px;
-                margin: 10px 5px;
-            }
-
-                #msform .action-button-previous:hover, #msform .action-button-previous:focus {
-                    box-shadow: 0 0 0 2px white, 0 0 0 3px #616161;
-                }
 
         /*Dropdown List Exp Date*/
         select.list-dt {
@@ -156,172 +65,6 @@
                 border-bottom: 2px solid skyblue;
             }
 
-        /*The background card*/
-        .card {
-            z-index: 0;
-            border: none;
-            border-radius: 0.5rem;
-            position: relative;
-        }
-
-        /*FieldSet headings*/
-        .fs-title {
-            font-size: 25px;
-            color: #2C3E50;
-            margin-bottom: 10px;
-            font-weight: bold;
-            text-align: left;
-        }
-
-        /*progressbar*/
-        #progressbar {
-            margin-bottom: 30px;
-            overflow: hidden;
-            color: lightgrey;
-            display: flex; /* Cambia el comportamiento del contenedor a flex */
-        }
-
-            #progressbar .active {
-                color: #000000;
-            }
-
-            #progressbar li {
-                list-style-type: none;
-                font-size: 12px;
-                width: auto; /* Cambia el ancho a automático para que los elementos se ajusten automáticamente */
-                flex: 1; /* Ajusta el ancho de cada elemento automáticamente */
-                position: relative;
-                text-align: center; /* Centra el contenido */
-            }
-
-            /*Icons in the ProgressBar*/
-            #progressbar #descripcion:before {
-                font-family: FontAwesome;
-                content: "\f2b5";
-            }
-
-            #progressbar #account:before {
-                font-family: FontAwesome;
-                content: "\f0eb";
-            }
-
-            #progressbar #personal:before {
-                font-family: FontAwesome;
-                content: "\f6de";
-            }
-
-            #progressbar #payment:before {
-                font-family: FontAwesome;
-                content: "\f102";
-            }
-
-            #progressbar #interpersonal:before {
-                font-family: FontAwesome;
-                content: "\f007";
-            }
-
-            #progressbar #cambio:before {
-                font-family: FontAwesome;
-                content: "\f362";
-            }
-
-            #progressbar #confirm:before {
-                font-family: FontAwesome;
-                content: "\f06e";
-            }
-
-            /*ProgressBar before any progress*/
-            #progressbar li:before {
-                width: 50px;
-                height: 50px;
-                line-height: 45px;
-                display: block;
-                font-size: 18px;
-                color: #ffffff;
-                background: lightgray;
-                border-radius: 50%;
-                margin: 0 auto 10px auto;
-                padding: 2px;
-            }
-
-            /*ProgressBar connectors*/
-            #progressbar li:after {
-                content: '';
-                width: 100%;
-                height: 2px;
-                background: lightgray;
-                position: absolute;
-                left: 0;
-                top: 25px;
-                z-index: -1;
-            }
-
-            /*Color number of the step and the connector before it*/
-            #progressbar li.active:before, #progressbar li.active:after {
-                background: #00aec7;
-            }
-
-        /*Imaged Radio Buttons*/
-        .radio-group {
-            position: relative;
-            margin-bottom: 25px;
-        }
-
-        .radio {
-            display: inline-block;
-            width: 204px;
-            height: 104px;
-            border-radius: 0;
-            background: lightblue;
-            box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.2);
-            box-sizing: border-box;
-            cursor: pointer;
-            margin: 8px 2px;
-        }
-
-            .radio:hover {
-                box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.3);
-            }
-
-            .radio.selected {
-                box-shadow: 1px 1px 2px 2px rgba(0, 0, 0, 0.1);
-            }
-
-        /*Fit image in bootstrap div*/
-        .fit-image {
-            width: 100%;
-            object-fit: cover;
-        }
-
-        .form-card {
-            display: inline-block; /* Mostrar los botones en línea */
-        }
-
-            /* Ajuste para el último botón dentro de .form-card */
-            .form-card input[type="button"]:last-child {
-                margin-right: 0; /* Elimina el margen derecho del último botón */
-            }
-
-        /* Estilos para los botones dentro de .form-card */
-        .form-card {
-            display: flex; /* Usar flexbox para alinear los elementos */
-            justify-content: space-between; /* Espacio uniforme entre los elementos */
-        }
-
-            .form-card input[type="button"] {
-                flex: 1; /* Los botones ocupan igualmente todo el espacio disponible */
-                margin-right: 10px; /* Espacio entre los botones */
-            }
-
-                /* Ajuste para el último botón dentro de .form-card */
-                .form-card input[type="button"]:last-child {
-                    margin-right: 0; /* Elimina el margen derecho del último botón */
-                }
-        /* Estilos para los botones dentro de .form-card */
-        .form-card {
-            display: flex; /* Utilizar flexbox para alinear los elementos */
-            flex-direction: column; /* Alinear elementos verticalmente */
-        }
 
         .button-container {
             display: flex; /* Utilizar flexbox para alinear los botones */
@@ -343,6 +86,24 @@
         .nav-item {
             cursor: pointer; /* Cambia el cursor a una mano */
         }
+        .grilla-btn {
+            width: 150px; 
+            height: 40px; 
+           
+            justify-content: center; 
+            align-items: center; 
+        }
+
+        .cuadrado-btn {
+            width: 30px; 
+            height: 30px; 
+            padding: 0; 
+            line-height: 30px; 
+            border-radius: 5px; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+        }
     </style>
 
 
@@ -359,6 +120,7 @@
 
         @*OCULTO BOTON PORQUE EN LA DOCUMENTACION SOLO LO MUESTRA CON BOTON(SE HACE CLICK EN EL BOTON DESDE JS)*@
         <!-- Button trigger modal -->
+        <div id="divLoading" class="modalLoading"></div>
         <button id="botonModalBienvenida" type="button" class="btn bg-gradient-primary d-none" data-bs-toggle="modal" data-bs-target="#exampleModal">
             Launch demo modal
         </button>
@@ -381,43 +143,43 @@
                 </button>
             </div>
         }
-    <div class="row m-3" style="overflow:hidden;" id="rowFiltro">
-        @if (Convert.ToInt32(perfil) == 128 || Convert.ToInt32(perfil) == 129)
-        {
-            if (Convert.ToInt32(perfil) == 128 || Convert.ToInt32(perfil) == 129)
+        <div class="row m-3" style="overflow:hidden;" id="rowFiltro">
+            @if (Convert.ToInt32(perfil) == 128 || Convert.ToInt32(perfil) == 129)
             {
-                <div class="form-group2 col-md-2" id="filtroColaborador">
-                    <label>Colaborador:</label>
-                    <div></div>
-                    <div style="font-weight: normal !important;">
-                        <select class="form-control" id="selectColaborador"></select>
+                if (Convert.ToInt32(perfil) == 128 || Convert.ToInt32(perfil) == 129)
+                {
+                    <div class="form-group2 col-md-2" id="filtroColaborador">
+                        <label>Colaborador:</label>
+                        <div></div>
+                        <div style="font-weight: normal !important;">
+                            <select class="form-control" id="selectColaborador"></select>
+                        </div>
                     </div>
+                }
+                if (Convert.ToInt32(perfil) == 129)
+                {
+                    <div class="form-group2 col-md-2" id="filtroLider">
+                        <label>Líder:</label>
+                        <div></div>
+                        <div style="font-weight: normal !important;">
+                            <select class="form-control" id="selectLider"></select>
+                        </div>
+                    </div>
+                }
+                <div class="form-group2 col-md-2" id="filtroEstado">
+                    <label>Estado:</label>
+                    <div></div>
+                    <select class="form-control" id="selectEstado">
+                    </select>
+                </div>
+                <div class="form-group2 col-md-1 mt-2" style="padding-top: 1.9%;" id="btnBuscarFiltro">
+                    <button id="btnFiltrar" type="button" class="btn btn-success" style="width: 120px; cursor: pointer;">
+                        Buscar
+                    </button>
                 </div>
             }
-            if (Convert.ToInt32(perfil) == 129)
-            {               
-                <div class="form-group2 col-md-2" id="filtroLider">
-                    <label>Líder:</label>
-                    <div></div>
-                    <div style="font-weight: normal !important;">
-                        <select class="form-control" id="selectLider"></select>
-                    </div>
-                </div>
-            }
-            <div class="form-group2 col-md-2" id="filtroEstado">
-                <label>Estado:</label>
-                <div></div>
-                <select class="form-control" id="selectEstado">
-                </select>
-            </div>
-            <div class="form-group2 col-md-1 mt-2" style="padding-top: 1.9%;" id="btnBuscarFiltro">
-                <button id="btnFiltrar" type="button" class="btn btn-success" style="width: 120px; cursor: pointer;">
-                    Buscar
-                </button>
-            </div>
-        }
 
-    </div>
+        </div>
 
         <!-- MultiStep Form -->
         <div class="container-fluid py-4" id="grad1">
@@ -435,11 +197,11 @@
                                     <table class="table align-items-center mb-0" id="tablaColaborador">
                                         <thead>
                                             <tr>
-                                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Año</th>
-                                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Líder</th>
-                                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Fecha de Autoevaluación</th>
-                                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Fecha de Feedback</th>
-                                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Estado</th>
+                                                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Año</th>
+                                                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Líder</th>
+                                                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Fecha de Autoevaluación</th>
+                                                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Fecha de Feedback</th>
+                                                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Estado</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -458,19 +220,19 @@
                     <div class="col-12">
                         <div class="card mb-4">
                             <div class="card-header pb-0">
-                                <h6>Performance Líder</h6>
+                                <div class="text-uppercase text-xl-center  font-weight-bolder opacity-7">Performance Líder</div>
                             </div>
                             <div class="card-body px-0 pt-0 pb-2">
                                 <div class="table-responsive p-4">
                                     <table class="table align-items-center mb-0" id="tablaLider">
                                         <thead>
                                             <tr>
-                                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Año</th>
-                                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Colaborador</th>
-                                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Fecha de Autoevaluación</th>
-                                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Fecha de Evaluación</th>
-                                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Fecha de Calibración</th>
-                                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Estado</th>
+                                                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Año</th>
+                                                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Colaborador</th>
+                                                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Fecha de Autoevaluación</th>
+                                                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Fecha de Evaluación</th>
+                                                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Fecha de Calibración</th>
+                                                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Estado</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -488,23 +250,23 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="card mb-4">
-                            <div class="card-header pb-4">
-                                <h6>Performance RRHH</h6>
+                            <div class="card-header pb-0">
+                                <div class="text-uppercase text-xl-center  font-weight-bolder opacity-7">Performance Capital Humano</div>
                             </div>
                             <div class="card-body px-0 pt-0 pb-2">
                                 <div class="table-responsive p-0">
                                     <table class="table align-items-center mb-0" id="tablaRRHH">
                                         <thead>
                                             <tr>
-                                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Año</th>
-                                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Colaborador</th>
-                                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Líder</th>
-                                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">F. Autoevaluación</th>
-                                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">F. Evaluación</th>
-                                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">F. Calibración</th>
-                                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">F. Feedback</th>
-                                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Estado</th>
-                                                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Acciones</th>
+                                                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Año</th>
+                                                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Colaborador</th>
+                                                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Líder</th>
+                                                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">F. Autoevaluación</th>
+                                                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">F. Evaluación</th>
+                                                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">F. Calibración</th>
+                                                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">F. Feedback</th>
+                                                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Estado</th>
+                                                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Acciones</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -542,7 +304,7 @@
                 <div class="modal-content p-2">
                     <div class="row mb-3 m-2" style="justify-content:center">
                         <p class="h4" style="margin-left: 0px; margin-right:0px;">Se generaron las altas de performance @(DateTime.Now.Year - 1) con éxito</p>
-                    </div>                   
+                    </div>
                 </div>
             </div>
         </div>
@@ -553,7 +315,8 @@
 
     <!-- JavaScript personalizado -->
     <script>
-    var perfil = "@perfil";
+        var perfil = "@perfil";
+        $("#divLoading").hide();
     //Codigo para checkbox
     const checkboxes = document.querySelectorAll('.form-check-input');
 
@@ -627,6 +390,7 @@
                 $('#tablaRRHH').DataTable().clear().destroy();
                 CargartablaRRHH(url);
             }
+            $("#divLoading").show();
         }
 
         //INICIAR TABLA DEL COLABORADOR
@@ -676,10 +440,10 @@
                     },
                     {
                         "data": "nombreJefe",
-                        "name": "Lider",
+                        "name": "Líder",
                         "autoWidth": false,
                         "render": function (data, type, row, meta) {
-                                return '<div style="text-align: center;">' + data + '</div>'
+                            return '<div style="text-align: center;">' + data + '</div>'
                         }
                     },
                     {
@@ -712,9 +476,9 @@
                         "autoWidth": false,
                         "render": function (data, type, row, meta) {
                             if (data == 1) {
-                                return '<div style="text-align: center;"><a href="/PerformanceApp/Index/Crud?view=autoevaluacion&idPerformance=' + row.idPerformance + '" class="btn btn-sm btn-info" title="COMPLETAR" style="font-size: 100% !important;">' + row.estado + '</a></div>';
+                                return '<div style="text-align: center;"><a href="/PerformanceApp/Index/Crud?view=autoevaluacion&idPerformance=' + row.idPerformance + '" class="btn btn-sm grilla-btn btn-info" title="PARA COMPLETAR" style="font-size: 100% !important;">' + row.estado + '</a></div>';
                             } else {
-                                return '<div style="text-align: center;"><a href="" class="btn btn-sm btn-success" title="FINALIZADO" style="font-size: 100% !important;">' + 'COMPLETO' + '</a></div>';
+                                return '<div style="text-align: center;"><a href="" class="btn btn-sm grilla-btn btn-secondary" title="FINALIZADO" style="font-size: 100% !important;">' + 'COMPLETO' + '</a></div>';
                             }
                         }
                     },
@@ -771,11 +535,7 @@
                         "name": "Año",
                         "autoWidth": false,
                         "render": function (data, type, row, meta) {
-                            return '<div style="text-align: center;" class="px-2 py-1">' +
-                                '<div style="text-align: center;" class="flex-column justify-content-center">' +
-                                '<h6 class="mb-0 text-sm">' + data + '</h6>' +
-                                '</div>' +
-                                '</div>';
+                            return '<div style="text-align: center;">' + data + '</div>'
                         }
                     },
                     {
@@ -783,11 +543,7 @@
                         "name": "Colaborador",
                         "autoWidth": false,
                         "render": function (data, type, row, meta) {
-                            return '<div style="text-align: center;" class="px-2 py-1">' +
-                                '<div style="text-align: center;" class="flex-column justify-content-center">' +
-                                '<h6 class="mb-0 text-sm">' + data + '</h6>' +
-                                '</div>' +
-                                '</div>';
+                            return '<div style="text-align: center;">' + data + '</div>'
                         }
                     },
                     {
@@ -795,7 +551,7 @@
                         "name": "Fecha de Autoevaluación",
                         "autoWidth": false,
                         "render": function (data, type, row, meta) {
-                            return '<div style="text-align: center;"><span class="text-secondary text-xs font-weight-bold">' + moment(data).format('DD/MM/YYYY') + '</span></div>';
+                            return '<div style="text-align: center;">' + moment(data).format('DD/MM/YYYY') + '</div>'
                         }
                     },
                     {
@@ -803,7 +559,7 @@
                         "name": "Fecha de Evaluación",
                         "autoWidth": false,
                         "render": function (data, type, row, meta) {
-                            return '<div style="text-align: center;"><span class="text-secondary text-xs font-weight-bold">' + "" + '</span></div>';
+                            return '<div style="text-align: center;">' + moment(data).format('DD/MM/YYYY') + '</div>'
                         }
                     },
                     {
@@ -811,24 +567,29 @@
                         "name": "Fecha de Calibración",
                         "autoWidth": false,
                         "render": function (data, type, row, meta) {
-                            return '<div style="text-align: center;"><span class="text-secondary text-xs font-weight-bold">' + "" + '</span></div>';
+                            return '<div style="text-align: center;">' + moment(data).format('DD/MM/YYYY') + '</div>'
                         }
                     },
                     {
-                        "data": "idEstado",
+                        "data": "estado",
                         "name": "Estado",
                         "autoWidth": false,
                         "render": function (data, type, row, meta) {
-                            if (data == 1) {
-                                return '<div style="text-align: center;"><a href="/PerformanceApp/Index/Crud?view=evaluacion&idPerformance=' + row.idPerformance + '" class="btn btn-sm btn-info" title="COMPLETAR" style="font-size: 100% !important;">' + row.estado + '</a></div>';
+                            if (row.idEstado == 1) {
+                                return '<div style="text-align: center;"><a href="" class="btn btn-sm grilla-btn btn-success" title="PARA COMPLETAR COLABORADOR" style="font-size: 100% !important;">' + row.estado + '</a></div>';
                             }
-                            else {
-                                return '<div style="text-align: center;"><a href="" class="btn btn-sm btn-success" title="FINALIZADO" style="font-size: 100% !important;">' + 'COMPLETO' + '</a></div>';
+                            if (row.idEstado == 2) {
+                                return '<div style="text-align: center;"><a href="" class="btn btn-sm grilla-btn btn-warning" title="PARA EVALUAR LIDER" style="font-size: 100% !important;">' + row.estado + '</a></div>';
+                            }
+                            if (row.idEstado == 3) {
+                                return '<div style="text-align: center;"><a href="" class="btn btn-sm grilla-btn btn-info" title="PARA CALIBRAR CAPITAL HUMANO" style="font-size: 100% !important;">' + row.estado + '</a></div>';
+                            }
+                            if (row.idEstado == 4) {
+                                return '<div style="text-align: center;"><a href="" class="btn btn-sm grilla-btn btn-secondary" title="FINALIZADO" style="font-size: 100% !important;">' + row.estado + '</a></div>';
                             }
 
                         }
                     },
-
                 ],
                 "createdRow": function (row, data, index) {
                     // Aquí puedes aplicar estilos o clases a las filas según tus datos
@@ -887,11 +648,7 @@
                         "name": "Año",
                         "autoWidth": false,
                         "render": function (data, type, row, meta) {
-                            return '<div class="d-flex px-2 py-1">' +
-                                '<div class="d-flex flex-column justify-content-center">' +
-                                '<h6 class="mb-0 text-sm">' + data + '</h6>' +
-                                '</div>' +
-                                '</div>';
+                            return '<div style="text-align: center;">' + data + '</div>'
                         }
                     },
                     {
@@ -899,11 +656,7 @@
                         "name": "Colaborador",
                         "autoWidth": false,
                         "render": function (data, type, row, meta) {
-                            return '<div class="d-flex px-2 py-1 justify-content-center align-items-center">' +
-                                '<div class="d-flex flex-column">' +
-                                '<h6 class="mb-0 text-sm">' + data + '</h6>' +
-                                '</div>' +
-                                '</div>';
+                            return '<div style="text-align: center;">' + data + '</div>'
                         }
                     },
                     {
@@ -911,11 +664,7 @@
                         "name": "Líder",
                         "autoWidth": false,
                         "render": function (data, type, row, meta) {
-                            return '<div class="d-flex px-2 py-1 justify-content-center align-items-center">' +
-                                '<div class="d-flex flex-column">' +
-                                '<h6 class="mb-0 text-sm">' + data + '</h6>' +
-                                '</div>' +
-                                '</div>';
+                            return '<div style="text-align: center;">' + data + '</div>'
                         }
                     },
                     {
@@ -971,7 +720,19 @@
                         "name": "Estado",
                         "autoWidth": false,
                         "render": function (data, type, row, meta) {
-                            return '<a href="" class="btn btn-sm btn-success" title="FINALIZADO" style="font-size: 100% !important;">' + row.estado + '</a>';
+                            if (row.idEstado == 1) {                               
+                                return '<div style="text-align: center;"><a href="" class="btn btn-sm grilla-btn btn-success" title="PARA COMPLETAR COLABORADOR" style="font-size: 100% !important;">' + row.estado + '</a></div>';
+                            }
+                            if (row.idEstado == 2) {
+                                return '<div style="text-align: center;"><a href="" class="btn btn-sm grilla-btn btn-warning" title="PARA EVALUAR LIDER" style="font-size: 100% !important;">' + row.estado + '</a></div>';
+                            }
+                            if (row.idEstado == 3) {
+                                return '<div style="text-align: center;"><a href="" class="btn btn-sm grilla-btn btn-info" title="PARA CALIBRAR CAPITAL HUMANO" style="font-size: 100% !important;">' + row.estado + '</a></div>';
+                            }
+                            if (row.idEstado == 4) {
+                                return '<div style="text-align: center;"><a href="" class="btn btn-sm grilla-btn btn-secondary" title="FINALIZADO" style="font-size: 100% !important;">' + row.estado + '</a></div>';
+                            }
+                           
                         }
                     },
                     {
@@ -979,7 +740,10 @@
                         "name": "Acciones",
                         "autoWidth": false,
                         "render": function (data, type, row, meta) {
-                            return '<span class="text-secondary text-xs font-weight-bold">' + data + '</span>';
+                            return '<div style="display: flex; justify-content: center;">' +                                
+                                "<a href=# class='btn btn-sm btn-danger cuadrado-btn' style='color:white;' title='Eliminar' id='btnEliminar' onclick=\"EliminarPerformance(" + row.idPerformance + ")\"><i class='fa fa-close'></i></a>" +
+                                '</div>';
+
                         }
                     },
 
