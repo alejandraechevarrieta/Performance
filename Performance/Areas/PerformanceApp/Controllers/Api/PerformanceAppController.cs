@@ -181,6 +181,34 @@ namespace Performance.Areas.PerformanceApp.Controllers.Api
                 }
             }
         }
+        [System.Web.Http.Route("Api/PerformanceApp/BuscarDatosUsuario")]
+        [System.Web.Http.ActionName("BuscarDatosUsuario")]
+        [System.Web.Http.HttpGet]
+        public async Task<ColaboradorVM> BuscarDatosUsuario(int idUsuario)
+        {
+            string API_BASE_URL = ConfigurationSettings.AppSettings["urlBuho"];
+            string endpoint = $"Ingenieria/api/Login/DatosUsuario?idUsuario=" + idUsuario;
+            using (HttpClient client = new HttpClient())
+            {
+                try
+                {
+                    HttpResponseMessage response = await client.GetAsync(API_BASE_URL + endpoint);
+                    response.EnsureSuccessStatusCode();
+                    string responseBody = await response.Content.ReadAsStringAsync();
+
+                    // Deserializa la respuesta JSON directamente a una lista de objetos ColaboradorVM
+                    ColaboradorVM colaborador = JsonConvert.DeserializeObject<ColaboradorVM>(responseBody);
+                    return colaborador;
+                }
+                catch (JsonSerializationException ex)
+                {
+                    Console.WriteLine("Error al deserializar la respuesta JSON:");
+                    Console.WriteLine(ex.Message);
+                    throw;
+                }
+            }
+        }
+
         /// <summary>
         /// listar performance para progreso 
         /// </summary>

@@ -80,9 +80,6 @@
             </div>
         </div>
     </div>
-
-
-
         <!-- Github buttons -->
         <script async defer src="https://buttons.github.io/buttons.js"></script>
         <!--Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc-->
@@ -91,8 +88,6 @@
 
         @*<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>*@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
-      
 </body>
 
 </html>
@@ -153,7 +148,8 @@ function validarPerfil(idUsuario) {
         success: function (data) {
             var perfil = data;
             if (perfil !== null && perfil !== 0) {
-               var url = '/PerformanceApp/Index?perfil=' + perfil + '&idUsuario=' + idUsuario;
+                var url = '/PerformanceApp/Index?perfil=' + perfil + '&idUsuario=' + idUsuario;
+                localStorage.setItem('idUsuario', idUsuario);
                 window.location.href = url;
             } else {
                 alert("El usuario no tiene permiso");
