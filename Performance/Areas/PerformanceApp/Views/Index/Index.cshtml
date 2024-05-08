@@ -137,8 +137,8 @@
         @*FILTROS SOLICITUDES*@
         @if (Convert.ToInt32(perfil) == 129)
         {
-            <div class="form-group2 col-md-1" style="padding-top: 2%;" data-toggle="tooltip" title="Alta performance año anterior">
-                <button id="altaPerformance" type="button" class="btn btn-block btn-warning" style="width: 200px; cursor: pointer;">
+            <div class="form-group2 col-md-1 d-inline" style="padding-top: 2%;" data-toggle="tooltip" title="Alta performance año anterior">
+                <button id="altaPerformance" type="button" class="btn btn-block btn-warning m-1" style="width: 200px; cursor: pointer;">
                     Alta Performance @(DateTime.Now.Year - 1)
                 </button>
             </div>
@@ -172,9 +172,12 @@
                     <select class="form-control" id="selectEstado">
                     </select>
                 </div>
-                <div class="form-group2 col-md-1 mt-2" style="padding-top: 1.9%;" id="btnBuscarFiltro">
+                <div class="form-group2 col-md-1 mt-2 d-inline w-auto" style="padding-top: 1.9%;" id="btnBuscarFiltro">
                     <button id="btnFiltrar" type="button" class="btn btn-success" style="width: 120px; cursor: pointer;">
                         Buscar
+                    </button>
+                    <button id="altaPerformance" type="button" class="btn btn-block btn-info" style="width: auto; margin-left:5px; cursor: pointer;">
+                        Generar reporte excel
                     </button>
                 </div>
             }
@@ -197,7 +200,7 @@
                                     <table class="table align-items-center mb-0" id="tablaColaborador">
                                         <thead>
                                             <tr>
-                                                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Año</th>
+                                                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Año de evaluación</th>
                                                 <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Líder</th>
                                                 <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Fecha de Autoevaluación</th>
                                                 <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Fecha de Feedback</th>
@@ -331,7 +334,7 @@
     });
 
         $(document).ready(function () {
-            //CargarEstados();
+            CargarEstados();
             ListarPerformance();
         });
 
@@ -551,7 +554,12 @@
                         "name": "Fecha de Autoevaluación",
                         "autoWidth": false,
                         "render": function (data, type, row, meta) {
-                            return '<div style="text-align: center;">' + moment(data).format('DD/MM/YYYY') + '</div>'
+                            if (data !== null) {
+                                return '<div style="text-align: center;">' + moment(data).format('DD/MM/YYYY') + '</div>'
+                            }
+                            else {
+                                return '';
+                            }
                         }
                     },
                     {
@@ -559,7 +567,12 @@
                         "name": "Fecha de Evaluación",
                         "autoWidth": false,
                         "render": function (data, type, row, meta) {
-                            return '<div style="text-align: center;">' + moment(data).format('DD/MM/YYYY') + '</div>'
+                            if (data !== null) {
+                                return '<div style="text-align: center;">' + moment(data).format('DD/MM/YYYY') + '</div>'
+                            }
+                            else {
+                                return '';
+                            }
                         }
                     },
                     {
@@ -567,7 +580,12 @@
                         "name": "Fecha de Calibración",
                         "autoWidth": false,
                         "render": function (data, type, row, meta) {
-                            return '<div style="text-align: center;">' + moment(data).format('DD/MM/YYYY') + '</div>'
+                            if (data !== null) {
+                                return '<div style="text-align: center;">' + moment(data).format('DD/MM/YYYY') + '</div>'
+                            }
+                            else {
+                                return '';
+                            }
                         }
                     },
                     {
@@ -576,7 +594,7 @@
                         "autoWidth": false,
                         "render": function (data, type, row, meta) {
                             if (row.idEstado == 1) {
-                                return '<div style="text-align: center;"><a href="" class="btn btn-sm grilla-btn btn-success" title="PARA COMPLETAR COLABORADOR" style="font-size: 100% !important;">' + row.estado + '</a></div>';
+                                return '<div style="text-align: center;"><a href="/PerformanceApp/Index/Crud?view=evaluacion&idPerformance= ' + row.idPerformance + '" class="btn btn-sm grilla-btn btn-info" title="PARA COMPLETAR COLABORADOR" style="font-size: 100% !important;">' + row.estado + '</a></div>';
                             }
                             if (row.idEstado == 2) {
                                 return '<div style="text-align: center;"><a href="" class="btn btn-sm grilla-btn btn-warning" title="PARA EVALUAR LIDER" style="font-size: 100% !important;">' + row.estado + '</a></div>';
