@@ -221,6 +221,14 @@ namespace Performance.Areas.PerformanceApp.Controllers.Api
             Servicios.ServicioPerformance servicio = new Servicios.ServicioPerformance();
             return servicio.listarPerformanceProgreso();
         }
+        [System.Web.Http.Route("Api/PerformanceApp/buscarDatosPerformance")]
+        [System.Web.Http.ActionName("buscarDatosPerformance")]
+        [System.Web.Http.HttpGet]
+        public List<DatosPerformanceVM> buscarDatosPerformance(int idPerformance)
+        {
+            Servicios.ServicioPerformance servicio = new Servicios.ServicioPerformance();
+            return servicio.buscarDatosPerformance(idPerformance);
+        }
         public class DataTableRequestModel
         {
             public int draw { get; set; }
