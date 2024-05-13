@@ -99,67 +99,88 @@
     //INICIO
     $("#divLoading").hide();
 
-$('#Ingresar').click(function () {
-    var usuario = $('#usuario').val();
-    var password = $('#password').val();
+    $('#Ingresar').click(function () {
+        Ingresar();
+    });
+    document.addEventListener("keypress", function (event) {
+        if (event.key === "Enter") {
+            // Llamar a la función que deseas ejecutar
+            Ingresar()
+        }
+    });
+    function Ingresar() {
+        var usuario = $('#usuario').val();
+        var password = $('#password').val();
 
-    var splitEmail = usuario.split("@@");
-    if (splitEmail[1] == "" || splitEmail[1] == null) {
+        var splitEmail = usuario.split("@@");
+        if (splitEmail[1] == "" || splitEmail[1] == null) {
+            $.ajax({
+                url: "Api/Login/ValidarIngreso",
+                type: 'GET',
+                data: {
+                    usuario: usuario,
+                    password: password
+                },
+                dataType: 'json',
+                success: function (data) {
+                    if (data > 0) {
+                        idUsuario = data;
+                        validarPerfil(idUsuario);
+                        $("#divLoading").show();
+                    } else if (data == -1) {
+                        alert("Su usuario se encuentra inhabilitado, para acceder comuníquese con el administrador de sistema");
+                    } else if (data.Error == -2) {
+                        alert("Datos incorrectos quedan " + data.IntentosRestantes + " intentos");
+                    } else if (data == -3) {
+                        alert("Usuario bloqueado, para recuperar su cuenta redirijase a Buho");
+                    } else {
+                        alert("Usuario o Contraseña incorrecto");
+                    }
+                    $('#password').val('').change();
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    alert("Error en la solicitud: " + errorThrown);
+                }
+            });
+        } else {
+            alert("Escriba nombre de usuario. No se permite e-mail.");
+        }
+    }
+    function validarPerfil(idUsuario) {
         $.ajax({
-            url: "Api/Login/ValidarIngreso",
+            url: "Api/Login/GetPerfiles",
             type: 'GET',
             data: {
-                usuario: usuario,
-                password: password
+                idUsuario: idUsuario
             },
             dataType: 'json',
             success: function (data) {
-                if (data > 0) {
-                    idUsuario = data;
-                    validarPerfil(idUsuario);
-                    $("#divLoading").show();
-                } else if (data == -1) {
-                    alert("Su usuario se encuentra inhabilitado, para acceder comuníquese con el administrador de sistema");
-                } else if (data.Error == -2) {
-                    alert("Datos incorrectos quedan " + data.IntentosRestantes + " intentos");
-                } else if (data == -3) {
-                    alert("Usuario bloqueado, para recuperar su cuenta seleccione Desbloquear Usuario");
+                var perfil = data;
+                if (perfil !== null && perfil !== 0) {
+                    var url = '/PerformanceApp/Index?perfil=' + perfil + '&idUsuario=' + idUsuario;
+                    localStorage.setItem('idUsuario', idUsuario);
+                    if (localStorage.getItem('leerBienvenidaSwitch') == 1) {
+
+                        localStorage.setItem('bienvenidaLeida', 0);
+                    }
+                    else if (localStorage.getItem('leerBienvenidaSwitch') == 0) {
+
+                        localStorage.setItem('bienvenidaLeida', 1);
+                    }
+                    else {
+                        localStorage.setItem('bienvenidaLeida', 0);
+                    }
+                    
+                    window.location.href = url;
                 } else {
-                    alert("Usuario o Contraseña incorrecto");
+                    alert("El usuario no tiene permiso");
+                    $("#divLoading").hide();
                 }
-                $('#password').val('').change();
             },
-            error: function (xhr, textStatus, errorThrown) {
-                alert("Error en la solicitud: " + errorThrown);
+            error: function (xhr, status, error) {
+                console.error("Error al obtener los perfiles:", error);
             }
         });
-    } else {
-        alert("Escriba nombre de usuario. No se permite e-mail.");
     }
-});
-function validarPerfil(idUsuario) {
-    $.ajax({
-        url: "Api/Login/GetPerfiles",
-        type: 'GET',
-        data: {
-            idUsuario: idUsuario
-        },
-        dataType: 'json',
-        success: function (data) {
-            var perfil = data;
-            if (perfil !== null && perfil !== 0) {
-                var url = '/PerformanceApp/Index?perfil=' + perfil + '&idUsuario=' + idUsuario;
-                localStorage.setItem('idUsuario', idUsuario);
-                window.location.href = url;
-            } else {
-                alert("El usuario no tiene permiso");
-                $("#divLoading").hide();
-            }
-        },
-        error: function(xhr, status, error) {
-            console.error("Error al obtener los perfiles:", error);
-        }
-    });
-}
 
 </script>
