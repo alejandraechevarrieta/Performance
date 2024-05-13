@@ -122,9 +122,9 @@
                 <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
                     <div class="ms-md-auto pe-md-3 d-flex align-items-center">
                         @*<div class="input-group">
-                                <span class="input-group-text text-body"><i class="fas fa-search" aria-hidden="true"></i></span>
-                                <input type="text" class="form-control" placeholder="Buscar aquí...">
-                            </div>*@
+                            <span class="input-group-text text-body"><i class="fas fa-search" aria-hidden="true"></i></span>
+                            <input type="text" class="form-control" placeholder="Buscar aquí...">
+                        </div>*@
                     </div>
                     <ul class="navbar-nav  justify-content-end">
                         <li class="nav-item d-flex align-items-center">
@@ -133,87 +133,110 @@
                                 <span class="d-sm-inline" id="numbreUsuario" style="margin-right:10px;">Usuario</span>
                             </a>
                         </li>
-                        <li class="nav-item d-flex align-items-center" id="botonModalBienvenida" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        <li class="nav-item d-flex align-items-center" id="botonModalBienvenida" style="cursor:pointer;" data-bs-toggle="modal" title="Ver Bienvenida" data-bs-target="#exampleModal">
                             <i class="fa fa-bullhorn"></i>
-                            <span class="d-sm-inline d-none" style="margin-left:5px;">Bienvenida</span>
+                            <span class="d-sm-inline d-none" style="margin-left:5px;">Ver bienvenida</span>
                         </li>
                         <!--<li class="nav-item dropdown pe-2 d-flex align-items-center m-3">
-                            <a href="javascript:;" class="nav-link text-body p-0" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">-->
+                        <a href="javascript:;" class="nav-link text-body p-0" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">-->
                         @* <i class="fa fa-bell cursor-pointer"></i>*@
                         <!--</a>
-                            <ul class="dropdown-menu  dropdown-menu-end  px-2 py-3 me-sm-n4" aria-labelledby="dropdownMenuButton">
-                                <li class="mb-2">
-                                    <a class="dropdown-item border-radius-md" href="javascript:;">
-                                        <div class="d-flex py-1">
-                                            <div class="my-auto">
-                                                <img src="~/assets/img/team-2.jpg" class="avatar avatar-sm  me-3 ">
-                                            </div>
-                                            <div class="d-flex flex-column justify-content-center">
-                                                <h6 class="text-sm font-weight-normal mb-1">
-                                                    <span class="font-weight-bold">New message</span> from Laur
-                                                </h6>
-                                                <p class="text-xs text-secondary mb-0 ">
-                                                    <i class="fa fa-clock me-1"></i>
-                                                    13 minutes ago
-                                                </p>
-                                            </div>
+                        <ul class="dropdown-menu  dropdown-menu-end  px-2 py-3 me-sm-n4" aria-labelledby="dropdownMenuButton">
+                            <li class="mb-2">
+                                <a class="dropdown-item border-radius-md" href="javascript:;">
+                                    <div class="d-flex py-1">
+                                        <div class="my-auto">
+                                            <img src="~/assets/img/team-2.jpg" class="avatar avatar-sm  me-3 ">
                                         </div>
-                                    </a>
-                                </li>
-                                <li class="mb-2">
-                                    <a class="dropdown-item border-radius-md" href="javascript:;">
-                                        <div class="d-flex py-1">
-                                            <div class="my-auto">
-                                                <img src="~/assets/img/small-logos/logo-spotify.svg" class="avatar avatar-sm bg-gradient-dark  me-3 ">
-                                            </div>
-                                            <div class="d-flex flex-column justify-content-center">
-                                                <h6 class="text-sm font-weight-normal mb-1">
-                                                    <span class="font-weight-bold">New album</span> by Travis Scott
-                                                </h6>
-                                                <p class="text-xs text-secondary mb-0 ">
-                                                    <i class="fa fa-clock me-1"></i>
-                                                    1 day
-                                                </p>
-                                            </div>
+                                        <div class="d-flex flex-column justify-content-center">
+                                            <h6 class="text-sm font-weight-normal mb-1">
+                                                <span class="font-weight-bold">New message</span> from Laur
+                                            </h6>
+                                            <p class="text-xs text-secondary mb-0 ">
+                                                <i class="fa fa-clock me-1"></i>
+                                                13 minutes ago
+                                            </p>
                                         </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item border-radius-md" href="javascript:;">
-                                        <div class="d-flex py-1">
-                                            <div class="avatar avatar-sm bg-gradient-secondary  me-3  my-auto">
-                                                <svg width="12px" height="12px" viewBox="0 0 43 36" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                                                    <title>credit-card</title>
-                                                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                                        <g transform="translate(-2169.000000, -745.000000)" fill="#FFFFFF" fill-rule="nonzero">
-                                                            <g transform="translate(1716.000000, 291.000000)">
-                                                                <g transform="translate(453.000000, 454.000000)">
-                                                                    <path class="color-background" d="M43,10.7482083 L43,3.58333333 C43,1.60354167 41.3964583,0 39.4166667,0 L3.58333333,0 C1.60354167,0 0,1.60354167 0,3.58333333 L0,10.7482083 L43,10.7482083 Z" opacity="0.593633743"></path>
-                                                                    <path class="color-background" d="M0,16.125 L0,32.25 C0,34.2297917 1.60354167,35.8333333 3.58333333,35.8333333 L39.4166667,35.8333333 C41.3964583,35.8333333 43,34.2297917 43,32.25 L43,16.125 L0,16.125 Z M19.7083333,26.875 L7.16666667,26.875 L7.16666667,23.2916667 L19.7083333,23.2916667 L19.7083333,26.875 Z M35.8333333,26.875 L28.6666667,26.875 L28.6666667,23.2916667 L35.8333333,23.2916667 L35.8333333,26.875 Z"></path>
-                                                                </g>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="mb-2">
+                                <a class="dropdown-item border-radius-md" href="javascript:;">
+                                    <div class="d-flex py-1">
+                                        <div class="my-auto">
+                                            <img src="~/assets/img/small-logos/logo-spotify.svg" class="avatar avatar-sm bg-gradient-dark  me-3 ">
+                                        </div>
+                                        <div class="d-flex flex-column justify-content-center">
+                                            <h6 class="text-sm font-weight-normal mb-1">
+                                                <span class="font-weight-bold">New album</span> by Travis Scott
+                                            </h6>
+                                            <p class="text-xs text-secondary mb-0 ">
+                                                <i class="fa fa-clock me-1"></i>
+                                                1 day
+                                            </p>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item border-radius-md" href="javascript:;">
+                                    <div class="d-flex py-1">
+                                        <div class="avatar avatar-sm bg-gradient-secondary  me-3  my-auto">
+                                            <svg width="12px" height="12px" viewBox="0 0 43 36" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                                <title>credit-card</title>
+                                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                    <g transform="translate(-2169.000000, -745.000000)" fill="#FFFFFF" fill-rule="nonzero">
+                                                        <g transform="translate(1716.000000, 291.000000)">
+                                                            <g transform="translate(453.000000, 454.000000)">
+                                                                <path class="color-background" d="M43,10.7482083 L43,3.58333333 C43,1.60354167 41.3964583,0 39.4166667,0 L3.58333333,0 C1.60354167,0 0,1.60354167 0,3.58333333 L0,10.7482083 L43,10.7482083 Z" opacity="0.593633743"></path>
+                                                                <path class="color-background" d="M0,16.125 L0,32.25 C0,34.2297917 1.60354167,35.8333333 3.58333333,35.8333333 L39.4166667,35.8333333 C41.3964583,35.8333333 43,34.2297917 43,32.25 L43,16.125 L0,16.125 Z M19.7083333,26.875 L7.16666667,26.875 L7.16666667,23.2916667 L19.7083333,23.2916667 L19.7083333,26.875 Z M35.8333333,26.875 L28.6666667,26.875 L28.6666667,23.2916667 L35.8333333,23.2916667 L35.8333333,26.875 Z"></path>
                                                             </g>
                                                         </g>
                                                     </g>
-                                                </svg>
-                                            </div>
-                                            <div class="d-flex flex-column justify-content-center">
-                                                <h6 class="text-sm font-weight-normal mb-1">
-                                                    Payment successfully completed
-                                                </h6>
-                                                <p class="text-xs text-secondary mb-0 ">
-                                                    <i class="fa fa-clock me-1"></i>
-                                                    2 days
-                                                </p>
-                                            </div>
+                                                </g>
+                                            </svg>
                                         </div>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>-->
+                                        <div class="d-flex flex-column justify-content-center">
+                                            <h6 class="text-sm font-weight-normal mb-1">
+                                                Payment successfully completed
+                                            </h6>
+                                            <p class="text-xs text-secondary mb-0 ">
+                                                <i class="fa fa-clock me-1"></i>
+                                                2 days
+                                            </p>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>-->
                     </ul>
                 </div>
             </div>
         </nav>
+        <div id="divLoading" class="modalLoading"></div>
+        <button id="botonModalBienvenida" type="button" class="btn bg-gradient-primary d-none" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            Launch demo modal
+        </button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+                <div class="modal-content">
+                    <!-- Botón de cerrar con posición absoluta -->
+                    <button type="button" class="btn-close text-dark" style="position: absolute; top: 7px; right: 10px; font-size: 1.5rem;" data-bs-dismiss="modal" aria-label="Close" onclick="CerrarModal();">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <!-- Switch -->
+                    <div class="form-check form-switch" style="position: absolute; top: 10px; left: 10px;" title="Ver bienvenida cada vez que inicie sesión en performance">
+                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" checked onchange="CambiarSwitchBienvenida()">
+                        <label class="form-check-label" for="flexSwitchCheckDefault">Ver bienvenida</label>
+                    </div>
+                    <!-- Imagen dentro del modal -->
+                    <img src="~/Content/img/Bienvenida.jpg">
+                </div>
+            </div>
+        </div>
     </main>
     <!--   Core JS Files   -->
     <script src="~/assets/js/core/popper.min.js"></script>
@@ -225,6 +248,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script> //tener en cuenta que esta etiqueta sript se ejecuta despues de que cargue el DOM
         $(document).ready(function () {
+            var algo = localStorage.getItem('idUsuario');
             $.ajax({
                 url: "/PerformanceApp/Api/PerformanceApp/BuscarDatosUsuario?idUsuario=" + localStorage.getItem('idUsuario'),
                 type: 'GET',
@@ -244,6 +268,43 @@
         });
     </script>
     <script>
+        //Muestra modal de BIENVENIDA
+        $(document).ready(function () {
+            if (localStorage.getItem('leerBienvenidaSwitch') == 1) {
+                document.getElementById("flexSwitchCheckDefault").checked = true;
+            }
+            else {
+                document.getElementById("flexSwitchCheckDefault").checked = false;
+            }
+
+
+            var bienvenida = localStorage.getItem('bienvenidaLeida');
+            if (bienvenida == 0 || bienvenida == null) {
+                // Obtener el botón por su id
+                var boton = document.getElementById('botonModalBienvenida');
+                // Simular un clic en el botón
+                boton.click();
+
+            }
+        });
+        function CerrarModal() {
+            localStorage.setItem('bienvenidaLeida', 1);
+        }
+        function CambiarSwitchBienvenida() {
+
+
+            //Abajo se fija el valo si el switch de la bienvenida esta seleccionado o no
+            var variable = document.getElementById("flexSwitchCheckDefault").checked;
+            // Aquí puedes hacer lo que necesites con la variable, por ejemplo, cambiar su valor
+            if (variable) {
+                // La variable está activada
+                localStorage.setItem('leerBienvenidaSwitch', 1);
+            } else {
+                // La variable está desactivada
+                localStorage.setItem('leerBienvenidaSwitch', 0);
+            }
+
+        }
         var win = navigator.platform.indexOf('Win') > -1;
         if (win && document.querySelector('#sidenav-scrollbar')) {
             var options = {
