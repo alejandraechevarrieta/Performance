@@ -1,5 +1,7 @@
 ﻿@{
     ViewBag.Title = "FormularioB";
+    var perfil = Session["perfil"];
+    var idUsuario = Session["idUsuario"];
 }
 <style>
     * {
@@ -330,6 +332,7 @@
 
 <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
     <div class="container-fluid" id="grad1">
+        <button type="button" style="background-color: #00aec7; margin-left: initial" class="btn w-auto my-4 mb-2 text-white" id="volver" onclick="location.href='/PerformanceApp/Index?perfil=' + @perfil + '&idUsuario=' + @idUsuario">Volver</button>
         <div class="row justify-content-center mt-0">
             <div class="col-11 col-sm-9 col-md-7 col-lg-6 text-center p-0 mt-3 mb-2 w-80">
                 <div class="card px-0 pt-4 pb-0 mt-3 mb-3">
@@ -505,7 +508,7 @@
                                         </div>
                                     </div>
                                     <input type="button" name="previous" class="previous action-button-previous" value="Volver" />
-                                    <input type="button" name="make_payment" class="next action-button toast-btn" value="Confirmar" data-target="infoToast" />
+                                    <input type="button" name="make_payment" class="next action-button toast-btn" value="Siguiente" data-target="infoToast" />
                                 </fieldset>
                                 <fieldset>
                                     <div class="form-card">
