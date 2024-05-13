@@ -4,7 +4,6 @@
     //var perfil = "128";
     //var perfil = Request.QueryString["perfil"];    
     var perfil = Session["perfil"];
-    var bienvenida = 0;
     var idUsuario = Session["idUsuario"];
 }
 
@@ -122,96 +121,82 @@
             <a id="b" class="btn btn-secondary" href="/PerformanceApp/Index/Crud?view=evaluacion" style="max-width: 18%; ">Evaluación</a>
             <a id="c" class="btn btn-warning" href="/PerformanceApp/Index/Crud?view=resumenAutoevaluacion" style="max-width: 18%; ">Resumen Autoevaluación</a>
         </div>*@
-        @*---MODAL DE BIENVEIDA---*@
-
-        @*OCULTO BOTON PORQUE EN LA DOCUMENTACION SOLO LO MUESTRA CON BOTON(SE HACE CLICK EN EL BOTON DESDE JS)*@
-        <!-- Button trigger modal -->
-        <div id="divLoading" class="modalLoading"></div>
-        <button id="botonModalBienvenida" type="button" class="btn bg-gradient-primary d-none" data-bs-toggle="modal" data-bs-target="#exampleModal">
-            Launch demo modal
-        </button>
-
-        <!-- Modal -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
-                <div class="modal-content">
-                    <img src="~/Content/img/Bienvenida.jpg">
-                </div>
-            </div>
-        </div>
 
         @*FILTROS SOLICITUDES*@
         @if (Convert.ToInt32(perfil) == 129)
         {
-           <div class="row align-items-center" style="text-align: center; margin-top:20px;">
-               <div class="form-group2 col-md-2" style="margin-left:2%;" data-toggle="tooltip" title="Alta performance año anterior">
-                   <button id="altaPerformance" type="button" class="btn btn-block btn-warning" style="width: 200px; cursor: pointer;">
-                       Alta Performance @(DateTime.Now.Year - 1)
-                   </button>
-               </div>
-               <div class="form-group2 col-md-9">
-                   <div class="progress" style="margin-bottom: 50px;">
-                       <div id="barraCompletar" class="progress-bar progress-bar-stripeds" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
-                       <div id="barraEvaluar" class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
-                       <div id="barraCalibrar" class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
-                       <div id="barraFinalizado" class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
-                   </div>
-               </div>
-               <div class="tracking" id="progresoPerformance" style="margin-bottom: 20px; margin-left:480px">
-                   <div class="text-uppercase text-xl font-weight-bolder opacity-7" id="tituloProgreso" style="width:auto">Progreso Performance @(DateTime.Now.Year - 1)</div>
-               </div>
-           </div>
-           
+            <div class="row align-items-center" style="text-align: center; margin-top:20px;">
+                <div class="form-group2 col-md-2" style="margin-left:2%;" data-toggle="tooltip" title="Alta performance año anterior">
+                    <button id="altaPerformance" type="button" class="btn btn-block btn-warning" style="width: 200px; cursor: pointer;">
+                        Alta Performance @(DateTime.Now.Year - 1)
+                    </button>
+                </div>
+                <div class="form-group2 col-md-9">
+                    <div class="progress" style="margin-bottom: 50px;">
+                        <div id="barraCompletar" class="progress-bar progress-bar-stripeds" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                        <div id="barraEvaluar" class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                        <div id="barraCalibrar" class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                        <div id="barraFinalizado" class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                </div>
+                <div class="tracking" id="progresoPerformance" style="margin-bottom: 20px; margin-left:480px">
+                    <div class="text-uppercase text-xl font-weight-bolder opacity-7" id="tituloProgreso" style="width:auto">Progreso Performance @(DateTime.Now.Year - 1)</div>
+                </div>
+            </div>
+
 
         }
-    <div class="row m-3" style="overflow: hidden; margin-top: 0px;" id="rowFiltro">
-        @if (Convert.ToInt32(perfil) == 128 || Convert.ToInt32(perfil) == 129)
-        {
-            if (Convert.ToInt32(perfil) == 128 || Convert.ToInt32(perfil) == 129)
+        <div class="row m-3" style="overflow: hidden; margin-top: 0px;" id="rowFiltro">
+            @if (Convert.ToInt32(perfil) == 128 || Convert.ToInt32(perfil) == 129)
             {
-                <div class="form-group2 col-md-2" id="filtroColaborador">
-                    <label>Colaborador:</label>
+                if (Convert.ToInt32(perfil) == 128 || Convert.ToInt32(perfil) == 129)
+                {
+                    <div class="form-group2 col-md-2" id="filtroColaborador">
+                        <label>Colaborador:</label>
+                        <div></div>
+                        <div style="font-weight: normal !important;">
+                            <select class="form-control" id="selectColaborador"></select>
+                        </div>
+                    </div>
+                }
+                if (Convert.ToInt32(perfil) == 129)
+                {
+                    <div class="form-group2 col-md-2" id="filtroLider">
+                        <label>Líder:</label>
+                        <div></div>
+                        <div style="font-weight: normal !important;">
+                            <select class="form-control" id="selectLider"></select>
+                        </div>
+                    </div>
+                }
+                <div class="form-group2 col-md-2" id="filtroEstado">
+                    <label>Estado:</label>
                     <div></div>
-                    <div style="font-weight: normal !important;">
-                        <select class="form-control" id="selectColaborador"></select>
-                    </div>
+                    <select class="form-control" id="selectEstado">
+                    </select>
                 </div>
-            }
-            if (Convert.ToInt32(perfil) == 129)
-            {
-                <div class="form-group2 col-md-2" id="filtroLider">
-                    <label>Líder:</label>
-                    <div></div>
-                    <div style="font-weight: normal !important;">
-                        <select class="form-control" id="selectLider"></select>
-                    </div>
+                <div class="form-group2 col-md-1 mt-2" style="padding-top: 1.9%;" id="btnBuscarFiltro">
+                    <button id="btnFiltrar" type="button" class="btn btn-success" style="width: 120px; cursor: pointer;">
+                        Buscar
+                    </button>
                 </div>
-            }
-            <div class="form-group2 col-md-2" id="filtroEstado">
-                <label>Estado:</label>
-                <div></div>
-                <select class="form-control" id="selectEstado">
-                </select>
-            </div>
-            <div class="form-group2 col-md-1 mt-2" style="padding-top: 1.9%;" id="btnBuscarFiltro">
-                <button id="btnFiltrar" type="button" class="btn btn-success" style="width: 120px; cursor: pointer;">
-                    Buscar
-                </button>
-            </div>
-            if (Convert.ToInt32(perfil) == 129)
-            {
-                <div class="col-md-2" style="margin-left:250px;">
-                    <div class="d-flex flex-column border p-3">
-                        <div id="totalCompletar" class="mb-2"><span class="mr-3" style="width: 20px; height: 20px; display: inline-block; background-color: #7AC11F !important; "></span>Completar</div>
-                        <div id="totalEvaluar" class="mb-2"><span class="mr-3" style="width: 20px; height: 20px; display: inline-block; background-color: #FFC107 !important;"></span>Evaluar</div>
-                        <div id="totalCalibrar" class="mb-2"><span class="mr-3" style="width: 20px; height: 20px; display: inline-block; background-color: #69E6FF !important;"></span>Calibrar</div>
-                        <div id="totalFinalizados" class="mb-2"><span class="mr-3" style="width: 20px; height: 20px; display: inline-block; background-color: #9b9b9b !important;"></span>Finalizados</div>
+                if (Convert.ToInt32(perfil) == 129)
+                {
+                    <div class="col-md-2" style="margin-left:250px;">
+                        <div class="d-flex flex-column border p-3">
+                            <div id="totalCompletar" class="mb-2"><span class="mr-3" style="width: 20px; height: 20px; display: inline-block; background-color: #7AC11F !important; "></span>Completar</div>
+                            <div id="totalEvaluar" class="mb-2"><span class="mr-3" style="width: 20px; height: 20px; display: inline-block; background-color: #FFC107 !important;"></span>Evaluar</div>
+                            <div id="totalCalibrar" class="mb-2"><span class="mr-3" style="width: 20px; height: 20px; display: inline-block; background-color: #69E6FF !important;"></span>Calibrar</div>
+                            <div id="totalFinalizados" class="mb-2"><span class="mr-3" style="width: 20px; height: 20px; display: inline-block; background-color: #9b9b9b !important;"></span>Finalizados</div>
+                        </div>
                     </div>
-                </div>
-            }
-        }
+                }
 
-    </div>
+
+
+            }
+
+        </div>
 
         <!-- MultiStep Form -->
         <div class="container-fluid py-4" id="grad1">
@@ -229,7 +214,7 @@
                                     <table class="table align-items-center mb-0" id="tablaColaborador">
                                         <thead>
                                             <tr>
-                                                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Año</th>
+                                                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Año Performance</th>
                                                 <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Líder</th>
                                                 <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Fecha de Autoevaluación</th>
                                                 <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Fecha de Feedback</th>
@@ -259,7 +244,7 @@
                                     <table class="table align-items-center mb-0" id="tablaLider">
                                         <thead>
                                             <tr>
-                                                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Año</th>
+                                                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Año Performance</th>
                                                 <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Colaborador</th>
                                                 <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Fecha de Autoevaluación</th>
                                                 <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Fecha de Evaluación</th>
@@ -290,7 +275,7 @@
                                     <table class="table align-items-center mb-0" id="tablaRRHH">
                                         <thead>
                                             <tr>
-                                                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Año</th>
+                                                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Año Performance</th>
                                                 <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Colaborador</th>
                                                 <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Líder</th>
                                                 <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">F. Autoevaluación</th>
@@ -363,7 +348,7 @@
     });
 
         $(document).ready(function () {
-            //CargarEstados();
+            CargarEstados();
             ListarPerformance();
         });
 
@@ -375,23 +360,7 @@
     $(document).ready(function () {
         $('#navIndex').addClass('active');
     });
-        //Muestra modal de BIENVENIDA
-        $(document).ready(function () {
-            var bienvenida = localStorage.getItem('bienvenidaLeida');
-            if (bienvenida == 0 || bienvenida == null) {
-                // Obtener el botón por su id
-                var boton = document.getElementById('botonModalBienvenida');
-                // Simular un clic en el botón
-                boton.click();
-                localStorage.setItem('bienvenidaLeida', 1);
-            }
-        });
-    //Funcion para que ande el tooltip
-    //$(document).ready(function () {
-    //    $('[data-toggle="tooltip"]').tooltip();
-    //});
-
-
+       
     ///LISTAR PERFORMANCE
         //ListarPerformance();
 
@@ -587,7 +556,8 @@
                         "render": function (data, type, row, meta) {
                             if (data !== null) {
                                 return '<div style="text-align: center;">' + moment(data).format('DD/MM/YYYY') + '</div>'
-                            } else {
+                            }
+                            else {
                                 return '';
                             }
                         }
@@ -599,7 +569,8 @@
                         "render": function (data, type, row, meta) {
                             if (data !== null) {
                                 return '<div style="text-align: center;">' + moment(data).format('DD/MM/YYYY') + '</div>'
-                            } else {
+                            }
+                            else {
                                 return '';
                             }
                         }
@@ -611,7 +582,8 @@
                         "render": function (data, type, row, meta) {
                             if (data !== null) {
                                 return '<div style="text-align: center;">' + moment(data).format('DD/MM/YYYY') + '</div>'
-                            } else {
+                            }
+                            else {
                                 return '';
                             }
                         }
@@ -622,7 +594,7 @@
                         "autoWidth": false,
                         "render": function (data, type, row, meta) {
                             if (row.idEstado == 1) {
-                                return '<div style="text-align: center;"><a href="" class="btn btn-sm grilla-btn btn-success" title="PARA COMPLETAR COLABORADOR" style="font-size: 100% !important;">' + row.estado + '</a></div>';
+                                return '<div style="text-align: center;"><a href="/PerformanceApp/Index/Crud?view=evaluacion&idPerformance= ' + row.idPerformance + '" class="btn btn-sm grilla-btn btn-info" title="PARA COMPLETAR COLABORADOR" style="font-size: 100% !important;">' + row.estado + '</a></div>';
                             }
                             if (row.idEstado == 2) {
                                 return '<div style="text-align: center;"><a href="/PerformanceApp/Index/Crud?view=evaluacion&idPerformance=' + row.idPerformance + '" class="btn btn-sm grilla-btn btn-warning" title="PARA EVALUAR LIDER" style="font-size: 100% !important;">' + row.estado + '</a></div>';
@@ -770,10 +742,10 @@
                                 return '<div style="text-align: center;"><a href="" class="btn btn-sm grilla-btn btn-success" title="PARA COMPLETAR COLABORADOR" style="font-size: 100% !important;">' + row.estado + '</a></div>';
                             }
                             if (row.idEstado == 2) {
-                                return '<div style="text-align: center;"><a href="" class="btn btn-sm grilla-btn btn-warning" title="PARA EVALUAR LIDER" style="font-size: 100% !important;">' + row.estado + '</a></div>';
+                                return '<div style="text-align: center;"><a href="" class="btn btn-sm grilla-btn btn-secondary" title="PARA EVALUAR LIDER" style="font-size: 100% !important;">' + 'Finalizado' + '</a></div>';
                             }
                             if (row.idEstado == 3) {
-                                return '<div style="text-align: center;"><a href="" class="btn btn-sm grilla-btn btn-info" title="PARA CALIBRAR CAPITAL HUMANO" style="font-size: 100% !important;">' + row.estado + '</a></div>';
+                                return '<div style="text-align: center;"><a href="" class="btn btn-sm grilla-btn btn-info" title="PARA CALIBRAR CAPITAL HUMANO" style="font-size: 100% !important;">' + 'A Calibrar' + '</a></div>';
                             }
                             if (row.idEstado == 4) {
                                 return '<div style="text-align: center;"><a href="" class="btn btn-sm grilla-btn btn-secondary" title="FINALIZADO" style="font-size: 100% !important;">' + row.estado + '</a></div>';

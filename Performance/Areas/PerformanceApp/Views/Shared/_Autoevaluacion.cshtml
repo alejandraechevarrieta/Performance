@@ -527,6 +527,7 @@
 <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
     <!-- MultiStep Form -->
     <div class="container-fluid" id="grad1">
+        <button type="button" style="background-color: #00aec7; margin-left: initial" class="btn w-auto my-4 mb-2 text-white" id="volver" onclick="location.href='/PerformanceApp/Index?perfil=' + @perfil + '&idUsuario=' + @idUsuario">Volver</button>
         <div class="row justify-content-center mt-0">
             <div class="col-11 col-sm-9 col-md-7 col-lg-6 text-center p-0 mt-3 mb-2 w-80">
                 <div class="card px-0 pt-4 pb-0 mt-3 mb-3">
@@ -549,24 +550,14 @@
                                 <!-- fieldsets -->
                                 <fieldset>
                                     <div class="form-card">
-                                        <h2 class="fs-title">Bienvenido</h2>
+                                        <h2 class="fs-title">Instructivo</h2>
                                         <div class="row">
                                             <p class="h5">
-                                                ¡Bienvenido al proceso de “Performance 2024”, en búsqueda de tu mejor versión!
-                                                Este proceso está diseñado para ayudarte a reconocer y desarrollar tus habilidades blandas clave, así como para promover una cultura de retroalimentación constructiva y crecimiento continuo en nuestra organización.
+                                                En las siguientes pestañas deberás evaluar tus habilidades seleccionando
+                                                una de las 4 opciones, en la última pesta{a verás un resumen de tus respuestas, en el caso de querer
+                                                modificar una, hacer click en el ícono del lápiz, y volver a seleccionar
+                                                las habilidades necesarias. Por último, para finalizar el formulario A hacer click en el boton "Enviar a tu lider".
                                                 <br />
-                                                Revisando el instructivo, podrás profundizar en las etapas que recorreremos durante este proceso:
-                                                <br />
-                                                •    Autoevaluación <br />
-                                                •    Valoración del Líder <br />
-                                                •    Calibración de Sponsors <br />
-                                                •    Devolución <br />
-                                                •    Plan de Desarrollo Individual (PDI) <br />
-                                                •    Seguimiento
-                                                <br />
-                                                ¡Gracias por sumarte a Performance 2024! <br />
-                                                Continuemos #construyendojuntos en la búsqueda de tu mejor versión. <br />
-                                                Si tenes alguna pregunta o necesitas apoyo en cualquier etapa del proceso, no dudes en comunicarte con el equipo de Experiencia de Capital Humano a través del portal de servicios o en: capitalhumano@distrocuyo.com
                                             </p>
                                         </div>
                                     </div>
@@ -820,7 +811,7 @@
                                         </div>
                                     </div>
                                     <input type="button" name="previous" class="action-button-previous boton" value="Cancelar" onclick="window.history.back()" />
-                                    <input type="button" name="make_payment" class="action-button boton" onclick="AbrirModalEnviar()" value="Enviar a tu lider" />
+                                    <input type="button" name="make_payment" class="action-button boton w-auto" onclick="AbrirModalEnviar()" value="Enviar a tu lider" />
                                 </fieldset>
                             </form>
                         </div>
@@ -942,9 +933,9 @@
             $(this).parent().find('.radio').removeClass('selected');
             $(this).addClass('selected');
         });
-
-        localStorage.clear();
-    });
+      
+        //localStorage.clear();
+    });       
     //Funcion para que ande el popover
     $(document).ready(function () {
         $('[data-toggle="popover"]').popover();
