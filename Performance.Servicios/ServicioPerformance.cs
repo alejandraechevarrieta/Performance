@@ -221,6 +221,64 @@ namespace Performance.Servicios
                 return 0;
             }
         }
+        /// <summary>
+        /// calulos progreso de estados 
+        /// </summary>
+        /// <returns></returns>
+        public List<PerformanceProgresoVM> listarPerformanceProgreso()
+        {
+            var list = ListarPerformanceTodas();
+            var anoAnterior = DateTime.Now.Year - 1;
+            var tmp = list.Where(x => x.ano == anoAnterior).ToList();
+            var totalPerformance = 0;
+            var totalCompletar = 0;
+            var totalEvaluar = 0;
+            var totalCalibrar = 0;
+            var totalFinalizado = 0;
+            decimal porcentajeCompletar = 0;
+            decimal porcentajeEvaluar = 0;
+            decimal porcentajeCalibrar = 0;
+            decimal porcentajeFinalizado = 0;
+
+            foreach (var item in tmp)
+            {
+                totalPerformance++;
+                if (item.idEstado == 1)
+                    totalCompletar++;
+                else if (item.idEstado == 2)
+                    totalEvaluar++;
+                else if (item.idEstado == 3)
+                    totalCalibrar++;
+                else if (item.idEstado == 4)
+                    totalFinalizado++;
+            }
+            
+            if (totalPerformance > 0)
+            {
+                porcentajeCompletar = (decimal)totalCompletar / totalPerformance * 100;
+                porcentajeEvaluar = (decimal)totalEvaluar / totalPerformance * 100;
+                porcentajeCalibrar = (decimal)totalCalibrar / totalPerformance * 100;
+                porcentajeFinalizado = (decimal)totalFinalizado / totalPerformance * 100;
+            }
+
+            var lista = new List<PerformanceProgresoVM>();
+           
+            lista.Add(new PerformanceProgresoVM
+            {                
+                totalPerformance = totalPerformance,
+                totalCompletar = totalCompletar,
+                totalEvaluar = totalEvaluar,
+                totalCalibrar = totalCalibrar,
+                totalFinalizado = totalFinalizado,
+                porcentajeCompletar = porcentajeCompletar,
+                porcentajeEvaluar = porcentajeEvaluar,
+                porcentajeCalibrar = porcentajeCalibrar,
+                porcentajeFinalizado = porcentajeFinalizado
+            });
+            
+            return lista;
+        }
+
 
     }
 }

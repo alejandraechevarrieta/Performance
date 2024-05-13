@@ -209,6 +209,18 @@ namespace Performance.Areas.PerformanceApp.Controllers.Api
             }
         }
 
+        /// <summary>
+        /// listar performance para progreso 
+        /// </summary>
+        /// <returns></returns>
+        [System.Web.Http.Route("Api/PerformanceApp/listarPerformanceProgreso")]
+        [System.Web.Http.ActionName("listarPerformanceProgreso")]
+        [System.Web.Http.HttpGet]
+        public List<PerformanceProgresoVM> listarPerformanceProgreso()
+        {
+            Servicios.ServicioPerformance servicio = new Servicios.ServicioPerformance();
+            return servicio.listarPerformanceProgreso();
+        }
         public class DataTableRequestModel
         {
             public int draw { get; set; }
