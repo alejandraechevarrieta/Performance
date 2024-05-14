@@ -192,6 +192,7 @@ namespace Performance.Areas.PerformanceApp.Controllers.Api
                 }
             }
         }
+       
         [System.Web.Http.Route("Api/PerformanceApp/BuscarDatosUsuario")]
         [System.Web.Http.ActionName("BuscarDatosUsuario")]
         [System.Web.Http.HttpGet]
@@ -231,6 +232,58 @@ namespace Performance.Areas.PerformanceApp.Controllers.Api
         {
             Servicios.ServicioPerformance servicio = new Servicios.ServicioPerformance();
             return servicio.listarPerformanceProgreso();
+        }
+        //[System.Web.Http.Route("Api/PerformanceApp/buscarDatosPerformance")]
+        //[System.Web.Http.ActionName("buscarDatosPerformance")]
+        //[System.Web.Http.HttpPost]
+        //public HttpResponseMessage buscarDatosPerformance(DataTableRequestModel requestModel, int idPerformance)
+        //{
+        //    var draw = requestModel.draw;
+        //    var start = requestModel.start;
+        //    var length = requestModel.length;
+        //    var sortColumn = 1;
+        //    var searchValue = 1;
+        //    int pageSize = length != null ? Convert.ToInt32(length) : 0;
+        //    int skip = start != null ? Convert.ToInt32(start) : 0;
+        //    int recordsTotal = 0;
+
+        //    Servicios.ServicioPerformance _servicio = new Servicios.ServicioPerformance();
+
+        //    // Consulta a tu servicio para obtener los datos
+        //    var listaPpal = _servicio.buscarDatosPerformance(idPerformance);
+
+        //    // Filtrar y paginar los datos según los parámetros recibidos
+        //    var listFiltr = listaPpal.Where(x => x.idPerformance > 0).Distinct().ToList();
+
+        //    recordsTotal = listFiltr.Count();
+        //    var toTake = pageSize;
+        //    if (recordsTotal < pageSize)
+        //    {
+        //        toTake = recordsTotal;
+        //    }
+
+        //    var lst = listFiltr.Skip(skip).Take(toTake).ToList();
+        //    var lista = lst.ToList();
+
+        //    var responseData = new { draw = draw, recordsFiltered = recordsTotal, recordsTotal = recordsTotal, data = lista };
+
+        //    // Serialize responseData to JSON
+        //    var jsonResult = JsonConvert.SerializeObject(responseData);
+
+        //    // Create an HttpResponseMessage with the JSON content
+        //    var response = Request.CreateResponse(HttpStatusCode.OK);
+        //    response.Content = new StringContent(jsonResult, Encoding.UTF8, "application/json");
+
+        //    // Return the HttpResponseMessage
+        //    return response;
+        //}
+        [System.Web.Http.Route("Api/PerformanceApp/buscarDatosPerformance")]
+        [System.Web.Http.ActionName("buscarDatosPerformance")]
+        [System.Web.Http.HttpGet]
+        public List<DatosPerformanceVM> buscarDatosPerformance(int idPerformance)
+        {
+            Servicios.ServicioPerformance servicio = new Servicios.ServicioPerformance();
+            return servicio.buscarDatosPerformance(idPerformance);
         }
         public class DataTableRequestModel
         {

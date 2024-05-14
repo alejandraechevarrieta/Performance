@@ -1,0 +1,627 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+    int idPerformance = ViewBag.IdPerformance;
+    var perfil = Session["perfil"];
+    var idUsuario = Session["idUsuario"];
+
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    <!-- Estilos de Bootstrap -->
+    @*<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0/css/bootstrap.min.css">*@
+
+    <!-- Estilos de DataTables -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
+    <!-- JavaScript de jQuery (necesario para DataTables) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.datatables.net/1.12.0/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            height: 100%;
+        }
+
+        /*Background color*/
+        #grad1 {
+            background-color: #f3f3f3;
+        }
+
+        .modal {
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+        /*form styles*/
+        #msform {
+            text-align: center;
+            position: relative;
+            margin-top: 20px;
+        }
+
+            #msform fieldset .form-card {
+                background: white;
+                border: 0 none;
+                border-radius: 0px;
+                box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.2);
+                padding: 20px 40px 30px 40px;
+                box-sizing: border-box;
+                width: 94%;
+                margin: 0 3% 20px 3%;
+                /*stacking fieldsets above each other*/
+                position: relative;
+            }
+
+            #msform fieldset {
+                background: white;
+                border: 0 none;
+                border-radius: 0.5rem;
+                box-sizing: border-box;
+                width: 100%;
+                margin: 0;
+                padding-bottom: 20px;
+                /*stacking fieldsets above each other*/
+                position: relative;
+            }
+
+                /*Hide all except first fieldset*/
+                #msform fieldset:not(:first-of-type) {
+                    display: none;
+                }
+
+                #msform fieldset .form-card {
+                    text-align: left;
+                    color: #9E9E9E;
+                }
+
+            #msform input, #msform textarea {
+                padding: 0px 8px 4px 8px;
+                border: none;
+                border-bottom: 1px solid #ccc;
+                border-radius: 0px;
+                margin-bottom: 25px;
+                margin-top: 2px;
+                width: 100%;
+                box-sizing: border-box;
+                font-family: 'Arial', sans-serif;
+                color: #2C3E50;
+                font-size: 16px;
+                letter-spacing: 1px;
+            }
+
+                #msform input:focus, #msform textarea:focus {
+                    -moz-box-shadow: none !important;
+                    -webkit-box-shadow: none !important;
+                    box-shadow: none !important;
+                    border: none;
+                    font-weight: bold;
+                    border-bottom: 2px solid skyblue;
+                    outline-width: 0;
+                }
+
+            /*Blue Buttons*/
+            #msform .action-button {
+                width: 150px; /* Cambia el valor según sea necesario */
+                background: #00aec7;
+                font-weight: bold;
+                color: white;
+                border: 0 none;
+                border-radius: 0px;
+                cursor: pointer;
+                padding: 10px 10px; /* Aumenta el valor del padding según sea necesario */
+                margin: 10px 5px;
+            }
+
+
+                #msform .action-button:hover, #msform .action-button:focus {
+                    box-shadow: 0 0 0 2px white, 0 0 0 3px skyblue;
+                }
+
+            /*Previous Buttons*/
+            #msform .action-button-previous {
+                width: 150px;
+                background: #616161;
+                font-weight: bold;
+                color: white;
+                border: 0 none;
+                border-radius: 0px;
+                cursor: pointer;
+                padding: 10px 5px;
+                margin: 10px 5px;
+            }
+
+                #msform .action-button-previous:hover, #msform .action-button-previous:focus {
+                    box-shadow: 0 0 0 2px white, 0 0 0 3px #616161;
+                }
+
+            #msform input.selected {
+                border-bottom: 2px solid skyblue;
+                background-color: rgba(135, 206, 250, 0.2);
+                box-shadow: 0 0 5px skyblue;
+                border: 2px solid skyblue;
+            }
+
+        .boton {
+            border-bottom: 2px solid skyblue !important;
+            background-color: #00aec7 !important;
+            box-shadow: 0 0 5px !important;
+            border: 2px solid !important;
+        }
+        /*Dropdown List Exp Date*/
+        select.list-dt {
+            border: none;
+            outline: 0;
+            border-bottom: 1px solid #ccc;
+            padding: 2px 5px 3px 5px;
+            margin: 2px;
+        }
+
+            select.list-dt:focus {
+                border-bottom: 2px solid skyblue;
+            }
+
+        /*The background card*/
+        .card {
+            z-index: 0;
+            border: none;
+            border-radius: 0.5rem;
+            position: relative;
+        }
+
+        /*FieldSet headings*/
+        .fs-title {
+            font-size: 25px;
+            color: #2C3E50;
+            margin-bottom: 10px;
+            font-weight: bold;
+            text-align: left;
+        }      
+
+        /*Fit image in bootstrap div*/
+        .fit-image {
+            width: 100%;
+            object-fit: cover;
+        }
+
+        .form-card {
+            display: inline-block; /* Mostrar los botones en línea */
+        }
+
+            /* Ajuste para el último botón dentro de .form-card */
+            .form-card input[type="button"]:last-child {
+                margin-right: 0; /* Elimina el margen derecho del último botón */
+            }
+
+        /* Estilos para los botones dentro de .form-card */
+        .form-card {
+            display: flex; /* Usar flexbox para alinear los elementos */
+            justify-content: space-between; /* Espacio uniforme entre los elementos */
+        }
+
+            .form-card input[type="button"] {
+                flex: 1; /* Los botones ocupan igualmente todo el espacio disponible */
+                margin-right: 10px; /* Espacio entre los botones */
+            }
+
+                /* Ajuste para el último botón dentro de .form-card */
+                .form-card input[type="button"]:last-child {
+                    margin-right: 0; /* Elimina el margen derecho del último botón */
+                }
+        /* Estilos para los botones dentro de .form-card */
+        .form-card {
+            display: flex; /* Utilizar flexbox para alinear los elementos */
+            flex-direction: column; /* Alinear elementos verticalmente */
+        }
+
+        .button-container {
+            display: flex; /* Utilizar flexbox para alinear los botones */
+            justify-content: space-between; /* Espaciar uniformemente los botones */
+        }
+
+        .separator {
+            margin-top: 20px; /* Ajustar el margen superior según sea necesario */
+            margin: 0 auto; /* Eliminar los márgenes laterales y centrar el separador */
+            border-bottom: 3px solid #7380C4; /* Aumentar el grosor del borde inferior */
+            padding: 10px 10px; /* Aumentar el espacio interior del separador */
+            color: #034;
+            clear: both;
+        }
+
+        .description {
+            font-size: 14px;
+            color: #666;
+            margin-top: 20px;
+        }
+
+
+        .tituloResumen {
+            margin-right: inherit;
+        }
+        .titulo {
+            font-size: 18px;
+            text-align: center; /* Justificación a la izquierda */
+            text-transform: uppercase;
+            color: #6c757d; /* Texto secundario */
+            font-weight: 700; /* Negrita */
+            opacity: 1;
+            width: auto; /* Ancho automático */
+            display: inline-block; /* Mostrar en línea */
+            margin-right: 2px; /* Margen derecho */
+           
+        }
+
+        .habilidad {
+            font-size: 18px;
+            text-align: left; /* Justificación a la izquierda */
+            text-transform: uppercase;
+            color: #6c757d; /* Texto secundario */
+            font-weight: 700; /* Negrita */
+            opacity: 1;
+            width: auto; /* Ancho automático */
+            display: inline-block; /* Mostrar en línea */
+            margin-right: 5px; /* Margen derecho */
+        }
+
+        .calificacion {
+            font-size: 15px;
+            text-align: left; /* Justificación a la izquierda */
+            text-transform: uppercase;
+            color: #6c757d; /* Texto secundario */
+            font-weight: 700; /* Negrita */
+            opacity: 1;
+            width: auto; /* Ancho automático */
+            display: inline-block; /* Mostrar en línea */
+            margin-right: 50px !important; /* Margen derecho */
+        }
+        .fondo {
+            background-color: #f2f2f2;
+            box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.2);
+        }
+
+    </style>
+
+
+</head>
+<body>
+    <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+        @*MultiStep Form*@
+        <div class="container-fluid" id="grad1">
+            <button type="button" style="background-color: #00aec7; margin-left: initial" class="btn w-auto my-4 mb-2 text-white" id="volver" onclick="location.href='/PerformanceApp/Index?perfil=' + @perfil + '&idUsuario=' + @idUsuario">Volver</button>
+            <div class="row justify-content-center mt-0">
+                <div class="col-11 col-sm-9 col-md-7 col-lg-6 text-center p-0 mt-3 mb-2 w-80">
+                    <div class="card px-0 pt-4 pb-0 mt-3 mb-3">
+                        <div class="box-header with-border">
+                            <div class="col-md-14">
+                                <div class="form-group">
+                                    <div class="row" style="margin-top:1%;">
+                                        <p class="h2"><strong>Performance 2023</strong></p>
+                                        <p class="h4">Esta es la performance de Nombre Apellido.</p>
+                                        <table class="table table-sm table-bordered" style="height: 60px;">
+                                            <thead align="center" class="thead-dark">
+                                                <tr>
+                                                    <th scope="col" style="background-color: #D7F18A; color: black; border-color: #fff; width: 35%;" rowspan="2">HABILIDADES</th>
+                                                    <th scope="col" style="background-color: #D7F18A; color: black; border-color: #fff; width: 30%;" colspan="2">AUTOEVALUACION</th>
+                                                    <th scope="col" style="background-color: #D7F18A; color: black; border-color: #fff; width: 30%;" colspan="2">EVALUACION LIDER</th>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="col" style="background-color: #D7F18A; color: black; border-color: #fff; width: 20%;">CALIFICACION</th>
+                                                    <th scope="col" style="background-color: #D7F18A; color: black; border-color: #fff; width: 15%;">FECHA</th>
+                                                    <th scope="col" style="background-color: #D7F18A; color: black; border-color: #fff; width: 20%;">CALIFICACION</th>
+                                                    <th scope="col" style="background-color: #D7F18A; color: black; border-color: #fff; width: 15%;">FECHA</th>
+                                                </tr>
+                                            </thead>
+                                        </table>
+                                        <div style="height: 350px; overflow: auto">
+                                            <table class="table table-sm table-bordered" id="tablaPerformance">
+                                                <tbody></tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--<div class="container-fluid" id="grad1">
+    <button type="button" style="background-color: #00aec7; margin-left: initial" class="btn w-auto my-4 mb-2 text-white" id="volver" onclick="location.href='/PerformanceApp/Index?perfil=' + @perfil + '&idUsuario=' + @idUsuario">Volver</button>
+    <div class="row justify-content-center mt-0">
+        <div class="col-11 col-sm-9 col-md-7 col-lg-6 text-center p-0 mt-3 mb-2 w-80">
+            <div class="card px-0 pt-4 pb-0 mt-3 mb-3">
+                <div class="row">
+                    <div class="col-md-12 mx-0">
+                        <form id="msform">
+                            <fieldset id="tarj7">
+                                <div class="m-4">
+                                    <div class="card-body px-0 pt-0 pb-2">
+                                        <p class="h2"><strong>Performance 2023</strong></p>
+                                        <p class="h4">Esta es la performance de Nombre Apellido.</p>
+                                        <div class="table-responsive p-0">
+                                            <table class="table align-items-center mb-0" id="tablaPerformance">
+                                                <thead class="fondo">
+                                                    <tr>
+                                                        <th class="titulo">HABILIDAD</th>
+                                                        <th class="titulo" style="margin-left:10px;">AUTOEVALUACIÓN</th>
+                                                        <th class="titulo">F. AUTOEVALUACIÓN</th>
+                                                        <th class="titulo">EVALUACIÓN LÍDER</th>
+                                                        <th class="titulo">F. EVALUACIÓN</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>-->
+        @* Los datos de la tabla se agregarán aquí dinámicamente desde JavaScript*@
+        <!--</tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div id="habilidades-container" class="form-card p-4">-->
+        @* Aquí se añadirán las habilidades y calificaciones dinámicamente*@
+        <!--</div>-->
+        @*Botones de acción*@
+        <!--</fieldset>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>-->
+        <!--<div class="row">
+    <div class="col-12">
+        <div class="card mb-4">
+            <div class="card-header pb-0">
+                <div class="text-uppercase text-xl-center  font-weight-bolder opacity-7">Performance Capital Humano</div>
+            </div>
+            <div class="card-body px-0 pt-0 pb-2">
+                <div class="table-responsive p-0">
+                    <table class="table align-items-center mb-0" id="tablaPerformance">
+                        <thead>
+                            <tr>
+                                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Habilidad</th>
+                                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Autoevaluación</th>
+                                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">F. Autoevaluación</th>
+                                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Evaluación</th>
+                                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">F. Evaluación</th>
+                                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>-->
+        @* Los datos de la tabla se agregarán aquí dinámicamente desde JavaScript*@
+        <!--</tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>-->
+
+    </main>
+    @*Estos links son para formularios (Si no van aca no funcionan)*@
+    <!-- DataTables JS CDN -->
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
+    <script>
+
+var perfil = "@perfil";
+var idUsuario = "@idUsuario";
+CargarDatos();
+        //BUSCAR DATOS
+function CargarDatos() {
+    var url = "/PerformanceApp/Api/PerformanceApp/buscarDatosPerformance?idPerformance=" + "@idPerformance";
+    $.getJSON(url)
+        .done(function (datos) {
+            var tbody = $('#tablaPerformance tbody');
+            tbody.empty();  // Limpiar el cuerpo de la tabla antes de agregar nuevas filas
+
+            var habilidades = {};
+
+            // Organizar los datos en un objeto por habilidades
+            datos.forEach(function (data) {
+                var habilidad = data.nombreHabilidadAutoevaluacion || data.nombreHabilidadEvaluacion;
+                if (!habilidades[habilidad]) {
+                    habilidades[habilidad] = {
+                        calificacionAutoevaluacion: '',
+                        fechaCalificacionAutoevaluacion: '',
+                        calificacionEvaluacion: '',
+                        fechaCalificacionEvaluacion: ''
+                    };
+                }
+                if (data.nombreHabilidadAutoevaluacion) {
+                    habilidades[habilidad].calificacionAutoevaluacion = data.calificacionAutoevaluacion;
+                    habilidades[habilidad].fechaCalificacionAutoevaluacion = data.fechaCalificacionAutoevaluacion ? moment(data.fechaCalificacionAutoevaluacion).format('DD/MM/YYYY') : '';
+                }
+                if (data.nombreHabilidadEvaluacion) {
+                    habilidades[habilidad].calificacionEvaluacion = data.calificacionEvaluacion;
+                    habilidades[habilidad].fechaCalificacionEvaluacion = data.fechaCalificacionEvaluacion ? moment(data.fechaCalificacionEvaluacion).format('DD/MM/YYYY') : '';
+                }
+            });
+
+            // Crear las filas de la tabla
+            for (var habilidad in habilidades) {
+                var row = '<tr>';
+                row += '<td style="background-color: #fff; color: black; border-color: #D7F18A; width: 35%;">' + habilidad + '</td>';
+                row += '<td style="background-color: #fff; color: black; border-color: #D7F18A; width: 20%;">' + habilidades[habilidad].calificacionAutoevaluacion + '</td>';
+                row += '<td style="background-color: #fff; color: black; border-color: #D7F18A; width: 15%;">' + habilidades[habilidad].fechaCalificacionAutoevaluacion + '</td>';
+                row += '<td style="background-color: #fff; color: black; border-color: #D7F18A; width: 20%;">' + habilidades[habilidad].calificacionEvaluacion + '</td>';
+                row += '<td style="background-color: #fff; color: black; border-color: #D7F18A; width: 15%;">' + habilidades[habilidad].fechaCalificacionEvaluacion + '</td>';
+                row += '</tr>';
+
+                tbody.append(row);
+            }
+        });
+}
+
+@*function CargarDatos() {
+            var ale = 0;
+       var url = "/PerformanceApp/Api/PerformanceApp/buscarDatosPerformance?idPerformance=" + "@idPerformance";
+       $.getJSON(url)
+           .done(function (datos) {
+               datos.forEach(function (data) {
+                   if (data.idHabilidadAutoevaluacion != null) {
+                       AgregarHabilidad(data.nombreHabilidadAutoevaluacion, data.calificacionAutoevaluacion, data.fechaCalificacionAutoevaluacion);
+                   }
+                   if (data.idHabilidadEvaluacion != null) {
+                       AgregarHabilidad(data.nombreHabilidadEvaluacion, data.calificacionEvaluacion, data.fechaCalificacionEvaluacion);
+                   }
+               });
+           });
+    }
+
+    function AgregarHabilidad(nombreHabilidad, calificacion, fecha) {
+        var habilidadesContainer = document.getElementById('habilidades-container');
+        habilidadesContainer.insertAdjacentHTML('beforeend', `
+            <div class="d-flex m-4">
+                <h4 class="habilidad w-30">${nombreHabilidad}</h2>
+                <h8 class="calificacion w-30">${calificacion}</h2>
+            </div>
+        `);
+    }*@
+
+
+
+
+    //Funcion para que ande el popover
+    $(document).ready(function () {
+        $('[data-toggle="popover"]').popover();
+    });
+    //Funcion para que ande el tooltip
+    $(document).ready(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+        @*CargarDatos();
+        function CargarDatos() {
+        var ale = 0;
+  var url = "/PerformanceApp/Api/PerformanceApp/buscarDatosPerformance?idPerformance=" + "@idPerformance";
+            CargartablaPerformance(url);
+}
+        IniciarTablaPerformance();
+    function IniciarTablaPerformance() {
+        var table = $('#tablaPerformance').DataTable();
+        table.page('first').draw('page'); // Vuelve a la página 1 y actualiza la tabla
+        table.clear().destroy();
+    }
+    function CargartablaPerformance(url) {
+        moment.locale('es');
+        var table = $("#tablaPerformance").DataTable({
+            "processing": true,
+            "serverSide": true,
+            "stateSave": true,
+            "bDestroy": true,
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
+            },
+            "ajax": {
+                "url": url,
+                "type": "POST",
+                "contentType": "application/json",
+                "data": function (d) {
+                    return JSON.stringify(d);
+
+                },
+                "datatype": "json",
+            },
+            "pageLength": 25,
+            "filter": true,
+            "responsivePriority": 1,
+            "columnDefs": [
+                { "width": "25%", "targets": 0 },
+                { "width": "17%", "targets": 1 },
+                { "width": "17%", "targets": 2 },
+                { "width": "7%", "targets": 3 },
+                { "width": "7%", "targets": 4 },
+                { "width": "7%", "targets": 5 },
+            ],
+            "columns": [
+                {
+                    "data": "nombreHabilidadAutoevaluacion",
+                    "name": "Habilidad",
+                    "autoWidth": false,
+                    "render": function (data, type, row, meta) {
+                        return '<div style="text-align: center;">' + data + '</div>'
+                    }
+                },
+                {
+                    "data": "calificacionAutoevaluacion",
+                    "name": "Calificación",
+                    "autoWidth": false,
+                    "render": function (data, type, row, meta) {
+                        return '<div style="text-align: center;">' + data + '</div>'
+                    }
+                },
+                {
+                    "data": "fechaAutoevaluacion",
+                    "name": "Fecha de Autoevaluación",
+                    "autoWidth": false,
+                    "render": function (data, type, row, meta) {
+                        if (data !== null) {
+                            return '<div style="text-align: center;">' + moment(data).format('DD/MM/YYYY') + '</div>'
+                        } else {
+                            return '';
+                        }
+                    }
+                },
+                {
+                    "data": "nombreHabilidadEvaluacion",
+                    "name": "Habilidad",
+                    "autoWidth": false,
+                    "render": function (data, type, row, meta) {
+                        return '<div style="text-align: center;">' + data + '</div>'
+                    }
+                },
+                {
+                    "data": "fechaCalificacionAutoevaluacion",
+                    "name": "fecha",
+                    "autoWidth": false,
+                    "render": function (data, type, row, meta) {
+                        return '<div style="text-align: center;">' + data + '</div>'
+                    }
+                },
+                {
+                    "data": "fechaCalificacionEvaluacion",
+                    "name": "Fecha de Evaluación",
+                    "autoWidth": false,
+                    "render": function (data, type, row, meta) {
+                        if (data !== null) {
+                            return '<div style="text-align: center;">' + moment(data).format('DD/MM/YYYY') + '</div>'
+                        } else {
+                            return '';
+                        }
+                    }
+                },
+                {
+                    "data": "estado",
+                    "name": "Acciones",
+                    "autoWidth": false,
+                    "render": function (data, type, row, meta) {
+                        return '<div style="text-align: center;"><a href="/PerformanceApp/Index/Crud?view=autoevaluacion&idPerformance=' + row.idPerformance + '" class="btn btn-sm grilla-btn btn-info" title="PARA COMPLETAR" style="font-size: 100% !important;">' + row.estado + '</a></div>';
+
+                    }
+                },
+
+            ],
+            "createdRow": function (row, data, index) {
+                // Aquí puedes aplicar estilos o clases a las filas según tus datos
+
+            },
+            "ordering": true,
+            "paging": true,
+            "initComplete": function () {
+                $("#divLoading").hide();
+            }
+        });
+    };*@
+
+
+    </script>
+</body>
+</html>

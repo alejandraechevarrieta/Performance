@@ -480,7 +480,8 @@
                             if (data == 1) {
                                 return '<div style="text-align: center;"><a href="/PerformanceApp/Index/Crud?view=autoevaluacion&idPerformance=' + row.idPerformance + '" class="btn btn-sm grilla-btn btn-info" title="PARA COMPLETAR" style="font-size: 100% !important;">' + row.estado + '</a></div>';
                             } else {
-                                return '<div style="text-align: center;"><a href="" class="btn btn-sm grilla-btn btn-secondary" title="FINALIZADO" style="font-size: 100% !important;">' + 'COMPLETO' + '</a></div>';
+                                //return '<div style="text-align: center;"><a href="" class="btn btn-sm grilla-btn btn-secondary" title="FINALIZADO" style="font-size: 100% !important;">' + 'COMPLETO' + '</a></div>';
+                                return '<div style="text-align: center;"><a href="/PerformanceApp/Index/Crud?view=performance&idPerformance=' + row.idPerformance + '" class="btn btn-sm grilla-btn btn-secondary" title="COMPLETO" style="font-size: 100% !important;">' + "COMPLETO" + '</a></div>';
                             }
                         }
                     },
@@ -595,7 +596,7 @@
                             if (row.idEstado == 1) {
                                 return '<div style="text-align: center;"><a href="/PerformanceApp/Index/Crud?view=evaluacion&idPerformance= ' + row.idPerformance + '" class="btn btn-sm grilla-btn btn-info" title="PARA COMPLETAR COLABORADOR" style="font-size: 100% !important;">' + row.estado + '</a></div>';
                             }
-                            if (row.idEstado == 2) {                               
+                            if (row.idEstado == 2) {
                                 return '<div style="text-align: center;"><a href="/PerformanceApp/Index/Crud?view=evaluacion&idPerformance=' + row.idPerformance + '" class="btn btn-sm grilla-btn btn-warning" title="PARA EVALUAR LIDER" style="font-size: 100% !important;">' + row.estado + '</a></div>';
                             }
                             if (row.idEstado == 3) {
@@ -849,7 +850,7 @@
             $.getJSON(url)
                 .done(function (data) {
                     var datos = data[0];
-                   
+
                     var totalCompletar = datos.totalCompletar;
                     var totalEvaluar = datos.totalEvaluar;
                     var totalCalibrar = datos.totalCalibrar;
@@ -859,7 +860,7 @@
                     var porcentajeEvaluar = datos.porcentajeEvaluar;
                     var porcentajeCalibrar = datos.porcentajeCalibrar;
                     var porcentajeFinalizado = datos.porcentajeFinalizado;
-                    
+
                     var styleCompletar = "width: " + porcentajeCompletar + "%; background-color: #7AC11F"; // Verde
                     var styleEvaluar = "width: " + porcentajeEvaluar + "%; background-color: #FFC107";     // Amarillo
                     var styleCalibrar = "width: " + porcentajeCalibrar + "%; background-color: #69E6FF";   // Azul
@@ -871,14 +872,14 @@
                     $("#barraCalibrar").attr("style", styleCalibrar).text(Math.round(porcentajeCalibrar) + "%");
                     $("#barraFinalizado").attr("style", styleFinalizado).text(Math.round(porcentajeFinalizado) + "%");
 
-                    //completo el total en las referencias 
+                    //completo el total en las referencias
                     $("#totalCompletar").html('<span class="mr-3" style="width: 20px; height: 20px; display: inline-block; background-color: #7AC11F !important;"></span> A Completar: ' + totalCompletar);
                     $("#totalEvaluar").html('<span class="mr-3" style="width: 20px; height: 20px; display: inline-block; background-color: #FFC107 !important;"></span> A Evaluar: ' + totalEvaluar);
                     $("#totalCalibrar").html('<span class="mr-3" style="width: 20px; height: 20px; display: inline-block; background-color: #69E6FF !important;"></span> A Calibrar: ' + totalCalibrar);
                     $("#totalFinalizados").html('<span class="mr-3" style="width: 20px; height: 20px; display: inline-block; background-color: #9b9b9b !important;"></span> Finalizados: ' + totalFinalizado);
                 });
-        }  
-
+        }
+        
     </script>
 
 </body>

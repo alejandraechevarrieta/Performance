@@ -91,4 +91,19 @@ namespace Performance.Model
         public decimal porcentajeFinalizado { get; set; }
 
     }
+    public class DatosPerformanceVM
+    {
+        public int idUsuario { get; set; }
+        public int idPerformance { get; set; }
+        public int? idHabilidadAutoevaluacion { get; set; }
+        public int? idCalificacionAutoevaluacion { get; set; }
+        public DateTime? fechaCalificacionAutoevaluacion { get; set; }       
+        public int? idHabilidadEvaluacion { get; set; }
+        public int? idCalificacionEvaluacion { get; set; }
+        public DateTime? fechaCalificacionEvaluacion { get; set; }
+        public string nombreHabilidadAutoevaluacion { get; set; }
+        public string calificacionAutoevaluacion { get; set; }
+        public string nombreHabilidadEvaluacion { get; set; }
+        public string calificacionEvaluacion { get; set; }
+    }
 }
