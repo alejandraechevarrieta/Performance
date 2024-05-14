@@ -447,6 +447,7 @@
     <Content Include="Areas\PerformanceApp\Views\Shared\_Autoevaluacion.cshtml" />
     <Content Include="Areas\PerformanceApp\Views\Shared\_Calibracion.cshtml" />
     <Content Include="Areas\PerformanceApp\Views\Index\Crud.cshtml" />
+    <Content Include="Areas\PerformanceApp\Views\Shared\_Performance.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />

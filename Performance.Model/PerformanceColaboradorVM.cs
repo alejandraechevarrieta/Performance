@@ -88,5 +88,9 @@ namespace Performance.Model
         public int? idHabilidadEvaluacion { get; set; }
         public int? idCalificacionEvaluacion { get; set; }
         public DateTime? fechaCalificacionEvaluacion { get; set; }
+        public string nombreHabilidadAutoevaluacion { get; set; }
+        public string calificacionAutoevaluacion { get; set; }
+        public string nombreHabilidadEvaluacion { get; set; }
+        public string calificacionEvaluacion { get; set; }
     }
 }

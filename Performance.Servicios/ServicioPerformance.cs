@@ -291,9 +291,13 @@ namespace Performance.Servicios
         idHabilidadAutoevaluacion = ha.idHabilidad,
         idCalificacionAutoevaluacion = ca.idCalificacion,
         fechaCalificacionAutoevaluacion = a.fechaAutoEvaluacion,
+        nombreHabilidadAutoevaluacion = ha.habilidad,
+        calificacionAutoevaluacion = ca.nombre,
         idHabilidadEvaluacion = null,
         idCalificacionEvaluacion = null,
-        fechaCalificacionEvaluacion = null
+        fechaCalificacionEvaluacion = null,
+        nombreHabilidadEvaluacion = null,
+        calificacionEvaluacion = null,
     }
 ).ToList();
 
@@ -309,9 +313,14 @@ namespace Performance.Servicios
                     idHabilidadAutoevaluacion = null,
                     idCalificacionAutoevaluacion = null,
                     fechaCalificacionAutoevaluacion = null,
+                    nombreHabilidadAutoevaluacion = null,
+                    calificacionAutoevaluacion = null,
                     idHabilidadEvaluacion = he.idHabilidad,
                     idCalificacionEvaluacion = ce.idCalificacion,
-                    fechaCalificacionEvaluacion = a.fechaEvaluacion
+                    fechaCalificacionEvaluacion = a.fechaEvaluacion,
+                    nombreHabilidadEvaluacion = he.habilidad,
+                    calificacionEvaluacion = ce.nombre,
+
                 }
             ).ToList();
 
