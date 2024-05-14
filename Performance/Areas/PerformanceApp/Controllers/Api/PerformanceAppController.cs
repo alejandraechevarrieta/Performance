@@ -130,6 +130,24 @@ namespace Performance.Areas.PerformanceApp.Controllers.Api
             Servicios.ServicioPerformance servicio = new Servicios.ServicioPerformance();
             return servicio.listarEstadosPerformance();
         }
+        [System.Web.Http.Route("/ListarColaboradores/")]
+        [System.Web.Http.ActionName("ListarColaboradores")]
+        [System.Web.Http.HttpGet]
+        public List<ColaboradorVM> ListarColaboradores()
+        {
+            Servicios.ServicioPerformance _servicio = new Servicios.ServicioPerformance();
+            var tmp = _servicio.ListarColaboradores();
+            return tmp;
+        }
+        [System.Web.Http.Route("/ListarLideres/")]
+        [System.Web.Http.ActionName("ListarLideres")]
+        [System.Web.Http.HttpGet]
+        public List<ColaboradorVM> ListarLideres()
+        {
+            Servicios.ServicioPerformance _servicio = new Servicios.ServicioPerformance();
+            var tmp = _servicio.ListarLideres();
+            return tmp;
+        }
         [System.Web.Http.Route("Api/PerformanceApp/GuardarAutoevaluacion")]
         [System.Web.Http.ActionName("GuardarAutoevaluacion")]
         [System.Web.Http.HttpPost]
