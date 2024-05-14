@@ -81,7 +81,10 @@ namespace Performance.Model
     public class DatosPerformanceVM
     {
         public int idUsuario { get; set; }
+        public string colaborador { get; set; }
+        public string lider { get; set; }
         public int idPerformance { get; set; }
+        public int ano { get; set; }
         public int? idHabilidadAutoevaluacion { get; set; }
         public int? idCalificacionAutoevaluacion { get; set; }
         public DateTime? fechaCalificacionAutoevaluacion { get; set; }       

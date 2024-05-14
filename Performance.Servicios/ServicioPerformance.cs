@@ -287,7 +287,7 @@ namespace Performance.Servicios
     join ca in db.Calificacion on a.idCalificacion equals ca.idCalificacion
     where p.idPerformance == idPerformance
     select new DatosPerformanceVM
-    {
+    {       
         idHabilidadAutoevaluacion = ha.idHabilidad,
         idCalificacionAutoevaluacion = ca.idCalificacion,
         fechaCalificacionAutoevaluacion = a.fechaAutoEvaluacion,
@@ -298,6 +298,9 @@ namespace Performance.Servicios
         fechaCalificacionEvaluacion = null,
         nombreHabilidadEvaluacion = null,
         calificacionEvaluacion = null,
+        ano = p.ano,
+        colaborador = p.nombre,
+        lider = p.nombreJefe,
     }
 ).ToList();
 
@@ -319,7 +322,7 @@ namespace Performance.Servicios
                     idCalificacionEvaluacion = ce.idCalificacion,
                     fechaCalificacionEvaluacion = a.fechaEvaluacion,
                     nombreHabilidadEvaluacion = he.habilidad,
-                    calificacionEvaluacion = ce.nombre,
+                    calificacionEvaluacion = ce.nombre,                   
 
                 }
             ).ToList();
