@@ -120,7 +120,18 @@ namespace Performance.Areas.PerformanceApp.Controllers.Api
 
             // Return the HttpResponseMessage
             return response;
-        }       
+        }
+
+        [System.Web.Http.Route("Api/PerformanceApp/buscarPerformance")]
+        [System.Web.Http.ActionName("buscarPerformance")]
+        [System.Web.Http.HttpGet]
+        public PerformanceVM buscarPerformance(int idPerformance)
+        {
+            Servicios.ServicioPerformance _servicio = new Servicios.ServicioPerformance();
+
+            var performance = _servicio.buscarPerformance(idPerformance);
+            return performance;
+        }
 
         [System.Web.Http.Route("Api/PerformanceApp/listarEstadosPerformance")]
         [System.Web.Http.ActionName("listarEstadosPerformance")]

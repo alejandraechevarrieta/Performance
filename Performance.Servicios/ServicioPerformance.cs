@@ -90,6 +90,40 @@ namespace Performance.Servicios
             return listaPpal;
         }
 
+        public PerformanceVM buscarPerformance(int? idPerformance)
+        {
+            using (var db = new PerformanceEntities())
+            {
+                var tmp = (from d in db.PerformanceColaborador
+                           join e in db.Estados on d.estado equals e.id
+                           select new PerformanceVM
+                           {
+                               ano = d.ano,
+                               idPerformance = d.idPerformance,
+                               idUsuario = d.idUsuario,
+                               nombre = d.nombre,
+                               idJefe = d.idJefe,
+                               nombreJefe = d.nombreJefe,
+                               antiguedad = d.antiguedad,
+                               fechaAutoevaluacion = d.fechaAutoevaluacion,
+                               fechaEvaluacion = d.fechaEvaluacion,
+                               fechaCalibracion = d.fechaCalibracion,
+                               fechaFeedback = d.fechaEvaluacion, //cambiar
+                               idEstado = d.estado,
+                               estado = e.estado,
+                               habilidades = (from x in db.AutoEvaluacion
+                                              where x.idPerformance == d.idPerformance
+                                              select new PerformanceAutoevaluacionVM
+                                              {
+                                                  idPerformance = x.idPerformance,
+                                                  idHabilidad = x.idHabilidad,
+                                                  idCalificacion = x.idCalificacion
+                                              }).Where(x => x.idPerformance == idPerformance).ToList()
+                           }).Where(z => z.idPerformance == idPerformance).FirstOrDefault();
+                return tmp;
+            }
+        }
+
         public void Dispose()
         {
             db.Dispose(); // Liberar recursos del contexto de la base de datos
