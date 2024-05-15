@@ -796,19 +796,6 @@
                 });
         }
 
-        function buscarPerformance() {
-            var url = "Api/PerformanceApp/buscarPerformance?idPerformance=" + 2003;
-            $.getJSON(url)
-                .done(function (data) {
-                    console.log(data);
-                    $.each(data, function (index, result) {
-                        selecEstados.append($('<option/>', {
-                            value: result.id,
-                            text: result.estado
-                        }));
-                    });
-                });
-        }
 
         //ALTAS
         $('#altaPerformance').click(function () {

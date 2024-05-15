@@ -314,27 +314,24 @@ namespace Performance.Servicios
         }
         public List<DatosPerformanceVM> buscarDatosPerformance(int idPerformance)
         {
-            var datosPerformance = (
-    from p in db.PerformanceColaborador
-    join a in db.AutoEvaluacion on p.idPerformance equals a.idPerformance
-    join ha in db.Habilidades on a.idHabilidad equals ha.idHabilidad
-    join ca in db.Calificacion on a.idCalificacion equals ca.idCalificacion
-    where p.idPerformance == idPerformance
-    select new DatosPerformanceVM
-    {
-        idHabilidadAutoevaluacion = ha.idHabilidad,
-        idCalificacionAutoevaluacion = ca.idCalificacion,
-        fechaCalificacionAutoevaluacion = a.fechaAutoEvaluacion,
-        nombreHabilidadAutoevaluacion = ha.habilidad,
-        calificacionAutoevaluacion = ca.nombre,
-        idHabilidadEvaluacion = null,
-        idCalificacionEvaluacion = null,
-        fechaCalificacionEvaluacion = null,
-        nombreHabilidadEvaluacion = null,
-        calificacionEvaluacion = null,
-    }
-).ToList();
-
+            var datosPerformance = (from p in db.PerformanceColaborador
+                                    join a in db.AutoEvaluacion on p.idPerformance equals a.idPerformance
+                                    join ha in db.Habilidades on a.idHabilidad equals ha.idHabilidad
+                                    join ca in db.Calificacion on a.idCalificacion equals ca.idCalificacion
+                                    where p.idPerformance == idPerformance
+                                    select new DatosPerformanceVM
+                                    {
+                                        idHabilidadAutoevaluacion = ha.idHabilidad,
+                                        idCalificacionAutoevaluacion = ca.idCalificacion,
+                                        fechaCalificacionAutoevaluacion = a.fechaAutoEvaluacion,
+                                        nombreHabilidadAutoevaluacion = ha.habilidad,
+                                        calificacionAutoevaluacion = ca.nombre,
+                                        idHabilidadEvaluacion = null,
+                                        idCalificacionEvaluacion = null,
+                                        fechaCalificacionEvaluacion = null,
+                                        nombreHabilidadEvaluacion = null,
+                                        calificacionEvaluacion = null,
+                                    }).ToList();
             var evaluaciones = (
                 from a in db.EvaluacionPerformance
                 join he in db.Habilidades on a.idHabilidad equals he.idHabilidad into habilidadesEvaluacion
@@ -355,8 +352,7 @@ namespace Performance.Servicios
                     nombreHabilidadEvaluacion = he.habilidad,
                     calificacionEvaluacion = ce.nombre,
 
-                }
-            ).ToList();
+                }).ToList();
 
             datosPerformance.AddRange(evaluaciones);
 
