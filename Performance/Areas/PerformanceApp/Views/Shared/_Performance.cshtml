@@ -283,10 +283,21 @@
             margin-right: 50px !important; /* Margen derecho */
         }
         .fondo {
-            background-color: #f2f2f2;
+            background-color: #e0dddd;
             box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.2);
         }
-
+        .table-container {
+            padding: 0; /* Eliminar el padding para ajustar el tamaño al de la tabla */
+            display: inline-block; /* Ajustar el tamaño del contenedor al contenido */
+        }
+        .table-shadow {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin: 0; /* Eliminar márgenes para evitar que la sombra se salga */
+        }
+        .data-container {
+            height: 280px;
+            overflow: auto;
+        }
     </style>
 
 
@@ -303,24 +314,26 @@
                             <div class="col-md-14">
                                 <div class="form-group">
                                     <div class="row" style="margin-top:1%;">
-                                        <p class="h2"><strong>Performance 2023</strong></p>
-                                        <p class="h4">Esta es la performance de Nombre Apellido.</p>
-                                        <table class="table table-sm table-bordered" style="height: 60px;">
-                                            <thead align="center" class="thead-dark">
-                                                <tr>
-                                                    <th scope="col" style="background-color: #D7F18A; color: black; border-color: #fff; width: 35%;" rowspan="2">HABILIDADES</th>
-                                                    <th scope="col" style="background-color: #D7F18A; color: black; border-color: #fff; width: 30%;" colspan="2">AUTOEVALUACION</th>
-                                                    <th scope="col" style="background-color: #D7F18A; color: black; border-color: #fff; width: 30%;" colspan="2">EVALUACION LIDER</th>
-                                                </tr>
-                                                <tr>
-                                                    <th scope="col" style="background-color: #D7F18A; color: black; border-color: #fff; width: 20%;">CALIFICACION</th>
-                                                    <th scope="col" style="background-color: #D7F18A; color: black; border-color: #fff; width: 15%;">FECHA</th>
-                                                    <th scope="col" style="background-color: #D7F18A; color: black; border-color: #fff; width: 20%;">CALIFICACION</th>
-                                                    <th scope="col" style="background-color: #D7F18A; color: black; border-color: #fff; width: 15%;">FECHA</th>
-                                                </tr>
-                                            </thead>
-                                        </table>
-                                        <div style="height: 350px; overflow: auto">
+                                        <p class="h2"><strong>Performance (<span id="ano"></span>)</strong></p>
+                                        <p class="h4">Esta es la performance del colaborador <span id="colaborador"></span>, líder <span id="lider"></span>.</p>
+                                        <div class="table-container">
+                                            <table class="table table-sm table-bordered table-shadow" style="height: 60px;">
+                                                <thead align="center" class="thead-dark">
+                                                    <tr>
+                                                        <th scope="col" style="background-color: #17AFB6; color: white; border-color: #17AFB6; width: 30%;" rowspan="2">HABILIDADES</th>
+                                                        <th scope="col" style="background-color: #17AFB6; color: white; border-color: #17AFB6; width: 35%; " colspan="2">AUTOEVALUACION</th>
+                                                        <th scope="col" style="background-color: #17AFB6; color: white; border-color: #17AFB6; width: 35%; " colspan="2">EVALUACION LIDER</th>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="col" style="background-color: #17AFB6; color: white; border-color: #17AFB6; width: 20%; ">CALIFICACION</th>
+                                                        <th scope="col" style="background-color: #17AFB6; color: white; border-color: #17AFB6; width: 15%; ">FECHA</th>
+                                                        <th scope="col" style="background-color: #17AFB6; color: white; border-color: #17AFB6; width: 20%; ">CALIFICACION</th>
+                                                        <th scope="col" style="background-color: #17AFB6; color: white; border-color: #17AFB6; width: 15%; ">FECHA</th>
+                                                    </tr>
+                                                </thead>
+                                            </table>
+                                        </div>
+                                        <div style="height: 280px; overflow: auto;">
                                             <table class="table table-sm table-bordered" id="tablaPerformance">
                                                 <tbody></tbody>
                                             </table>
@@ -332,80 +345,7 @@
                     </div>
                 </div>
             </div>
-        </div>
-
-        <!--<div class="container-fluid" id="grad1">
-    <button type="button" style="background-color: #00aec7; margin-left: initial" class="btn w-auto my-4 mb-2 text-white" id="volver" onclick="location.href='/PerformanceApp/Index?perfil=' + @perfil + '&idUsuario=' + @idUsuario">Volver</button>
-    <div class="row justify-content-center mt-0">
-        <div class="col-11 col-sm-9 col-md-7 col-lg-6 text-center p-0 mt-3 mb-2 w-80">
-            <div class="card px-0 pt-4 pb-0 mt-3 mb-3">
-                <div class="row">
-                    <div class="col-md-12 mx-0">
-                        <form id="msform">
-                            <fieldset id="tarj7">
-                                <div class="m-4">
-                                    <div class="card-body px-0 pt-0 pb-2">
-                                        <p class="h2"><strong>Performance 2023</strong></p>
-                                        <p class="h4">Esta es la performance de Nombre Apellido.</p>
-                                        <div class="table-responsive p-0">
-                                            <table class="table align-items-center mb-0" id="tablaPerformance">
-                                                <thead class="fondo">
-                                                    <tr>
-                                                        <th class="titulo">HABILIDAD</th>
-                                                        <th class="titulo" style="margin-left:10px;">AUTOEVALUACIÓN</th>
-                                                        <th class="titulo">F. AUTOEVALUACIÓN</th>
-                                                        <th class="titulo">EVALUACIÓN LÍDER</th>
-                                                        <th class="titulo">F. EVALUACIÓN</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>-->
-        @* Los datos de la tabla se agregarán aquí dinámicamente desde JavaScript*@
-        <!--</tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-    <div id="habilidades-container" class="form-card p-4">-->
-        @* Aquí se añadirán las habilidades y calificaciones dinámicamente*@
-        <!--</div>-->
-        @*Botones de acción*@
-        <!--</fieldset>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>-->
-        <!--<div class="row">
-    <div class="col-12">
-        <div class="card mb-4">
-            <div class="card-header pb-0">
-                <div class="text-uppercase text-xl-center  font-weight-bolder opacity-7">Performance Capital Humano</div>
-            </div>
-            <div class="card-body px-0 pt-0 pb-2">
-                <div class="table-responsive p-0">
-                    <table class="table align-items-center mb-0" id="tablaPerformance">
-                        <thead>
-                            <tr>
-                                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Habilidad</th>
-                                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Autoevaluación</th>
-                                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">F. Autoevaluación</th>
-                                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Evaluación</th>
-                                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">F. Evaluación</th>
-                                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody>-->
-        @* Los datos de la tabla se agregarán aquí dinámicamente desde JavaScript*@
-        <!--</tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>-->
-
+        </div>s
     </main>
     @*Estos links son para formularios (Si no van aca no funcionan)*@
     <!-- DataTables JS CDN -->
@@ -422,6 +362,7 @@ function CargarDatos() {
         .done(function (datos) {
             var tbody = $('#tablaPerformance tbody');
             tbody.empty();  // Limpiar el cuerpo de la tabla antes de agregar nuevas filas
+          
 
             var habilidades = {};
 
@@ -444,51 +385,36 @@ function CargarDatos() {
                     habilidades[habilidad].calificacionEvaluacion = data.calificacionEvaluacion;
                     habilidades[habilidad].fechaCalificacionEvaluacion = data.fechaCalificacionEvaluacion ? moment(data.fechaCalificacionEvaluacion).format('DD/MM/YYYY') : '';
                 }
+                var ano = datos.length > 0 ? datos[0].ano : null;
+                if (ano !== null) {
+                    $('#ano').text(ano);
+                }
+                var colaborador = datos.length > 0 ? datos[0].colaborador : null;
+                if (colaborador !== null) {
+                    $('#colaborador').text(colaborador);
+                }
+                var lider = datos.length > 0 ? datos[0].lider : null;
+                if (lider !== null) {
+                    $('#lider').text(lider);
+                }
             });
 
             // Crear las filas de la tabla
             for (var habilidad in habilidades) {
-                var row = '<tr>';
-                row += '<td style="background-color: #fff; color: black; border-color: #D7F18A; width: 35%;">' + habilidad + '</td>';
-                row += '<td style="background-color: #fff; color: black; border-color: #D7F18A; width: 20%;">' + habilidades[habilidad].calificacionAutoevaluacion + '</td>';
-                row += '<td style="background-color: #fff; color: black; border-color: #D7F18A; width: 15%;">' + habilidades[habilidad].fechaCalificacionAutoevaluacion + '</td>';
-                row += '<td style="background-color: #fff; color: black; border-color: #D7F18A; width: 20%;">' + habilidades[habilidad].calificacionEvaluacion + '</td>';
-                row += '<td style="background-color: #fff; color: black; border-color: #D7F18A; width: 15%;">' + habilidades[habilidad].fechaCalificacionEvaluacion + '</td>';
-                row += '</tr>';
+                if (habilidad != "null") {
+                    var row = '<tr>';
+                    row += '<td style="background-color: #fff; color: black; border: 1px solid #17AFB6; width: 30%;">' + habilidad + '</td>';
+                    row += '<td style="background-color: #fff; color: black; border: 1px solid #17AFB6; width: 20%;">' + (habilidades[habilidad].calificacionAutoevaluacion || '') + '</td>';
+                    row += '<td style="background-color: #fff; color: black; border: 1px solid #17AFB6; width: 15%;">' + (habilidades[habilidad].fechaCalificacionAutoevaluacion || '') + '</td>';
+                    row += '<td style="background-color: #fff; color: black; border: 1px solid #17AFB6; width: 20%;">' + (habilidades[habilidad].calificacionEvaluacion || '') + '</td>';
+                    row += '<td style="background-color: #fff; color: black; border: 1px solid #17AFB6; width: 15%;">' + (habilidades[habilidad].fechaCalificacionEvaluacion || '') + '</td>';
+                    row += '</tr>';
 
-                tbody.append(row);
+                    tbody.append(row);
+                }               
             }
         });
 }
-
-@*function CargarDatos() {
-            var ale = 0;
-       var url = "/PerformanceApp/Api/PerformanceApp/buscarDatosPerformance?idPerformance=" + "@idPerformance";
-       $.getJSON(url)
-           .done(function (datos) {
-               datos.forEach(function (data) {
-                   if (data.idHabilidadAutoevaluacion != null) {
-                       AgregarHabilidad(data.nombreHabilidadAutoevaluacion, data.calificacionAutoevaluacion, data.fechaCalificacionAutoevaluacion);
-                   }
-                   if (data.idHabilidadEvaluacion != null) {
-                       AgregarHabilidad(data.nombreHabilidadEvaluacion, data.calificacionEvaluacion, data.fechaCalificacionEvaluacion);
-                   }
-               });
-           });
-    }
-
-    function AgregarHabilidad(nombreHabilidad, calificacion, fecha) {
-        var habilidadesContainer = document.getElementById('habilidades-container');
-        habilidadesContainer.insertAdjacentHTML('beforeend', `
-            <div class="d-flex m-4">
-                <h4 class="habilidad w-30">${nombreHabilidad}</h2>
-                <h8 class="calificacion w-30">${calificacion}</h2>
-            </div>
-        `);
-    }*@
-
-
-
 
     //Funcion para que ande el popover
     $(document).ready(function () {
@@ -498,128 +424,7 @@ function CargarDatos() {
     $(document).ready(function () {
         $('[data-toggle="tooltip"]').tooltip();
     });
-        @*CargarDatos();
-        function CargarDatos() {
-        var ale = 0;
-  var url = "/PerformanceApp/Api/PerformanceApp/buscarDatosPerformance?idPerformance=" + "@idPerformance";
-            CargartablaPerformance(url);
-}
-        IniciarTablaPerformance();
-    function IniciarTablaPerformance() {
-        var table = $('#tablaPerformance').DataTable();
-        table.page('first').draw('page'); // Vuelve a la página 1 y actualiza la tabla
-        table.clear().destroy();
-    }
-    function CargartablaPerformance(url) {
-        moment.locale('es');
-        var table = $("#tablaPerformance").DataTable({
-            "processing": true,
-            "serverSide": true,
-            "stateSave": true,
-            "bDestroy": true,
-            "language": {
-                "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
-            },
-            "ajax": {
-                "url": url,
-                "type": "POST",
-                "contentType": "application/json",
-                "data": function (d) {
-                    return JSON.stringify(d);
-
-                },
-                "datatype": "json",
-            },
-            "pageLength": 25,
-            "filter": true,
-            "responsivePriority": 1,
-            "columnDefs": [
-                { "width": "25%", "targets": 0 },
-                { "width": "17%", "targets": 1 },
-                { "width": "17%", "targets": 2 },
-                { "width": "7%", "targets": 3 },
-                { "width": "7%", "targets": 4 },
-                { "width": "7%", "targets": 5 },
-            ],
-            "columns": [
-                {
-                    "data": "nombreHabilidadAutoevaluacion",
-                    "name": "Habilidad",
-                    "autoWidth": false,
-                    "render": function (data, type, row, meta) {
-                        return '<div style="text-align: center;">' + data + '</div>'
-                    }
-                },
-                {
-                    "data": "calificacionAutoevaluacion",
-                    "name": "Calificación",
-                    "autoWidth": false,
-                    "render": function (data, type, row, meta) {
-                        return '<div style="text-align: center;">' + data + '</div>'
-                    }
-                },
-                {
-                    "data": "fechaAutoevaluacion",
-                    "name": "Fecha de Autoevaluación",
-                    "autoWidth": false,
-                    "render": function (data, type, row, meta) {
-                        if (data !== null) {
-                            return '<div style="text-align: center;">' + moment(data).format('DD/MM/YYYY') + '</div>'
-                        } else {
-                            return '';
-                        }
-                    }
-                },
-                {
-                    "data": "nombreHabilidadEvaluacion",
-                    "name": "Habilidad",
-                    "autoWidth": false,
-                    "render": function (data, type, row, meta) {
-                        return '<div style="text-align: center;">' + data + '</div>'
-                    }
-                },
-                {
-                    "data": "fechaCalificacionAutoevaluacion",
-                    "name": "fecha",
-                    "autoWidth": false,
-                    "render": function (data, type, row, meta) {
-                        return '<div style="text-align: center;">' + data + '</div>'
-                    }
-                },
-                {
-                    "data": "fechaCalificacionEvaluacion",
-                    "name": "Fecha de Evaluación",
-                    "autoWidth": false,
-                    "render": function (data, type, row, meta) {
-                        if (data !== null) {
-                            return '<div style="text-align: center;">' + moment(data).format('DD/MM/YYYY') + '</div>'
-                        } else {
-                            return '';
-                        }
-                    }
-                },
-                {
-                    "data": "estado",
-                    "name": "Acciones",
-                    "autoWidth": false,
-                    "render": function (data, type, row, meta) {
-                        return '<div style="text-align: center;"><a href="/PerformanceApp/Index/Crud?view=autoevaluacion&idPerformance=' + row.idPerformance + '" class="btn btn-sm grilla-btn btn-info" title="PARA COMPLETAR" style="font-size: 100% !important;">' + row.estado + '</a></div>';
-
-                    }
-                },
-
-            ],
-            "createdRow": function (row, data, index) {
-                // Aquí puedes aplicar estilos o clases a las filas según tus datos
-
-            },
-            "ordering": true,
-            "paging": true,
-            "initComplete": function () {
-                $("#divLoading").hide();
-            }
-        });
-    };*@
+    
 
 
     </script>

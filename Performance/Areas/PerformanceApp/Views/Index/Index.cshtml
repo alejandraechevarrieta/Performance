@@ -146,57 +146,62 @@
 
 
         }
-        <div class="row m-3" style="overflow: hidden; margin-top: 0px;" id="rowFiltro">
-            @if (Convert.ToInt32(perfil) == 128 || Convert.ToInt32(perfil) == 129)
+    <div class="row m-3" style="overflow: hidden; margin-top: 0px;" id="rowFiltro">
+        @if (Convert.ToInt32(perfil) == 128 || Convert.ToInt32(perfil) == 129)
+        {
+            if (Convert.ToInt32(perfil) == 128 || Convert.ToInt32(perfil) == 129)
             {
-                if (Convert.ToInt32(perfil) == 128 || Convert.ToInt32(perfil) == 129)
-                {
-                    <div class="form-group2 col-md-2" id="filtroColaborador">
-                        <label>Colaborador:</label>
-                        <div></div>
-                        <div style="font-weight: normal !important;">
-                            <select class="form-control" id="selectColaborador"></select>
-                        </div>
-                    </div>
-                }
-                if (Convert.ToInt32(perfil) == 129)
-                {
-                    <div class="form-group2 col-md-2" id="filtroLider">
-                        <label>Líder:</label>
-                        <div></div>
-                        <div style="font-weight: normal !important;">
-                            <select class="form-control" id="selectLider"></select>
-                        </div>
-                    </div>
-                }
-                <div class="form-group2 col-md-2" id="filtroEstado">
-                    <label>Estado:</label>
+                <div class="form-group2 col-md-2" id="filtroColaborador">
+                    <label>Colaborador:</label>
                     <div></div>
-                    <select class="form-control" id="selectEstado">
-                    </select>
-                </div>
-                <div class="form-group2 col-md-1 mt-2" style="padding-top: 1.9%;" id="btnBuscarFiltro">
-                    <button id="btnFiltrar" type="button" class="btn btn-success" style="width: 120px; cursor: pointer;">
-                        Buscar
-                    </button>
-                </div>
-                if (Convert.ToInt32(perfil) == 129)
-                {
-                    <div class="col-md-2" style="margin-left:250px;">
-                        <div class="d-flex flex-column border p-3">
-                            <div id="totalCompletar" class="mb-2"><span class="mr-3" style="width: 20px; height: 20px; display: inline-block; background-color: #7AC11F !important; "></span>Completar</div>
-                            <div id="totalEvaluar" class="mb-2"><span class="mr-3" style="width: 20px; height: 20px; display: inline-block; background-color: #FFC107 !important;"></span>Evaluar</div>
-                            <div id="totalCalibrar" class="mb-2"><span class="mr-3" style="width: 20px; height: 20px; display: inline-block; background-color: #69E6FF !important;"></span>Calibrar</div>
-                            <div id="totalFinalizados" class="mb-2"><span class="mr-3" style="width: 20px; height: 20px; display: inline-block; background-color: #9b9b9b !important;"></span>Finalizados</div>
-                        </div>
+                    <div style="font-weight: normal !important;">
+                        <select class="form-control" id="selectColaborador"></select>
                     </div>
-                }
-
-
-
+                </div>
+            }
+            if (Convert.ToInt32(perfil) == 129)
+            {
+                <div class="form-group2 col-md-2" id="filtroLider">
+                    <label>Líder:</label>
+                    <div></div>
+                    <div style="font-weight: normal !important;">
+                        <select class="form-control" id="selectLider"></select>
+                    </div>
+                </div>
+            }
+            <div class="form-group2 col-md-2" id="filtroEstado">
+                <label>Estado:</label>
+                <div></div>
+                <select class="form-control" id="selectEstado">
+                </select>
+            </div>
+            <div class="form-group2 col-md-1 mt-2" style="padding-top: 1.9%;" id="btnBuscarFiltro">
+                <button id="btnFiltrar" type="button" class="btn btn-success" style="width: 120px; cursor: pointer;">
+                    Buscar
+                </button>
+            </div>
+            <div class="form-group2 col-md-1 mt-2" style="padding-top: 1.9%; margin-left:10px;" id="btnLimpiar">
+                <button id="btnFiltrar" type="button" class="btn btn-info" style="width: 120px; cursor: pointer;">
+                    Limpiar
+                </button>
+            </div>
+            if (Convert.ToInt32(perfil) == 129)
+            {
+                <div class="col-md-2" style="margin-left:150px;">
+                    <div class="d-flex flex-column border p-3">
+                        <div id="totalCompletar" class="mb-2"><span class="mr-3" style="width: 20px; height: 20px; display: inline-block; background-color: #7AC11F !important; "></span>Completar</div>
+                        <div id="totalEvaluar" class="mb-2"><span class="mr-3" style="width: 20px; height: 20px; display: inline-block; background-color: #FFC107 !important;"></span>Evaluar</div>
+                        <div id="totalCalibrar" class="mb-2"><span class="mr-3" style="width: 20px; height: 20px; display: inline-block; background-color: #69E6FF !important;"></span>Calibrar</div>
+                        <div id="totalFinalizados" class="mb-2"><span class="mr-3" style="width: 20px; height: 20px; display: inline-block; background-color: #9b9b9b !important;"></span>Finalizados</div>
+                    </div>
+                </div>
             }
 
-        </div>
+
+
+        }
+
+    </div>
 
         <!-- MultiStep Form -->
         <div class="container-fluid py-4" id="grad1">
@@ -350,6 +355,8 @@
         $(document).ready(function () {
             CargarEstados();
             ListarPerformance();
+            CargarColaboradoresFiltro();
+            CargarLideresFiltro();
         });
 
     //Funcion para que ande el popover
@@ -360,12 +367,21 @@
     $(document).ready(function () {
         $('#navIndex').addClass('active');
     });
-       
-    ///LISTAR PERFORMANCE
-        //ListarPerformance();
-
+    ///FILTROS
+        $('#btnFiltrar').click(function () {   
+            ListarPerformance();
+        });
+        $('#btnLimpiar').click(function () {
+            LimpiarFiltros();
+        });
+        function LimpiarFiltros() {           
+            $('#selectColaborador').val('');
+            $('#selectEstado').val('');
+            $('#selectLider').val('');    
+            ListarPerformance();
+        }
+    ///LISTAR PERFORMANCE  
         function ListarPerformance() {
-
             var colaborador = $("#selectColaborador").val();
             var estado = $("#selectEstado").val();
             var lider = $("#selectLider").val();
@@ -479,8 +495,7 @@
                         "render": function (data, type, row, meta) {
                             if (data == 1) {
                                 return '<div style="text-align: center;"><a href="/PerformanceApp/Index/Crud?view=autoevaluacion&idPerformance=' + row.idPerformance + '" class="btn btn-sm grilla-btn btn-info" title="PARA COMPLETAR" style="font-size: 100% !important;">' + row.estado + '</a></div>';
-                            } else {
-                                //return '<div style="text-align: center;"><a href="" class="btn btn-sm grilla-btn btn-secondary" title="FINALIZADO" style="font-size: 100% !important;">' + 'COMPLETO' + '</a></div>';
+                            } else {                                
                                 return '<div style="text-align: center;"><a href="/PerformanceApp/Index/Crud?view=performance&idPerformance=' + row.idPerformance + '" class="btn btn-sm grilla-btn btn-secondary" title="COMPLETO" style="font-size: 100% !important;">' + "COMPLETO" + '</a></div>';
                             }
                         }
@@ -739,18 +754,19 @@
                         "autoWidth": false,
                         "render": function (data, type, row, meta) {
                             if (row.idEstado == 1) {
-                                return '<div style="text-align: center;"><a href="" class="btn btn-sm grilla-btn btn-success" title="PARA COMPLETAR COLABORADOR" style="font-size: 100% !important;">' + row.estado + '</a></div>';
+                                return '<div style="text-align: center;"><a href="/PerformanceApp/Index/Crud?view=performance&idPerformance=' + row.idPerformance + '" class="btn btn-sm grilla-btn btn-success" title="PARA COMPLETAR COLABORADOR" style="font-size: 100% !important;">' + row.estado + '</a></div>';
                             }
                             if (row.idEstado == 2) {
-                                return '<div style="text-align: center;"><a href="" class="btn btn-sm grilla-btn btn-secondary" title="PARA EVALUAR LIDER" style="font-size: 100% !important;">' + 'Finalizado' + '</a></div>';
+                                return '<div style="text-align: center;"><a href="/PerformanceApp/Index/Crud?view=performance&idPerformance=' + row.idPerformance + '" class="btn btn-sm grilla-btn btn-secondary" title="PARA EVALUAR LIDER" style="font-size: 100% !important;">' + row.estado + '</a></div>';
                             }
                             if (row.idEstado == 3) {
-                                return '<div style="text-align: center;"><a href="" class="btn btn-sm grilla-btn btn-info" title="PARA CALIBRAR CAPITAL HUMANO" style="font-size: 100% !important;">' + 'A Calibrar' + '</a></div>';
+                                return '<div style="text-align: center;"><a href="/PerformanceApp/Index/Crud?view=performance&idPerformance=' + row.idPerformance + '" class="btn btn-sm grilla-btn btn-info" title="PARA CALIBRAR CAPITAL HUMANO" style="font-size: 100% !important;">' + row.estado + '</a></div>';
+
                             }
                             if (row.idEstado == 4) {
-                                return '<div style="text-align: center;"><a href="" class="btn btn-sm grilla-btn btn-secondary" title="FINALIZADO" style="font-size: 100% !important;">' + row.estado + '</a></div>';
-                            }
+                                return '<div style="text-align: center;"><a href="/PerformanceApp/Index/Crud?view=performance&idPerformance=' + row.idPerformance + '" class="btn btn-sm grilla-btn btn-secondary" title="FINALIZADO" style="font-size: 100% !important;">' + row.estado + '</a></div>';
 
+                            }
                         }
                     },
                     {
@@ -795,8 +811,39 @@
                     });
                 });
         }
-
-
+        
+        function CargarColaboradoresFiltro() {
+            var selectColaborador = $('#selectColaborador');
+            selectColaborador.empty();
+            selectColaborador.append($('<option/>', { value: '', text: 'Seleccionar' }).hide());
+            var url = "Api/PerformanceApp/ListarColaboradores";
+            $.getJSON(url)
+                .done(function (data) {
+                    console.log(data);
+                    $.each(data, function (index, result) {
+                        selectColaborador.append($('<option/>', {
+                            value: result.idUsuario,
+                            text: result.nombre
+                        }));
+                    });
+                });
+        }
+        function CargarLideresFiltro() {
+            var selectLider = $('#selectLider');
+            selectLider.empty();
+            selectLider.append($('<option/>', { value: '', text: 'Seleccionar' }).hide());
+            var url = "Api/PerformanceApp/ListarLideres";
+            $.getJSON(url)
+                .done(function (data) {
+                    console.log(data);
+                    $.each(data, function (index, result) {
+                        selectLider.append($('<option/>', {
+                            value: result.idUsuario,
+                            text: result.nombreJefe
+                        }));
+                    });
+                });
+        }
         //ALTAS
         $('#altaPerformance').click(function () {
             $('#modalAltas').show();

@@ -142,6 +142,35 @@ namespace Performance.Servicios
                 return query.ToList();
             }
         }
+        public List<ColaboradorVM> ListarColaboradores()
+        {
+            List<ColaboradorVM> lista = null;
+
+            lista =
+            (from d in db.PerformanceColaborador
+             select new ColaboradorVM
+             {
+                 idUsuario = d.idUsuario,
+                 nombre = d.nombre,
+             }).Where(x => x.nombre != "").Distinct().ToList();
+
+            return lista.OrderBy(x => x.nombre).ToList();
+        }
+        public List<ColaboradorVM> ListarLideres()
+        {
+            List<ColaboradorVM> lista = null;
+
+            lista =
+            (from d in db.PerformanceColaborador
+             select new ColaboradorVM
+             {
+                 idUsuario = d.idJefe,
+                 nombreJefe = d.nombreJefe,
+             }).Where(x => x.nombreJefe != "").Distinct().ToList();
+
+            return lista.OrderBy(x => x.nombreJefe).ToList();
+        }
+
         public int GuardarAutoevaluacion(PerformanceAutoevaluacionVM autoevaluacion)
         {
             try
@@ -350,11 +379,22 @@ namespace Performance.Servicios
                     idCalificacionEvaluacion = ce.idCalificacion,
                     fechaCalificacionEvaluacion = a.fechaEvaluacion,
                     nombreHabilidadEvaluacion = he.habilidad,
-                    calificacionEvaluacion = ce.nombre,
+                    calificacionEvaluacion = ce.nombre,                   
 
-                }).ToList();
-
+                }
+            ).ToList();
+            var datos = (
+   from p in db.PerformanceColaborador  
+   where p.idPerformance == idPerformance
+   select new DatosPerformanceVM
+   {       
+       ano = p.ano,
+       colaborador = p.nombre,
+       lider = p.nombreJefe,
+   }
+).ToList();
             datosPerformance.AddRange(evaluaciones);
+            datosPerformance.AddRange(datos);
 
             return datosPerformance;
         }
