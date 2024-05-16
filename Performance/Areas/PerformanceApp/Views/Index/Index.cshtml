@@ -2,7 +2,7 @@
     ViewBag.Title = "Home Page";
     Layout = "~/Views/Shared/_Layout.cshtml";
     //var perfil = "128";
-    //var perfil = Request.QueryString["perfil"];    
+    //var perfil = Request.QueryString["perfil"];
     var perfil = Session["perfil"];
     var idUsuario = Session["idUsuario"];
 }
@@ -19,12 +19,12 @@
     <!-- Estilos de DataTables -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
     <!-- JavaScript de jQuery (necesario para DataTables) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>   
-    <script src="https://cdn.datatables.net/1.12.0/js/jquery.dataTables.min.js"></script>   
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.datatables.net/1.12.0/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">  
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
 
     <style>
         * {
@@ -86,24 +86,23 @@
             cursor: pointer; /* Cambia el cursor a una mano */
         }
         .grilla-btn {
-            width: 150px; 
-            height: 40px; 
-           
-            justify-content: center; 
-            align-items: center; 
+            width: 150px;
+            height: 40px;
+            justify-content: center;
+            align-items: center;
         }
 
         .cuadrado-btn {
-            width: 30px; 
-            height: 30px; 
-            padding: 0; 
-            line-height: 30px; 
-            border-radius: 5px; 
-            display: flex; 
-            justify-content: center; 
-            align-items: center; 
+            width: 30px;
+            height: 30px;
+            padding: 0;
+            line-height: 30px;
+            border-radius: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
-  
+
         .progress-bar {
             height: 40px; /* Ajusta la altura según sea necesario */
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
@@ -114,7 +113,7 @@
             .btn-primary:hover,
             .btn-primary:focus,
             .btn-primary:active {
-                background-color: #17AFB6;                
+                background-color: #17AFB6;
             }
     </style>
 
@@ -122,13 +121,13 @@
 </head>
 <body>
     <script src="https://cdn.jsdelivr.net/npm/progressbar.js/dist/progressbar.min.js"></script>
-   
+
     <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg">
         @*<div class="row" style="margin: 30px; overflow:hidden; display: flex;" id="rowProvisorio">
-            <a id="a" class="btn btn-primary" href="/PerformanceApp/Index/Crud?view=autoevaluacion" style="max-width: 18%;">Autoevaluación</a>
-            <a id="b" class="btn btn-secondary" href="/PerformanceApp/Index/Crud?view=evaluacion" style="max-width: 18%; ">Evaluación</a>
-            <a id="c" class="btn btn-warning" href="/PerformanceApp/Index/Crud?view=resumenAutoevaluacion" style="max-width: 18%; ">Resumen Autoevaluación</a>
-        </div>*@
+                <a id="a" class="btn btn-primary" href="/PerformanceApp/Index/Crud?view=autoevaluacion" style="max-width: 18%;">Autoevaluación</a>
+                <a id="b" class="btn btn-secondary" href="/PerformanceApp/Index/Crud?view=evaluacion" style="max-width: 18%; ">Evaluación</a>
+                <a id="c" class="btn btn-warning" href="/PerformanceApp/Index/Crud?view=resumenAutoevaluacion" style="max-width: 18%; ">Resumen Autoevaluación</a>
+            </div>*@
 
         @*FILTROS SOLICITUDES*@
         @if (Convert.ToInt32(perfil) == 129)
@@ -155,63 +154,63 @@
 
 
         }
-    <div class="row m-3" style="overflow: hidden; margin-top: 0px;" id="rowFiltro">
-        @if (Convert.ToInt32(perfil) == 128 || Convert.ToInt32(perfil) == 129)
-        {
-            if (Convert.ToInt32(perfil) == 128 || Convert.ToInt32(perfil) == 129)
+        <div class="row m-3" style="overflow: hidden; margin-top: 0px;" id="rowFiltro">
+            @if (Convert.ToInt32(perfil) == 128 || Convert.ToInt32(perfil) == 129)
             {
-                <div class="form-group2 col-md-2" id="filtroColaborador">
-                    <label>Colaborador:</label>
+                if (Convert.ToInt32(perfil) == 128 || Convert.ToInt32(perfil) == 129)
+                {
+                    <div class="form-group2 col-md-2" id="filtroColaborador">
+                        <label>Colaborador:</label>
+                        <div></div>
+                        <div style="font-weight: normal !important;">
+                            <select class="form-control" id="selectColaborador"></select>
+                        </div>
+                    </div>
+                }
+                if (Convert.ToInt32(perfil) == 129)
+                {
+                    <div class="form-group2 col-md-2" id="filtroLider">
+                        <label>Líder:</label>
+                        <div></div>
+                        <div style="font-weight: normal !important;">
+                            <select class="form-control" id="selectLider"></select>
+                        </div>
+                    </div>
+                }
+                <div class="form-group2 col-md-2" id="filtroEstado">
+                    <label>Estado:</label>
                     <div></div>
-                    <div style="font-weight: normal !important;">
-                        <select class="form-control" id="selectColaborador"></select>
-                    </div>
+                    <select class="form-control" id="selectEstado">
+                    </select>
                 </div>
-            }
-            if (Convert.ToInt32(perfil) == 129)
-            {
-                <div class="form-group2 col-md-2" id="filtroLider">
-                    <label>Líder:</label>
-                    <div></div>
-                    <div style="font-weight: normal !important;">
-                        <select class="form-control" id="selectLider"></select>
-                    </div>
+                <div class="form-group2 col-md-1 mt-2" style="padding-top: 1.9%;" id="btnBuscarFiltro">
+                    <button id="btnFiltrar" type="button" class="btn btn-success" style="width: 120px; cursor: pointer;">
+                        Buscar
+                    </button>
                 </div>
-            }
-            <div class="form-group2 col-md-2" id="filtroEstado">
-                <label>Estado:</label>
-                <div></div>
-                <select class="form-control" id="selectEstado">
-                </select>
-            </div>
-            <div class="form-group2 col-md-1 mt-2" style="padding-top: 1.9%;" id="btnBuscarFiltro">
-                <button id="btnFiltrar" type="button" class="btn btn-success" style="width: 120px; cursor: pointer;">
-                    Buscar
-                </button>
-            </div>
-            <div class="form-group2 col-md-1 mt-2" style="padding-top: 1.9%; margin-left:10px;" id="btnLimpiar">
-                <button id="btnFiltrar" type="button" class="btn btn-info" style="width: 120px; cursor: pointer;">
-                    Limpiar
-                </button>
-            </div>
-            if (Convert.ToInt32(perfil) == 129)
-            {
-                <div class="col-md-2" style="margin-left:150px;">
-                    <div class="d-flex flex-column border p-3">
-                        <div id="totalPendiente" class="mb-2"><span class="mr-3" style="width: 20px; height: 20px; display: inline-block; background-color: #7AC11F !important; "></span> Pendiente</div>
-                        <div id="totalCompletado" class="mb-2"><span class="mr-3" style="width: 20px; height: 20px; display: inline-block; background-color: #FFC107 !important;"></span> Completado</div>
-                        <div id="totalEvaluado" class="mb-2"><span class="mr-3" style="width: 20px; height: 20px; display: inline-block; background-color: #69E6FF !important;"></span> Evaluado</div>
-                        <div id="totalFeedback" class="mb-2"><span class="mr-3" style="width: 20px; height: 20px; display: inline-block; background-color: #17AFB6 !important;"></span> Feedback</div>
-                        <div id="totalFinalizado" class="mb-2"><span class="mr-3" style="width: 20px; height: 20px; display: inline-block; background-color: #9b9b9b !important;"></span> Finalizado</div>
-                    </div>
+                <div class="form-group2 col-md-1 mt-2" style="padding-top: 1.9%; margin-left:10px;" id="btnLimpiar">
+                    <button id="btnFiltrar" type="button" class="btn btn-info" style="width: 120px; cursor: pointer;">
+                        Limpiar
+                    </button>
                 </div>
+                if (Convert.ToInt32(perfil) == 129)
+                {
+                    <div class="col-md-2" style="margin-left:150px;">
+                        <div class="d-flex flex-column border p-3">
+                            <div id="totalPendiente" class="mb-2"><span class="mr-3" style="width: 20px; height: 20px; display: inline-block; background-color: #7AC11F !important; "></span> Pendiente</div>
+                            <div id="totalCompletado" class="mb-2"><span class="mr-3" style="width: 20px; height: 20px; display: inline-block; background-color: #FFC107 !important;"></span> Completado</div>
+                            <div id="totalEvaluado" class="mb-2"><span class="mr-3" style="width: 20px; height: 20px; display: inline-block; background-color: #69E6FF !important;"></span> Evaluado</div>
+                            <div id="totalFeedback" class="mb-2"><span class="mr-3" style="width: 20px; height: 20px; display: inline-block; background-color: #17AFB6 !important;"></span> Feedback</div>
+                            <div id="totalFinalizado" class="mb-2"><span class="mr-3" style="width: 20px; height: 20px; display: inline-block; background-color: #9b9b9b !important;"></span> Finalizado</div>
+                        </div>
+                    </div>
+                }
+
+
+
             }
 
-
-
-        }
-
-    </div>
+        </div>
 
         <!-- MultiStep Form -->
         <div class="container-fluid py-4" id="grad1">
@@ -230,6 +229,7 @@
                                         <thead>
                                             <tr>
                                                 <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Año Performance</th>
+                                                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Colaborador</th>
                                                 <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Líder</th>
                                                 <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Fecha de Autoevaluación</th>
                                                 <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Fecha de Feedback</th>
@@ -282,7 +282,7 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="card mb-4">
-                            <div class="card-header pb-0">
+                            <div class="card-header pb-4">
                                 <div class="text-uppercase text-xl-center  font-weight-bolder opacity-7">Performance Capital Humano</div>
                             </div>
                             <div class="card-body px-0 pt-0 pb-2">
@@ -293,10 +293,10 @@
                                                 <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Año Performance</th>
                                                 <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Colaborador</th>
                                                 <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Líder</th>
-                                                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">F. Autoevaluación</th>
-                                                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">F. Evaluación</th>
-                                                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">F. Calibración</th>
-                                                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">F. Feedback</th>
+                                                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">F.Autoevaluación</th>
+                                                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">F.Evaluación</th>
+                                                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">F.Calibración</th>
+                                                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">F.Feedback</th>
                                                 <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Estado</th>
                                                 <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Acciones</th>
                                             </tr>
@@ -378,19 +378,19 @@
         $('#navIndex').addClass('active');
     });
     ///FILTROS
-        $('#btnFiltrar').click(function () {   
+        $('#btnFiltrar').click(function () {
             ListarPerformance();
         });
         $('#btnLimpiar').click(function () {
             LimpiarFiltros();
         });
-        function LimpiarFiltros() {           
+        function LimpiarFiltros() {
             $('#selectColaborador').val('');
             $('#selectEstado').val('');
-            $('#selectLider').val('');    
+            $('#selectLider').val('');
             ListarPerformance();
         }
-    ///LISTAR PERFORMANCE  
+    ///LISTAR PERFORMANCE
         function ListarPerformance() {
             var colaborador = $("#selectColaborador").val();
             var estado = $("#selectEstado").val();
@@ -452,15 +452,24 @@
                 "columnDefs": [
                     { "width": "7%", "targets": 0 },
                     { "width": "20%", "targets": 1 },
-                    { "width": "7%", "targets": 2 },
+                    { "width": "20%", "targets": 2 },
                     { "width": "7%", "targets": 3 },
-                    { "width": "10%", "targets": 4 },
+                    { "width": "7%", "targets": 4 },
+                    { "width": "10%", "targets": 5 },
 
                 ],
                 "columns": [
                     {
                         "data": "ano",
                         "name": "Año",
+                        "autoWidth": false,
+                        "render": function (data, type, row, meta) {
+                            return '<div style="text-align: center;">' + data + '</div>'
+                        }
+                    },
+                    {
+                        "data": "nombre",
+                        "name": "Colaborador",
                         "autoWidth": false,
                         "render": function (data, type, row, meta) {
                             return '<div style="text-align: center;">' + data + '</div>'
@@ -687,15 +696,15 @@
                 "filter": true,
                 "responsivePriority": 1,
                 "columnDefs": [
-                    { "width": "10%", "targets": 0 },
-                    { "width": "17%", "targets": 1 },
-                    { "width": "17%", "targets": 2 },
-                    { "width": "7%", "targets": 3 },
-                    { "width": "7%", "targets": 4 },
-                    { "width": "7%", "targets": 5 },
-                    { "width": "7%", "targets": 6 },
+                    { "width": "7%", "targets": 0 },
+                    { "width": "15%", "targets": 1 },
+                    { "width": "15%", "targets": 2 },
+                    { "width": "5%", "targets": 3 },
+                    { "width": "5%", "targets": 4 },
+                    { "width": "5%", "targets": 5 },
+                    { "width": "5%", "targets": 6 },
                     { "width": "10%", "targets": 7 },
-                    { "width": "10%", "targets": 8 },
+                    { "width": "7%", "targets": 8 },
                 ],
                 "columns": [
                     {
@@ -834,7 +843,7 @@
                     });
                 });
         }
-        
+
         function CargarColaboradoresFiltro() {
             var selectColaborador = $('#selectColaborador');
             selectColaborador.empty();
@@ -907,7 +916,7 @@
             $.getJSON(url)
                 .done(function (data) {
                     var datos = data[0];
-       
+
                     var totalPendiente = datos.totalPendiente;
                     var totalCompletado = datos.totalCompletado;
                     var totalEvaluado = datos.totalEvaluado;
@@ -941,7 +950,7 @@
                     $("#totalFinalizado").html('<span class="mr-3" style="width: 20px; height: 20px; display: inline-block; background-color: #9b9b9b !important;"></span> Finalizado: ' + totalFinalizado);
                 });
         }
-        
+
     </script>
 
 </body>
