@@ -298,6 +298,26 @@
             height: 280px;
             overflow: auto;
         }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td {
+            border-left: 1px solid #17AFB6;
+            border-right: 1px solid #17AFB6;
+        }
+
+            td:first-child {
+                border-left: 1px solid #17AFB6;
+            }
+
+            td:last-child {
+                border-right: 1px solid #17AFB6;
+            }
+
+
+
     </style>
 
 
@@ -320,15 +340,15 @@
                                             <table class="table table-sm table-bordered table-shadow" style="height: 60px;">
                                                 <thead align="center" class="thead-dark">
                                                     <tr>
-                                                        <th scope="col" style="background-color: #17AFB6; color: white; border-color: #17AFB6; width: 30%;" rowspan="2">HABILIDADES</th>
-                                                        <th scope="col" style="background-color: #17AFB6; color: white; border-color: #17AFB6; width: 35%; " colspan="2">AUTOEVALUACION</th>
-                                                        <th scope="col" style="background-color: #17AFB6; color: white; border-color: #17AFB6; width: 35%; " colspan="2">EVALUACION LIDER</th>
+                                                        <th scope="col" style="background-image: linear-gradient(to right, #17AFB6, #7fdc7c); color: white; border-color: #17AFB6; width: 30%; border-bottom-left-radius: 15px; border-top-left-radius: 15px; " rowspan="2">HABILIDADES</th>
+                                                        <th scope="col" style="background-image: linear-gradient(to right, #7fdc7c, #7fdc7c); color: white; border-color: #3dbb39; width: 35%; " colspan="2">AUTOEVALUACION</th>
+                                                        <th scope="col" style="background-image: linear-gradient(to right, #7fdc7c, #17AFBc); color: white; border-color: #17AFB6; width: 35%; border-top-right-radius: 15px;  " colspan="2">EVALUACION LIDER</th>
                                                     </tr>
                                                     <tr>
-                                                        <th scope="col" style="background-color: #17AFB6; color: white; border-color: #17AFB6; width: 20%; ">CALIFICACION</th>
-                                                        <th scope="col" style="background-color: #17AFB6; color: white; border-color: #17AFB6; width: 15%; ">FECHA</th>
-                                                        <th scope="col" style="background-color: #17AFB6; color: white; border-color: #17AFB6; width: 20%; ">CALIFICACION</th>
-                                                        <th scope="col" style="background-color: #17AFB6; color: white; border-color: #17AFB6; width: 15%; ">FECHA</th>
+                                                        <th scope="col" style="background-image: linear-gradient(to right, #7fdc7c, #7fdc7c); color: white; border-color: #17AFB6; width: 20%; ">CALIFICACION</th>
+                                                        <th scope="col" style="background-image: linear-gradient(to right, #7fdc7c, #7fdc7c); color: white; border-color: #17AFB6; width: 15%; ">FECHA</th>
+                                                        <th scope="col" style="background-image: linear-gradient(to right, #7fdc7c, #17AFBc); color: white; border-color: #17AFB6; width: 20%; ">CALIFICACION</th>
+                                                        <th scope="col" style="background-image: linear-gradient(to right, #17AFBc, #17AFBc); color: white; border-color: #17AFB6; width: 15%; border-bottom-right-radius: 15px; ">FECHA</th>
                                                     </tr>
                                                 </thead>
                                             </table>
@@ -403,16 +423,17 @@ function CargarDatos() {
             for (var habilidad in habilidades) {
                 if (habilidad != "null") {
                     var row = '<tr>';
-                    row += '<td style="background-color: #fff; color: black; border: 1px solid #17AFB6; width: 30%;">' + habilidad + '</td>';
-                    row += '<td style="background-color: #fff; color: black; border: 1px solid #17AFB6; width: 20%;">' + (habilidades[habilidad].calificacionAutoevaluacion || '') + '</td>';
-                    row += '<td style="background-color: #fff; color: black; border: 1px solid #17AFB6; width: 15%;">' + (habilidades[habilidad].fechaCalificacionAutoevaluacion || '') + '</td>';
-                    row += '<td style="background-color: #fff; color: black; border: 1px solid #17AFB6; width: 20%;">' + (habilidades[habilidad].calificacionEvaluacion || '') + '</td>';
-                    row += '<td style="background-color: #fff; color: black; border: 1px solid #17AFB6; width: 15%;">' + (habilidades[habilidad].fechaCalificacionEvaluacion || '') + '</td>';
+                    row += '<td style="background-color: #fff; color: black; border-left: 1px solid #17AFB6; border-right: 1px solid #17AFB6; width: 30%;">' + habilidad + '</td>';
+                    row += '<td style="background-color: #fff; color: black; border-left: 1px solid #17AFB6; border-right: 1px solid #17AFB6; width: 20%;">' + (habilidades[habilidad].calificacionAutoevaluacion || '') + '</td>';
+                    row += '<td style="background-color: #fff; color: black; border-left: 1px solid #17AFB6; border-right: 1px solid #17AFB6; width: 15%;">' + (habilidades[habilidad].fechaCalificacionAutoevaluacion || '') + '</td>';
+                    row += '<td style="background-color: #fff; color: black; border-left: 1px solid #17AFB6; border-right: 1px solid #17AFB6; width: 20%;">' + (habilidades[habilidad].calificacionEvaluacion || '') + '</td>';
+                    row += '<td style="background-color: #fff; color: black; border-left: 1px solid #17AFB6; border-right: 1px solid #17AFB6; width: 15%;">' + (habilidades[habilidad].fechaCalificacionEvaluacion || '') + '</td>';
                     row += '</tr>';
 
                     tbody.append(row);
-                }               
+                }
             }
+
         });
 }
 
