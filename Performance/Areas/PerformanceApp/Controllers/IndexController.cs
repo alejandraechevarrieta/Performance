@@ -14,10 +14,11 @@ namespace Performance.Areas.PerformanceApp.Controllers
             System.Web.HttpContext.Current.Session["idUsuario"] = idUsuario;
             return View();
         }
-        public ActionResult Crud(string view, int idPerformance)
+        public ActionResult Crud(string view, int idPerformance, string nombre)
         {
             ViewBag.View = view;
             ViewBag.IdPerformance = idPerformance;
+            ViewBag.nombre = nombre;
 
             return View();
         }

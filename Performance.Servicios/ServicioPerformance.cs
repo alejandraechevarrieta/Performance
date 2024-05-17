@@ -213,19 +213,17 @@ namespace Performance.Servicios
         public int GenerarAltasPerformance(List<ColaboradorVM> colaboradores)
         {
             try
-            {
-                
-                var anoAnterior = DateTime.Now.Year - 1;
+            {      
                 int anoActual = DateTime.Now.Year;
 
                 PerformanceColaborador nuevaPerformance = new PerformanceColaborador();
 
                 foreach (var item in colaboradores)
                 {
-                    var existe = db.PerformanceColaborador.Where(x => x.ano == anoAnterior && x.idUsuario == item.idUsuario).FirstOrDefault();
+                    var existe = db.PerformanceColaborador.Where(x => x.ano == anoActual && x.idUsuario == item.idUsuario).FirstOrDefault();
                     if(existe == null)
                     {
-                        nuevaPerformance.ano = anoAnterior;
+                        nuevaPerformance.ano = anoActual;
                         nuevaPerformance.idUsuario = item.idUsuario;
                         nuevaPerformance.nombre = item.nombre;
                         nuevaPerformance.idJefe = item.idJefe;
@@ -242,7 +240,7 @@ namespace Performance.Servicios
                     }                  
                 }
 
-                return anoAnterior;
+                return anoActual;
             }
             catch (Exception e)
             {

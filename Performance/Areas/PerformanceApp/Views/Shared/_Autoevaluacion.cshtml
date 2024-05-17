@@ -1,6 +1,7 @@
 ﻿@{
     ViewBag.Title = "Home Page";
     int idPerformance = ViewBag.IdPerformance;
+    string nombre = ViewBag.nombre;
     var perfil = Session["perfil"];
     var idUsuario = Session["idUsuario"];
 
@@ -124,10 +125,10 @@
                 box-shadow: 0 0 0 2px white, 0 0 0 3px #616161;
             }
         #msform input.selected {
-            border-bottom: 2px solid skyblue; 
-            background-color: rgba(135, 206, 250, 0.2); 
+            border-bottom: 2px solid skyblue;
+            background-color: rgba(135, 206, 250, 0.2);
             box-shadow: 0 0 5px skyblue;
-            border: 2px solid skyblue; 
+            border: 2px solid skyblue;
         }
 
     .boton {
@@ -521,7 +522,7 @@
         }
     .tituloResumen {
         margin-right: inherit;
-    }   
+    }
 </style>
 
 <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
@@ -532,7 +533,7 @@
             <div class="col-11 col-sm-9 col-md-7 col-lg-6 text-center p-0 mt-3 mb-2 w-80">
                 <div class="card px-0 pt-4 pb-0 mt-3 mb-3">
                     <p class="h2"><strong>Autoevaluación de habilidades</strong></p>
-                    <p class="h4">Hola usuario, a continuación debes contestar el formulario A.</p>
+                    <p class="h4">Hola @nombre, a continuación debes contestar tu Autoevaluación.</p>
                     <div class="row">
                         <div class="col-md-12 mx-0">
                             <form id="msform">
@@ -554,9 +555,10 @@
                                         <div class="row">
                                             <p class="h5">
                                                 En las siguientes pestañas deberás evaluar tus habilidades seleccionando
-                                                una de las 4 opciones, en la última pesta{a verás un resumen de tus respuestas, en el caso de querer
+                                                una de las cuatro opciones, en la última pestaña verás un resumen de tus respuestas, en el caso de querer
                                                 modificar una, hacer click en el ícono del lápiz, y volver a seleccionar
-                                                las habilidades necesarias. Por último, para finalizar el formulario A hacer click en el boton "Enviar a tu lider".
+                                                las habilidades necesarias. </br>
+                                                Para finalizar la Autoevaluación hacer click en el botón "Enviar a tu líder".
                                                 <br />
                                             </p>
                                         </div>
@@ -583,7 +585,7 @@
                                     <div class="form-card" id="card2">
                                         <h2 class="fs-title">Autonomía</h2>
                                         <div class="row">
-                                            <p class="h5">Capacidad de tomar decisiones, actuar y asumir los impactos de las mismas. La autonomia se fundamenta en la voluntad, la disciplina y responsabilidad.</p>
+                                            <p class="h5">Capacidad de tomar decisiones, actuar y asumir los impactos de las mismas. La autonomía se fundamenta en la voluntad, la disciplina y responsabilidad.</p>
                                         </div>
                                         <div class="button-container mt-6">
                                             <input id="b1" type="button" data-toggle="tooltip" data-bs-placement="bottom" title="Necesita ayuda para mostrar esta habilidad" value="En progreso" />
@@ -631,7 +633,7 @@
                                     <div class="form-card" id="card5">
                                         <h2 class="fs-title">Gestión del cambio</h2>
                                         <div class="row">
-                                            <p class="h5">Capacidad para actuar en escenarios dinámicos, ambiguos e inciertos, buscando de manera permanente y proactiva, oportunidades para generar ideas y soluciones que agreguen valor a la organización, inspirando a los demas.</p>
+                                            <p class="h5">Capacidad para actuar en escenarios dinámicos, ambiguos e inciertos, buscando de manera permanente y proactiva, oportunidades para generar ideas y soluciones que agreguen valor a la organización, inspirando a los demás.</p>
                                         </div>
                                         <div class="button-container mt-6">
                                             <input id="e1" type="button" data-toggle="tooltip" data-bs-placement="bottom" title="Necesita ayuda para mostrar esta habilidad" value="En progreso" />
@@ -657,7 +659,7 @@
                                         </div>
                                     </div>
                                     <input type="button" name="previous" class="previous action-button-previous boton" value="Volver" />
-                                    <input type="button" name="make_payment" class="action-button boton" id="confirmar" onclick="VerificarDatos();" value="Confirmar" />                                   
+                                    <input type="button" name="make_payment" class="action-button boton" id="confirmar" onclick="VerificarDatos();" value="Confirmar" />
                                 </fieldset>
                                 <fieldset id="tarj7">
                                     <div class="form-card p-2">
@@ -667,7 +669,7 @@
                                         </div>
                                         <div id="card1" class="form-card p-1">
                                             <div class="d-flex justify-content-center align-items-center m-4">
-                                                <h2 class="fs-title tituloResumen w-30">Autodesarrollo</h2>
+                                                <h2 class="fs-title tituloResumen w-30">Aprendizaje Continuo</h2>
                                                 <div class="radio-container justify-content-between align-items-center">
                                                     <div class="radio-group m-1 mt-3 w-21" data-toggle="tooltip" title="Necesita ayuda para mostrar esta habilidad">
                                                         <input type="radio" name="autodesarrollo" value="En progreso" id="ra2">
@@ -691,7 +693,7 @@
                                         </div>
                                         <div id="card2" class="form-card p-1">
                                             <div class="d-flex justify-content-center align-items-center m-4">
-                                                <h2 class="fs-title tituloResumen w-30">Empoderamiento</h2>
+                                                <h2 class="fs-title tituloResumen w-30">Autonomía</h2>
                                                 <div class="radio-container justify-content-between align-items-center">
                                                     <div class="radio-group m-1 mt-3 w-21" data-toggle="tooltip" title="Necesita ayuda para mostrar esta habilidad">
                                                         <input type="radio" name="empoderamiento" value="En progreso" id="rb2">
@@ -715,7 +717,7 @@
                                         </div>
                                         <div id="card3" class="form-card p-1">
                                             <div class="d-flex justify-content-center align-items-center m-4">
-                                                <h2 class="fs-title tituloResumen w-30">Espíritu del trabajo</h2>
+                                                <h2 class="fs-title tituloResumen w-30">Colaboración</h2>
                                                 <div class="radio-container justify-content-between align-items-center">
                                                     <div class="radio-group m-1 mt-3 w-21" data-toggle="tooltip" title="Necesita ayuda para mostrar esta habilidad">
                                                         <input type="radio" name="espiritu_del_trabajo" value="En progreso" id="rc2">
@@ -739,7 +741,7 @@
                                         </div>
                                         <div id="card4" class="form-card p-1">
                                             <div class="d-flex justify-content-center align-items-center m-4">
-                                                <h2 class="fs-title tituloResumen" style="width: 30%;">Habilidad interpersonal</h2>
+                                                <h2 class="fs-title tituloResumen" style="width: 30%;">Comunicación Efectiva</h2>
                                                 <div class="radio-container justify-content-between align-items-center">
                                                     <div class="radio-group m-1 mt-3 w-21" data-toggle="tooltip" title="Necesita ayuda para mostrar esta habilidad">
                                                         <input type="radio" name="habilidad_interpersonal" value="En progreso" id="rd2">
@@ -763,7 +765,7 @@
                                         </div>
                                         <div id="card5" class="form-card p-1">
                                             <div class="d-flex justify-content-center align-items-center m-4">
-                                                <h2 class="fs-title tituloResumen w-30">Gestión del cambio</h2>
+                                                <h2 class="fs-title tituloResumen w-30">Gestión del Cambio</h2>
                                                 <div class="radio-container justify-content-between align-items-center">
                                                     <div class="radio-group m-1 mt-3 w-21" data-toggle="tooltip" title="Necesita ayuda para mostrar esta habilidad">
                                                         <input type="radio" name="gestion_del_cambio" value="En progreso" id="re2">
@@ -787,7 +789,7 @@
                                         </div>
                                         <div id="card6" class="form-card p-1">
                                             <div class="d-flex justify-content-center align-items-center m-4">
-                                                <h2 class="fs-title tituloResumen w-30">Visión estratégica</h2>
+                                                <h2 class="fs-title tituloResumen w-30">Visión Sistémica</h2>
                                                 <div class="radio-container justify-content-between align-items-center">
                                                     <div class="radio-group m-1 mt-3 w-21" data-toggle="tooltip" data-bs-placement="bottom" title="Necesita ayuda para mostrar esta habilidad">
                                                         <input type="radio" name="vision_estrategica" value="En proceso" id="rf2">
@@ -933,9 +935,9 @@
             $(this).parent().find('.radio').removeClass('selected');
             $(this).addClass('selected');
         });
-      
+
         //localStorage.clear();
-    });       
+    });
     //Funcion para que ande el popover
     $(document).ready(function () {
         $('[data-toggle="popover"]').popover();
@@ -1133,7 +1135,7 @@ function GuardarAutoevaluacion() {
     });
     }
     //function volverAtras() {
-    //    window.history.back(); 
+    //    window.history.back();
     //}
 
     //CargarDatos();
@@ -1143,7 +1145,7 @@ function GuardarAutoevaluacion() {
     var url = "/PerformanceApp/Api/PerformanceApp/buscarDatosPerformance?idPerformance=" + "@idPerformance";
     $.getJSON(url)
         .done(function (datos) {
-            datos.forEach(function (data) {               
+            datos.forEach(function (data) {
                 var habilidadesMap = {
                     1: "a",
                     2: "b",
@@ -1156,7 +1158,7 @@ function GuardarAutoevaluacion() {
                 // recorrer las habilidades
                 for (var i = 1; i <= 6; i++) {
                     var habilidad = habilidadesMap[i];
-                   
+
                     var selector = "#" + habilidad + data.idCalificacionAutoevaluacion;
 
                     if (data.idHabilidadAutoevaluacion == i) {
@@ -1166,14 +1168,14 @@ function GuardarAutoevaluacion() {
             });
         });
     }
-   
+
     function DeshabilitarBotones() {
         //resumen
         $("#resu").hide();
         $("#tarj7").hide();
         $("#confirmar").hide();
         $("#cancelar").show();
-       
+
         var habilidadesMap = {
             1: "a",
             2: "b",
@@ -1186,7 +1188,7 @@ function GuardarAutoevaluacion() {
         // Recorrer las habilidades
         for (var letra in habilidadesMap) {
             if (habilidadesMap.hasOwnProperty(letra)) {
-                for (var i = 1; i <= 4; i++) {                   
+                for (var i = 1; i <= 4; i++) {
                     var selector = "#" + habilidadesMap[letra] + i;
                     $(selector).prop("disabled", true);
                 }
