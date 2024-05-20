@@ -217,6 +217,10 @@
             <!-- TABLA COLABORADOR -->
             @if (Convert.ToInt32(perfil) == 127)
             {
+                <div style="margin-left: 2.5%; margin-block: 0.5%">
+                    <button id="instructivo" class="btn btn-secondary" onclick="DescargarInstructivo()" title="Instructivo" aria-label="Instructivo"> <i class=" fa fa-info-circle "></i></button>
+                    <button id="abrirModalBtn" class="btn btn-primary" title="Instructivo" aria-label="Instructivo"> <i class=" fa fa-video-camera"></i></button>
+                </div>
                 <div class="row">
                     <div class="col-12">
                         <div class="card mb-4">
@@ -949,6 +953,10 @@
                     $("#totalFeedback").html('<span class="mr-3" style="width: 20px; height: 20px; display: inline-block; background-color: #17AFB6 !important;"></span> Feedback: ' + totalFeedback);
                     $("#totalFinalizado").html('<span class="mr-3" style="width: 20px; height: 20px; display: inline-block; background-color: #9b9b9b !important;"></span> Finalizado: ' + totalFinalizado);
                 });
+        }
+        function DescargarInstructivo() {
+            var url = 'Api/PerformanceApp/DescargarInstructivo';
+            window.location.href = url;
         }
 
     </script>

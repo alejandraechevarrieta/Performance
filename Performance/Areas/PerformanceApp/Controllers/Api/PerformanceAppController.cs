@@ -292,6 +292,32 @@ namespace Performance.Areas.PerformanceApp.Controllers.Api
             Servicios.ServicioPerformance servicio = new Servicios.ServicioPerformance();
             return servicio.buscarDatosPerformance(idPerformance);
         }
+        [System.Web.Http.ActionName("DescargarInstructivo")]
+        [System.Web.Http.HttpGet]
+        public IHttpActionResult DescargarInstructivo()
+        {
+            HttpResponseMessage result = null;
+            try
+            {
+                string filePath = "D:\\Archivos\\Performance\\InstructivoPerformance.pdf";
+                IHttpActionResult response;
+                HttpResponseMessage responseMsg = new HttpResponseMessage(HttpStatusCode.OK);
+                var fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read);
+                responseMsg.Content = new StreamContent(fileStream);
+                responseMsg.Content.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
+                responseMsg.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment");
+                responseMsg.Content.Headers.ContentDisposition.FileName = "InstructivoPerformance.pdf";
+                response = ResponseMessage(responseMsg);
+
+                return response;
+
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest();
+            }
+        }
         public class DataTableRequestModel
         {
             public int draw { get; set; }
