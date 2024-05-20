@@ -17,6 +17,8 @@ using System.Net.Http.Headers;
 using System.Web.Services.Description;
 using System.Threading.Tasks;
 using System.Configuration;
+using Newtonsoft.Json.Linq;
+using System.Collections;
 
 namespace Performance.Areas.PerformanceApp.Controllers.Api
 {
@@ -303,6 +305,94 @@ namespace Performance.Areas.PerformanceApp.Controllers.Api
             Servicios.ServicioPerformance servicio = new Servicios.ServicioPerformance();
             return servicio.buscarDatosPerformance(idPerformance);
         }
+
+        [System.Web.Http.Route("Api/PerformanceApp/EnviarMailLider")]
+        [System.Web.Http.ActionName("EnviarMailLider")]
+        [System.Web.Http.HttpGet]
+        public async Task<string> EnviarMailLider(int idUsuario, int idDestinatario)
+        {
+            var token = GenerarToken();
+            EnviarMailAsync(token, idUsuario, idDestinatario);
+
+            return token.ToString();
+        }
+
+        [System.Web.Http.Route("Api/PerformanceApp/GenerarToken")]
+        [System.Web.Http.ActionName("GenerarToken")]
+        [System.Web.Http.HttpGet]
+        public string GenerarToken()
+        {
+            using (var client = new HttpClient())
+            {
+                TokenRequest request = new TokenRequest
+                {
+                    ClientId = "performance",
+                    ClientSecret = "envio_mail"
+                };
+
+                string API_BASE_URL = ConfigurationSettings.AppSettings["urlBuho"];
+                client.BaseAddress = new Uri(API_BASE_URL);
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                var content = new StringContent(JsonConvert.SerializeObject(request), Encoding.UTF8, "application/json");
+
+                // Realiza la solicitud de forma síncrona
+                var response = client.PostAsync("AuthToken/api/AuthToken/GenerateToken", content).GetAwaiter().GetResult();
+                response.EnsureSuccessStatusCode();
+
+                // Lee el contenido de la respuesta como una cadena de forma síncrona
+                var responseContent = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+
+                // Deserializa el contenido de la respuesta a una instancia de TokenResponse
+                TokenResponse tokenResponse = JsonConvert.DeserializeObject<TokenResponse>(responseContent);
+
+                // Obtén el valor del token
+                string token = tokenResponse.Token;
+                return token;
+            }
+        }
+
+        [System.Web.Http.Route("Api/PerformanceApp/EnviarMailAsync")]
+        [System.Web.Http.ActionName("EnviarMailAsync")]
+        [System.Web.Http.HttpGet]
+        static async Task EnviarMailAsync(string token, int idUsuario, int idDestinatario)
+        {
+            using (var client = new HttpClient())
+            {
+                string API_BASE_URL = ConfigurationSettings.AppSettings["urlBuho"];
+                client.BaseAddress = new Uri(API_BASE_URL); // Reemplaza con la URL de tu API
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+                // Crea el contenido del cuerpo de la solicitud
+                var content = new
+                {
+                    IdDestinatario = idDestinatario
+                    // Agrega aquí más propiedades si son necesarias
+                };
+
+                // Serializa el contenido a JSON
+                var jsonContent = JsonConvert.SerializeObject(content);
+
+                // Crea un StringContent a partir del JSON
+                var httpContent = new StringContent(jsonContent, System.Text.Encoding.UTF8, "application/json");
+
+                var response = await client.PostAsync($"EmailExp/api/EmailExp/EnviarMailGenerico", httpContent);
+                response.EnsureSuccessStatusCode();
+
+                // Aquí puedes procesar la respuesta si es necesario
+                var result = await response.Content.ReadAsStringAsync();
+                Console.WriteLine(result);
+            }
+        }
+        public class TokenRequest
+        {
+            public string ClientId { get; set; }
+            public string ClientSecret { get; set; }
+        }
+
         public class DataTableRequestModel
         {
             public int draw { get; set; }
@@ -311,6 +401,11 @@ namespace Performance.Areas.PerformanceApp.Controllers.Api
             public int? colaborador { get; set; }
             public int? estado { get; set; }
             public int idPerfil { get; set; }
+        }
+
+        public class TokenResponse
+        {
+            public string Token { get; set; }
         }
 
     }

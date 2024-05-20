@@ -80,14 +80,15 @@ namespace Performance.Model
     public class PerformanceProgresoVM
     {
         public int totalPerformance { get; set; }
-        public int totalCompletar { get; set; }
-        public int totalEvaluar { get; set; }
-        public int totalCalibrar { get; set; }
-        public int totalFinalizado { get; set; }
-        public decimal porcentajeTotal {  get; set; }
-        public decimal porcentajeCompletar { get; set; }
-        public decimal porcentajeEvaluar{ get; set; }
-        public decimal porcentajeCalibrar { get; set; }
+        public int totalPendiente { get; set; }
+        public int totalCompletado { get; set; }
+        public int totalEvaluado { get; set; }
+        public int totalFeedback { get; set; }
+        public int totalFinalizado { get; set; }      
+        public decimal porcentajePendiente { get; set; }
+        public decimal porcentajeCompletado { get; set; }
+        public decimal porcentajeEvaluado { get; set; }
+        public decimal porcentajeFeedback { get; set; }
         public decimal porcentajeFinalizado { get; set; }
 
     }

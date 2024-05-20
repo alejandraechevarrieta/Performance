@@ -384,10 +384,10 @@
                                             <p class="h5">Actitud de superación permanente.  Búsqueda constante del crecimiento personal y profesional, siendo consciente de sus fortalezas y aspectos de mejora. Disposición a  experimentar nuevas ideas, conocimientos y experiencias.</p>
                                         </div>
                                         <div class="button-container mt-2">
-                                            <input disabled type="button" value="En progreso" />
-                                            <input disabled type="button" value="Autónomo" />
-                                            <input disabled type="button" value="Fortaleza" />
-                                            <input disabled type="button" value="No aplica" />
+                                            <input id="aa1" disabled type="button" value="En progreso" />
+                                            <input id="aa2" disabled type="button" value="Autónomo" />
+                                            <input id="aa3" disabled type="button" value="Fortaleza" />
+                                            <input id="aa4" disabled type="button" value="No aplica" />
                                         </div>
                                     </div>
                                     <div class="form-card"  id="card1">
@@ -409,10 +409,10 @@
                                             <p class="h5">Capacidad de tomar decisiones, actuar y asumir los impactos de las mismas. La autonomia se fundamenta en la voluntad, la disciplina y responsabilidad.</p>
                                         </div>
                                         <div class="button-container mt-2">
-                                            <input disabled type="button" value="En progreso" />
-                                            <input disabled type="button" value="Autónomo" />
-                                            <input disabled type="button" value="Fortaleza" />
-                                            <input disabled type="button" value="No aplica" />
+                                            <input id="bb1" disabled type="button" value="En progreso" />
+                                            <input id="bb2" disabled type="button" value="Autónomo" />
+                                            <input id="bb3" disabled type="button" value="Fortaleza" />
+                                            <input id="bb4" disabled type="button" value="No aplica" />
                                         </div>
                                     </div>
                                     <div class="form-card" id="card2">
@@ -434,10 +434,10 @@
                                             <p class="h5">Actitud genuina para cooperar y colaborar con otros miembros de la empresa apuntando al logro de objetivos comunes, produciendo colectivamente resultados superiores a los individuales.</p>
                                         </div>
                                         <div class="button-container mt-2">
-                                            <input disabled type="button" value="En progreso" />
-                                            <input disabled type="button" value="Autónomo" />
-                                            <input disabled type="button" value="Fortaleza" />
-                                            <input disabled type="button" value="No aplica" />
+                                            <input id="cc1" disabled type="button" value="En progreso" />
+                                            <input id="cc2" disabled type="button" value="Autónomo" />
+                                            <input id="cc3" disabled type="button" value="Fortaleza" />
+                                            <input id="cc4" disabled type="button" value="No aplica" />
                                         </div>
                                     </div>
                                     <div class="form-card"  id="card3">
@@ -459,10 +459,10 @@
                                             <p class="h5">Capacidad de transmitir mensajes de manera clara, concisa y comprensible, así como de escuchar activamente y comprender las ideas y perspectivas de los demás.</p>
                                         </div>
                                         <div class="button-container mt-2">
-                                            <input disabled type="button" value="En progreso" />
-                                            <input disabled type="button" value="Autónomo" />
-                                            <input disabled type="button" value="Fortaleza" />
-                                            <input disabled type="button" value="No aplica" />
+                                            <input id="dd1" disabled type="button" value="En progreso" />
+                                            <input id="dd2" disabled type="button" value="Autónomo" />
+                                            <input id="dd3" disabled type="button" value="Fortaleza" />
+                                            <input id="dd4" disabled type="button" value="No aplica" />
                                         </div>
                                     </div>
                                     <div class="form-card" id="card4">
@@ -484,10 +484,10 @@
                                             <p class="h5">Capacidad para actuar en escenarios dinámicos, ambiguos e inciertos, buscando de manera permanente y proactiva, oportunidades para generar ideas y soluciones que agreguen valor a la organización, inspirando a los demas.</p>
                                         </div>
                                         <div class="button-container mt-2">
-                                            <input disabled type="button" value="En progreso" />
-                                            <input disabled type="button" value="Autónomo" />
-                                            <input disabled type="button" value="Fortaleza" />
-                                            <input disabled type="button" value="No aplica" />
+                                            <input id="ee1" disabled type="button" value="En progreso" />
+                                            <input id="ee2" disabled type="button" value="Autónomo" />
+                                            <input id="ee3" disabled type="button" value="Fortaleza" />
+                                            <input id="ee4" disabled type="button" value="No aplica" />
                                         </div>
                                     </div>
                                     <div class="form-card" id="card5">
@@ -509,10 +509,10 @@
                                             <p class="h5">Capacidad de entender y considerar el sistema completo en el que opera la organización, reconociendo las interconexiones y las interdependencias entre diferentes actores y procesos.</p>
                                         </div>
                                         <div class="button-container mt-2">
-                                            <input disabled type="button" value="En progreso" />
-                                            <input disabled type="button" value="Autónomo" />
-                                            <input disabled type="button" value="Fortaleza" />
-                                            <input disabled type="button" value="No aplica" />
+                                            <input id="ff1" disabled type="button" value="En progreso" />
+                                            <input id="ff2" disabled type="button" value="Autónomo" />
+                                            <input id="ff3" disabled type="button" value="Fortaleza" />
+                                            <input id="ff4" disabled type="button" value="No aplica" />
                                         </div>
                                     </div>
                                     <div class="form-card" id="card6">
@@ -700,6 +700,42 @@ function GuardarAutoevaluacion() {
             console.log("Error en la solicitud AJAX:", jqxhr);
         }
     });
+    }
+    function buscarPerformance() {
+        var url = "Api/PerformanceApp/buscarPerformance?idPerformance=" + 2003;
+        $.getJSON(url)
+            .done(function (data) {
+                console.log(data);
+
+            });
+    }
+    CargarDatos();
+    function CargarDatos() {
+        var url = "/PerformanceApp/Api/PerformanceApp/buscarDatosPerformance?idPerformance=" + "@idPerformance";
+        $.getJSON(url)
+        .done(function (datos) {
+            datos.forEach(function (data) {               
+                var habilidadesMap = {
+                    1: "aa",
+                    2: "bb",
+                    3: "cc",
+                    4: "dd",
+                    5: "ee",
+                    6: "ff"
+                };
+
+                // recorrer las habilidades
+                for (var i = 1; i <= 6; i++) {
+                    var habilidad = habilidadesMap[i];
+                   
+                    var selector = "#" + habilidad + data.idCalificacionAutoevaluacion;
+
+                    if (data.idHabilidadAutoevaluacion == i) {
+                        $(selector).addClass("selected");
+                    }
+                }
+            });
+        });
     }
   
 </script>

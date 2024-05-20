@@ -278,19 +278,17 @@ namespace Performance.Servicios
         public int GenerarAltasPerformance(List<ColaboradorVM> colaboradores)
         {
             try
-            {
-                
-                var anoAnterior = DateTime.Now.Year - 1;
+            {      
                 int anoActual = DateTime.Now.Year;
 
                 PerformanceColaborador nuevaPerformance = new PerformanceColaborador();
 
                 foreach (var item in colaboradores)
                 {
-                    var existe = db.PerformanceColaborador.Where(x => x.ano == anoAnterior && x.idUsuario == item.idUsuario).FirstOrDefault();
+                    var existe = db.PerformanceColaborador.Where(x => x.ano == anoActual && x.idUsuario == item.idUsuario).FirstOrDefault();
                     if(existe == null)
                     {
-                        nuevaPerformance.ano = anoAnterior;
+                        nuevaPerformance.ano = anoActual;
                         nuevaPerformance.idUsuario = item.idUsuario;
                         nuevaPerformance.nombre = item.nombre;
                         nuevaPerformance.idJefe = item.idJefe;
@@ -307,7 +305,7 @@ namespace Performance.Servicios
                     }                  
                 }
 
-                return anoAnterior;
+                return anoActual;
             }
             catch (Exception e)
             {
@@ -325,33 +323,38 @@ namespace Performance.Servicios
             var anoAnterior = DateTime.Now.Year - 1;
             var tmp = list.Where(x => x.ano == anoAnterior).ToList();
             var totalPerformance = 0;
-            var totalCompletar = 0;
-            var totalEvaluar = 0;
-            var totalCalibrar = 0;
+            var totalPendiente= 0;
+            var totalCompletado = 0;
+            var totalEvaluado = 0;
+            var totalFeedback = 0;
             var totalFinalizado = 0;
-            decimal porcentajeCompletar = 0;
-            decimal porcentajeEvaluar = 0;
-            decimal porcentajeCalibrar = 0;
+            decimal porcentajePendiente = 0;
+            decimal porcentajeCompletado = 0;
+            decimal porcentajeEvaluado = 0;
+            decimal porcentajeFeedback = 0;
             decimal porcentajeFinalizado = 0;
 
             foreach (var item in tmp)
             {
                 totalPerformance++;
                 if (item.idEstado == 1)
-                    totalCompletar++;
+                    totalPendiente++;
                 else if (item.idEstado == 2)
-                    totalEvaluar++;
+                    totalCompletado++;
                 else if (item.idEstado == 3)
-                    totalCalibrar++;
+                    totalEvaluado++;
                 else if (item.idEstado == 4)
+                    totalFeedback++;
+                else if (item.idEstado == 5)
                     totalFinalizado++;
             }
             
             if (totalPerformance > 0)
             {
-                porcentajeCompletar = (decimal)totalCompletar / totalPerformance * 100;
-                porcentajeEvaluar = (decimal)totalEvaluar / totalPerformance * 100;
-                porcentajeCalibrar = (decimal)totalCalibrar / totalPerformance * 100;
+                porcentajePendiente = (decimal)totalPendiente / totalPerformance * 100;
+                porcentajeCompletado = (decimal)totalCompletado / totalPerformance * 100;
+                porcentajeEvaluado = (decimal)totalEvaluado / totalPerformance * 100;
+                porcentajeFeedback = (decimal)totalFeedback / totalPerformance * 100;
                 porcentajeFinalizado = (decimal)totalFinalizado / totalPerformance * 100;
             }
 
@@ -360,13 +363,15 @@ namespace Performance.Servicios
             lista.Add(new PerformanceProgresoVM
             {                
                 totalPerformance = totalPerformance,
-                totalCompletar = totalCompletar,
-                totalEvaluar = totalEvaluar,
-                totalCalibrar = totalCalibrar,
+                totalPendiente = totalPendiente,
+                totalCompletado = totalCompletado,
+                totalEvaluado = totalEvaluado,
+                totalFeedback = totalFeedback,
                 totalFinalizado = totalFinalizado,
-                porcentajeCompletar = porcentajeCompletar,
-                porcentajeEvaluar = porcentajeEvaluar,
-                porcentajeCalibrar = porcentajeCalibrar,
+                porcentajePendiente = porcentajePendiente,
+                porcentajeCompletado = porcentajeCompletado,
+                porcentajeEvaluado = porcentajeEvaluado,
+                porcentajeFeedback = porcentajeFeedback,
                 porcentajeFinalizado = porcentajeFinalizado
             });
             
