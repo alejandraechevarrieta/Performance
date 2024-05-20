@@ -235,6 +235,37 @@ namespace Performance.Servicios
                     db.SaveChanges();
                 }
 
+                //Envio de mail a lider
+                var idDestinatario = performance.idJefe;
+                var asunto = "Realización de formulario A";
+                var body =
+                    "<table border=\"0\" width=\"200px\" bgcolor=\"#EDECEB\"> \r\n    " +
+                        "<tbody> \r\n        " +
+                            "<tr> \r\n            " +
+                                "<td align=\"center\"><img src=\"https://buhogestion.distrocuyo.com/content/img/verdeChiquito.gif\" alt=\"\" width=\"50px\"></td> \r\n        " +
+                            "</tr> \r\n    " +
+                        "</tbody> \r\n" +
+                    "</table>\r\n" +
+                    "<table style=\"border: 10px solid #edeceb; padding-left: 20px;\" width=\"100%\"> \r\n    " +
+                        "<tbody> \r\n        " +
+                            "<tr> \r\n            " +
+                                "<td><br/><br /><div style=\"color: #353543; font-family: Arial,sans-serif; font-size: 14px; line-height: 22px;\">" +
+                                    "<br /> <strong>Estimado/a: #destinatario </strong><br /> \r\n <p>Se le informa que el colaborador #colaborador ha realizado el formulario A y se encuentra a la espera de su revisión.<br /><br /><br /><br />\r\n" +
+                                "</td>\r\n        " +
+                            "</tr>\r\n    " +
+                        "</tbody>\r\n" +
+                    "</table>\r\n" +
+                    "<table style=\"color: #353543; font-family: Arial; font-size: 10px; line-height: 22px; padding-left: 25px;\">\r\n    " +
+                        "<tbody>\r\n        " +
+                            "<tr>\r\n            " +
+                                "<td align=\"right\"><p>Email enviado automaticamente por Buho Gestion </p></td>\r\n        " +
+                            "</tr>\r\n    " +
+                        "</tbody>\r\n" +
+                    "</table>";
+
+                body = body.Replace("#destinatario", performance.nombreJefe);
+                body = body.Replace("#colaborador", performance.nombre);
+
                 return nuevaAutoevaluacion.idPerformance;
             }
             catch (Exception e)
@@ -381,18 +412,15 @@ namespace Performance.Servicios
                     nombreHabilidadEvaluacion = he.habilidad,
                     calificacionEvaluacion = ce.nombre,                   
 
-                }
-            ).ToList();
-            var datos = (
-   from p in db.PerformanceColaborador  
-   where p.idPerformance == idPerformance
-   select new DatosPerformanceVM
-   {       
-       ano = p.ano,
-       colaborador = p.nombre,
-       lider = p.nombreJefe,
-   }
-).ToList();
+                }).ToList();
+            var datos = (from p in db.PerformanceColaborador  
+                         where p.idPerformance == idPerformance
+                         select new DatosPerformanceVM
+                         {       
+                             ano = p.ano,
+                             colaborador = p.nombre,
+                             lider = p.nombreJefe,
+                         }).ToList();
             datosPerformance.AddRange(evaluaciones);
             datosPerformance.AddRange(datos);
 

@@ -368,19 +368,19 @@
         $('#navIndex').addClass('active');
     });
     ///FILTROS
-        $('#btnFiltrar').click(function () {   
+        $('#btnFiltrar').click(function () {
             ListarPerformance();
         });
         $('#btnLimpiar').click(function () {
             LimpiarFiltros();
         });
-        function LimpiarFiltros() {           
+        function LimpiarFiltros() {
             $('#selectColaborador').val('');
             $('#selectEstado').val('');
-            $('#selectLider').val('');    
+            $('#selectLider').val('');
             ListarPerformance();
         }
-    ///LISTAR PERFORMANCE  
+    ///LISTAR PERFORMANCE
         function ListarPerformance() {
             var colaborador = $("#selectColaborador").val();
             var estado = $("#selectEstado").val();
@@ -495,7 +495,7 @@
                         "render": function (data, type, row, meta) {
                             if (data == 1) {
                                 return '<div style="text-align: center;"><a href="/PerformanceApp/Index/Crud?view=autoevaluacion&idPerformance=' + row.idPerformance + '" class="btn btn-sm grilla-btn btn-info" title="PARA COMPLETAR" style="font-size: 100% !important;">' + row.estado + '</a></div>';
-                            } else {                                
+                            } else {
                                 return '<div style="text-align: center;"><a href="/PerformanceApp/Index/Crud?view=performance&idPerformance=' + row.idPerformance + '" class="btn btn-sm grilla-btn btn-secondary" title="COMPLETO" style="font-size: 100% !important;">' + "COMPLETO" + '</a></div>';
                             }
                         }
@@ -811,7 +811,15 @@
                     });
                 });
         }
-        
+        var token = "";
+        GenerarToken();
+        function GenerarToken() {
+            var url = "Api/PerformanceApp/EnviarMailLider?idUsuario=" + @idUsuario + "&idDestinatario=" + 2125;
+            $.getJSON(url)
+                .done(function (data) {
+                });
+        }
+
         function CargarColaboradoresFiltro() {
             var selectColaborador = $('#selectColaborador');
             selectColaborador.empty();
@@ -913,7 +921,7 @@
                     $("#totalFinalizados").html('<span class="mr-3" style="width: 20px; height: 20px; display: inline-block; background-color: #9b9b9b !important;"></span> Finalizados: ' + totalFinalizado);
                 });
         }
-        
+
     </script>
 
 </body>
