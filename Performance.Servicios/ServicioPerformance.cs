@@ -90,6 +90,40 @@ namespace Performance.Servicios
             return listaPpal;
         }
 
+        public PerformanceVM buscarPerformance(int? idPerformance)
+        {
+            using (var db = new PerformanceEntities())
+            {
+                var tmp = (from d in db.PerformanceColaborador
+                           join e in db.Estados on d.estado equals e.id
+                           select new PerformanceVM
+                           {
+                               ano = d.ano,
+                               idPerformance = d.idPerformance,
+                               idUsuario = d.idUsuario,
+                               nombre = d.nombre,
+                               idJefe = d.idJefe,
+                               nombreJefe = d.nombreJefe,
+                               antiguedad = d.antiguedad,
+                               fechaAutoevaluacion = d.fechaAutoevaluacion,
+                               fechaEvaluacion = d.fechaEvaluacion,
+                               fechaCalibracion = d.fechaCalibracion,
+                               fechaFeedback = d.fechaEvaluacion, //cambiar
+                               idEstado = d.estado,
+                               estado = e.estado,
+                               habilidades = (from x in db.AutoEvaluacion
+                                              where x.idPerformance == d.idPerformance
+                                              select new PerformanceAutoevaluacionVM
+                                              {
+                                                  idPerformance = x.idPerformance,
+                                                  idHabilidad = x.idHabilidad,
+                                                  idCalificacion = x.idCalificacion
+                                              }).Where(x => x.idPerformance == idPerformance).ToList()
+                           }).Where(z => z.idPerformance == idPerformance).FirstOrDefault();
+                return tmp;
+            }
+        }
+
         public void Dispose()
         {
             db.Dispose(); // Liberar recursos del contexto de la base de datos
@@ -200,6 +234,37 @@ namespace Performance.Servicios
 
                     db.SaveChanges();
                 }
+
+                //Envio de mail a lider
+                var idDestinatario = performance.idJefe;
+                var asunto = "Realización de formulario A";
+                var body =
+                    "<table border=\"0\" width=\"200px\" bgcolor=\"#EDECEB\"> \r\n    " +
+                        "<tbody> \r\n        " +
+                            "<tr> \r\n            " +
+                                "<td align=\"center\"><img src=\"https://buhogestion.distrocuyo.com/content/img/verdeChiquito.gif\" alt=\"\" width=\"50px\"></td> \r\n        " +
+                            "</tr> \r\n    " +
+                        "</tbody> \r\n" +
+                    "</table>\r\n" +
+                    "<table style=\"border: 10px solid #edeceb; padding-left: 20px;\" width=\"100%\"> \r\n    " +
+                        "<tbody> \r\n        " +
+                            "<tr> \r\n            " +
+                                "<td><br/><br /><div style=\"color: #353543; font-family: Arial,sans-serif; font-size: 14px; line-height: 22px;\">" +
+                                    "<br /> <strong>Estimado/a: #destinatario </strong><br /> \r\n <p>Se le informa que el colaborador #colaborador ha realizado el formulario A y se encuentra a la espera de su revisión.<br /><br /><br /><br />\r\n" +
+                                "</td>\r\n        " +
+                            "</tr>\r\n    " +
+                        "</tbody>\r\n" +
+                    "</table>\r\n" +
+                    "<table style=\"color: #353543; font-family: Arial; font-size: 10px; line-height: 22px; padding-left: 25px;\">\r\n    " +
+                        "<tbody>\r\n        " +
+                            "<tr>\r\n            " +
+                                "<td align=\"right\"><p>Email enviado automaticamente por Buho Gestion </p></td>\r\n        " +
+                            "</tr>\r\n    " +
+                        "</tbody>\r\n" +
+                    "</table>";
+
+                body = body.Replace("#destinatario", performance.nombreJefe);
+                body = body.Replace("#colaborador", performance.nombre);
 
                 return nuevaAutoevaluacion.idPerformance;
             }
@@ -314,30 +379,24 @@ namespace Performance.Servicios
         }
         public List<DatosPerformanceVM> buscarDatosPerformance(int idPerformance)
         {
-            var datosPerformance = (
-    from p in db.PerformanceColaborador
-    join a in db.AutoEvaluacion on p.idPerformance equals a.idPerformance
-    join ha in db.Habilidades on a.idHabilidad equals ha.idHabilidad
-    join ca in db.Calificacion on a.idCalificacion equals ca.idCalificacion
-    where p.idPerformance == idPerformance
-    select new DatosPerformanceVM
-    {       
-        idHabilidadAutoevaluacion = ha.idHabilidad,
-        idCalificacionAutoevaluacion = ca.idCalificacion,
-        fechaCalificacionAutoevaluacion = a.fechaAutoEvaluacion,
-        nombreHabilidadAutoevaluacion = ha.habilidad,
-        calificacionAutoevaluacion = ca.nombre,
-        idHabilidadEvaluacion = null,
-        idCalificacionEvaluacion = null,
-        fechaCalificacionEvaluacion = null,
-        nombreHabilidadEvaluacion = null,
-        calificacionEvaluacion = null,
-        ano = p.ano,
-        colaborador = p.nombre,
-        lider = p.nombreJefe,
-    }
-).ToList();
-
+            var datosPerformance = (from p in db.PerformanceColaborador
+                                    join a in db.AutoEvaluacion on p.idPerformance equals a.idPerformance
+                                    join ha in db.Habilidades on a.idHabilidad equals ha.idHabilidad
+                                    join ca in db.Calificacion on a.idCalificacion equals ca.idCalificacion
+                                    where p.idPerformance == idPerformance
+                                    select new DatosPerformanceVM
+                                    {
+                                        idHabilidadAutoevaluacion = ha.idHabilidad,
+                                        idCalificacionAutoevaluacion = ca.idCalificacion,
+                                        fechaCalificacionAutoevaluacion = a.fechaAutoEvaluacion,
+                                        nombreHabilidadAutoevaluacion = ha.habilidad,
+                                        calificacionAutoevaluacion = ca.nombre,
+                                        idHabilidadEvaluacion = null,
+                                        idCalificacionEvaluacion = null,
+                                        fechaCalificacionEvaluacion = null,
+                                        nombreHabilidadEvaluacion = null,
+                                        calificacionEvaluacion = null,
+                                    }).ToList();
             var evaluaciones = (
                 from a in db.EvaluacionPerformance
                 join he in db.Habilidades on a.idHabilidad equals he.idHabilidad into habilidadesEvaluacion
@@ -358,18 +417,15 @@ namespace Performance.Servicios
                     nombreHabilidadEvaluacion = he.habilidad,
                     calificacionEvaluacion = ce.nombre,                   
 
-                }
-            ).ToList();
-            var datos = (
-   from p in db.PerformanceColaborador  
-   where p.idPerformance == idPerformance
-   select new DatosPerformanceVM
-   {       
-       ano = p.ano,
-       colaborador = p.nombre,
-       lider = p.nombreJefe,
-   }
-).ToList();
+                }).ToList();
+            var datos = (from p in db.PerformanceColaborador  
+                         where p.idPerformance == idPerformance
+                         select new DatosPerformanceVM
+                         {       
+                             ano = p.ano,
+                             colaborador = p.nombre,
+                             lider = p.nombreJefe,
+                         }).ToList();
             datosPerformance.AddRange(evaluaciones);
             datosPerformance.AddRange(datos);
 

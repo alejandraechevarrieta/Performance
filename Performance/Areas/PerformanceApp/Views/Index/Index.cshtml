@@ -847,6 +847,14 @@
                     });
                 });
         }
+        @*var token = "";
+        GenerarToken();
+        function GenerarToken() {
+            var url = "Api/PerformanceApp/EnviarMailLider?idUsuario=" + @idUsuario + "&idDestinatario=" + 2125;
+            $.getJSON(url)
+                .done(function (data) {
+                });
+        }*@
 
         function CargarColaboradoresFiltro() {
             var selectColaborador = $('#selectColaborador');

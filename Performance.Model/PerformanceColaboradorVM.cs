@@ -20,8 +20,8 @@ namespace Performance.Model
         public int idUsuario { get; set; }
         public int idAutoevaluacion { get; set; }
         public int idPerformance { get; set; }
-        public int idHabilidad { get; set; }
-        public int idCalificacion { get; set; }
+        public int? idHabilidad { get; set; }
+        public int? idCalificacion { get; set; }
         public DateTime fechaCalificacion { get; set; }
         public string habilidad1 { get; set; }
         public string habilidad2 { get; set; }
@@ -49,6 +49,19 @@ namespace Performance.Model
         public DateTime? fechaFeedback { get; set; }
         public int? idEstado { get; set; }
         public string estado { get; set; }
+        public int? idHabilidad1 { get; set; }
+        public int? idHabilidad2 { get; set; }
+        public int? idHabilidad3 { get; set; }
+        public int? idHabilidad4 { get; set; }
+        public int? idHabilidad5 { get; set; }
+        public int? idHabilidad6 { get; set; }
+        public int? idCalificacion1 { get; set; }
+        public int? idCalificacion2 { get; set; }
+        public int? idCalificacion3 { get; set; }
+        public int? idCalificacion4 { get; set; }
+        public int? idCalificacion5 { get; set; }
+        public int? idCalificacion6 { get; set; }
+        public List<PerformanceAutoevaluacionVM> habilidades { get; set; }
     }
     public class PerformanceEstados
     {
