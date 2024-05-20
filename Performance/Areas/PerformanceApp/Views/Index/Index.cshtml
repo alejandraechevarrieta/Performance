@@ -124,11 +124,14 @@
 
     <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg">
         @*<div class="row" style="margin: 30px; overflow:hidden; display: flex;" id="rowProvisorio">
-                <a id="a" class="btn btn-primary" href="/PerformanceApp/Index/Crud?view=autoevaluacion" style="max-width: 18%;">Autoevaluación</a>
-                <a id="b" class="btn btn-secondary" href="/PerformanceApp/Index/Crud?view=evaluacion" style="max-width: 18%; ">Evaluación</a>
-                <a id="c" class="btn btn-warning" href="/PerformanceApp/Index/Crud?view=resumenAutoevaluacion" style="max-width: 18%; ">Resumen Autoevaluación</a>
-            </div>*@
-
+            <a id="a" class="btn btn-primary" href="/PerformanceApp/Index/Crud?view=autoevaluacion" style="max-width: 18%;">Autoevaluación</a>
+            <a id="b" class="btn btn-secondary" href="/PerformanceApp/Index/Crud?view=evaluacion" style="max-width: 18%; ">Evaluación</a>
+            <a id="c" class="btn btn-warning" href="/PerformanceApp/Index/Crud?view=resumenAutoevaluacion" style="max-width: 18%; ">Resumen Autoevaluación</a>
+        </div>*@
+        <div style="margin-left: 2.5%; margin-block: 0.5%">
+            <button id="instructivo" class="btn btn-secondary" onclick="DescargarInstructivo()" title="Instructivo" aria-label="Instructivo"> <i class=" fa fa-info-circle "></i></button>
+            <button id="abrirModalBtn" class="btn btn-primary" title="Instructivo" aria-label="Instructivo"> <i class=" fa fa-video-camera"></i></button>
+        </div>
         @*FILTROS SOLICITUDES*@
         @if (Convert.ToInt32(perfil) == 129)
         {
@@ -151,8 +154,6 @@
                     <div class="text-uppercase text-xl font-weight-bolder opacity-7" id="tituloProgreso" style="width:auto">Progreso Performance @(DateTime.Now.Year)</div>
                 </div>
             </div>
-
-
         }
         <div class="row m-3" style="overflow: hidden; margin-top: 0px;" id="rowFiltro">
             @if (Convert.ToInt32(perfil) == 128 || Convert.ToInt32(perfil) == 129)
@@ -205,9 +206,6 @@
                         </div>
                     </div>
                 }
-
-
-
             }
 
         </div>
@@ -217,10 +215,6 @@
             <!-- TABLA COLABORADOR -->
             @if (Convert.ToInt32(perfil) == 127)
             {
-                <div style="margin-left: 2.5%; margin-block: 0.5%">
-                    <button id="instructivo" class="btn btn-secondary" onclick="DescargarInstructivo()" title="Instructivo" aria-label="Instructivo"> <i class=" fa fa-info-circle "></i></button>
-                    <button id="abrirModalBtn" class="btn btn-primary" title="Instructivo" aria-label="Instructivo"> <i class=" fa fa-video-camera"></i></button>
-                </div>
                 <div class="row">
                     <div class="col-12">
                         <div class="card mb-4">
@@ -583,7 +577,7 @@
                 "columns": [
                     {
                         "data": "ano",
-                        "name": "Año",
+                        "name": "Año Performance",
                         "autoWidth": false,
                         "render": function (data, type, row, meta) {
                             return '<div style="text-align: center;">' + data + '</div>'
@@ -637,7 +631,7 @@
                         }
                     },
                     {
-                        "data": "estado",
+                        "data": "idEstado",
                         "name": "Estado",
                         "autoWidth": false,
                         "render": function (data, type, row, meta) {
