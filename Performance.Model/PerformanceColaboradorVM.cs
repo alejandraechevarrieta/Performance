@@ -22,6 +22,7 @@ namespace Performance.Model
         public int idPerformance { get; set; }
         public int? idHabilidad { get; set; }
         public int? idCalificacion { get; set; }
+        public DateTime fechaAutoEvaluacion { get; set; }
         public DateTime fechaCalificacion { get; set; }
         public string habilidad1 { get; set; }
         public string habilidad2 { get; set; }
@@ -29,6 +30,9 @@ namespace Performance.Model
         public string habilidad4 { get; set; }
         public string habilidad5 { get; set; }
         public string habilidad6 { get; set; }
+        public string body { get; set; }
+        public string asunto { get; set; }
+        public string adjunto { get; set; }
 
     }
     public class PerformanceVM
@@ -98,16 +102,30 @@ namespace Performance.Model
         public string colaborador { get; set; }
         public string lider { get; set; }
         public int idPerformance { get; set; }
+        public int idJefe { get; set; }
+        public string nombreJefe { get; set; }
         public int ano { get; set; }
+        public int? idEstado { get; set; }
+        public string estado { get; set; }
+        public int antiguedad { get; set; }
         public int? idHabilidadAutoevaluacion { get; set; }
         public int? idCalificacionAutoevaluacion { get; set; }
         public DateTime? fechaCalificacionAutoevaluacion { get; set; }       
         public int? idHabilidadEvaluacion { get; set; }
         public int? idCalificacionEvaluacion { get; set; }
         public DateTime? fechaCalificacionEvaluacion { get; set; }
+        public DateTime? fechaCalibracion { get; set; }
+        public DateTime? fechaFeedback { get; set; }
         public string nombreHabilidadAutoevaluacion { get; set; }
         public string calificacionAutoevaluacion { get; set; }
         public string nombreHabilidadEvaluacion { get; set; }
         public string calificacionEvaluacion { get; set; }
+    }
+    public class MailVM
+    {
+        public List<int> IdsDestinatarios { get; set; }
+        public string mensaje { get; set; }
+        public string asunto { get; set; }
+        public string adjunto { get; set; }
     }
 }

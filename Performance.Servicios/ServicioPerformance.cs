@@ -171,13 +171,14 @@ namespace Performance.Servicios
             return lista.OrderBy(x => x.nombreJefe).ToList();
         }
 
-        public int GuardarAutoevaluacion(PerformanceAutoevaluacionVM autoevaluacion)
+        public PerformanceAutoevaluacionVM GuardarAutoevaluacion(PerformanceAutoevaluacionVM autoevaluacion)
         {
             try
             {
                 var habilidades = db.Habilidades.Where(x => x.activo == true).ToList();
 
                 AutoEvaluacion nuevaAutoevaluacion = new AutoEvaluacion();
+                PerformanceAutoevaluacionVM performanceVM = new PerformanceAutoevaluacionVM();
 
                 List<string> calificacion = new List<string>();
                 calificacion.Add(autoevaluacion.habilidad1);
@@ -242,7 +243,7 @@ namespace Performance.Servicios
                     "<table border=\"0\" width=\"200px\" bgcolor=\"#EDECEB\"> \r\n    " +
                         "<tbody> \r\n        " +
                             "<tr> \r\n            " +
-                                "<td align=\"center\"><img src=\"https://buhogestion.distrocuyo.com/content/img/verdeChiquito.gif\" alt=\"\" width=\"50px\"></td> \r\n        " +
+                                "<td align=\"center\"><img src=\"https://buhogestion.distrocuyo.com/Content/perform/performanceIdentidad2024.png\" alt=\"\" width=\"50px\"></td> \r\n        " +
                             "</tr> \r\n    " +
                         "</tbody> \r\n" +
                     "</table>\r\n" +
@@ -250,7 +251,7 @@ namespace Performance.Servicios
                         "<tbody> \r\n        " +
                             "<tr> \r\n            " +
                                 "<td><br/><br /><div style=\"color: #353543; font-family: Arial,sans-serif; font-size: 14px; line-height: 22px;\">" +
-                                    "<br /> <strong>Estimado/a: #destinatario </strong><br /> \r\n <p>Se le informa que el colaborador #colaborador ha realizado el formulario A y se encuentra a la espera de su revisión.<br /><br /><br /><br />\r\n" +
+                                    "<br /> <strong>Estimado/a: #destinatario </strong><br /> \r\n <p>Se informa que #colaborador ha realizado la autoevaluación.<br /><br /><br /><br />\r\n" +
                                 "</td>\r\n        " +
                             "</tr>\r\n    " +
                         "</tbody>\r\n" +
@@ -266,12 +267,18 @@ namespace Performance.Servicios
                 body = body.Replace("#destinatario", performance.nombreJefe);
                 body = body.Replace("#colaborador", performance.nombre);
 
-                return nuevaAutoevaluacion.idPerformance;
+                performanceVM.body = body;
+                performanceVM.asunto = asunto;
+                performanceVM.idPerformance = performance.idPerformance;
+
+                return performanceVM;
             }
             catch (Exception e)
             {
                 var ex = e.GetBaseException();
-                return 0;
+                PerformanceAutoevaluacionVM performanceVM = new PerformanceAutoevaluacionVM();
+                performanceVM.idPerformance = 0;
+                return performanceVM;
             }
         }
 
@@ -430,6 +437,43 @@ namespace Performance.Servicios
             datosPerformance.AddRange(datos);
 
             return datosPerformance;
+        }
+
+        public ReporteExcelVM GenerarExcelMasterList()
+        {
+            using (PerformanceEntities _db = new PerformanceEntities())
+            {
+                var tmp = (from p in _db.PerformanceColaborador
+                           join e in _db.Estados on p.estado equals e.id
+                           select new DatosPerformanceVM
+                           {
+                               ano = p.ano,
+                               idPerformance = p.idPerformance,
+                               idUsuario = p.idUsuario,
+                               colaborador = p.nombre,
+                               idJefe = p.idJefe,
+                               nombreJefe = p.nombreJefe,
+                               antiguedad = p.antiguedad,
+                               fechaCalificacionAutoevaluacion = p.fechaAutoevaluacion,
+                               fechaCalificacionEvaluacion = p.fechaEvaluacion,
+                               fechaCalibracion = p.fechaCalibracion,
+                               fechaFeedback = p.fechaEvaluacion, //cambiar
+                               idEstado = p.estado,
+                               estado = e.estado,
+                           }).OrderByDescending(x => x.ano).ThenBy(x => x.colaborador);
+                var list = tmp.ToList();
+
+                ReporteExcelVM excel = new ReporteExcelVM();
+                excel.filas = new List<DetalleExcelVM>();
+                excel.encabezado = new List<string>();
+                DetalleExcelVM detalle = new DetalleExcelVM();
+                excel.filas.Add(detalle);
+
+                ExcelUtility excelUtility = new ExcelUtility();
+                excel = excelUtility.GenerarReportePerformance(list);
+                return excel;
+            }
+
         }
 
     }

@@ -168,11 +168,19 @@ namespace Performance.Areas.PerformanceApp.Controllers.Api
         {
             try
             {
-                Servicios.ServicioPerformance _servicio = new Servicios.ServicioPerformance();
+                using (var db = new PerformanceEntities())
+                {
+                    Servicios.ServicioPerformance _servicio = new Servicios.ServicioPerformance();
 
-                var tmp = _servicio.GuardarAutoevaluacion(autoevaluacion);
+                    var tmp = _servicio.GuardarAutoevaluacion(autoevaluacion);
 
-                return tmp;
+                    var performance = db.PerformanceColaborador.Where(x => x.idPerformance == autoevaluacion.idPerformance).FirstOrDefault();
+
+                    await EnviarMailLider(performance.idUsuario, performance.idJefe, tmp.body, tmp.asunto);
+
+                return tmp.idPerformance;
+                }
+                
             }
             catch (Exception e)
             {
@@ -309,10 +317,10 @@ namespace Performance.Areas.PerformanceApp.Controllers.Api
         [System.Web.Http.Route("Api/PerformanceApp/EnviarMailLider")]
         [System.Web.Http.ActionName("EnviarMailLider")]
         [System.Web.Http.HttpGet]
-        public async Task<string> EnviarMailLider(int idUsuario, int idDestinatario)
+        public async Task<string> EnviarMailLider(int idUsuario, int idDestinatario, string body, string asunto)
         {
             var token = GenerarToken();
-            EnviarMailAsync(token, idUsuario, idDestinatario);
+            await EnviarMailAsync(token, idUsuario, idDestinatario, body, asunto);
 
             return token.ToString();
         }
@@ -356,7 +364,7 @@ namespace Performance.Areas.PerformanceApp.Controllers.Api
         [System.Web.Http.Route("Api/PerformanceApp/EnviarMailAsync")]
         [System.Web.Http.ActionName("EnviarMailAsync")]
         [System.Web.Http.HttpGet]
-        static async Task EnviarMailAsync(string token, int idUsuario, int idDestinatario)
+        static async Task EnviarMailAsync(string token, int idUsuario, int idDestinatario, string body, string asunto)
         {
             using (var client = new HttpClient())
             {
@@ -373,8 +381,16 @@ namespace Performance.Areas.PerformanceApp.Controllers.Api
                     // Agrega aquí más propiedades si son necesarias
                 };
 
-                // Serializa el contenido a JSON
-                var jsonContent = JsonConvert.SerializeObject(content);
+                // Inicializa la instancia de MailVM y su lista IdsDestinatarios
+                MailVM mail = new MailVM
+                {
+                    IdsDestinatarios = new List<int> { idDestinatario },
+                    mensaje = body, // Reemplaza con el mensaje adecuado
+                    asunto = asunto,   // Reemplaza con el asunto adecuado
+                    adjunto = "Tu adjunto aquí"  // Reemplaza con el adjunto adecuado
+                };
+                // Serializa el objeto MailVM a JSON
+                var jsonContent = JsonConvert.SerializeObject(mail);
 
                 // Crea un StringContent a partir del JSON
                 var httpContent = new StringContent(jsonContent, System.Text.Encoding.UTF8, "application/json");
@@ -387,6 +403,18 @@ namespace Performance.Areas.PerformanceApp.Controllers.Api
                 Console.WriteLine(result);
             }
         }
+
+        //[System.Web.Http.Route("/GenerarExcelFormularioA")]
+        //[System.Web.Http.ActionName("GenerarExcelFormularioA")]
+        //[System.Web.Http.HttpGet]
+        //public HttpResponseMessage GenerarExcelMasterList()
+        //{
+        //    Servicios.ServicioPerformance servicio = new Servicios.ServicioPerformance();
+        //    var excel = servicio.GenerarExcelMasterList();
+
+        //    return DownloadFileCh(excel.filePath, excel.fileName);.
+        //}
+
         public class TokenRequest
         {
             public string ClientId { get; set; }
