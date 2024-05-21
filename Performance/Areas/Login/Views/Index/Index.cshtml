@@ -33,7 +33,7 @@
     <link rel="apple-touch-icon" sizes="76x76" href="~/Content/img/apple-icon.png">
     <link rel="icon" type="image/png" href="~/assets/img/favicon.png">
     <title>
-       Performance
+        Performance
     </title>
     <!--     Fonts and icons     -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
@@ -41,19 +41,45 @@
     <link rel="stylesheet" href="~/Content/CssPerformance.css">
     <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
     <script defer data-site="YOUR_DOMAIN_HERE" src="https://api.nepcha.com/js/nepcha-analytics.js"></script>
+
+    <style>
+        body {
+            background-image: url('/assets/img/PerformanceFondoLogin.jpg');
+            background-size: cover;
+            background-position: center; /* Centra la imagen */
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            padding-top: 3rem; /* Añade margen superior de 3rem */
+        }
+
+        #divLogin {
+            position: relative;
+            z-index: 1;
+        }
+
+        #divLoading {
+            position: relative;
+            z-index: 2;
+        }
+
+        .modalLoading {
+            /* Aquí puedes agregar estilos específicos para el divLoading si es necesario */
+        }
+    </style>
 </head>
 
 <body class="g-sidenav-show bg-gray-100">
  <div id="divLoading" class="modalLoading"></div>
     <div id="divLogin">
-        <div class="col-lg-4 col-md-8 col-12 mx-auto mt-3">
+        <div class="col-lg-4 col-md-8 col-12 mt-3" style="margin-left:auto; margin-right: 5%;">
             <div class="card z-index-0 fadeIn3 fadeInBottom mt-3">
                 <div class="card-header p-0 mx-3 z-index-2 mt-3">
                     <div id="cardLogin" class="border-radius-lg py-3 pe-1">
-                        <p class="h4 text-white font-weight-bolder text-center mt-2 mb-0"><b>Performance App</b></p>
-                        <p class="text-white font-weight-bolder text-center mt-2 mb-0">Ingresar sus credenciales</p>
+                        <img src="/assets/img/performanceIdentidad2024.png" alt="Performance Identidad" style="width: 100%; height: auto; border-radius: 8px;">
                     </div>
                 </div>
+                @*<p class="h4 text-white font-weight-bolder text-center mt-2 mb-0"><b>Performance App</b></p>
+                <p class="text-white font-weight-bolder text-center mt-2 mb-0">Ingresar sus credenciales</p>*@
                 <div class="card-body">
                     <form role="form" class="text-start">
                         <div class="input-group input-group-outline my-3">
@@ -67,13 +93,13 @@
                         </div>
                         <div class="row mt-2">
                             @*<div class="text-l col-5 justify-content-end vertical" style="justify-content:end;">
-                                <a href="../pages/sign-up.html" style="color: #00aec7;" class="font-weight-bold">Recuperar contraseña</a>
-                                <br />
-                                <br />
-                                <a href="../pages/sign-up.html" style="color: #00aec7;" class="font-weight-bold">Desbloquear usuario</a>
-                            </div>
-                            <div class="col-2 justify-content-center">
-                            </div>*@
+                        <a href="../pages/sign-up.html" style="color: #00aec7;" class="font-weight-bold">Recuperar contraseña</a>
+                        <br />
+                        <br />
+                        <a href="../pages/sign-up.html" style="color: #00aec7;" class="font-weight-bold">Desbloquear usuario</a>
+                    </div>
+                    <div class="col-2 justify-content-center">
+                    </div>*@
                         </div>
                     </form>
                 </div>
