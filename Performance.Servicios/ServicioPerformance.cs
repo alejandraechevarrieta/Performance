@@ -327,7 +327,7 @@ namespace Performance.Servicios
         public List<PerformanceProgresoVM> listarPerformanceProgreso()
         {
             var list = ListarPerformanceTodas();
-            var anoAnterior = DateTime.Now.Year - 1;
+            var anoAnterior = DateTime.Now.Year;
             var tmp = list.Where(x => x.ano == anoAnterior).ToList();
             var totalPerformance = 0;
             var totalPendiente= 0;
