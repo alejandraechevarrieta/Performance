@@ -475,6 +475,77 @@ namespace Performance.Servicios
             }
 
         }
+        public ReporteExcelVM GenerarExcelReporteColaboradores()
+        {
+            using (PerformanceEntities _db = new PerformanceEntities())
+            {
+                var tmp = (from p in _db.PerformanceColaborador
+                           join e in _db.Estados on p.estado equals e.id
+                           select new DatosPerformanceVM
+                           {
+                               ano = p.ano,
+                               idPerformance = p.idPerformance,
+                               idUsuario = p.idUsuario,
+                               colaborador = p.nombre,
+                               idJefe = p.idJefe,
+                               nombreJefe = p.nombreJefe,
+                               antiguedad = p.antiguedad,
+                               fechaCalificacionAutoevaluacion = p.fechaAutoevaluacion,
+                               fechaCalificacionEvaluacion = p.fechaEvaluacion,
+                               fechaCalibracion = p.fechaCalibracion,
+                               fechaFeedback = p.fechaEvaluacion, //cambiar
+                               idEstado = p.estado,
+                               estado = e.estado,
+                           }).OrderByDescending(x => x.ano).ThenBy(x => x.colaborador);
+                var list = tmp.ToList();
 
+                ReporteExcelVM excel = new ReporteExcelVM();
+                excel.filas = new List<DetalleExcelVM>();
+                excel.encabezado = new List<string>();
+                DetalleExcelVM detalle = new DetalleExcelVM();
+                excel.filas.Add(detalle);
+
+                ExcelUtility excelUtility = new ExcelUtility();
+                excel = excelUtility.GenerarReportePerformance(list);
+                return excel;
+            }
+
+        }
+        public ReporteExcelVM GenerarExcelReportesColaboradores()
+        {
+            using (PerformanceEntities _db = new PerformanceEntities())
+            {
+                var tmp = (from p in _db.PerformanceColaborador
+                           join e in _db.Estados on p.estado equals e.id
+                           select new DatosPerformanceVM
+                           {
+                               ano = p.ano,
+                               idPerformance = p.idPerformance,
+                               idUsuario = p.idUsuario,
+                               colaborador = p.nombre,
+                               idJefe = p.idJefe,
+                               nombreJefe = p.nombreJefe,
+                               antiguedad = p.antiguedad,
+                               fechaCalificacionAutoevaluacion = p.fechaAutoevaluacion,
+                               fechaCalificacionEvaluacion = p.fechaEvaluacion,
+                               fechaCalibracion = p.fechaCalibracion,
+                               fechaFeedback = p.fechaEvaluacion, //cambiar
+                               idEstado = p.estado,
+                               estado = e.estado,
+                           }).OrderByDescending(x => x.ano).ThenBy(x => x.colaborador);
+                var list = tmp.ToList();
+
+                ReporteExcelVM excel = new ReporteExcelVM();
+                excel.filas = new List<DetalleExcelVM>();
+                excel.encabezado = new List<string>();
+                DetalleExcelVM detalle = new DetalleExcelVM();
+                excel.filas.Add(detalle);
+
+                ExcelUtility excelUtility = new ExcelUtility();
+                excel = excelUtility.GenerarReporteColaboradores(list);
+                return excel;
+            }
+
+        }
     }
 }
