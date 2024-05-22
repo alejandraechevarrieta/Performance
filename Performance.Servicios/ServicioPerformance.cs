@@ -439,16 +439,21 @@ namespace Performance.Servicios
             return datosPerformance;
         }
 
-        public ReporteExcelVM GenerarExcelMasterList()
+        public ReporteExcelVM GenerarExcelUnColaborador(int idPerformance)
         {
             using (PerformanceEntities _db = new PerformanceEntities())
             {
-                var tmp = (from p in _db.PerformanceColaborador
+                var tmp = (from a in _db.AutoEvaluacion
+                           join p in _db.PerformanceColaborador on a.idPerformance equals p.idPerformance
                            join e in _db.Estados on p.estado equals e.id
+                           join c in _db.Calificacion on a.idCalificacion equals c.idCalificacion
+                           join h in _db.Habilidades on a.idHabilidad equals h.idHabilidad
+                           where a.idPerformance == idPerformance
                            select new DatosPerformanceVM
                            {
+                               idAutoevaluacion = a.idAutoEvaluacion,
                                ano = p.ano,
-                               idPerformance = p.idPerformance,
+                               idPerformance = a.idPerformance,
                                idUsuario = p.idUsuario,
                                colaborador = p.nombre,
                                idJefe = p.idJefe,
@@ -460,7 +465,11 @@ namespace Performance.Servicios
                                fechaFeedback = p.fechaEvaluacion, //cambiar
                                idEstado = p.estado,
                                estado = e.estado,
-                           }).OrderByDescending(x => x.ano).ThenBy(x => x.colaborador);
+                               idHabilidad = a.idHabilidad,
+                               idCalificacion = a.idCalificacion,
+                               calificacion = c.nombre,
+                               habilidad = h.habilidad
+                           }).OrderBy(x => x.idHabilidad);
                 var list = tmp.ToList();
 
                 ReporteExcelVM excel = new ReporteExcelVM();
@@ -470,7 +479,7 @@ namespace Performance.Servicios
                 excel.filas.Add(detalle);
 
                 ExcelUtility excelUtility = new ExcelUtility();
-                excel = excelUtility.GenerarReportePerformance(list);
+                excel = excelUtility.GenerarUnReportePerformance(list);
                 return excel;
             }
 

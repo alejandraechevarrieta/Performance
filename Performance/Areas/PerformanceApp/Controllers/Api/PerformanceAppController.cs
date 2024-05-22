@@ -360,16 +360,16 @@ namespace Performance.Areas.PerformanceApp.Controllers.Api
             }
         }
 
-        //[System.Web.Http.Route("/GenerarExcelFormularioA")]
-        //[System.Web.Http.ActionName("GenerarExcelFormularioA")]
-        //[System.Web.Http.HttpGet]
-        //public HttpResponseMessage GenerarExcelMasterList()
-        //{
-        //    Servicios.ServicioPerformance servicio = new Servicios.ServicioPerformance();
-        //    var excel = servicio.GenerarExcelMasterList();
+        [System.Web.Http.Route("/GenerarExcelUnColaborador")]
+        [System.Web.Http.ActionName("GenerarExcelUnColaborador")]
+        [System.Web.Http.HttpGet]
+        public HttpResponseMessage GenerarExcelUnColaborador(int idPerformance)
+        {
+            Servicios.ServicioPerformance servicio = new Servicios.ServicioPerformance();
+            var excel = servicio.GenerarExcelUnColaborador(idPerformance);
 
-        //    return DownloadFileCh(excel.filePath, excel.fileName);.
-        //}
+            return DownloadFile(excel.filePath, excel.fileName);
+        }
 
         public class TokenRequest
         {
