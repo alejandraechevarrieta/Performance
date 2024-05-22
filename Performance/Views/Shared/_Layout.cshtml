@@ -130,7 +130,7 @@
                         <li class="nav-item d-flex align-items-center">
                             <a href="/Login/Index" class="nav-link text-body font-weight-bold px-0" title="Login">
                                 <i class="fa fa-user me-sm-1"></i>
-                                <span class="d-sm-inline" id="numbreUsuario" style="margin-right:10px;">Usuario</span>
+                                <span class="d-sm-inline" id="nombreUsuario" style="margin-right:10px;">Usuario</span>
                             </a>
                         </li>
                         <li class="nav-item d-flex align-items-center" id="botonModalBienvenida" style="cursor:pointer;" data-bs-toggle="modal" title="Ver Bienvenida" data-bs-target="#exampleModal">
@@ -256,7 +256,7 @@
                 dataType: 'json',
                 success: function (data) {
                     if (data != null) {
-                        $("#numbreUsuario").text(data.nombre);
+                        $("#nombreUsuario").text(data.nombre);
                     } else {
                         // Manejar otro caso si es necesario
                     }
