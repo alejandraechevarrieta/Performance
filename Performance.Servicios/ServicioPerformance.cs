@@ -297,10 +297,27 @@ namespace Performance.Servicios
                     {
                         nuevaPerformance.ano = anoActual;
                         nuevaPerformance.idUsuario = item.idUsuario;
+                        nuevaPerformance.legajo = item.legajo;
                         nuevaPerformance.nombre = item.nombre;
+                        nuevaPerformance.sexo = item.sexo;
+                        nuevaPerformance.pais = item.pais;
+                        nuevaPerformance.convenio = item.convenio;
+                        nuevaPerformance.categoria = item.categoria;
+                        nuevaPerformance.dominio = item.dominio;                       
                         nuevaPerformance.idJefe = item.idJefe;
                         nuevaPerformance.nombreJefe = item.nombreJefe;
                         nuevaPerformance.estado = 1;
+
+                        //calculo edad
+                        DateTime fechaNacimiento = item.fechaNacimiento.Value;
+                        DateTime fechaActual = DateTime.Today; 
+                        int edad = fechaActual.Year - fechaNacimiento.Year;
+                        // Verifica si el cumpleaños de este año ya ha pasado
+                        if (fechaActual < fechaNacimiento.AddYears(edad))
+                        {
+                            edad--;
+                        }
+                        nuevaPerformance.edad = edad;
 
                         //calculo antiguedad
                         int anoIngreso = item.fechaIngreso.Value.Year;
