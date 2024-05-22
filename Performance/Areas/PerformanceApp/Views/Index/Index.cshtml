@@ -131,6 +131,7 @@
         <div style="margin-left: 2.5%; margin-block: 0.5%">
             <button id="instructivo" class="btn btn-secondary" onclick="DescargarInstructivo()" title="Instructivo" aria-label="Instructivo"> <i class=" fa fa-info-circle "></i></button>
             <button id="abrirModalBtn" class="btn btn-primary" title="Instructivo" aria-label="Instructivo"> <i class=" fa fa-video-camera"></i></button>
+            <input type="button" class="btn btn-info boton" onclick="GenerarExcelColaboradores()" title='excel' id="btnExcel" value="Reporte Performance ">
         </div>
         @*FILTROS SOLICITUDES*@
         @if (Convert.ToInt32(perfil) == 129)
@@ -956,8 +957,14 @@
                     $("#totalFinalizado").html('<span class="mr-3" style="width: 20px; height: 20px; display: inline-block; background-color: #9b9b9b !important;"></span> Finalizado: ' + totalFinalizado);
                 });
         }
+        ////INSTRUCTIVO
         function DescargarInstructivo() {
             var url = 'Api/PerformanceApp/DescargarInstructivo';
+            window.location.href = url;
+        }
+        ////REPORTES
+        function GenerarExcelColaboradores() {
+            var url = 'Api/PerformanceApp/GenerarExcelReportesColaboradores';
             window.location.href = url;
         }
 
