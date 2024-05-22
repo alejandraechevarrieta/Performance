@@ -16,11 +16,18 @@ namespace Performance.Model
     {
         public int idPerformance { get; set; }
         public int idUsuario { get; set; }
+        public Nullable<int> legajo { get; set; }
         public string nombre { get; set; }
-        public int ano { get; set; }
+        public Nullable<int> edad { get; set; }
+        public string sexo { get; set; }
         public int antiguedad { get; set; }
+        public string pais { get; set; }
+        public string convenio { get; set; }
+        public string dominio { get; set; }
+        public string categoria { get; set; }
         public int idJefe { get; set; }
         public string nombreJefe { get; set; }
+        public int ano { get; set; }
         public Nullable<int> estado { get; set; }
         public Nullable<System.DateTime> fechaAutoevaluacion { get; set; }
         public Nullable<System.DateTime> fechaEvaluacion { get; set; }

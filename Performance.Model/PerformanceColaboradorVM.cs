@@ -75,8 +75,16 @@ namespace Performance.Model
     public class ColaboradorVM
     {      
         public int idUsuario { get; set; }
-        public string nombre { get; set; }       
+        public Nullable<int> legajo { get; set; }
+        public string nombre { get; set; }
+        public DateTime? fechaNacimiento { get; set; }
+        public Nullable<int> edad { get; set; }
+        public string sexo { get; set; }
         public int antiguedad { get; set; }
+        public string pais { get; set; }
+        public string convenio { get; set; }
+        public string dominio { get; set; }
+        public string categoria { get; set; }
         public int idJefe { get; set; }
         public string nombreJefe { get; set; }
         public DateTime? fechaIngreso { get; set; }
