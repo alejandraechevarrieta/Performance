@@ -107,7 +107,14 @@ namespace Performance.Model
     public class DatosPerformanceVM
     {
         public int idUsuario { get; set; }
+        public Nullable<int> legajo { get; set; }
         public string colaborador { get; set; }
+        public Nullable<int> edad { get; set; }
+        public string sexo { get; set; }
+        public string pais { get; set; }
+        public string convenio { get; set; }
+        public string dominio { get; set; }
+        public string categoria { get; set; }
         public string lider { get; set; }
         public int idPerformance { get; set; }
         public int idJefe { get; set; }

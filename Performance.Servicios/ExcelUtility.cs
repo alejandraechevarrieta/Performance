@@ -383,7 +383,7 @@ namespace Performance.Servicios
                 CreateCell(HeaderRow, 0, "", celdasEncabezado);
                 CreateCell(HeaderRow, 1, "", celdasEncabezado);
                 CreateCell(HeaderRow, 2, "", celdasEncabezado);
-                CreateCell(HeaderRow, 3, "", celdasEncabezado);
+                CreateCell(HeaderRow, 3, "PERFORMANCE COLABORADORES", celdasEncabezado);
                 CreateCell(HeaderRow, 4, "", celdasEncabezado);
                 CreateCell(HeaderRow, 5, "", celdasEncabezado);
                 CreateCell(HeaderRow, 6, "", celdasEncabezado);
@@ -475,12 +475,12 @@ namespace Performance.Servicios
 
                 CreateCell(Row3, 0, "Legajo", celdasData);
                 CreateCell(Row3, 1, "idUsuario", celdasData);
-                CreateCell(Row3, 2, "Nombre Colaborador", celdasData);
-                CreateCell(Row3, 3, "Líder", celdasData);
-                CreateCell(Row3, 4, "Convenio", celdasData);
-                CreateCell(Row3, 5, "País", celdasData);
-                CreateCell(Row3, 6, "Dominio", celdasData);
-                CreateCell(Row3, 7, "Categoría", celdasData);
+                CreateCell(Row3, 2, "       Nombre Colaborador      ", celdasData);
+                CreateCell(Row3, 3, "           Líder              ", celdasData);
+                CreateCell(Row3, 4, "              Convenio             ", celdasData);
+                CreateCell(Row3, 5, "     País      ", celdasData);
+                CreateCell(Row3, 6, "     Dominio        ", celdasData);
+                CreateCell(Row3, 7, "                    Categoría                    ", celdasData);
                 CreateCell(Row3, 8, "Sexo", celdasData);
                 CreateCell(Row3, 9, "Antigüedad", celdasData);
                 CreateCell(Row3, 10, "Auto Aprendizaje Continuo", celdasData);
@@ -516,18 +516,17 @@ namespace Performance.Servicios
                 foreach (var item in lista)
                 {
                     contador++;
-                    IRow RowForeach = Sheet.CreateRow(contador);
-
-                    CreateCell(RowForeach, 0, "", celdasInfo);
-                    CreateCell(RowForeach, 1, "", celdasInfo);
-                    CreateCell(RowForeach, 2, "", celdasInfo);
-                    CreateCell(RowForeach, 3, "", celdasInfo);
-                    CreateCell(RowForeach, 4, "", celdasInfo);
-                    CreateCell(RowForeach, 5, "", celdasInfo);
-                    CreateCell(RowForeach, 6, "", celdasInfo);
-                    CreateCell(RowForeach, 7, "", celdasInfo);
-                    CreateCell(RowForeach, 8, "", celdasInfo);
-                    CreateCell(RowForeach, 9, "", celdasInfo);
+                    IRow RowForeach = Sheet.CreateRow(contador);                    
+                    CreateCell(RowForeach, 0, item.legajo.ToString(), celdasInfo);
+                    CreateCell(RowForeach, 1, item.idUsuario.ToString(), celdasInfo);
+                    CreateCell(RowForeach, 2, item.colaborador, celdasInfo);
+                    CreateCell(RowForeach, 3, item.nombreJefe, celdasInfo);
+                    CreateCell(RowForeach, 4, item.convenio, celdasInfo);
+                    CreateCell(RowForeach, 5, item.pais, celdasInfo);
+                    CreateCell(RowForeach, 6, item.dominio, celdasInfo);
+                    CreateCell(RowForeach, 7, item.categoria, celdasInfo);
+                    CreateCell(RowForeach, 8, item.sexo, celdasInfo);
+                    CreateCell(RowForeach, 9, item.antiguedad.ToString(), celdasInfo);
                     CreateCell(RowForeach, 10, "", celdasInfo);
                     CreateCell(RowForeach, 11, "", celdasInfo);
                     CreateCell(RowForeach, 12, "", celdasInfo);
@@ -564,12 +563,14 @@ namespace Performance.Servicios
                 IPicture picture = drawing.CreatePicture(anchor, pictureIndex);
                 // Aumentar el tamaño de la imagen al 150% de su tamaño original
                 picture.Resize(1.5);
-
+            
                 //Uniones
-                CellRangeAddress union1 = new CellRangeAddress(0, 2, 0, 29);
+                CellRangeAddress union1 = new CellRangeAddress(0, 2, 0, 2);
+                CellRangeAddress union2 = new CellRangeAddress(0, 2, 3, 29);
 
                 //Completa union
                 Sheet.AddMergedRegion(union1);
+                Sheet.AddMergedRegion(union2);
 
                 //Desactivo linea cuadriculada
                 Sheet.DisplayGridlines = false;
