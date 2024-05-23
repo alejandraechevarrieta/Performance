@@ -13,7 +13,7 @@ namespace Performance.Servicios
 {
     public class ExcelUtility
     {
-        public ReporteExcelVM GenerarReportePerformance(List<DatosPerformanceVM> master)
+        public ReporteExcelVM GenerarUnReportePerformance(List<DatosPerformanceVM> autoevaluacion)
         {
             using (var _db = new PerformanceEntities())
             {
@@ -94,31 +94,33 @@ namespace Performance.Servicios
                 celdasData.BorderBottom = BorderStyle.Thin;
                 celdasData.VerticalAlignment = VerticalAlignment.Center;
                 celdasData.Alignment = HorizontalAlignment.Center;
-                celdasData.FillForegroundColor = HSSFColor.Grey40Percent.Index;
                 celdasData.FillPattern = FillPattern.SolidForeground;
+                XSSFColor customColor = new XSSFColor(new byte[] { 22, 181, 188 });
+                ((XSSFCellStyle)celdasData).SetFillForegroundColor(customColor);
 
-                ISheet Sheet = workbook.CreateSheet("Master_List");
+                ISheet Sheet = workbook.CreateSheet("AutoEvaluacion");
                 Sheet.CreateFreezePane(0, 0, 0, 0);
 
 
 
-                IRow HeaderRow = Sheet.CreateRow(1);
+                IRow HeaderRow = Sheet.CreateRow(0);
+                IRow Row1 = Sheet.CreateRow(1);
                 IRow Row2 = Sheet.CreateRow(2);
                 IRow Row3 = Sheet.CreateRow(3);
-                IRow Row4 = Sheet.CreateRow(4);
-                IRow Row5 = Sheet.CreateRow(5);
-                IRow Row6 = Sheet.CreateRow(6);
-                IRow Row7 = Sheet.CreateRow(7);
-                IRow Row8 = Sheet.CreateRow(8);
-                IRow Row9 = Sheet.CreateRow(9);
 
                 //CreateCell(HeaderRow, 0, "", celdasEncabezado);
-                CreateCell(HeaderRow, 1, "                                                                                                                        ", celdasEncabezado);
+                CreateCell(HeaderRow, 1, "                    ", celdasEncabezado);
                 CreateCell(HeaderRow, 2, "                    ", celdasEncabezado);
-                CreateCell(HeaderRow, 3, "                    ", celdasEncabezado);
+                CreateCell(HeaderRow, 3, "                                        ", celdasEncabezado);
                 CreateCell(HeaderRow, 4, "                    ", celdasEncabezado);
                 CreateCell(HeaderRow, 5, "                    ", celdasEncabezado);
                 CreateCell(HeaderRow, 6, "                    ", celdasEncabezado);
+                CreateCell(HeaderRow, 7, "                    ", celdasEncabezado);
+                CreateCell(HeaderRow, 8, "                    ", celdasEncabezado);
+                CreateCell(HeaderRow, 9, "                    ", celdasEncabezado);
+                CreateCell(HeaderRow, 10, "                    ", celdasEncabezado);
+                CreateCell(HeaderRow, 11, "                    ", celdasEncabezado);
+                CreateCell(HeaderRow, 12, "                    ", celdasEncabezado);
 
                 //CreateCell(Row2, 0, "", celdasEncabezado);
                 CreateCell(Row2, 1, "", celdasEncabezado);
@@ -127,100 +129,100 @@ namespace Performance.Servicios
                 CreateCell(Row2, 4, "", celdasEncabezado);
                 CreateCell(Row2, 5, "", celdasEncabezado);
                 CreateCell(Row2, 6, "", celdasEncabezado);
+                CreateCell(Row2, 7, "", celdasEncabezado);
+                CreateCell(Row2, 8, "", celdasEncabezado);
+                CreateCell(Row2, 9, "", celdasEncabezado);
+                CreateCell(Row2, 10, "", celdasEncabezado);
+                CreateCell(Row2, 11, "", celdasEncabezado);
+                CreateCell(Row2, 12, "", celdasEncabezado);
 
                 //CreateCell(Row2, 0, "", celdasEncabezado);
-                CreateCell(Row3, 1, "", celdasEncabezado);
-                CreateCell(Row3, 2, "", celdasEncabezado);
-                CreateCell(Row3, 3, "", celdasEncabezado);
-                CreateCell(Row3, 4, "", celdasEncabezado);
-                CreateCell(Row3, 5, "", celdasEncabezado);
-                CreateCell(Row3, 6, "", celdasEncabezado);
-
-                //CreateCell(Row3, 0, "", celdasEncabezado);
-                CreateCell(Row4, 1, "      MASTER LIST      ", celdasEncabezado);
-                CreateCell(Row4, 2, "", celdasEncabezado);
-                CreateCell(Row4, 3, "", celdasEncabezado);
-                CreateCell(Row4, 4, "", celdasEncabezado);
-                CreateCell(Row4, 5, "", celdasEncabezado);
-                CreateCell(Row4, 6, "", celdasEncabezado);
-
-                //CreateCell(Row3, 0, "", celdasEncabezado);
-                CreateCell(Row5, 1, "", celdasEncabezado);
-                CreateCell(Row5, 2, "", celdasEncabezado);
-                CreateCell(Row5, 3, "", celdasEncabezado);
-                CreateCell(Row5, 4, "", celdasEncabezado);
-                CreateCell(Row5, 5, "", celdasEncabezado);
-                CreateCell(Row5, 6, "", celdasEncabezado);
-
-                //CreateCell(Row4, 0, "", celdasEncabezado);
-                CreateCell(Row6, 1, "                    ", celdasEncabezado);
-                CreateCell(Row6, 2, "                    ", celdasEncabezado);
-                CreateCell(Row6, 3, "                    ", celdasEncabezado);
-                CreateCell(Row6, 4, "                    ", celdasEncabezado);
-                CreateCell(Row6, 5, "                    ", celdasEncabezado);
-                CreateCell(Row6, 6, "                    ", celdasEncabezado);
-
-                //CreateCell(Row5, 0, "", celdasEncabezado);
-                CreateCell(Row7, 1, "                    ", celdasEncabezado);
-                CreateCell(Row7, 2, "                    ", celdasEncabezado);
-                CreateCell(Row7, 3, "                    ", celdasEncabezado);
-                CreateCell(Row7, 4, "                    ", celdasEncabezado);
-                CreateCell(Row7, 5, "                    ", celdasEncabezado);
-                CreateCell(Row7, 6, "                    ", celdasEncabezado);
-
-                //CreateCell(Row6, 0, "", celdasInfo);
-                CreateCell(Row8, 1, "Fecha Descarga   ", celdasFechaD);
-                CreateCell(Row8, 2, Convert.ToDateTime(DateTime.Today).ToString("dd-MM-yyyy"), celdasFecha);
-                CreateCell(Row8, 3, "", celdasInfo);
-                CreateCell(Row8, 4, "", celdasInfo);
-                CreateCell(Row8, 5, "", celdasInfo);
-                CreateCell(Row8, 6, "", celdasInfo);
-
-                //CreateCell(Row7, 0, "", celdasData);
-                CreateCell(Row9, 1, "      Titulo      ", celdasData);
-                CreateCell(Row9, 2, "      Unidad de negocio      ", celdasData);
-                CreateCell(Row9, 3, "      Tipo de documento      ", celdasData);
-                CreateCell(Row9, 4, "      Aprueba      ", celdasData);
-                CreateCell(Row9, 5, "      Rev.      ", celdasData);
-                CreateCell(Row9, 6, "      Fecha de Aprobación      ", celdasData);
+                CreateCell(Row3, 0, "    Legajo    ", celdasData);
+                CreateCell(Row3, 1, "Id usuario", celdasData);
+                CreateCell(Row3, 2, "Nombre colaborador", celdasData);
+                CreateCell(Row3, 3, "Líder", celdasData);
+                CreateCell(Row3, 4, "Convenio", celdasData);
+                CreateCell(Row3, 5, "País", celdasData);
+                CreateCell(Row3, 6, "Fecha autoevaluacion", celdasData);
+                CreateCell(Row3, 7, "Aprendizaje continuo", celdasData);
+                CreateCell(Row3, 8, "Autonomía", celdasData);
+                CreateCell(Row3, 9, "Colaboración", celdasData);
+                CreateCell(Row3, 10, "Comunicación efectiva", celdasData);
+                CreateCell(Row3, 11, "Gestión del cambio", celdasData);
+                CreateCell(Row3, 12, "visión sistémica", celdasData);
 
                 setBordersToMergedCells(Sheet);
-                int lastColumNum = Sheet.GetRow(1).LastCellNum;
+                int lastColumNum = Sheet.GetRow(3).LastCellNum;
                 for (int i = 0; i <= lastColumNum; i++)
                 {
                     Sheet.AutoSizeColumn(i, true);
                     GC.Collect();
                 }
 
-                var contador = 9;
-                foreach (var item in master)
+                //var contador = 3;
+                IRow Row4 = Sheet.CreateRow(4);
+                CreateCell(Row4, 0, autoevaluacion[0].legajo.ToString(), celdasInfo);
+                CreateCell(Row4, 1, autoevaluacion[0].idUsuario.ToString(), celdasInfo);
+                CreateCell(Row4, 2, autoevaluacion[0].colaborador, celdasInfo);
+                CreateCell(Row4, 3, autoevaluacion[0].nombreJefe, celdasInfo);
+                CreateCell(Row4, 4, autoevaluacion[0].convenio, celdasInfo);
+                CreateCell(Row4, 5, autoevaluacion[0].pais, celdasInfo);
+                CreateCell(Row4, 6, autoevaluacion[0].fechaCalificacionAutoevaluacion?.ToString("dd-MM-yyyy") ?? "", celdasInfo);
+                foreach (var item in autoevaluacion)
                 {
-                    contador++;
-                    IRow RowForeach = Sheet.CreateRow(contador);
-
-                    //CreateCell(RowForeach, 0, "", celdasInfo);
-                    CreateCell(RowForeach, 1, "", celdasInfo);
-                    CreateCell(RowForeach, 2, "", celdasInfo);
-                    CreateCell(RowForeach, 3, "", celdasInfo);
-                    CreateCell(RowForeach, 4, "", celdasInfo);
-                    CreateCell(RowForeach, 5, "", celdasInfo);
-                    CreateCell(RowForeach, 6, item.fechaCalificacionAutoevaluacion?.ToString("dd-MM-yyyy") ?? "", celdasInfo);
+                    var calificacion = "";
+                    if(item.idCalificacion == 4)
+                    {
+                        calificacion = "0";
+                    }
+                    else
+                    {
+                        calificacion = item.idCalificacion.ToString();
+                    }
+                    
+                    if(item.idHabilidad == 1)
+                    {
+                        CreateCell(Row4, 7, calificacion, celdasInfo);
+                    }
+                    else if (item.idHabilidad == 2)
+                    {
+                        CreateCell(Row4, 8, calificacion, celdasInfo);
+                    }
+                    else if (item.idHabilidad == 3)
+                    {
+                        CreateCell(Row4, 9, calificacion, celdasInfo);
+                    }
+                    else if (item.idHabilidad == 4)
+                    {
+                        CreateCell(Row4, 10, calificacion, celdasInfo);
+                    }
+                    else if (item.idHabilidad == 5)
+                    {
+                        CreateCell(Row4, 11, calificacion, celdasInfo);
+                    }
+                    else if (item.idHabilidad == 6)
+                    {
+                        CreateCell(Row4, 12, calificacion, celdasInfo);
+                    }
 
                 }
-                byte[] data = File.ReadAllBytes("~/assets/img/performanceIdentidad2024.png");               
+                string filePath = HttpContext.Current.Server.MapPath("~/assets/img/performanceIdentidad2024.png");
+                byte[] data = File.ReadAllBytes(filePath);
                 int pictureIndex = workbook.AddPicture(data, PictureType.PNG);
-
                 ICreationHelper helper = workbook.GetCreationHelper();
                 IDrawing drawing = Sheet.CreateDrawingPatriarch();
                 IClientAnchor anchor = helper.CreateClientAnchor();
-                anchor.Col1 = 1;//0 index based column
-                anchor.Row1 = 1;//0 index based row
+                anchor.Col1 = 0; // Columna inicial
+                anchor.Row1 = 0; // Fila inicial
+                anchor.Col2 = 2; // Columna final (ajusta según sea necesario)
+                anchor.Row2 = 2; // Fila final (ajusta según sea necesario)
 
                 IPicture picture = drawing.CreatePicture(anchor, pictureIndex);
-                picture.Resize();
+                // Aumentar el tamaño de la imagen al 150% de su tamaño original
+                picture.Resize(1.40);
 
                 //Uniones
-                CellRangeAddress union1 = new CellRangeAddress(1, 3, 1, 6);
+                CellRangeAddress union1 = new CellRangeAddress(0, 2, 0, 12);
 
                 //Completa union
                 Sheet.AddMergedRegion(union1);
@@ -234,29 +236,28 @@ namespace Performance.Servicios
                 ReporteExcelVM reporteExcelVM = new ReporteExcelVM();
                 List<DetalleExcelVM> list = new List<DetalleExcelVM>();
                 list.Capacity = 30;
-                foreach (var fila in list)
-                {
-                    int nroLic2 = fila.motivoLic.Count;
-                    if (nroLic2 > (cantidad + 1))
-                    {
-                        cantidad = nroLic2 + 1;
-                    }
-                }
-                var col = cantidad + g;
-
-                //if (!Directory.Exists(System.Web.HttpContext.Current.Server.MapPath("~/TempFiles/")))
-                //    Directory.CreateDirectory(System.Web.HttpContext.Current.Server.MapPath("~/TempFiles/"));
-                //var pathInic = "~/TempFiles/";
-                //var nombreArchivo = "Documental-Master-" + Convert.ToDateTime(DateTime.Today).ToString("dd-MM-yyyy") + Convert.ToDateTime(DateTime.Now).ToString("HH-mm") + ".xlsx";
-                //var path = Path.Combine(System.Web.HttpContext.Current.Server.MapPath(pathInic), nombreArchivo);
-                //using (var fileData = new FileStream(path, FileMode.Create))
+                //foreach (var fila in list)
                 //{
-                //    workbook.Write(fileData);
-                //    fileData.Close();
+                //    int nroLic2 = fila.motivoLic.Count;
+                //    if (nroLic2 > (cantidad + 1))
+                //    {
+                //        cantidad = nroLic2 + 1;
+                //    }
                 //}
+                //var col = cantidad + g;
 
-                //reporteExcelVM.filePath = path;
-                //reporteExcelVM.fileName = nombreArchivo;
+                if (!Directory.Exists(System.Web.HttpContext.Current.Server.MapPath("~/TempFiles/")))
+                    Directory.CreateDirectory(System.Web.HttpContext.Current.Server.MapPath("~/TempFiles/"));
+                var pathInic = "~/TempFiles/";
+                var nombreArchivo = "Performance_Colaborador_AutoEvaluacion_" + Convert.ToDateTime(DateTime.Today).ToString("dd-MM-yyyy") + Convert.ToDateTime(DateTime.Now).ToString("HH-mm") + ".xlsx";
+                var path = Path.Combine(System.Web.HttpContext.Current.Server.MapPath(pathInic), nombreArchivo);
+                using (var fileData = new FileStream(path, FileMode.Create))
+                {
+                    workbook.Write(fileData);
+                    fileData.Close();
+                }
+                reporteExcelVM.filePath = path;
+                reporteExcelVM.fileName = nombreArchivo;
                 return reporteExcelVM;
             }
         }
@@ -476,7 +477,7 @@ namespace Performance.Servicios
                 CreateCell(Row3, 0, "Legajo", celdasData);
                 CreateCell(Row3, 1, "idUsuario", celdasData);
                 CreateCell(Row3, 2, "Nombre Colaborador", celdasData);
-                CreateCell(Row3, 3, "Líder", celdasData);
+                CreateCell(Row3, 3, "    Líder    ", celdasData);
                 CreateCell(Row3, 4, "Convenio", celdasData);
                 CreateCell(Row3, 5, "País", celdasData);
                 CreateCell(Row3, 6, "Dominio", celdasData);

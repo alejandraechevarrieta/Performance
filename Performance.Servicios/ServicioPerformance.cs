@@ -420,6 +420,8 @@ namespace Performance.Servicios
                                         fechaCalificacionEvaluacion = null,
                                         nombreHabilidadEvaluacion = null,
                                         calificacionEvaluacion = null,
+                                        nombreJefe = p.nombreJefe,
+                                        colaborador = p.nombre
                                     }).ToList();
             var evaluaciones = (
                 from a in db.EvaluacionPerformance
@@ -472,6 +474,13 @@ namespace Performance.Servicios
                                ano = p.ano,
                                idPerformance = a.idPerformance,
                                idUsuario = p.idUsuario,
+                               legajo = p.legajo,
+                               edad = p.edad,
+                               sexo = p.sexo,
+                               pais = p.pais,
+                               convenio = p.convenio,
+                               dominio = p.dominio,
+                               categoria = p.categoria,
                                colaborador = p.nombre,
                                idJefe = p.idJefe,
                                nombreJefe = p.nombreJefe,
@@ -532,7 +541,7 @@ namespace Performance.Servicios
                 excel.filas.Add(detalle);
 
                 ExcelUtility excelUtility = new ExcelUtility();
-                excel = excelUtility.GenerarReportePerformance(list);
+                excel = excelUtility.GenerarReporteColaboradores(list);
                 return excel;
             }
 
