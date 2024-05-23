@@ -176,7 +176,7 @@ namespace Performance.Areas.PerformanceApp.Controllers.Api
 
                     var performance = db.PerformanceColaborador.Where(x => x.idPerformance == autoevaluacion.idPerformance).FirstOrDefault();
 
-                    //await EnviarMailLider(performance.idUsuario, performance.idJefe, tmp.body, tmp.asunto);
+                    await EnviarMailLider(performance.idUsuario, performance.idJefe, tmp.body, tmp.asunto);
 
                 return tmp.idPerformance;
                 }
@@ -360,6 +360,7 @@ namespace Performance.Areas.PerformanceApp.Controllers.Api
             }
         }
 
+        //EXCEL DE AUTOEVALUACION
         [System.Web.Http.Route("/GenerarExcelUnColaborador")]
         [System.Web.Http.ActionName("GenerarExcelUnColaborador")]
         [System.Web.Http.HttpGet]
