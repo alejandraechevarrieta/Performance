@@ -72,6 +72,11 @@ namespace Performance.Model
         public int id { get; set; }
         public string estado { get; set; }
     }
+    public class PerformanceAnos
+    {
+        public int ano { get; set; }
+       
+    }
     public class ColaboradorVM
     {      
         public int idUsuario { get; set; }
@@ -135,6 +140,8 @@ namespace Performance.Model
         public string calificacionAutoevaluacion { get; set; }
         public string nombreHabilidadEvaluacion { get; set; }
         public string calificacionEvaluacion { get; set; }
+        public List<int?> autoEvaluaciones { get; set; }
+        public List<int?> evaluaciones { get; set; }
     }
     public class MailVM
     {

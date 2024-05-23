@@ -82,7 +82,7 @@ namespace Performance.Areas.PerformanceApp.Controllers.Api
         [System.Web.Http.Route("Api/PerformanceApp/ListarPerformance")]
         [System.Web.Http.ActionName("ListarPerformance")]
         [System.Web.Http.HttpPost]
-        public HttpResponseMessage ListarPerformance(DataTableRequestModel requestModel, string idUsuario, string idPerfil, int? colaborador, int? estado, int? lider)
+        public HttpResponseMessage ListarPerformance(DataTableRequestModel requestModel, string idUsuario, string idPerfil, int? colaborador, int? estado, int? lider, int? ano)
         {
             var draw = requestModel.draw;
             var start = requestModel.start;
@@ -96,7 +96,7 @@ namespace Performance.Areas.PerformanceApp.Controllers.Api
             Servicios.ServicioPerformance _servicio = new Servicios.ServicioPerformance();
 
             // Consulta a tu servicio para obtener los datos
-            var listaPpal = _servicio.listarPerformance(idUsuario, idPerfil, colaborador, estado, lider);
+            var listaPpal = _servicio.listarPerformance(idUsuario, idPerfil, colaborador, estado, lider, ano);
 
             // Filtrar y paginar los datos según los parámetros recibidos
             var listFiltr = listaPpal.Where(x => x.idPerformance > 0).Distinct().ToList();
@@ -142,6 +142,14 @@ namespace Performance.Areas.PerformanceApp.Controllers.Api
         {
             Servicios.ServicioPerformance servicio = new Servicios.ServicioPerformance();
             return servicio.listarEstadosPerformance();
+        }
+        [System.Web.Http.Route("Api/PerformanceApp/listarAnosPerformance")]
+        [System.Web.Http.ActionName("listarAnosPerformance")]
+        [System.Web.Http.HttpGet]
+        public List<PerformanceAnos> listarAnosPerformance()
+        {
+            Servicios.ServicioPerformance servicio = new Servicios.ServicioPerformance();
+            return servicio.listarAnosPerformance();
         }
         [System.Web.Http.Route("/ListarColaboradores/")]
         [System.Web.Http.ActionName("ListarColaboradores")]
@@ -409,11 +417,11 @@ namespace Performance.Areas.PerformanceApp.Controllers.Api
         [System.Web.Http.Route("Api/Viaticos/GenerarExcelReportesColaboradores")]
         [System.Web.Http.ActionName("GenerarExcelReportesColaboradores")]
         [System.Web.Http.HttpGet]
-        public HttpResponseMessage GenerarExcelReportesColaboradores()
+        public HttpResponseMessage GenerarExcelReportesColaboradores(int? colaborador, int? estado, int? lider, int? ano)
         {
 
             Servicios.ServicioPerformance servicio = new Servicios.ServicioPerformance();
-            var excel = servicio.GenerarExcelReportesColaboradores();
+            var excel = servicio.GenerarExcelReportesColaboradores(colaborador, estado, lider, ano);
                 return DownloadFile(excel.filePath, excel.fileName);
             
         }

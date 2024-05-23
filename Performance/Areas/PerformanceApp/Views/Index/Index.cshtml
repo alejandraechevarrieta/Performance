@@ -156,60 +156,67 @@
                 </div>
             </div>
         }
-        <div class="row m-3" style="overflow: hidden; margin-top: 0px;" id="rowFiltro">
-            @if (Convert.ToInt32(perfil) == 128 || Convert.ToInt32(perfil) == 129)
+    <div class="row m-3" style="overflow: hidden; margin-top: 0px;" id="rowFiltro">
+        @if (Convert.ToInt32(perfil) == 128 || Convert.ToInt32(perfil) == 129)
+        {
+            if (Convert.ToInt32(perfil) == 128 || Convert.ToInt32(perfil) == 129)
             {
-                if (Convert.ToInt32(perfil) == 128 || Convert.ToInt32(perfil) == 129)
-                {
-                    <div class="form-group2 col-md-2" id="filtroColaborador">
-                        <label>Colaborador:</label>
-                        <div></div>
-                        <div style="font-weight: normal !important;">
-                            <select class="form-control" id="selectColaborador"></select>
-                        </div>
-                    </div>
-                }
-                if (Convert.ToInt32(perfil) == 129)
-                {
-                    <div class="form-group2 col-md-2" id="filtroLider">
-                        <label>Líder:</label>
-                        <div></div>
-                        <div style="font-weight: normal !important;">
-                            <select class="form-control" id="selectLider"></select>
-                        </div>
-                    </div>
-                }
-                <div class="form-group2 col-md-2" id="filtroEstado">
-                    <label>Estado:</label>
+                <div class="form-group2 col-md-2" id="filtroColaborador">
+                    <label>Colaborador:</label>
                     <div></div>
-                    <select class="form-control" id="selectEstado">
-                    </select>
-                </div>
-                <div class="form-group2 col-md-1 mt-2" style="padding-top: 1.9%;" id="btnBuscarFiltro">
-                    <button id="btnFiltrar" type="button" class="btn btn-success" style="width: 120px; cursor: pointer;">
-                        Buscar
-                    </button>
-                </div>
-                <div class="form-group2 col-md-1 mt-2" style="padding-top: 1.9%; margin-left:10px;" id="btnLimpiar">
-                    <button id="btnFiltrar" type="button" class="btn btn-info" style="width: 120px; cursor: pointer;">
-                        Limpiar
-                    </button>
-                </div>
-                if (Convert.ToInt32(perfil) == 129)
-                {
-                    <div class="col-md-2" style="margin-left:150px;">
-                        <div class="d-flex flex-column border p-3">
-                            <div id="totalPendiente" class="mb-2"><span class="mr-3" style="width: 20px; height: 20px; display: inline-block; background-color: #7AC11F !important; "></span> Pendiente</div>
-                            <div id="totalCompletado" class="mb-2"><span class="mr-3" style="width: 20px; height: 20px; display: inline-block; background-color: #FFC107 !important;"></span> Completado</div>
-                            <div id="totalEvaluado" class="mb-2"><span class="mr-3" style="width: 20px; height: 20px; display: inline-block; background-color: #69E6FF !important;"></span> Evaluado</div>
-                            <div id="totalFeedback" class="mb-2"><span class="mr-3" style="width: 20px; height: 20px; display: inline-block; background-color: #17AFB6 !important;"></span> Feedback</div>
-                            <div id="totalFinalizado" class="mb-2"><span class="mr-3" style="width: 20px; height: 20px; display: inline-block; background-color: #9b9b9b !important;"></span> Finalizado</div>
-                        </div>
+                    <div style="font-weight: normal !important;">
+                        <select class="form-control" id="selectColaborador"></select>
                     </div>
-                }
+                </div>
             }
+            if (Convert.ToInt32(perfil) == 129)
+            {
+                <div class="form-group2 col-md-2" id="filtroLider">
+                    <label>Líder:</label>
+                    <div></div>
+                    <div style="font-weight: normal !important;">
+                        <select class="form-control" id="selectLider"></select>
+                    </div>
+                </div>
+            }
+            <div class="form-group2 col-md-2" id="filtroEstado">
+                <label>Estado:</label>
+                <div></div>
+                <select class="form-control" id="selectEstado">
+                </select>
+            </div>
+            <div class="form-group2 col-md-1" id="filtroAno">
+                <label>Año:</label>
+                <div></div>
+                <div style="font-weight: normal !important;">
+                    <select class="form-control" id="selectAno"></select>
+                </div>
+            </div>
+            <div class="form-group2 col-md-1 mt-2" style="padding-top: 1.9%;" id="btnBuscarFiltro">
+                <button id="btnFiltrar" type="button" class="btn btn-success" style="width: 120px; cursor: pointer;">
+                    Buscar
+                </button>
+            </div>
+            <div class="form-group2 col-md-1 mt-2" style="padding-top: 1.9%; margin-left:10px;" id="btnLimpiar">
+                <button id="btnFiltrar" type="button" class="btn btn-info" style="width: 120px; cursor: pointer;">
+                    Limpiar
+                </button>
+            </div>
+            if (Convert.ToInt32(perfil) == 129)
+            {
+                <div class="col-md-2" style="margin-left:100px;">
+                    <div class="d-flex flex-column border p-3">
+                        <div id="totalPendiente" class="mb-2"><span class="mr-3" style="width: 20px; height: 20px; display: inline-block; background-color: #7AC11F !important; "></span> Pendiente</div>
+                        <div id="totalCompletado" class="mb-2"><span class="mr-3" style="width: 20px; height: 20px; display: inline-block; background-color: #FFC107 !important;"></span> Completado</div>
+                        <div id="totalEvaluado" class="mb-2"><span class="mr-3" style="width: 20px; height: 20px; display: inline-block; background-color: #69E6FF !important;"></span> Evaluado</div>
+                        <div id="totalFeedback" class="mb-2"><span class="mr-3" style="width: 20px; height: 20px; display: inline-block; background-color: #17AFB6 !important;"></span> Feedback</div>
+                        <div id="totalFinalizado" class="mb-2"><span class="mr-3" style="width: 20px; height: 20px; display: inline-block; background-color: #9b9b9b !important;"></span> Finalizado</div>
+                    </div>
+                </div>
+            }
+        }
 
-        </div>
+    </div>
 
         <!-- MultiStep Form -->
         <div class="container-fluid py-4" id="grad1">
@@ -363,6 +370,7 @@
 
         $(document).ready(function () {
             CargarEstados();
+            CargarAnos();
             ListarPerformance();
             CargarColaboradoresFiltro();
             CargarLideresFiltro();
@@ -387,6 +395,7 @@
             $('#selectColaborador').val('');
             $('#selectEstado').val('');
             $('#selectLider').val('');
+            $('#selectAno').val('');
             ListarPerformance();
         }
     ///LISTAR PERFORMANCE
@@ -394,12 +403,14 @@
             var colaborador = $("#selectColaborador").val();
             var estado = $("#selectEstado").val();
             var lider = $("#selectLider").val();
+            var ano = $("#selectAno").val();
             var url = "Api/PerformanceApp/ListarPerformance";
             url = url + "?idUsuario=" + "@idUsuario";
             url = url + "&idPerfil=" + "@perfil";
             url = url + "&colaborador=" + colaborador;
             url = url + "&estado=" + estado;
             url = url + "&lider=" + lider;
+            url = url + "&ano=" + ano;
 
             if ("@perfil" == "127") {//Tabla del colaborador
                 IniciarTabla();
@@ -842,6 +853,22 @@
                     });
                 });
         }
+        function CargarAnos() {
+            var selecAnos = $('#selectAno');
+            selecAnos.empty();
+            selecAnos.append($('<option/>', { value: '', text: 'Seleccionar' }).hide());
+            var url = "Api/PerformanceApp/listarAnosPerformance";
+            $.getJSON(url)
+                .done(function (data) {
+                    console.log(data);
+                    $.each(data, function (index, result) {
+                        selecAnos.append($('<option/>', {
+                            value: result.ano,
+                            text: result.ano
+                        }));
+                    });
+                });
+        }
         @*var token = "";
         GenerarToken();
         function GenerarToken() {
@@ -964,7 +991,15 @@
         }
         ////REPORTES
         function GenerarExcelColaboradores() {
+            var colaborador = $("#selectColaborador").val();
+            var estado = $("#selectEstado").val();
+            var lider = $("#selectLider").val();
+            var ano = $("#selectAno").val();
             var url = 'Api/PerformanceApp/GenerarExcelReportesColaboradores';
+            url = url + "?colaborador=" + colaborador;              
+            url = url + "&estado=" + estado;
+            url = url + "&lider=" + lider;
+            url = url + "&ano=" + ano;
             window.location.href = url;
         }
 
