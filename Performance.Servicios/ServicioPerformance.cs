@@ -260,7 +260,7 @@ namespace Performance.Servicios
                     "<table border=\"0\" width=\"200px\" bgcolor=\"#EDECEB\"> \r\n    " +
                         "<tbody> \r\n        " +
                             "<tr> \r\n            " +
-                                "<td align=\"center\"><img src=\"https://buhogestion.distrocuyo.com/Content/perform/performanceIdentidad2024.png\" alt=\"\" width=\"50px\"></td> \r\n        " +
+                                "<td align=\"center\"><img src=\"https://buhogestion.distrocuyo.com/content/img/verdeChiquito.gif\" alt=\"\" width=\"150px\" alt=\"\" width=\"50px\"></td> \r\n        " +
                             "</tr> \r\n    " +
                         "</tbody> \r\n" +
                     "</table>\r\n" +
@@ -437,6 +437,8 @@ namespace Performance.Servicios
                                         fechaCalificacionEvaluacion = null,
                                         nombreHabilidadEvaluacion = null,
                                         calificacionEvaluacion = null,
+                                        nombreJefe = p.nombreJefe,
+                                        colaborador = p.nombre
                                     }).ToList();
             var evaluaciones = (
                 from a in db.EvaluacionPerformance
@@ -473,17 +475,29 @@ namespace Performance.Servicios
             return datosPerformance;
         }
 
-        public ReporteExcelVM GenerarExcelMasterList()
+        public ReporteExcelVM GenerarExcelUnColaborador(int idPerformance)
         {
             using (PerformanceEntities _db = new PerformanceEntities())
             {
-                var tmp = (from p in _db.PerformanceColaborador
+                var tmp = (from a in _db.AutoEvaluacion
+                           join p in _db.PerformanceColaborador on a.idPerformance equals p.idPerformance
                            join e in _db.Estados on p.estado equals e.id
+                           join c in _db.Calificacion on a.idCalificacion equals c.idCalificacion
+                           join h in _db.Habilidades on a.idHabilidad equals h.idHabilidad
+                           where a.idPerformance == idPerformance
                            select new DatosPerformanceVM
                            {
+                               idAutoevaluacion = a.idAutoEvaluacion,
                                ano = p.ano,
-                               idPerformance = p.idPerformance,
+                               idPerformance = a.idPerformance,
                                idUsuario = p.idUsuario,
+                               legajo = p.legajo,
+                               edad = p.edad,
+                               sexo = p.sexo,
+                               pais = p.pais,
+                               convenio = p.convenio,
+                               dominio = p.dominio,
+                               categoria = p.categoria,
                                colaborador = p.nombre,
                                idJefe = p.idJefe,
                                nombreJefe = p.nombreJefe,
@@ -494,7 +508,11 @@ namespace Performance.Servicios
                                fechaFeedback = p.fechaEvaluacion, //cambiar
                                idEstado = p.estado,
                                estado = e.estado,
-                           }).OrderByDescending(x => x.ano).ThenBy(x => x.colaborador);
+                               idHabilidad = a.idHabilidad,
+                               idCalificacion = a.idCalificacion,
+                               calificacion = c.nombre,
+                               habilidad = h.habilidad
+                           }).OrderBy(x => x.idHabilidad);
                 var list = tmp.ToList();
 
                 ReporteExcelVM excel = new ReporteExcelVM();
@@ -504,7 +522,7 @@ namespace Performance.Servicios
                 excel.filas.Add(detalle);
 
                 ExcelUtility excelUtility = new ExcelUtility();
-                excel = excelUtility.GenerarReportePerformance(list);
+                excel = excelUtility.GenerarUnReportePerformance(list);
                 return excel;
             }
 
@@ -540,7 +558,7 @@ namespace Performance.Servicios
                 excel.filas.Add(detalle);
 
                 ExcelUtility excelUtility = new ExcelUtility();
-                excel = excelUtility.GenerarReportePerformance(list);
+                excel = excelUtility.GenerarReporteColaboradores(list);
                 return excel;
             }
 

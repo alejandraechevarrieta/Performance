@@ -20473,12 +20473,12 @@ fieldset:disabled .btn {
 
 .btn-primary:not(:disabled):not(.disabled).active,
 .btn-primary:not(:disabled):not(.disabled):active,
-.show>.btn-primary.dropdown-toggle,
+.show > .btn-primary.dropdown-toggle,
 .btn.bg-gradient-primary:not(:disabled):not(.disabled).active,
 .btn.bg-gradient-primary:not(:disabled):not(.disabled):active,
-.show>.btn.bg-gradient-primary.dropdown-toggle {
-  color: color-yiq(#cb0c9f);
-  background-color: #cb0c9f;
+.show > .btn.bg-gradient-primary.dropdown-toggle {
+    color: color-yiq(#cb0c9f);
+    background-color: #17afb696;
 }
 
 .btn-primary.focus,

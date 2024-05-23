@@ -184,7 +184,7 @@ namespace Performance.Areas.PerformanceApp.Controllers.Api
 
                     var performance = db.PerformanceColaborador.Where(x => x.idPerformance == autoevaluacion.idPerformance).FirstOrDefault();
 
-                    //await EnviarMailLider(performance.idUsuario, performance.idJefe, tmp.body, tmp.asunto);
+                    await EnviarMailLider(performance.idUsuario, performance.idJefe, tmp.body, tmp.asunto);
 
                 return tmp.idPerformance;
                 }
@@ -368,16 +368,17 @@ namespace Performance.Areas.PerformanceApp.Controllers.Api
             }
         }
 
-        //[System.Web.Http.Route("/GenerarExcelFormularioA")]
-        //[System.Web.Http.ActionName("GenerarExcelFormularioA")]
-        //[System.Web.Http.HttpGet]
-        //public HttpResponseMessage GenerarExcelMasterList()
-        //{
-        //    Servicios.ServicioPerformance servicio = new Servicios.ServicioPerformance();
-        //    var excel = servicio.GenerarExcelMasterList();
+        //EXCEL DE AUTOEVALUACION
+        [System.Web.Http.Route("/GenerarExcelUnColaborador")]
+        [System.Web.Http.ActionName("GenerarExcelUnColaborador")]
+        [System.Web.Http.HttpGet]
+        public HttpResponseMessage GenerarExcelUnColaborador(int idPerformance)
+        {
+            Servicios.ServicioPerformance servicio = new Servicios.ServicioPerformance();
+            var excel = servicio.GenerarExcelUnColaborador(idPerformance);
 
-        //    return DownloadFileCh(excel.filePath, excel.fileName);.
-        //}
+            return DownloadFile(excel.filePath, excel.fileName);
+        }
 
         public class TokenRequest
         {

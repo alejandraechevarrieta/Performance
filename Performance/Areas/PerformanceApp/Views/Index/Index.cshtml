@@ -240,6 +240,7 @@
                                                 <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Fecha de Autoevaluación</th>
                                                 <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Fecha de Feedback</th>
                                                 <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Estado</th>
+                                                @*<th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Acciones</th>*@
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -271,6 +272,7 @@
                                                 <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Fecha de Evaluación</th>
                                                 <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Fecha de Calibración</th>
                                                 <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Estado</th>
+                                                @*<th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Acciones</th>*@
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -460,12 +462,13 @@
                 "filter": true,
                 "responsivePriority": 1,
                 "columnDefs": [
-                    { "width": "7%", "targets": 0 },
+                    { "width": "13%", "targets": 0 },
                     { "width": "20%", "targets": 1 },
                     { "width": "20%", "targets": 2 },
-                    { "width": "7%", "targets": 3 },
-                    { "width": "7%", "targets": 4 },
-                    { "width": "10%", "targets": 5 },
+                    { "width": "13%", "targets": 3 },
+                    { "width": "13%", "targets": 4 },
+                    { "width": "20%", "targets": 5 },
+                    /*{ "width": "10%", "targets": 6 },*/
 
                 ],
                 "columns": [
@@ -526,7 +529,7 @@
                                 return '<div style="text-align: center;"><a href="/PerformanceApp/Index/Crud?view=autoevaluacion&idPerformance=' + row.idPerformance + '&nombre=' + row.nombre + '" class="btn btn-sm grilla-btn btn-info" title="Autoevaluación sin realizar" style="font-size: 100% !important;">' + row.estado + '</a></div>';
                             }
                             if (data == 2) {
-                                return '<div style="text-align: center;"><a href="/PerformanceApp/Index/Crud?view=performance&idPerformance=' + row.idPerformance + '" class="btn btn-sm grilla-btn btn-warning" title="Autoevaluación realizada, sin Evaluación" style="font-size: 100% !important;">' + row.estado + '</a></div>';
+                                return '<div style="text-align: center;"><a href="/PerformanceApp/Index/Crud?view=performance&idPerformance=' + row.idPerformance + '" class="btn grilla-btn btn-warning" title="Autoevaluación realizada, sin Evaluación" style="font-size: 100% !important;">' + row.estado + '</a></div>';
                             }
                             if (data == 3) {
                                 return '<div style="text-align: center;"><a href="/PerformanceApp/Index/Crud?view=performance&idPerformance=' + row.idPerformance + '" class="btn btn-sm grilla-btn btn-success" title="Evaluación del líder realizada" style="font-size: 100% !important;">' + row.estado + '</a></div>';
@@ -539,6 +542,21 @@
                             }
                         }
                     },
+                    //{
+                    //    "data": "idEstado",
+                    //    "name": "Acciones",
+                    //    "autoWidth": false,
+                    //    "render": function (data, type, row, meta) {
+                    //        if (data == 2) {
+                    //            return '<div style="text-align: center;" title="Descargar excel AutoEvaluación">' +
+                    //                '<button class="btn btn-primary" onclick="GenerarExcelUnColaborador(' + row.idPerformance + ')"><i class="fas fa-cloud-download-alt"></i></button>' +
+                    //                '</div>';
+                    //        }
+                    //        else {
+                    //            return '';
+                    //        }
+                    //    }
+                    //},
                 ],
                 "createdRow": function (row, data, index) {
 
@@ -580,11 +598,12 @@
                 "responsivePriority": 1,
                 "columnDefs": [
                     { "width": "10%", "targets": 0 },
-                    { "width": "26%", "targets": 1 },
+                    { "width": "20%", "targets": 1 },
                     { "width": "16%", "targets": 2 },
                     { "width": "16%", "targets": 3 },
                     { "width": "16%", "targets": 4 },
-                    { "width": "16%", "targets": 5 },
+                    { "width": "20%", "targets": 5 },
+                    /*{ "width": "10%", "targets": 6 },*/
                 ],
                 "columns": [
                     {
@@ -651,7 +670,7 @@
                                 return '<div style="text-align: center;"><a href="/PerformanceApp/Index/Crud?view=performance&idPerformance=' + row.idPerformance + '" class="btn btn-sm grilla-btn btn-info" title="Autoevaluación sin realizar" style="font-size: 100% !important;">' + row.estado + '</a></div>';
                             }
                             if (data == 2) {
-                                return '<div style="text-align: center;"><a href="/PerformanceApp/Index/Crud?view=evaluacion&idPerformance=' + row.idPerformance + '" class="btn btn-sm grilla-btn btn-warning" title="Autoevaluación realizada, sin Evaluación" style="font-size: 100% !important;">' + row.estado + '</a></div>';
+                                return '<div style="text-align: center;"><a href="/PerformanceApp/Index/Crud?view=evaluacion&idPerformance=' + row.idPerformance + '" class="btn grilla-btn btn-warning" title="Autoevaluación realizada, sin Evaluación" style="font-size: 100% !important;">' + row.estado + '</a></div>';
                             }
                             if (data == 3) {
                                 return '<div style="text-align: center;"><a href="/PerformanceApp/Index/Crud?view=performance&idPerformance=' + row.idPerformance + '" class="btn btn-sm grilla-btn btn-success" title="Evaluación del líder realizada" style="font-size: 100% !important;">' + row.estado + '</a></div>';
@@ -664,6 +683,21 @@
                             }
                         }
                     },
+                    //{
+                    //    "data": "idEstado",
+                    //    "name": "Acciones",
+                    //    "autoWidth": false,
+                    //    "render": function (data, type, row, meta) {
+                    //        if (data == 2) {
+                    //            return '<div style="text-align: center;" title="Descargar excel AutoEvaluación">' +
+                    //                '<button class="btn btn-primary" onclick="GenerarExcelUnColaborador(' + row.idPerformance + ')"><i class="fas fa-cloud-download-alt"></i></button>' +
+                    //                '</div>';
+                    //        }
+                    //        else {
+                    //            return '';
+                    //        }
+                    //    }
+                    //},
                 ],
                 "createdRow": function (row, data, index) {
                     // Aquí puedes aplicar estilos o clases a las filas según tus datos
@@ -1000,6 +1034,10 @@
             url = url + "&estado=" + estado;
             url = url + "&lider=" + lider;
             url = url + "&ano=" + ano;
+            window.location.href = url;
+        }
+        function GenerarExcelUnColaborador(idPerformance) {
+            var url = 'Api/PerformanceApp/GenerarExcelUnColaborador?idPerformance=' + idPerformance;
             window.location.href = url;
         }
 

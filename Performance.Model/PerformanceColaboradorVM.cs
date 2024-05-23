@@ -111,8 +111,8 @@ namespace Performance.Model
     }
     public class DatosPerformanceVM
     {
-        public int idUsuario { get; set; }
         public Nullable<int> legajo { get; set; }
+        public int idUsuario { get; set; }
         public string colaborador { get; set; }
         public Nullable<int> edad { get; set; }
         public string sexo { get; set; }
@@ -140,6 +140,13 @@ namespace Performance.Model
         public string calificacionAutoevaluacion { get; set; }
         public string nombreHabilidadEvaluacion { get; set; }
         public string calificacionEvaluacion { get; set; }
+
+        //COSAS DE AUTOEVALUACION
+        public int idAutoevaluacion { get; set; }
+        public int? idHabilidad { get; set; }
+        public string habilidad { get; set; }
+        public int? idCalificacion { get; set; }
+        public string calificacion { get; set; }
         public List<int?> autoEvaluaciones { get; set; }
         public List<int?> evaluaciones { get; set; }
     }
