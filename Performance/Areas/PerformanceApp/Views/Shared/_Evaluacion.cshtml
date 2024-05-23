@@ -354,7 +354,7 @@
             <div class="col-11 col-sm-9 col-md-7 col-lg-6 text-center p-0 mt-3 mb-2 w-80">
                 <div class="card px-0 pt-4 pb-0 mt-3 mb-3">
                     <p class="h2"><strong>Evaluación de performance</strong></p>
-                    <p class="h4">Hola líder, a continuación debes contestar el formulario B.</p>
+                    <p class="h4">Hola líder, a continuación debes realizar la Evaluación.</p>
                     <div class="row">
                         <div class="col-md-12 mx-0">
                             <form id="msform">
@@ -379,7 +379,7 @@
                                 </fieldset>
                                 <fieldset id="tarj1">
                                     <div class="form-card">
-                                        <h2 class="fs-title">Autoevaluación</h2>
+                                        <h2 class="fs-title tituloAutoevaluacion">Autoevaluación</h2>
                                         <div class="row mt-1">
                                             <p class="h5">Actitud de superación permanente.  Búsqueda constante del crecimiento personal y profesional, siendo consciente de sus fortalezas y aspectos de mejora. Disposición a  experimentar nuevas ideas, conocimientos y experiencias.</p>
                                         </div>
@@ -404,7 +404,7 @@
                                 </fieldset>
                                 <fieldset id="tarj2">
                                     <div class="form-card">
-                                        <h2 class="fs-title">Autoevaluación</h2>
+                                        <h2 class="fs-title tituloAutoevaluacion">Autoevaluación</h2>
                                         <div class="row mt-1">
                                             <p class="h5">Capacidad de tomar decisiones, actuar y asumir los impactos de las mismas. La autonomia se fundamenta en la voluntad, la disciplina y responsabilidad.</p>
                                         </div>
@@ -429,7 +429,7 @@
                                 </fieldset>
                                 <fieldset id="tarj3">
                                     <div class="form-card">
-                                        <h2 class="fs-title">Autoevaluación</h2>
+                                        <h2 class="fs-title tituloAutoevaluacion">Autoevaluación</h2>
                                         <div class="row mt-1">
                                             <p class="h5">Actitud genuina para cooperar y colaborar con otros miembros de la empresa apuntando al logro de objetivos comunes, produciendo colectivamente resultados superiores a los individuales.</p>
                                         </div>
@@ -454,7 +454,7 @@
                                 </fieldset>
                                 <fieldset id="tarj4">
                                     <div class="form-card">
-                                        <h2 class="fs-title">Autoevaluación</h2>
+                                        <h2 class="fs-title tituloAutoevaluacion">Autoevaluación</h2>
                                         <div class="row mt-1">
                                             <p class="h5">Capacidad de transmitir mensajes de manera clara, concisa y comprensible, así como de escuchar activamente y comprender las ideas y perspectivas de los demás.</p>
                                         </div>
@@ -479,7 +479,7 @@
                                 </fieldset>
                                 <fieldset id="tarj5">
                                     <div class="form-card">
-                                        <h2 class="fs-title">Autoevaluación</h2>
+                                        <h2 class="fs-title tituloAutoevaluacion">Autoevaluación</h2>
                                         <div class="row mt-1">
                                             <p class="h5">Capacidad para actuar en escenarios dinámicos, ambiguos e inciertos, buscando de manera permanente y proactiva, oportunidades para generar ideas y soluciones que agreguen valor a la organización, inspirando a los demas.</p>
                                         </div>
@@ -504,7 +504,7 @@
                                 </fieldset>
                                 <fieldset id="tarj6">
                                     <div class="form-card">
-                                        <h2 class="fs-title">Autoevaluación</h2>
+                                        <h2 class="fs-title tituloAutoevaluacion">Autoevaluación</h2>
                                         <div class="row mt-1">
                                             <p class="h5">Capacidad de entender y considerar el sistema completo en el que opera la organización, reconociendo las interconexiones y las interdependencias entre diferentes actores y procesos.</p>
                                         </div>
@@ -734,6 +734,10 @@ function GuardarAutoevaluacion() {
                         $(selector).addClass("selected");
                     }
                 }
+            });
+            const elementos = document.querySelectorAll('.tituloAutoevaluacion');
+            elementos.forEach(elemento => {
+                elemento.textContent += " de " + datos[0].colaborador;
             });
         });
     }
