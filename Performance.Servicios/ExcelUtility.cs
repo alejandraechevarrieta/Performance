@@ -373,7 +373,7 @@ namespace Performance.Servicios
                 CreateCell(HeaderRow, 0, "", celdasEncabezado);
                 CreateCell(HeaderRow, 1, "", celdasEncabezado);
                 CreateCell(HeaderRow, 2, "", celdasEncabezado);
-                CreateCell(HeaderRow, 3, "                  PERFORMANCE COLABORADORES", celdasEncabezado2);
+                CreateCell(HeaderRow, 3, "PERFORMANCE COLABORADORES", celdasEncabezado2);
                 CreateCell(HeaderRow, 4, "", celdasEncabezado2);
                 CreateCell(HeaderRow, 5, "", celdasEncabezado2);
                 CreateCell(HeaderRow, 6, "", celdasEncabezado2);
@@ -469,7 +469,7 @@ namespace Performance.Servicios
                 CreateCell(Row3, 0, "Legajo", celdasData);
                 CreateCell(Row3, 1, "idUsuario", celdasData);
                 CreateCell(Row3, 2, "       Nombre Colaborador      ", celdasData);
-                CreateCell(Row3, 3, "       Líder                   ", celdasData);
+                CreateCell(Row3, 3, "        Líder              ", celdasData);
                 CreateCell(Row3, 4, "       Convenio                 ", celdasData);
                 CreateCell(Row3, 5, "     País      ", celdasData);
                 CreateCell(Row3, 6, "     Dominio        ", celdasData);
