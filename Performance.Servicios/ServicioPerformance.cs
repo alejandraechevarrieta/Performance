@@ -58,7 +58,7 @@ namespace Performance.Servicios
             return tmp;
         }
 
-        public List<PerformanceVM> listarPerformance(string idUsuario, string idPerfil, int? colaborador, int? estado, int? lider)
+        public List<PerformanceVM> listarPerformance(string idUsuario, string idPerfil, int? colaborador, int? estado, int? lider, int? ano)
         {
             var listaPpal = ListarPerformanceTodas().ToList();
             var idUsuarioInt = Convert.ToInt16(idUsuario);
@@ -85,6 +85,10 @@ namespace Performance.Servicios
             if (lider != null)
             {
                 listaPpal = listaPpal.Where(p => p.idJefe == lider).ToList();
+            }
+            if (ano != null)
+            {
+                listaPpal = listaPpal.Where(p => p.ano == ano).ToList();
             }
 
             return listaPpal;
@@ -141,6 +145,19 @@ namespace Performance.Servicios
                              });
                 return query.ToList();
             }
+        }
+        public List<PerformanceAnos> listarAnosPerformance()
+        {
+            List<PerformanceAnos> lista = null;
+
+            lista =
+            (from d in db.PerformanceColaborador
+             select new PerformanceAnos
+             {
+                 ano = d.ano,                
+             }).Where(x => x.ano != null).Distinct().ToList();
+
+            return lista.OrderBy(x => x.ano).ToList();
         }
         public List<ColaboradorVM> ListarColaboradores()
         {
@@ -307,22 +324,29 @@ namespace Performance.Servicios
                         nuevaPerformance.idJefe = item.idJefe;
                         nuevaPerformance.nombreJefe = item.nombreJefe;
                         nuevaPerformance.estado = 1;
-
+                        nuevaPerformance.edad = 0;
+                        nuevaPerformance.antiguedad = 0;
                         //calculo edad
-                        DateTime fechaNacimiento = item.fechaNacimiento.Value;
-                        DateTime fechaActual = DateTime.Today; 
-                        int edad = fechaActual.Year - fechaNacimiento.Year;
-                        // Verifica si el cumpleaños de este año ya ha pasado
-                        if (fechaActual < fechaNacimiento.AddYears(edad))
+                        if (item.fechaNacimiento != null)
                         {
-                            edad--;
+                            DateTime fechaNacimiento = item.fechaNacimiento.Value;
+                            DateTime fechaActual = DateTime.Today;
+                            int edad = fechaActual.Year - fechaNacimiento.Year;
+                            // Verifica si el cumpleaños de este año ya ha pasado
+                            if (fechaActual < fechaNacimiento.AddYears(edad))
+                            {
+                                edad--;
+                            }
+                            nuevaPerformance.edad = edad;
                         }
-                        nuevaPerformance.edad = edad;
-
-                        //calculo antiguedad
-                        int anoIngreso = item.fechaIngreso.Value.Year;
-                        int antiguedad= Math.Abs(anoActual - anoIngreso);
-                        nuevaPerformance.antiguedad = antiguedad;
+                        
+                      if(item.fechaIngreso != null)
+                        {
+                            //calculo antiguedad
+                            int anoIngreso = item.fechaIngreso.Value.Year;
+                            int antiguedad = Math.Abs(anoActual - anoIngreso);
+                            nuevaPerformance.antiguedad = antiguedad;
+                        }                      
                         
                         db.PerformanceColaborador.Add(nuevaPerformance);
                         db.SaveChanges();
@@ -546,36 +570,87 @@ namespace Performance.Servicios
             }
 
         }
-        public ReporteExcelVM GenerarExcelReportesColaboradores()
+        public ReporteExcelVM GenerarExcelReportesColaboradores(int? colaborador, int? estado, int? lider, int? ano)
         {
             using (PerformanceEntities _db = new PerformanceEntities())
             {
-                var tmp = (from p in _db.PerformanceColaborador
+                var query = (from p in _db.PerformanceColaborador
                            join e in _db.Estados on p.estado equals e.id
-                           select new DatosPerformanceVM
+                           select new
                            {
-                               ano = p.ano,
-                               idPerformance = p.idPerformance,
-                               idUsuario = p.idUsuario,
-                               legajo = p.legajo,
-                               colaborador = p.nombre,
-                               edad = p.edad,
-                               sexo = p.sexo,
-                               pais = p.pais,
-                               convenio = p.convenio,
-                               categoria = p.categoria,
-                               dominio = p.dominio,
-                               idJefe = p.idJefe,
-                               nombreJefe = p.nombreJefe,
-                               antiguedad = p.antiguedad,
-                               fechaCalificacionAutoevaluacion = p.fechaAutoevaluacion,
-                               fechaCalificacionEvaluacion = p.fechaEvaluacion,
-                               fechaCalibracion = p.fechaCalibracion,
-                               fechaFeedback = p.fechaEvaluacion, //cambiar
-                               idEstado = p.estado,
-                               estado = e.estado,
-                           }).OrderByDescending(x => x.ano).ThenBy(x => x.colaborador);
-                var list = tmp.ToList();
+                               p.ano,
+                               p.idPerformance,
+                               p.idUsuario,
+                               p.legajo,
+                               p.nombre,
+                               p.edad,
+                               p.sexo,
+                               p.pais,
+                               p.convenio,
+                               p.categoria,
+                               p.dominio,
+                               p.idJefe,
+                               p.nombreJefe,
+                               p.antiguedad,
+                               p.fechaAutoevaluacion,
+                               p.fechaEvaluacion,
+                               p.fechaCalibracion,
+                               p.estado,
+                               estadoNombre = e.estado,
+                               autoEvaluaciones = _db.AutoEvaluacion
+                                                   .Where(a => a.idPerformance == p.idPerformance)
+                                                   .Select(a => (int?)a.idCalificacion)
+                                                   .Take(6)
+                                                   .ToList(),
+                               evaluaciones = _db.EvaluacionPerformance
+                                                 .Where(ev => ev.idPerformance == p.idPerformance)
+                                                 .Select(ev => (int?)ev.idCalificacion)
+                                                 .Take(6)
+                                                 .ToList()
+                           });
+                // Aplicar los filtros según los parámetros proporcionados
+                if (colaborador.HasValue)
+                {
+                    query = query.Where(p => p.idUsuario == colaborador);
+                }
+                if (estado.HasValue)
+                {
+                    query = query.Where(p => p.estado == estado);
+                }
+                if (lider.HasValue)
+                {
+                    query = query.Where(p => p.idJefe == lider);
+                }
+                if (ano.HasValue)
+                {
+                    query = query.Where(p => p.ano == ano);
+                }
+                var tmp = query.OrderByDescending(x => x.ano).ThenBy(x => x.nombre);
+                var list = tmp.ToList().Select(x => new DatosPerformanceVM
+                {
+                    ano = x.ano,
+                    idPerformance = x.idPerformance,
+                    idUsuario = x.idUsuario,
+                    legajo = x.legajo,
+                    colaborador = x.nombre,
+                    edad = x.edad,
+                    sexo = x.sexo,
+                    pais = x.pais,
+                    convenio = x.convenio,
+                    categoria = x.categoria,
+                    dominio = x.dominio,
+                    idJefe = x.idJefe,
+                    nombreJefe = x.nombreJefe,
+                    antiguedad = x.antiguedad,
+                    fechaCalificacionAutoevaluacion = x.fechaAutoevaluacion,
+                    fechaCalificacionEvaluacion = x.fechaEvaluacion,
+                    fechaCalibracion = x.fechaCalibracion,
+                    fechaFeedback = x.fechaEvaluacion, // cambiar
+                    idEstado = x.estado,
+                    estado = x.estadoNombre,
+                    autoEvaluaciones = x.autoEvaluaciones,
+                    evaluaciones = x.evaluaciones
+                }).ToList();
 
                 ReporteExcelVM excel = new ReporteExcelVM();
                 excel.filas = new List<DetalleExcelVM>();
@@ -587,7 +662,7 @@ namespace Performance.Servicios
                 excel = excelUtility.GenerarReporteColaboradores(list);
                 return excel;
             }
-
         }
+
     }
 }

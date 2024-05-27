@@ -115,6 +115,38 @@
             .btn-primary:active {
                 background-color: #17AFB6;
             }
+        /*VIDEO*/
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+            .close:hover,
+            .close:focus {
+                color: black;
+            }
+
+        .modalV {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+
+        .modalV-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fefefe;
+            padding: 20px;
+        }
     </style>
 
 
@@ -123,25 +155,36 @@
     <script src="https://cdn.jsdelivr.net/npm/progressbar.js/dist/progressbar.min.js"></script>
 
     <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg">
-        @*<div class="row" style="margin: 30px; overflow:hidden; display: flex;" id="rowProvisorio">
-            <a id="a" class="btn btn-primary" href="/PerformanceApp/Index/Crud?view=autoevaluacion" style="max-width: 18%;">Autoevaluación</a>
-            <a id="b" class="btn btn-secondary" href="/PerformanceApp/Index/Crud?view=evaluacion" style="max-width: 18%; ">Evaluación</a>
-            <a id="c" class="btn btn-warning" href="/PerformanceApp/Index/Crud?view=resumenAutoevaluacion" style="max-width: 18%; ">Resumen Autoevaluación</a>
-        </div>*@
-        <div style="margin-left: 2.5%; margin-block: 0.5%">
-            <button id="instructivo" class="btn btn-secondary" onclick="DescargarInstructivo()" title="Instructivo" aria-label="Instructivo"> <i class=" fa fa-info-circle "></i></button>
-            <button id="abrirModalBtn" class="btn btn-primary" title="Instructivo" aria-label="Instructivo"> <i class=" fa fa-video-camera"></i></button>
-            <input type="button" class="btn btn-info boton" onclick="GenerarExcelColaboradores()" title='excel' id="btnExcel" value="Reporte Performance ">
-        </div>
-        @*FILTROS SOLICITUDES*@
+        @if (Convert.ToInt32(perfil) == 127 || Convert.ToInt32(perfil) == 128)
+        {
+            <div style="margin-left: 2.5%; margin-block: 0.5%">
+                <button id="instructivo" class="btn btn-secondary" onclick="DescargarInstructivo()" title="Instructivo" aria-label="Instructivo"> <i class=" fa fa-info-circle "></i></button>
+                <button id="abrirModalBtn" class="btn btn-primary" title="Instructivo" aria-label="Instructivo"> <i class=" fa fa-video-camera"></i></button>
+            </div>
+        }
         @if (Convert.ToInt32(perfil) == 129)
         {
-            <div class="row align-items-center" style="text-align: center; margin-top:20px;">
-                <div class="form-group2 col-md-2" style="margin-left:2%;" data-toggle="tooltip" title="Alta performance año anterior">
-                    <button id="altaPerformance" type="button" class="btn btn-block btn-warning" style="width: 200px; cursor: pointer;">
-                        Alta Performance @(DateTime.Now.Year)
-                    </button>
+            <div style="margin-left: 2.5%; margin-block: 0.5%; position: relative;">
+                <button id="instructivo" class="btn btn-secondary" onclick="DescargarInstructivo()" title="Instructivo" aria-label="Instructivo"> <i class="fa fa-info-circle"></i></button>
+                <button id="abrirModalBtn" class="btn btn-primary" title="Instructivo" aria-label="Instructivo"> <i class="fa fa-video-camera"></i></button>
+                <button id="altaPerformance" type="button" class="btn btn-block btn-warning" style="width: 200px; cursor: pointer;">
+                    Alta Performance @(DateTime.Now.Year)
+                </button>
+                <input type="button" class="btn btn-info boton" onclick="GenerarExcelColaboradores()" title='excel' id="btnExcel" value="Reporte Performance ">
+                <div class="tracking" id="progresoPerformance" style="margin-bottom: 20px; margin-left:480px">
+                    <div class="text-uppercase text-xl font-weight-bolder opacity-7" id="tituloProgreso" style="width:auto">Progreso Performance @(DateTime.Now.Year)</div>
                 </div>
+                <div class="col-md-2" style="position: absolute; top: 10%; right: 2%; margin-right: 0px;">
+                    <div class="d-flex flex-column border p-3">
+                        <div id="totalPendiente" class="mb-2"><span class="mr-3" style="width: 20px; height: 20px; display: inline-block; background-color: #7AC11F !important;"></span> Pendiente</div>
+                        <div id="totalCompletado" class="mb-2"><span class="mr-3" style="width: 20px; height: 20px; display: inline-block; background-color: #FFC107 !important;"></span> Completado</div>
+                        <div id="totalEvaluado" class="mb-2"><span class="mr-3" style="width: 20px; height: 20px; display: inline-block; background-color: #69E6FF !important;"></span> Evaluado</div>
+                        <div id="totalFeedback" class="mb-2"><span class="mr-3" style="width: 20px; height: 20px; display: inline-block; background-color: #17AFB6 !important;"></span> Feedback</div>
+                        <div id="totalFinalizado" class="mb-2"><span class="mr-3" style="width: 20px; height: 20px; display: inline-block; background-color: #9b9b9b !important;"></span> Finalizado</div>
+                    </div>
+                </div>
+            </div>
+            <div class="row align-items-center" style="text-align: center; margin-top:20px; margin-left:15px;">
                 <div class="form-group2 col-md-9">
                     <div class="progress" style="margin-bottom: 50px;">
                         <div id="barraPendiente" class="progress-bar progress-bar-stripeds" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
@@ -151,12 +194,12 @@
                         <div id="barraFinalizado" class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
                 </div>
-                <div class="tracking" id="progresoPerformance" style="margin-bottom: 20px; margin-left:480px">
-                    <div class="text-uppercase text-xl font-weight-bolder opacity-7" id="tituloProgreso" style="width:auto">Progreso Performance @(DateTime.Now.Year)</div>
-                </div>
             </div>
         }
-        <div class="row m-3" style="overflow: hidden; margin-top: 0px;" id="rowFiltro">
+
+        @*FILTROS SOLICITUDES*@
+
+        <div class="row m-3" style="overflow: hidden; margin-top: 2% !important;" id="rowFiltro">
             @if (Convert.ToInt32(perfil) == 128 || Convert.ToInt32(perfil) == 129)
             {
                 if (Convert.ToInt32(perfil) == 128 || Convert.ToInt32(perfil) == 129)
@@ -185,6 +228,13 @@
                     <select class="form-control" id="selectEstado">
                     </select>
                 </div>
+                <div class="form-group2 col-md-2" id="filtroAno">
+                    <label>Año:</label>
+                    <div></div>
+                    <div style="font-weight: normal !important;">
+                        <select class="form-control" id="selectAno"></select>
+                    </div>
+                </div>
                 <div class="form-group2 col-md-1 mt-2" style="padding-top: 1.9%;" id="btnBuscarFiltro">
                     <button id="btnFiltrar" type="button" class="btn btn-success" style="width: 120px; cursor: pointer;">
                         Buscar
@@ -195,18 +245,6 @@
                         Limpiar
                     </button>
                 </div>
-                if (Convert.ToInt32(perfil) == 129)
-                {
-                    <div class="col-md-2" style="margin-left:150px;">
-                        <div class="d-flex flex-column border p-3">
-                            <div id="totalPendiente" class="mb-2"><span class="mr-3" style="width: 20px; height: 20px; display: inline-block; background-color: #7AC11F !important; "></span> Pendiente</div>
-                            <div id="totalCompletado" class="mb-2"><span class="mr-3" style="width: 20px; height: 20px; display: inline-block; background-color: #FFC107 !important;"></span> Completado</div>
-                            <div id="totalEvaluado" class="mb-2"><span class="mr-3" style="width: 20px; height: 20px; display: inline-block; background-color: #69E6FF !important;"></span> Evaluado</div>
-                            <div id="totalFeedback" class="mb-2"><span class="mr-3" style="width: 20px; height: 20px; display: inline-block; background-color: #17AFB6 !important;"></span> Feedback</div>
-                            <div id="totalFinalizado" class="mb-2"><span class="mr-3" style="width: 20px; height: 20px; display: inline-block; background-color: #9b9b9b !important;"></span> Finalizado</div>
-                        </div>
-                    </div>
-                }
             }
 
         </div>
@@ -341,6 +379,16 @@
                 </div>
             </div>
         </div>
+        @*VIDEO*@
+        <div id="videoModal" class="modalV">
+            <div class="modalV-content">
+                <span class="close" id="cerrarModalBtn">&times;</span>
+                <video id="videoPlayer" controls width="560">
+                    <source src="~/Content/img/Performance.mp4" type="video/mp4">
+                    Tu navegador no soporta el tag de video.
+                </video>
+            </div>
+        </div>
     </main>
 
     <!-- DataTables JS CDN -->
@@ -365,6 +413,7 @@
 
         $(document).ready(function () {
             CargarEstados();
+            CargarAnos();
             ListarPerformance();
             CargarColaboradoresFiltro();
             CargarLideresFiltro();
@@ -389,6 +438,7 @@
             $('#selectColaborador').val('');
             $('#selectEstado').val('');
             $('#selectLider').val('');
+            $('#selectAno').val('');
             ListarPerformance();
         }
     ///LISTAR PERFORMANCE
@@ -396,12 +446,14 @@
             var colaborador = $("#selectColaborador").val();
             var estado = $("#selectEstado").val();
             var lider = $("#selectLider").val();
+            var ano = $("#selectAno").val();
             var url = "Api/PerformanceApp/ListarPerformance";
             url = url + "?idUsuario=" + "@idUsuario";
             url = url + "&idPerfil=" + "@perfil";
             url = url + "&colaborador=" + colaborador;
             url = url + "&estado=" + estado;
             url = url + "&lider=" + lider;
+            url = url + "&ano=" + ano;
 
             if ("@perfil" == "127") {//Tabla del colaborador
                 IniciarTabla();
@@ -876,6 +928,22 @@
                     });
                 });
         }
+        function CargarAnos() {
+            var selecAnos = $('#selectAno');
+            selecAnos.empty();
+            selecAnos.append($('<option/>', { value: '', text: 'Seleccionar' }).hide());
+            var url = "Api/PerformanceApp/listarAnosPerformance";
+            $.getJSON(url)
+                .done(function (data) {
+                    console.log(data);
+                    $.each(data, function (index, result) {
+                        selecAnos.append($('<option/>', {
+                            value: result.ano,
+                            text: result.ano
+                        }));
+                    });
+                });
+        }
         @*var token = "";
         GenerarToken();
         function GenerarToken() {
@@ -998,14 +1066,46 @@
         }
         ////REPORTES
         function GenerarExcelColaboradores() {
+            var colaborador = $("#selectColaborador").val();
+            var estado = $("#selectEstado").val();
+            var lider = $("#selectLider").val();
+            var ano = $("#selectAno").val();
             var url = 'Api/PerformanceApp/GenerarExcelReportesColaboradores';
+            url = url + "?colaborador=" + colaborador;              
+            url = url + "&estado=" + estado;
+            url = url + "&lider=" + lider;
+            url = url + "&ano=" + ano;
             window.location.href = url;
         }
         function GenerarExcelUnColaborador(idPerformance) {
             var url = 'Api/PerformanceApp/GenerarExcelUnColaborador?idPerformance=' + idPerformance;
             window.location.href = url;
         }
+        //VIDEO
 
+        var modal = $('#videoModal');
+        var abrirModalBtn = $('#abrirModalBtn');
+        var videoPlayer = $('#videoPlayer');
+        var cerrarModalBtn = $('#cerrarModalBtn');
+
+        abrirModalBtn.click(function () {
+            modal.css('display', 'block');
+            videoPlayer.attr('src', '/Content/img/Performance.mp4');
+            videoPlayer[0].play(); //reproduce automaticamente
+        });
+
+        modal.click(function (event) {
+            if (event.target === modal[0]) {
+                modal.css('display', 'none');
+                videoPlayer[0].pause();
+                videoPlayer.attr('src', '');
+            }
+        });
+        cerrarModalBtn.click(function () {
+            modal.css('display', 'none');
+            videoPlayer[0].pause();
+            videoPlayer.attr('src', '');
+        });
     </script>
 
 </body>
