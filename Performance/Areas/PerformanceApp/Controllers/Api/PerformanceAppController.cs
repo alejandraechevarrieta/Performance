@@ -342,8 +342,8 @@ namespace Performance.Areas.PerformanceApp.Controllers.Api
                 {
                     IdsDestinatarios = new List<int> { idDestinatario },
                     mensaje = body, // Reemplaza con el mensaje adecuado
-                    asunto = asunto,   // Reemplaza con el asunto adecuado
-                    adjunto = "Tu adjunto aquí"  // Reemplaza con el adjunto adecuado
+                    asunto = asunto   // Reemplaza con el asunto adecuado
+                    //adjunto = "Tu adjunto aquí"  // Reemplaza con el adjunto adecuado
                 };
                 // Serializa el objeto MailVM a JSON
                 var jsonContent = JsonConvert.SerializeObject(mail);
