@@ -324,22 +324,29 @@ namespace Performance.Servicios
                         nuevaPerformance.idJefe = item.idJefe;
                         nuevaPerformance.nombreJefe = item.nombreJefe;
                         nuevaPerformance.estado = 1;
-
+                        nuevaPerformance.edad = 0;
+                        nuevaPerformance.antiguedad = 0;
                         //calculo edad
-                        DateTime fechaNacimiento = item.fechaNacimiento.Value;
-                        DateTime fechaActual = DateTime.Today; 
-                        int edad = fechaActual.Year - fechaNacimiento.Year;
-                        // Verifica si el cumpleaños de este año ya ha pasado
-                        if (fechaActual < fechaNacimiento.AddYears(edad))
+                        if (item.fechaNacimiento != null)
                         {
-                            edad--;
+                            DateTime fechaNacimiento = item.fechaNacimiento.Value;
+                            DateTime fechaActual = DateTime.Today;
+                            int edad = fechaActual.Year - fechaNacimiento.Year;
+                            // Verifica si el cumpleaños de este año ya ha pasado
+                            if (fechaActual < fechaNacimiento.AddYears(edad))
+                            {
+                                edad--;
+                            }
+                            nuevaPerformance.edad = edad;
                         }
-                        nuevaPerformance.edad = edad;
-
-                        //calculo antiguedad
-                        int anoIngreso = item.fechaIngreso.Value.Year;
-                        int antiguedad= Math.Abs(anoActual - anoIngreso);
-                        nuevaPerformance.antiguedad = antiguedad;
+                        
+                      if(item.fechaIngreso != null)
+                        {
+                            //calculo antiguedad
+                            int anoIngreso = item.fechaIngreso.Value.Year;
+                            int antiguedad = Math.Abs(anoActual - anoIngreso);
+                            nuevaPerformance.antiguedad = antiguedad;
+                        }                      
                         
                         db.PerformanceColaborador.Add(nuevaPerformance);
                         db.SaveChanges();
