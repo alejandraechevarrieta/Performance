@@ -255,7 +255,7 @@ namespace Performance.Servicios
 
                 //Envio de mail a lider
                 var idDestinatario = performance.idJefe;
-                var asunto = "Realización de formulario A";
+                var asunto = "Envío de atuoevaluación";
                 var body =
                     "<table border=\"0\" width=\"200px\" bgcolor=\"#EDECEB\"> \r\n    " +
                         "<tbody> \r\n        " +
