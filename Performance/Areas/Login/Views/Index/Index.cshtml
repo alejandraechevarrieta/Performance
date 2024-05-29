@@ -175,7 +175,11 @@
         }
     }
     function validarPerfil(idUsuario) {
-        var secretKey = '1234567890123456';
+        var currentDate = new Date();
+        currentDate.setDate(currentDate.getDate()); // Restar un día a la fecha actual
+        var formattedDate = currentDate.toISOString().slice(0, 10).replace(/-/g, "");
+        var secretKey = formattedDate + "12345678";
+
         var iv = CryptoJS.lib.WordArray.random(16); 
 
         $.ajax({
