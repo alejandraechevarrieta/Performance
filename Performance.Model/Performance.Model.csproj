@@ -162,6 +162,9 @@
     <Compile Include="Calificacion.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="CalificacionFinalLider.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Class1.cs" />
     <Compile Include="Encuesta.cs">
       <DependentUpon>Model.tt</DependentUpon>
