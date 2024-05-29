@@ -69,7 +69,7 @@
 </head>
 
 <body class="g-sidenav-show bg-gray-100">
- <div id="divLoading" class="modalLoading"></div>
+    <div id="divLoading" class="modalLoading"></div>
     <div id="divLogin">
         <div class="col-lg-4 col-md-8 col-12 mt-3" style="margin-left:auto; margin-right: 5%;">
             <div class="card z-index-0 fadeIn3 fadeInBottom mt-3">
@@ -79,7 +79,7 @@
                     </div>
                 </div>
                 @*<p class="h4 text-white font-weight-bolder text-center mt-2 mb-0"><b>Performance App</b></p>
-                <p class="text-white font-weight-bolder text-center mt-2 mb-0">Ingresar sus credenciales</p>*@
+                    <p class="text-white font-weight-bolder text-center mt-2 mb-0">Ingresar sus credenciales</p>*@
                 <div class="card-body">
                     <form role="form" class="text-start">
                         <div class="input-group input-group-outline my-3">
@@ -93,27 +93,29 @@
                         </div>
                         <div class="row mt-2">
                             @*<div class="text-l col-5 justify-content-end vertical" style="justify-content:end;">
-                        <a href="../pages/sign-up.html" style="color: #00aec7;" class="font-weight-bold">Recuperar contraseña</a>
-                        <br />
-                        <br />
-                        <a href="../pages/sign-up.html" style="color: #00aec7;" class="font-weight-bold">Desbloquear usuario</a>
-                    </div>
-                    <div class="col-2 justify-content-center">
-                    </div>*@
+                                    <a href="../pages/sign-up.html" style="color: #00aec7;" class="font-weight-bold">Recuperar contraseña</a>
+                                    <br />
+                                    <br />
+                                    <a href="../pages/sign-up.html" style="color: #00aec7;" class="font-weight-bold">Desbloquear usuario</a>
+                                </div>
+                                <div class="col-2 justify-content-center">
+                                </div>*@
                         </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
-        <!-- Github buttons -->
-        <script async defer src="https://buttons.github.io/buttons.js"></script>
-        <!--Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc-->
-        <script src="~/assets/js/soft-ui-dashboard.min.js?v=1.0.7"></script>
-        @*<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v84a3a4012de94ce1a686ba8c167c359c1696973893317" data-cf-beacon='{"rayId":"866a9418dd4b1ff6","version":"2024.3.0","token":"1b7cbb72744b40c580f8633c6b62637e"}' crossorigin="anonymous"></script>*@
+    <!-- Github buttons -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <!--Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc-->
+    <script src="~/assets/js/soft-ui-dashboard.min.js?v=1.0.7"></script>
+    @*<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v84a3a4012de94ce1a686ba8c167c359c1696973893317" data-cf-beacon='{"rayId":"866a9418dd4b1ff6","version":"2024.3.0","token":"1b7cbb72744b40c580f8633c6b62637e"}' crossorigin="anonymous"></script>*@
 
-        @*<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>*@
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    @*<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>*@
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+
 </body>
 
 </html>
@@ -173,6 +175,9 @@
         }
     }
     function validarPerfil(idUsuario) {
+        var secretKey = '1234567890123456';
+        var iv = CryptoJS.lib.WordArray.random(16); 
+
         $.ajax({
             url: "Api/Login/GetPerfiles",
             type: 'GET',
@@ -183,20 +188,19 @@
             success: function (data) {
                 var perfil = data;
                 if (perfil !== null && perfil !== 0) {
-                    var url = '/PerformanceApp/Index?perfil=' + perfil + '&idUsuario=' + idUsuario;
+                    var encryptedPerfil = CryptoJS.AES.encrypt(perfil.toString(), CryptoJS.enc.Utf8.parse(secretKey), { iv: iv }).toString();
+                    var encryptedIdUsuario = CryptoJS.AES.encrypt(idUsuario.toString(), CryptoJS.enc.Utf8.parse(secretKey), { iv: iv }).toString();
+                    var ivBase64 = CryptoJS.enc.Base64.stringify(iv); 
+
+                    var url = `/PerformanceApp/Index?perfil=${encodeURIComponent(encryptedPerfil)}&idUsuario=${encodeURIComponent(encryptedIdUsuario)}&iv=${encodeURIComponent(ivBase64)}`;
                     localStorage.setItem('idUsuario', idUsuario);
                     if (localStorage.getItem('leerBienvenidaSwitch') == 1) {
-
                         localStorage.setItem('bienvenidaLeida', 0);
-                    }
-                    else if (localStorage.getItem('leerBienvenidaSwitch') == 0) {
-
+                    } else if (localStorage.getItem('leerBienvenidaSwitch') == 0) {
                         localStorage.setItem('bienvenidaLeida', 1);
-                    }
-                    else {
+                    } else {
                         localStorage.setItem('bienvenidaLeida', 0);
                     }
-                    
                     window.location.href = url;
                 } else {
                     alert("El usuario no tiene permiso");
@@ -208,5 +212,9 @@
             }
         });
     }
+
+
+
+
 
 </script>
