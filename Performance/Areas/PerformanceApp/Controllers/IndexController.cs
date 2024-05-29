@@ -1,28 +1,23 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
-using System.Web;
 using System.Web.Mvc;
 
 namespace Performance.Areas.PerformanceApp.Controllers
 {
     public class IndexController : Controller
     {
-        private static readonly byte[] Key = Encoding.UTF8.GetBytes("1234567890123456"); 
-
         public ActionResult Index(string perfil, string idUsuario, string iv)
         {
-            if(perfil != "0" && idUsuario != "0")
+            if (perfil != "0" && idUsuario != "0")
             {
                 string perfilDesencriptado = Desencriptar(perfil, iv);
                 string idUsuarioDesencriptado = Desencriptar(idUsuario, iv);
 
                 System.Web.HttpContext.Current.Session["perfil"] = perfilDesencriptado;
                 System.Web.HttpContext.Current.Session["idUsuario"] = idUsuarioDesencriptado;
-            }           
+            }
 
             return View();
         }
@@ -32,9 +27,14 @@ namespace Performance.Areas.PerformanceApp.Controllers
             byte[] buffer = Convert.FromBase64String(cipherText);
             byte[] iv = Convert.FromBase64String(ivBase64);
 
+            // Generar la clave combinando la fecha actual con los dígitos restantes "12345678"
+            string currentDate = DateTime.Now.ToString("yyyyMMdd");
+            string keyString = currentDate + "12345678";
+            byte[] key = Encoding.UTF8.GetBytes(keyString);
+
             using (Aes aes = Aes.Create())
             {
-                aes.Key = Key;
+                aes.Key = key;
                 aes.IV = iv;
                 aes.Padding = PaddingMode.PKCS7;
                 ICryptoTransform decryptor = aes.CreateDecryptor(aes.Key, aes.IV);
@@ -52,7 +52,7 @@ namespace Performance.Areas.PerformanceApp.Controllers
             }
         }
 
-    public ActionResult Crud(string view, int idPerformance, string nombre)
+        public ActionResult Crud(string view, int idPerformance, string nombre)
         {
             ViewBag.View = view;
             ViewBag.IdPerformance = idPerformance;
