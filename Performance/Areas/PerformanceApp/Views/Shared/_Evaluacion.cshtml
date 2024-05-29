@@ -354,7 +354,7 @@
             <div class="col-11 col-sm-9 col-md-7 col-lg-6 text-center p-0 mt-3 mb-2 w-80">
                 <div class="card px-0 pt-4 pb-0 mt-3 mb-3">
                     <p class="h2"><strong>Evaluación de performance</strong></p>
-                    <p class="h4">Hola líder, a continuación debes realizar la Evaluación.</p>
+                    <p class="h4 holaLider">Hola líder, a continuación debes realizar la Evaluación.</p>
                     <div class="row">
                         <div class="col-md-12 mx-0">
                             <form id="msform">
@@ -534,7 +534,10 @@
                                             <p class="h5">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
                                         </div>
                                         <div class="row mt-3">
-                                            <input id="g1" type="button" data-toggle="tooltip" data-bs-placement="bottom" title="No alcanza el desempeño requerido" value="Regular" />
+                                            <!-- El label muestra el texto al usuario -->
+                                            <label for="g1">Regular</label>
+                                            <!-- El input tiene el valor numérico -->
+                                            <input id="g1" type="button" value="1" title="No alcanza el desempeño requerido" data-bs-placement="bottom" />
                                             <input id="g2" type="button" data-toggle="tooltip" data-bs-placement="bottom" title="Alcanza el desempeño mínimo requerido con asistencia" value="A nivel" />
                                             <input id="g3" type="button" data-toggle="tooltip" data-bs-placement="bottom" title="Alcanza el desempeño de manera satisfactoria" value="Satisfactorio" />
                                             <input id="g4" type="button" data-toggle="tooltip" data-bs-placement="bottom" title="Alcanza el desempeño, dando valor agregado" value="Destacado" />
@@ -735,10 +738,16 @@ function GuardarAutoevaluacion() {
                     }
                 }
             });
+            //agrega el nombre del colaborador
             const elementos = document.querySelectorAll('.tituloAutoevaluacion');
             elementos.forEach(elemento => {
                 elemento.textContent += " de " + datos[0].colaborador;
             });
+            //Cambia lider por nombre jefe
+            var element = document.querySelector('.holaLider');
+            var originalText = element.innerHTML;
+            var newText = originalText.replace(/líder/gi, datos[0].nombreJefe);
+            element.innerHTML = newText;
         });
     }
   
