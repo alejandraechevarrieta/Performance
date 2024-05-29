@@ -18,10 +18,11 @@ namespace Performance.Areas.PerformanceApp.Controllers
                 System.Web.HttpContext.Current.Session["perfil"] = perfilDesencriptado;
                 System.Web.HttpContext.Current.Session["idUsuario"] = idUsuarioDesencriptado;
             }
-            if(iv == null)
+            if ((perfil != "0" || idUsuario != "0") &&  iv == null)
             {
                 return RedirectToAction("Index", new { area = "Login" });
             }
+
 
             return View();
         }
