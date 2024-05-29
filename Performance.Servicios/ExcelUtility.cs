@@ -468,11 +468,11 @@ namespace Performance.Servicios
 
                 CreateCell(Row3, 0, "Legajo", celdasData);
                 CreateCell(Row3, 1, "idUsuario", celdasData);
-                CreateCell(Row3, 2, "       Nombre Colaborador      ", celdasData);
+                CreateCell(Row3, 2, "         Nombre Colaborador                        ", celdasData);
                 CreateCell(Row3, 3, "        Líder              ", celdasData);
                 CreateCell(Row3, 4, "       Convenio                 ", celdasData);
                 CreateCell(Row3, 5, "     País      ", celdasData);
-                CreateCell(Row3, 6, "     Dominio        ", celdasData);
+                CreateCell(Row3, 6, "        Dominio                                                      ", celdasData);
                 CreateCell(Row3, 7, "       Categoría                                   ", celdasData);
                 CreateCell(Row3, 8, "Sexo", celdasData);
                 CreateCell(Row3, 9, "Antigüedad", celdasData);
