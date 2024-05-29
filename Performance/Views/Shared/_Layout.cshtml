@@ -200,7 +200,8 @@
                     }
                 },
                 error: function (xhr, textStatus, errorThrown) {
-                    alert("Error en el nombre de usuario " + errorThrown);
+                    alert("Error en el nombre de usuario " + errorThrown + ". Vuelva a ingresar.");
+                    window.location.href = '/Login/Index'
                 }
             });
         });

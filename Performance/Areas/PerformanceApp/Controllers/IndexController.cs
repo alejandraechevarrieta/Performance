@@ -15,14 +15,18 @@ namespace Performance.Areas.PerformanceApp.Controllers
 
         public ActionResult Index(string perfil, string idUsuario, string iv)
         {
-            if(perfil != "0" && idUsuario != "0")
+            if(perfil != "0" && idUsuario != "0" && iv != null)
             {
                 string perfilDesencriptado = Desencriptar(perfil, iv);
                 string idUsuarioDesencriptado = Desencriptar(idUsuario, iv);
 
                 System.Web.HttpContext.Current.Session["perfil"] = perfilDesencriptado;
                 System.Web.HttpContext.Current.Session["idUsuario"] = idUsuarioDesencriptado;
-            }           
+            }
+            if(iv == null)
+            {
+                return RedirectToAction("Index", new { area = "Login" });
+            }
 
             return View();
         }
