@@ -147,6 +147,22 @@
             background-color: #fefefe;
             padding: 20px;
         }
+        /*ESTILOS DE LA TABLA*/
+        .jefe {
+            background-color: #edfbaf !important;
+        }
+
+            .jefe:hover {
+                background-color: #f0f0ee !important;
+            }
+
+        .propias {
+            background-color: #cfdbe0 !important;
+        }
+
+            .propias:hover {
+                background-color: #f1f1f0 !important;
+            }
     </style>
 
 
@@ -427,7 +443,7 @@
     $(document).ready(function () {
         $('#navIndex').addClass('active');
     });
-   
+
     ///FILTROS
         $('#btnFiltrar').click(function () {
             ListarPerformance();
@@ -567,7 +583,7 @@
                         "name": "Estado",
                         "autoWidth": false,
                         "render": function (data, type, row, meta) {
-                            var currentDate = new Date();                           
+                            var currentDate = new Date();
                             var formattedDate = currentDate.getFullYear() +
                                 ('0' + (currentDate.getMonth() + 1)).slice(-2) +
                                 ('0' + currentDate.getDate()).slice(-2);
@@ -900,11 +916,23 @@
                             var ivBase64 = CryptoJS.enc.Base64.stringify(iv);
                             encryptedIdPerformance = encodeURIComponent(encryptedIdPerformance);
                             ivBase64 = encodeURIComponent(ivBase64);
-                            if (data == 1) {
-                                return '<div style="text-align: center;"><a href="/PerformanceApp/Index/Crud?view=performance&idPerformance=' + encryptedIdPerformance + '&iv=' + ivBase64 + '" class="btn btn-sm grilla-btn btn-info" title="Autoevaluación sin realizar" style="font-size: 100% !important;">' + row.estado + '</a></div>';
+                            if (@idUsuario == row.idUsuario) {
+                                if (data == 1) {
+                                    return '<div style="text-align: center;"><a href="/PerformanceApp/Index/Crud?view=autoevaluacion&idPerformance=' + encryptedIdPerformance + '&iv=' + ivBase64 + '" class="btn btn-sm grilla-btn btn-info" title="Autoevaluación sin realizar" style="font-size: 100% !important;">' + row.estado + '</a></div>';
+                                }
+                            } else {
+                                if (data == 1) {
+                                    return '<div style="text-align: center;"><a href="/PerformanceApp/Index/Crud?view=performance&idPerformance=' + encryptedIdPerformance + '&iv=' + ivBase64 + '" class="btn btn-sm grilla-btn btn-info" title="Autoevaluación sin realizar" style="font-size: 100% !important;">' + row.estado + '</a></div>';
+                                }
                             }
-                            if (data == 2) {
-                                return '<div style="text-align: center;"><a href="/PerformanceApp/Index/Crud?view=performance&idPerformance=' + encryptedIdPerformance + '&iv=' + ivBase64 + '" class="btn btn-sm grilla-btn btn-warning" title="Autoevaluación realizada, sin Evaluación" style="font-size: 100% !important;">' + row.estado + '</a></div>';
+                            if (@idUsuario == row.idJefe) {
+                                if (data == 2) {
+                                    return '<div style="text-align: center;"><a href="/PerformanceApp/Index/Crud?view=evaluacion&idPerformance=' + encryptedIdPerformance + '&iv=' + ivBase64 + '" class="btn btn-sm grilla-btn btn-warning" title="Autoevaluación realizada, sin Evaluación" style="font-size: 100% !important;">' + row.estado + '</a></div>';
+                                }
+                            } else {
+                                if (data == 2) {
+                                    return '<div style="text-align: center;"><a href="/PerformanceApp/Index/Crud?view=performance&idPerformance=' + encryptedIdPerformance + '&iv=' + ivBase64 + '" class="btn btn-sm grilla-btn btn-warning" title="Autoevaluación realizada, sin Evaluación" style="font-size: 100% !important;">' + row.estado + '</a></div>';
+                                }
                             }
                             if (data == 3) {
                                 return '<div style="text-align: center;"><a href="/PerformanceApp/Index/Crud?view=performance&idPerformance=' + encryptedIdPerformance + '&iv=' + ivBase64 + '" class="btn btn-sm grilla-btn btn-success" title="Evaluación del líder realizada" style="font-size: 100% !important;">' + row.estado + '</a></div>';
@@ -928,11 +956,17 @@
 
                         }
                     },
-
                 ],
                 "createdRow": function (row, data, index) {
-                    // Aquí puedes aplicar estilos o clases a las filas según tus datos
-
+                    $(row).removeClass();
+                    if (data.idUsuario == "@idUsuario") {
+                        $(row).addClass('propias');
+                        $(row).removeClass('jefe');
+                    }
+                    if (data.idJefe == "@idUsuario") {
+                        $(row).addClass('jefe');
+                        $(row).removeClass('propias');
+                    }   
                 },
                 "ordering": true,
                 "paging": true,
