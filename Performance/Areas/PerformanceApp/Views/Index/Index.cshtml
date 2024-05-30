@@ -390,7 +390,7 @@
             </div>
         </div>
     </main>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
     <!-- DataTables JS CDN -->
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
 
@@ -427,6 +427,7 @@
     $(document).ready(function () {
         $('#navIndex').addClass('active');
     });
+   
     ///FILTROS
         $('#btnFiltrar').click(function () {
             ListarPerformance();
@@ -566,20 +567,29 @@
                         "name": "Estado",
                         "autoWidth": false,
                         "render": function (data, type, row, meta) {
+                            var currentDate = new Date();
+                            currentDate.setDate(currentDate.getDate());
+                            var formattedDate = currentDate.toISOString().slice(0, 10).replace(/-/g, "");
+                            var secretKey = formattedDate + "12345678";
+                            var iv = CryptoJS.lib.WordArray.random(16);
+                            var encryptedIdPerformance = CryptoJS.AES.encrypt((row.idPerformance).toString(), CryptoJS.enc.Utf8.parse(secretKey), { iv: iv }).toString();
+                            var ivBase64 = CryptoJS.enc.Base64.stringify(iv);
+                            encryptedIdPerformance = encodeURIComponent(encryptedIdPerformance);
+                            ivBase64 = encodeURIComponent(ivBase64);
                             if (data == 1) {
-                                return '<div style="text-align: center;"><a href="/PerformanceApp/Index/Crud?view=autoevaluacion&idPerformance=' + row.idPerformance + '&nombre=' + row.nombre + '" class="btn btn-sm grilla-btn btn-info" title="Autoevaluación sin realizar" style="font-size: 100% !important;">' + row.estado + '</a></div>';
+                                return '<div style="text-align: center;"><a href="/PerformanceApp/Index/Crud?view=autoevaluacion&idPerformance=' + encryptedIdPerformance + '&nombre=' + row.nombre + '&iv=' + ivBase64 + '" class="btn btn-sm grilla-btn btn-info" title="Autoevaluación sin realizar" style="font-size: 100% !important;">' + row.estado + '</a></div>';
                             }
                             if (data == 2) {
-                                return '<div style="text-align: center;"><a href="/PerformanceApp/Index/Crud?view=performance&idPerformance=' + row.idPerformance + '" class="btn grilla-btn btn-warning" title="Autoevaluación realizada, sin Evaluación" style="font-size: 100% !important;">' + row.estado + '</a></div>';
+                                return '<div style="text-align: center;"><a href="/PerformanceApp/Index/Crud?view=performance&idPerformance=' + encryptedIdPerformance + '&iv=' + ivBase64 + '" class="btn grilla-btn btn-warning" title="Autoevaluación realizada, sin Evaluación" style="font-size: 100% !important;">' + row.estado + '</a></div>';
                             }
                             if (data == 3) {
-                                return '<div style="text-align: center;"><a href="/PerformanceApp/Index/Crud?view=performance&idPerformance=' + row.idPerformance + '" class="btn btn-sm grilla-btn btn-success" title="Evaluación del líder realizada" style="font-size: 100% !important;">' + row.estado + '</a></div>';
+                                return '<div style="text-align: center;"><a href="/PerformanceApp/Index/Crud?view=performance&idPerformance=' + encryptedIdPerformance + '&iv=' + ivBase64 + '" class="btn btn-sm grilla-btn btn-success" title="Evaluación del líder realizada" style="font-size: 100% !important;">' + row.estado + '</a></div>';
                             }
                             if (data == 4) {
-                                return '<div style="text-align: center;"><a href="/PerformanceApp/Index/Crud?view=performance&idPerformance=' + row.idPerformance + '" class="btn btn-sm grilla-btn btn-primary" title=" Evaluación realizada, Calibración realizada, Etapa de Feedback Abierta" style="font-size: 100% !important;">' + row.estado + '</a></div>';
+                                return '<div style="text-align: center;"><a href="/PerformanceApp/Index/Crud?view=performance&idPerformance=' + encryptedIdPerformance + '&iv=' + ivBase64 + '" class="btn btn-sm grilla-btn btn-primary" title=" Evaluación realizada, Calibración realizada, Etapa de Feedback Abierta" style="font-size: 100% !important;">' + row.estado + '</a></div>';
                             }
                             if (data == 5) {
-                                return '<div style="text-align: center;"><a href="/PerformanceApp/Index/Crud?view=performance&idPerformance=' + row.idPerformance + '" class="btn btn-sm grilla-btn btn-secondary" title="Proceso de Performance Completado" style="font-size: 100% !important;">' + row.estado + '</a></div>';
+                                return '<div style="text-align: center;"><a href="/PerformanceApp/Index/Crud?view=performance&idPerformance=' + encryptedIdPerformance + '&iv=' + ivBase64 + '" class="btn btn-sm grilla-btn btn-secondary" title="Proceso de Performance Completado" style="font-size: 100% !important;">' + row.estado + '</a></div>';
                             }
                         }
                     },
@@ -707,20 +717,29 @@
                         "name": "Estado",
                         "autoWidth": false,
                         "render": function (data, type, row, meta) {
+                            var currentDate = new Date();
+                            currentDate.setDate(currentDate.getDate());
+                            var formattedDate = currentDate.toISOString().slice(0, 10).replace(/-/g, "");
+                            var secretKey = formattedDate + "12345678";
+                            var iv = CryptoJS.lib.WordArray.random(16);
+                            var encryptedIdPerformance = CryptoJS.AES.encrypt((row.idPerformance).toString(), CryptoJS.enc.Utf8.parse(secretKey), { iv: iv }).toString();
+                            var ivBase64 = CryptoJS.enc.Base64.stringify(iv);
+                            encryptedIdPerformance = encodeURIComponent(encryptedIdPerformance);
+                            ivBase64 = encodeURIComponent(ivBase64);
                             if (data == 1) {
-                                return '<div style="text-align: center;"><a href="/PerformanceApp/Index/Crud?view=performance&idPerformance=' + row.idPerformance + '" class="btn btn-sm grilla-btn btn-info" title="Autoevaluación sin realizar" style="font-size: 100% !important;">' + row.estado + '</a></div>';
+                                return '<div style="text-align: center;"><a href="/PerformanceApp/Index/Crud?view=performance&idPerformance=' + encryptedIdPerformance + '&iv=' + ivBase64 + '" class="btn btn-sm grilla-btn btn-info" title="Autoevaluación sin realizar" style="font-size: 100% !important;">' + row.estado + '</a></div>';
                             }
                             if (data == 2) {
-                                return '<div style="text-align: center;"><a href="/PerformanceApp/Index/Crud?view=evaluacion&idPerformance=' + row.idPerformance + '" class="btn grilla-btn btn-warning" title="Autoevaluación realizada, sin Evaluación" style="font-size: 100% !important;">' + row.estado + '</a></div>';
+                                return '<div style="text-align: center;"><a href="/PerformanceApp/Index/Crud?view=evaluacion&idPerformance=' + encryptedIdPerformance + '&iv=' + ivBase64 + '" class="btn grilla-btn btn-warning" title="Autoevaluación realizada, sin Evaluación" style="font-size: 100% !important;">' + row.estado + '</a></div>';
                             }
                             if (data == 3) {
-                                return '<div style="text-align: center;"><a href="/PerformanceApp/Index/Crud?view=performance&idPerformance=' + row.idPerformance + '" class="btn btn-sm grilla-btn btn-success" title="Evaluación del líder realizada" style="font-size: 100% !important;">' + row.estado + '</a></div>';
+                                return '<div style="text-align: center;"><a href="/PerformanceApp/Index/Crud?view=performance&idPerformance=' + encryptedIdPerformance + '&iv=' + ivBase64 + '" class="btn btn-sm grilla-btn btn-success" title="Evaluación del líder realizada" style="font-size: 100% !important;">' + row.estado + '</a></div>';
                             }
                             if (data == 4) {
-                                return '<div style="text-align: center;"><a href="/PerformanceApp/Index/Crud?view=performance&idPerformance=' + row.idPerformance + '" class="btn btn-sm grilla-btn btn-primary" title=" Evaluación realizada, Calibración realizada, Etapa de Feedback Abierta" style="font-size: 100% !important;">' + row.estado + '</a></div>';
+                                return '<div style="text-align: center;"><a href="/PerformanceApp/Index/Crud?view=performance&idPerformance=' + encryptedIdPerformance + '&iv=' + ivBase64 + '" class="btn btn-sm grilla-btn btn-primary" title=" Evaluación realizada, Calibración realizada, Etapa de Feedback Abierta" style="font-size: 100% !important;">' + row.estado + '</a></div>';
                             }
                             if (data == 5) {
-                                return '<div style="text-align: center;"><a href="/PerformanceApp/Index/Crud?view=performance&idPerformance=' + row.idPerformance + '" class="btn btn-sm grilla-btn btn-secondary" title="Proceso de Performance Completado" style="font-size: 100% !important;">' + row.estado + '</a></div>';
+                                return '<div style="text-align: center;"><a href="/PerformanceApp/Index/Crud?view=performance&idPerformance=' + encryptedIdPerformance + '&iv=' + ivBase64 + '" class="btn btn-sm grilla-btn btn-secondary" title="Proceso de Performance Completado" style="font-size: 100% !important;">' + row.estado + '</a></div>';
                             }
                         }
                     },
@@ -869,20 +888,29 @@
                         "name": "Estado",
                         "autoWidth": false,
                         "render": function (data, type, row, meta) {
+                            var currentDate = new Date();
+                            currentDate.setDate(currentDate.getDate()); 
+                            var formattedDate = currentDate.toISOString().slice(0, 10).replace(/-/g, "");
+                            var secretKey = formattedDate + "12345678";
+                            var iv = CryptoJS.lib.WordArray.random(16);
+                            var encryptedIdPerformance = CryptoJS.AES.encrypt((row.idPerformance).toString(), CryptoJS.enc.Utf8.parse(secretKey), { iv: iv }).toString();
+                            var ivBase64 = CryptoJS.enc.Base64.stringify(iv);
+                            encryptedIdPerformance = encodeURIComponent(encryptedIdPerformance);
+                            ivBase64 = encodeURIComponent(ivBase64);
                             if (data == 1) {
-                                return '<div style="text-align: center;"><a href="/PerformanceApp/Index/Crud?view=performance&idPerformance=' + row.idPerformance + '" class="btn btn-sm grilla-btn btn-info" title="Autoevaluación sin realizar" style="font-size: 100% !important;">' + row.estado + '</a></div>';
+                                return '<div style="text-align: center;"><a href="/PerformanceApp/Index/Crud?view=performance&idPerformance=' + encryptedIdPerformance + '&iv=' + ivBase64 + '" class="btn btn-sm grilla-btn btn-info" title="Autoevaluación sin realizar" style="font-size: 100% !important;">' + row.estado + '</a></div>';
                             }
                             if (data == 2) {
-                                return '<div style="text-align: center;"><a href="/PerformanceApp/Index/Crud?view=performance&idPerformance=' + row.idPerformance + '" class="btn btn-sm grilla-btn btn-warning" title="Autoevaluación realizada, sin Evaluación" style="font-size: 100% !important;">' + row.estado + '</a></div>';
+                                return '<div style="text-align: center;"><a href="/PerformanceApp/Index/Crud?view=performance&idPerformance=' + encryptedIdPerformance + '&iv=' + ivBase64 + '" class="btn btn-sm grilla-btn btn-warning" title="Autoevaluación realizada, sin Evaluación" style="font-size: 100% !important;">' + row.estado + '</a></div>';
                             }
                             if (data == 3) {
-                                return '<div style="text-align: center;"><a href="/PerformanceApp/Index/Crud?view=performance&idPerformance=' + row.idPerformance + '" class="btn btn-sm grilla-btn btn-success" title="Evaluación del líder realizada" style="font-size: 100% !important;">' + row.estado + '</a></div>';
+                                return '<div style="text-align: center;"><a href="/PerformanceApp/Index/Crud?view=performance&idPerformance=' + encryptedIdPerformance + '&iv=' + ivBase64 + '" class="btn btn-sm grilla-btn btn-success" title="Evaluación del líder realizada" style="font-size: 100% !important;">' + row.estado + '</a></div>';
                             }
                             if (data == 4) {
-                                return '<div style="text-align: center;"><a href="/PerformanceApp/Index/Crud?view=performance&idPerformance=' + row.idPerformance + '" class="btn btn-sm grilla-btn btn-primary" title=" Evaluación realizada, Calibración realizada, Etapa de Feedback Abierta" style="font-size: 100% !important;">' + row.estado + '</a></div>';
+                                return '<div style="text-align: center;"><a href="/PerformanceApp/Index/Crud?view=performance&idPerformance=' + encryptedIdPerformance + '&iv=' + ivBase64 + '" class="btn btn-sm grilla-btn btn-primary" title=" Evaluación realizada, Calibración realizada, Etapa de Feedback Abierta" style="font-size: 100% !important;">' + row.estado + '</a></div>';
                             }
                             if (data == 5) {
-                                return '<div style="text-align: center;"><a href="/PerformanceApp/Index/Crud?view=performance&idPerformance=' + row.idPerformance + '" class="btn btn-sm grilla-btn btn-secondary" title="Proceso de Performance Completado" style="font-size: 100% !important;">' + row.estado + '</a></div>';
+                                return '<div style="text-align: center;"><a href="/PerformanceApp/Index/Crud?view=performance&idPerformance=' + encryptedIdPerformance + '&iv=' + ivBase64 + '" class="btn btn-sm grilla-btn btn-secondary" title="Proceso de Performance Completado" style="font-size: 100% !important;">' + row.estado + '</a></div>';
                             }
                         }
                     },
@@ -1071,7 +1099,7 @@
             var lider = $("#selectLider").val();
             var ano = $("#selectAno").val();
             var url = 'Api/PerformanceApp/GenerarExcelReportesColaboradores';
-            url = url + "?colaborador=" + colaborador;              
+            url = url + "?colaborador=" + colaborador;
             url = url + "&estado=" + estado;
             url = url + "&lider=" + lider;
             url = url + "&ano=" + ano;
