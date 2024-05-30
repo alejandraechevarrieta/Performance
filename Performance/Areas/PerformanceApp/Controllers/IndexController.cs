@@ -1,5 +1,4 @@
-﻿using NPOI.OpenXmlFormats.Spreadsheet;
-using System;
+﻿using System;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
@@ -12,14 +11,15 @@ namespace Performance.Areas.PerformanceApp.Controllers
     {
         public ActionResult Index(string perfil, string idUsuario, string iv)
         {
-            if(perfil != "0" && idUsuario != "0" && iv != null)
+            if (perfil != "0" && idUsuario != "0" && iv != null)
             {
                 string perfilDesencriptado = Desencriptar(perfil, iv);
                 string idUsuarioDesencriptado = Desencriptar(idUsuario, iv);
+
                 System.Web.HttpContext.Current.Session["perfil"] = perfilDesencriptado;
                 System.Web.HttpContext.Current.Session["idUsuario"] = idUsuarioDesencriptado;
             }
-            if ((perfil != "0" || idUsuario != "0") &&  iv == null)
+            if ((perfil != "0" || idUsuario != "0") && iv == null)
             {
                 return RedirectToAction("Index", new { area = "Login" });
             }
@@ -30,55 +30,38 @@ namespace Performance.Areas.PerformanceApp.Controllers
 
         private string Desencriptar(string cipherText, string ivBase64)
         {
-            try
+            byte[] buffer = Convert.FromBase64String(cipherText);
+            byte[] iv = Convert.FromBase64String(ivBase64);
+
+            // Generar la clave combinando la fecha actual con los dígitos restantes "12345678"
+            string currentDate = DateTime.Now.ToString("yyyyMMdd");
+            string keyString = currentDate + "12345678";
+            byte[] key = Encoding.UTF8.GetBytes(keyString);
+
+            using (Aes aes = Aes.Create())
             {
-                byte[] buffer = Convert.FromBase64String(cipherText);
-                byte[] iv = Convert.FromBase64String(ivBase64);
+                aes.Key = key;
+                aes.IV = iv;
+                aes.Padding = PaddingMode.PKCS7;
+                ICryptoTransform decryptor = aes.CreateDecryptor(aes.Key, aes.IV);
 
-                // Generar la clave combinando la fecha actual con los dígitos restantes "12345678"
-                string currentDate = DateTime.Now.ToString("yyyyMMdd");
-                string keyString = currentDate + "12345678";
-                byte[] key = Encoding.UTF8.GetBytes(keyString);
-
-                using (Aes aes = Aes.Create())
+                using (MemoryStream ms = new MemoryStream(buffer))
                 {
-                    aes.Key = key;
-                    aes.IV = iv;
-                    aes.Padding = PaddingMode.PKCS7;
-                    ICryptoTransform decryptor = aes.CreateDecryptor(aes.Key, aes.IV);
-
-                    using (MemoryStream ms = new MemoryStream(buffer))
+                    using (CryptoStream cs = new CryptoStream(ms, decryptor, CryptoStreamMode.Read))
                     {
-                        using (CryptoStream cs = new CryptoStream(ms, decryptor, CryptoStreamMode.Read))
+                        using (StreamReader reader = new StreamReader(cs))
                         {
-                            using (StreamReader reader = new StreamReader(cs))
-                            {
-                                string decrypted = reader.ReadToEnd();
-                                // Verificar si el texto desencriptado es consistente
-                                if (string.IsNullOrWhiteSpace(decrypted))
-                                {
-                                    salir();
-                                    return null;
-                                }
-                                return decrypted;
-                            }
+                            return reader.ReadToEnd();
                         }
                     }
                 }
             }
-            catch (Exception)
-            {
-                salir();
-                return null;
-            }
         }
-
-
 
         public ActionResult Crud(string view, string idPerformance, string nombre, string iv)
         {
             var idPerformanceLong = idPerformance.LongCount();
-            if(idPerformanceLong == 24 && iv != null)
+            if (idPerformanceLong == 24 && iv != null)
             {
                 string perfilDesencriptado = Desencriptar(idPerformance, iv);
                 ViewBag.View = view;
@@ -88,14 +71,9 @@ namespace Performance.Areas.PerformanceApp.Controllers
             else
             {
                 return RedirectToAction("Index", new { area = "Login" });
-            }         
+            }
 
             return View();
         }
-        private void salir()
-        {
-            HttpContext.Current.Response.Redirect("/Login/Index");
-        }
-
     }
 }

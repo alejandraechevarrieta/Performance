@@ -567,9 +567,10 @@
                         "name": "Estado",
                         "autoWidth": false,
                         "render": function (data, type, row, meta) {
-                            var currentDate = new Date();
-                            currentDate.setDate(currentDate.getDate());
-                            var formattedDate = currentDate.toISOString().slice(0, 10).replace(/-/g, "");
+                            var currentDate = new Date();                           
+                            var formattedDate = currentDate.getFullYear() +
+                                ('0' + (currentDate.getMonth() + 1)).slice(-2) +
+                                ('0' + currentDate.getDate()).slice(-2);
                             var secretKey = formattedDate + "12345678";
                             var iv = CryptoJS.lib.WordArray.random(16);
                             var encryptedIdPerformance = CryptoJS.AES.encrypt((row.idPerformance).toString(), CryptoJS.enc.Utf8.parse(secretKey), { iv: iv }).toString();
@@ -718,8 +719,9 @@
                         "autoWidth": false,
                         "render": function (data, type, row, meta) {
                             var currentDate = new Date();
-                            currentDate.setDate(currentDate.getDate());
-                            var formattedDate = currentDate.toISOString().slice(0, 10).replace(/-/g, "");
+                            var formattedDate = currentDate.getFullYear() +
+                                ('0' + (currentDate.getMonth() + 1)).slice(-2) +
+                                ('0' + currentDate.getDate()).slice(-2);
                             var secretKey = formattedDate + "12345678";
                             var iv = CryptoJS.lib.WordArray.random(16);
                             var encryptedIdPerformance = CryptoJS.AES.encrypt((row.idPerformance).toString(), CryptoJS.enc.Utf8.parse(secretKey), { iv: iv }).toString();
@@ -889,8 +891,9 @@
                         "autoWidth": false,
                         "render": function (data, type, row, meta) {
                             var currentDate = new Date();
-                            currentDate.setDate(currentDate.getDate()); 
-                            var formattedDate = currentDate.toISOString().slice(0, 10).replace(/-/g, "");
+                            var formattedDate = currentDate.getFullYear() +
+                                ('0' + (currentDate.getMonth() + 1)).slice(-2) +
+                                ('0' + currentDate.getDate()).slice(-2);
                             var secretKey = formattedDate + "12345678";
                             var iv = CryptoJS.lib.WordArray.random(16);
                             var encryptedIdPerformance = CryptoJS.AES.encrypt((row.idPerformance).toString(), CryptoJS.enc.Utf8.parse(secretKey), { iv: iv }).toString();
