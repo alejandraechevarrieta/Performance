@@ -185,8 +185,8 @@ namespace Performance.Areas.PerformanceApp.Controllers.Api
                     var performance = db.PerformanceColaborador.Where(x => x.idPerformance == autoevaluacion.idPerformance).FirstOrDefault();
 
                     await EnviarMailLider(performance.idUsuario, performance.idJefe, tmp.body, tmp.asunto);
-
-                return tmp.idPerformance;
+                    
+                    return tmp.idPerformance;
                 }
                 
             }
@@ -195,7 +195,33 @@ namespace Performance.Areas.PerformanceApp.Controllers.Api
                 return 0;
             }
         }
-       
+        [System.Web.Http.Route("Api/PerformanceApp/GuardarEvaluacion")]
+        [System.Web.Http.ActionName("GuardarEvaluacion")]
+        [System.Web.Http.HttpPost]
+        public async Task<int> GuardarEvaluacion(PerformanceAutoevaluacionVM evaluacion)
+        {
+            try
+            {
+                using (var db = new PerformanceEntities())
+                {
+                    Servicios.ServicioPerformance _servicio = new Servicios.ServicioPerformance();
+
+                    var tmp = _servicio.GuardarEvaluacion(evaluacion, evaluacion.idResponsable);
+
+                    var performance = db.PerformanceColaborador.Where(x => x.idPerformance == evaluacion.idPerformance).FirstOrDefault();
+
+                    //await EnviarMailLider(performance.idUsuario, performance.idJefe, tmp.body, tmp.asunto);
+
+                    return tmp.idPerformance;
+                }
+
+            }
+            catch (Exception e)
+            {
+                return 0;
+            }
+        }
+
         [System.Web.Http.Route("Api/PerformanceApp/GenerarAltasPerformance")]
         [System.Web.Http.ActionName("GenerarAltasPerformance")]
         [System.Web.Http.HttpGet]

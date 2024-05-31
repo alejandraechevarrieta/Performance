@@ -345,6 +345,9 @@
         visibility: visible !important; /* Hacer visible el tooltip */
         opacity: 1 !important; /* Ajustar la opacidad del tooltip */
     }
+    .modal {
+        background-color: rgba(0, 0, 0, 0.5);
+    }
 </style>
 
 <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
@@ -534,10 +537,7 @@
                                             <p class="h5">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
                                         </div>
                                         <div class="row mt-3">
-                                            <!-- El label muestra el texto al usuario -->
-                                            <label for="g1">Regular</label>
-                                            <!-- El input tiene el valor numérico -->
-                                            <input id="g1" type="button" value="1" title="No alcanza el desempeño requerido" data-bs-placement="bottom" />
+                                            <input id="g1" type="button" data-toggle="tooltip" data-bs-placement="bottom" title="No alcanza el desempeño requerido" value="Regular" />
                                             <input id="g2" type="button" data-toggle="tooltip" data-bs-placement="bottom" title="Alcanza el desempeño mínimo requerido con asistencia" value="A nivel" />
                                             <input id="g3" type="button" data-toggle="tooltip" data-bs-placement="bottom" title="Alcanza el desempeño de manera satisfactoria" value="Satisfactorio" />
                                             <input id="g4" type="button" data-toggle="tooltip" data-bs-placement="bottom" title="Alcanza el desempeño, dando valor agregado" value="Destacado" />
@@ -700,7 +700,13 @@ function GuardarEvaluacion() {
             if (storedData) {
                 var data = JSON.parse(storedData);
                 // Agregar la selección al objeto de detalleAutoevaluacion
-                detalleEvaluacion['Habilidad' + cardId.charAt(cardId.length - 1)] = data.calificacion;
+                if (cardId.charAt(cardId.length - 1) == 7) {
+                    detalleEvaluacion['calificacionFinal'] = data.calificacion;
+                }
+                else {
+                    detalleEvaluacion['Habilidad' + cardId.charAt(cardId.length - 1)] = data.calificacion;
+                }
+                
             }
         }
     });
@@ -722,7 +728,7 @@ function GuardarEvaluacion() {
             } else {
                 // Éxito al guardar
                 $('#modalDeseaEnviar').hide();
-                alert("Autoevaluación guardada con éxito");
+                alert("Evaluación guardada con éxito");
                 var url = "/PerformanceApp/Index?perfil=" + encodeURIComponent(perfil) + "&idUsuario=" + encodeURIComponent(idUsuario);
                 window.location.href = url;
             }

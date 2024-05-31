@@ -18,6 +18,7 @@ namespace Performance.Model
     public class PerformanceAutoevaluacionVM
     {
         public int idUsuario { get; set; }
+        public int idResponsable { get; set; }
         public int idAutoevaluacion { get; set; }
         public int idPerformance { get; set; }
         public int? idHabilidad { get; set; }
@@ -30,6 +31,7 @@ namespace Performance.Model
         public string habilidad4 { get; set; }
         public string habilidad5 { get; set; }
         public string habilidad6 { get; set; }
+        public string calificacionFinal { get; set; }
         public string body { get; set; }
         public string asunto { get; set; }
         public string adjunto { get; set; }
