@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Web.Mvc;
@@ -10,7 +11,7 @@ namespace Performance.Areas.PerformanceApp.Controllers
     {
         public ActionResult Index(string perfil, string idUsuario, string iv)
         {
-            if(perfil != "0" && idUsuario != "0" && iv != null)
+            if (perfil != "0" && idUsuario != "0" && iv != null)
             {
                 string perfilDesencriptado = Desencriptar(perfil, iv);
                 string idUsuarioDesencriptado = Desencriptar(idUsuario, iv);
@@ -18,7 +19,7 @@ namespace Performance.Areas.PerformanceApp.Controllers
                 System.Web.HttpContext.Current.Session["perfil"] = perfilDesencriptado;
                 System.Web.HttpContext.Current.Session["idUsuario"] = idUsuarioDesencriptado;
             }
-            if ((perfil != "0" || idUsuario != "0") &&  iv == null)
+            if ((perfil != "0" || idUsuario != "0") && iv == null)
             {
                 return RedirectToAction("Index", new { area = "Login" });
             }
@@ -57,11 +58,20 @@ namespace Performance.Areas.PerformanceApp.Controllers
             }
         }
 
-        public ActionResult Crud(string view, int idPerformance, string nombre)
+        public ActionResult Crud(string view, string idPerformance, string nombre, string iv)
         {
-            ViewBag.View = view;
-            ViewBag.IdPerformance = idPerformance;
-            ViewBag.nombre = nombre;
+            var idPerformanceLong = idPerformance.LongCount();
+            if (idPerformanceLong == 24 && iv != null)
+            {
+                string perfilDesencriptado = Desencriptar(idPerformance, iv);
+                ViewBag.View = view;
+                ViewBag.IdPerformance = Convert.ToInt32(perfilDesencriptado);
+                ViewBag.nombre = nombre;
+            }
+            else
+            {
+                return RedirectToAction("Index", new { area = "Login" });
+            }
 
             return View();
         }
