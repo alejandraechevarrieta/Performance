@@ -390,7 +390,7 @@
                                             <input id="aa4" disabled type="button" value="No aplica" />
                                         </div>
                                     </div>
-                                    <div class="form-card"  id="card1">
+                                    <div class="form-card" id="card1">
                                         <h2 class="fs-title">Evaluación líder</h2>
                                         <div class="button-container mt-2">
                                             <input id="a1" type="button" data-toggle="tooltip" data-bs-placement="bottom" title="Necesita ayuda para mostrar esta habilidad" value="En progreso" />
@@ -440,7 +440,7 @@
                                             <input id="cc4" disabled type="button" value="No aplica" />
                                         </div>
                                     </div>
-                                    <div class="form-card"  id="card3">
+                                    <div class="form-card" id="card3">
                                         <h2 class="fs-title">Evaluación líder</h2>
                                         <div class="button-container mt-2">
                                             <input id="c1" type="button" data-toggle="tooltip" data-bs-placement="bottom" title="Necesita ayuda para mostrar esta habilidad" value="En progreso" />
@@ -545,10 +545,28 @@
                                         </div>
                                     </div>
                                     <input type="button" name="previous" class="previous action-button-previous boton" value="Volver" />
-                                    <input type="button" name="make_payment" class="next action-button boton" value="Confirmar" />
+                                    <input type="button" name="make_payment" class="next action-button boton" onclick="AbrirModalEnviar()" value="Confirmar" />
                                 </fieldset>
                             </form>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @*modal preguntar si esta seguro *@
+    <div class="modal" id="modalDeseaEnviar" style="display: none!important; margin-top: 0%;">
+        <div class="modal-dialog" style="max-width: 900px!important;">
+            <div class="modal-content p-2">
+                <div class="row mb-3 m-2" style="justify-content:center">
+                    <p class="h4" style="margin-left: 0px; margin-right:0px;"> Recuerde que una vez enviado no podrá modificar su autoevaluación. ¿Desea enviar la autoevaluación a su líder?</p>
+                </div>
+                <div class="row mb-3 pr-2">
+                    <div class="col-md-6">
+                        <a href="#" role="button" class="btn btn-danger btn-sm btn-block" onclick="CerrarModalEnviar();" id="CerrarModalEnviar" style="margin-left: 60%; width: 40%;">Cancelar</a>
+                    </div>
+                    <div class="col-md-6">
+                        <a href="#" role="button" class="btn btn-info btn-sm btn-block" onclick="GuardarEvaluacion();" id="GuardarEvaluacion" style="width: 40%;">Enviar</a>
                     </div>
                 </div>
             </div>
@@ -663,8 +681,16 @@ $('input[type="button"]').click(function () {
     localStorage.setItem(idHabilidad, JSON.stringify({ calificacion: calificacion, idCalificacion: idCalificacion }));  // Guardar la selección y el ID del botón en localStorage
 });
 
-function GuardarAutoevaluacion() {
-    var detalleAutoevaluacion = {};
+    //Modal
+    function AbrirModalEnviar() {
+        $('#modalDeseaEnviar').show();
+    }
+    function CerrarModalEnviar() {
+        $('#modalDeseaEnviar').hide();
+    }
+
+function GuardarEvaluacion() {
+    var detalleEvaluacion = {};
 
     // Obtener las selecciones guardadas en localStorage
     $('.form-card').each(function () {
@@ -674,25 +700,25 @@ function GuardarAutoevaluacion() {
             if (storedData) {
                 var data = JSON.parse(storedData);
                 // Agregar la selección al objeto de detalleAutoevaluacion
-                detalleAutoevaluacion['Habilidad' + cardId.charAt(cardId.length - 1)] = data.calificacion;
+                detalleEvaluacion['Habilidad' + cardId.charAt(cardId.length - 1)] = data.calificacion;
             }
         }
     });
 
     // Agregar el ID de usuario
-    detalleAutoevaluacion.idUsuario = "@idUsuario";
-    detalleAutoevaluacion.idPerformance = "@idPerformance";
+    detalleEvaluacion.idResponsable = "@idUsuario";
+    detalleEvaluacion.idPerformance = "@idPerformance";
 
     // Realizar la solicitud AJAX
     $.ajax({
         type: "POST",
-        url: "/PerformanceApp/Api/PerformanceApp/GuardarAutoevaluacion",
-        data: detalleAutoevaluacion,
+        url: "/PerformanceApp/Api/PerformanceApp/GuardarEvaluacion",
+        data: detalleEvaluacion,
         dataType: "json",
         success: function (response) {
             if (response == 0) {
                 // Error al guardar
-                console.log("Error al guardar la autoevaluación");
+                console.log("Error al guardar la evaluación");
             } else {
                 // Éxito al guardar
                 $('#modalDeseaEnviar').hide();
@@ -720,7 +746,7 @@ function GuardarAutoevaluacion() {
         var url = "/PerformanceApp/Api/PerformanceApp/buscarDatosPerformance?idPerformance=" + "@idPerformance";
         $.getJSON(url)
         .done(function (datos) {
-            datos.forEach(function (data) {               
+            datos.forEach(function (data) {
                 var habilidadesMap = {
                     1: "aa",
                     2: "bb",
@@ -733,7 +759,7 @@ function GuardarAutoevaluacion() {
                 // recorrer las habilidades
                 for (var i = 1; i <= 6; i++) {
                     var habilidad = habilidadesMap[i];
-                   
+
                     var selector = "#" + habilidad + data.idCalificacionAutoevaluacion;
 
                     if (data.idHabilidadAutoevaluacion == i) {
@@ -753,5 +779,5 @@ function GuardarAutoevaluacion() {
             element.innerHTML = newText;
         });
     }
-  
+
 </script>
