@@ -339,6 +339,81 @@ namespace Performance.Servicios
                 return performanceVM;
             }
         }
+        public PerformanceAutoevaluacionVM GuardarEvaluacion(PerformanceAutoevaluacionVM evaluacion, int idResponsable)
+        {
+            try
+            {
+                var habilidades = db.Habilidades.Where(x => x.activo == true).ToList();
+
+                EvaluacionPerformance nuevaEvaluacion = new EvaluacionPerformance();
+                PerformanceAutoevaluacionVM performanceVM = new PerformanceAutoevaluacionVM();
+
+                List<string> calificacion = new List<string>();
+                calificacion.Add(evaluacion.habilidad1);
+                calificacion.Add(evaluacion.habilidad2);
+                calificacion.Add(evaluacion.habilidad3);
+                calificacion.Add(evaluacion.habilidad4);
+                calificacion.Add(evaluacion.habilidad5);
+                calificacion.Add(evaluacion.habilidad6);
+
+                //Evaluacion
+                var numero = 1; // Inicializar numero en 0
+
+                foreach (var habilidad in habilidades)
+                {
+                    if (evaluacion != null)
+                    {
+                        nuevaEvaluacion.idPerformance = evaluacion.idPerformance;
+                        nuevaEvaluacion.idHabilidad = habilidad.idHabilidad;
+                        nuevaEvaluacion.fechaEvaluacion = DateTime.Now;
+
+                        // Obtener la calificación correspondiente a la habilidad actual
+                        var habilidadIndex = habilidades.IndexOf(habilidad);
+                        var item = calificacion.ElementAtOrDefault(habilidadIndex); // Obtener la calificación para la habilidad actual
+                        if (item != null)
+                        {
+                            var idCalificacion = db.Calificacion
+                                .Where(x => x.activo == true && x.formulario == "A" && x.nombre.Contains(item))
+                                .Select(x => x.idCalificacion)
+                                .FirstOrDefault();
+
+                            if (idCalificacion != 0)
+                            {
+                                nuevaEvaluacion.idCalificacion = idCalificacion;
+
+                                db.EvaluacionPerformance.Add(nuevaEvaluacion);
+                                db.SaveChanges();
+                            }
+                            else
+                            {
+                                // Manejar la situación donde no se encuentra una calificación para la habilidad actual
+                            }
+                        }
+                    }
+                }
+
+
+                //Performance
+                var performance = db.PerformanceColaborador.Where(x => x.idPerformance == evaluacion.idPerformance).FirstOrDefault();
+
+                if (performance != null)
+                {
+                    performance.estado = 3;
+                    performance.calificacionFinal = evaluacion.calificacionFinal;
+                    performance.fechaEvaluacion = DateTime.Now;
+
+                    db.SaveChanges();
+                }
+                return performanceVM;
+            }
+            catch (Exception e)
+            {
+                var ex = e.GetBaseException();
+                PerformanceAutoevaluacionVM performanceVM = new PerformanceAutoevaluacionVM();
+                performanceVM.idPerformance = 0;
+                return performanceVM;
+            }
+        }
 
         public int GenerarAltasPerformance(List<ColaboradorVM> colaboradores)
         {
