@@ -44,6 +44,7 @@ namespace Performance.Model
         public int antiguedad { get; set; }
         public int idJefe { get; set; }
         public string nombreJefe { get; set; }
+        public string dominio { get; set; }
         public int idAutoevaluacion { get; set; }
         public int idHabilidad { get; set; }
         public int idCalificacion { get; set; }
