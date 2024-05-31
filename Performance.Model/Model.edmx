@@ -54,11 +54,8 @@
           </Key>
           <Property Name="idEvaluacion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="idPerformance" Type="int" Nullable="false" />
-          <Property Name="idAutoevaluacion" Type="int" Nullable="false" />
           <Property Name="idHabilidad" Type="int" />
           <Property Name="idCalificacion" Type="int" />
-          <Property Name="idResponsable" Type="int" Nullable="false" />
-          <Property Name="nombreResponsable" Type="varchar" MaxLength="500" />
           <Property Name="fechaEvaluacion" Type="date" Nullable="false" />
         </EntityType>
         <EntityType Name="Habilidades">
@@ -177,11 +174,8 @@
           </Key>
           <Property Name="idEvaluacion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="idPerformance" Type="Int32" Nullable="false" />
-          <Property Name="idAutoevaluacion" Type="Int32" Nullable="false" />
           <Property Name="idHabilidad" Type="Int32" />
           <Property Name="idCalificacion" Type="Int32" />
-          <Property Name="idResponsable" Type="Int32" Nullable="false" />
-          <Property Name="nombreResponsable" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="fechaEvaluacion" Type="DateTime" Nullable="false" Precision="0" />
         </EntityType>
         <EntityType Name="Habilidades">
@@ -305,11 +299,8 @@
               <MappingFragment StoreEntitySet="EvaluacionPerformance">
                 <ScalarProperty Name="idEvaluacion" ColumnName="idEvaluacion" />
                 <ScalarProperty Name="idPerformance" ColumnName="idPerformance" />
-                <ScalarProperty Name="idAutoevaluacion" ColumnName="idAutoevaluacion" />
                 <ScalarProperty Name="idHabilidad" ColumnName="idHabilidad" />
                 <ScalarProperty Name="idCalificacion" ColumnName="idCalificacion" />
-                <ScalarProperty Name="idResponsable" ColumnName="idResponsable" />
-                <ScalarProperty Name="nombreResponsable" ColumnName="nombreResponsable" />
                 <ScalarProperty Name="fechaEvaluacion" ColumnName="fechaEvaluacion" />
               </MappingFragment>
             </EntityTypeMapping>

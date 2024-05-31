@@ -16,11 +16,8 @@ namespace Performance.Model
     {
         public int idEvaluacion { get; set; }
         public int idPerformance { get; set; }
-        public int idAutoevaluacion { get; set; }
         public Nullable<int> idHabilidad { get; set; }
         public Nullable<int> idCalificacion { get; set; }
-        public int idResponsable { get; set; }
-        public string nombreResponsable { get; set; }
         public System.DateTime fechaEvaluacion { get; set; }
     }
 }
