@@ -260,7 +260,7 @@ namespace Performance.Servicios
                     "<table border=\"0\" width=\"200px\" bgcolor=\"#EDECEB\"> \r\n    " +
                         "<tbody> \r\n        " +
                             "<tr> \r\n            " +
-                                "<td align=\"center\"></td> \r\n        " +
+                                "<td align=\"center\"><img src=\"https://buhogestion.distrocuyo.com/content/perform/performanceIdentidad2024.png\" alt=\"\" width=\"150px\"></td> \r\n        " +
                             "</tr> \r\n    " +
                         "</tbody> \r\n" +
                     "</table>\r\n" +
