@@ -2,8 +2,10 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Core.Metadata.Edm;
+using System.Globalization;
 using System.Linq;
 using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace Performance.Servicios
@@ -52,16 +54,17 @@ namespace Performance.Servicios
                            fechaFeedback = p.fechaEvaluacion, //cambiar
                            idEstado = p.estado,
                            estado = e.estado,
+                           dominio = p.dominio,
                        }).OrderByDescending(x => x.ano).ThenBy(x => x.nombre);
             var algo = tmp.ToList();
 
             return tmp;
         }
-
-        public List<PerformanceVM> listarPerformance(string idUsuario, string idPerfil, int? colaborador, int? estado, int? lider, int? ano)
+        public List<PerformanceVM> listarPerformance(string idUsuario, string idPerfil, int? colaborador, int? estado, int? lider, int? ano, string dominio)
         {
             var listaPpal = ListarPerformanceTodas().ToList();
             var idUsuarioInt = Convert.ToInt16(idUsuario);
+
             if (idPerfil != null)
             {
                 if (idPerfil == "127")
@@ -71,12 +74,11 @@ namespace Performance.Servicios
                 if (idPerfil == "128")
                 {
                     listaPpal = listaPpal.Where(p => p.idJefe == idUsuarioInt).ToList();
-                }              
+                }
             }
             if (colaborador != null)
             {
                 listaPpal = listaPpal.Where(p => p.idUsuario == colaborador).ToList();
-
             }
             if (estado != null)
             {
@@ -90,8 +92,34 @@ namespace Performance.Servicios
             {
                 listaPpal = listaPpal.Where(p => p.ano == ano).ToList();
             }
+            if (dominio != "null" && dominio != null)
+            {
+                var dominioNormalizado = normalizarTexto(dominio).Substring(0, 3);
 
+                listaPpal = listaPpal.Where(p => p.dominio != "null" &&
+                                                  normalizarTexto(p.dominio).Substring(0, 3) == dominioNormalizado).ToList();
+            }
             return listaPpal;
+        }
+        public static string normalizarTexto(string text)
+        {
+            if (string.IsNullOrEmpty(text))
+            {
+                return text;
+            }
+
+            var normalizedString = text.Normalize(NormalizationForm.FormD);
+            var stringBuilder = new StringBuilder();
+
+            foreach (var c in normalizedString)
+            {
+                var unicodeCategory = CharUnicodeInfo.GetUnicodeCategory(c);
+                if (unicodeCategory != UnicodeCategory.NonSpacingMark)
+                {
+                    stringBuilder.Append(c);
+                }
+            }            
+            return stringBuilder.ToString().Normalize(NormalizationForm.FormC).ToLowerInvariant();
         }
 
         public PerformanceVM buscarPerformance(int? idPerformance)
@@ -187,7 +215,20 @@ namespace Performance.Servicios
 
             return lista.OrderBy(x => x.nombreJefe).ToList();
         }
+        public List<ColaboradorVM> ListarDominios()
+        {
+            List<ColaboradorVM> lista = null;
 
+            lista =
+            (from d in db.PerformanceColaborador
+             select new ColaboradorVM
+             {
+                 dominio = d.dominio,
+                
+             }).Where(x => x.dominio != "").Distinct().ToList();
+
+            return lista.OrderBy(x => x.dominio).ToList();
+        }
         public PerformanceAutoevaluacionVM GuardarAutoevaluacion(PerformanceAutoevaluacionVM autoevaluacion)
         {
             try
