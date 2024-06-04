@@ -180,37 +180,37 @@
         }
         @if (Convert.ToInt32(perfil) == 129)
         {
-        <div style="margin-left: 2.5%; margin-block: 0.5%; position: relative;">
-            <button id="instructivo" class="btn btn-secondary" onclick="DescargarInstructivo()" title="Instructivo" aria-label="Instructivo"> <i class="fa fa-info-circle"></i></button>
-            <button id="abrirModalBtn" class="btn btn-primary" title="Instructivo" aria-label="Instructivo"> <i class="fa fa-video-camera"></i></button>
-            <button id="altaPerformance" type="button" class="btn btn-block btn-warning" style="width: 200px; cursor: pointer;">
-                Alta Performance @(DateTime.Now.Year)
-            </button>
-            <input type="button" class="btn btn-info boton" onclick="GenerarExcelColaboradores()" title='excel' id="btnExcel" value="Reporte Performance ">
-            <div class="tracking" id="progresoPerformance" style="margin-bottom: 20px; margin-left:480px">
-                <div class="text-uppercase text-xl font-weight-bolder opacity-7" id="tituloProgreso" style="width:auto">Progreso Performance @(DateTime.Now.Year)</div>
-            </div>
-            <div class="col-md-2" style="position: absolute; top: 10%; right: 2%; margin-right: 0px;">
-                <div class="d-flex flex-column border p-3">
-                    <div id="totalPendiente" class="mb-2"><span class="mr-3" style="width: 20px; height: 20px; display: inline-block; background-color: #FFC107 !important;"></span> Pendiente</div>
-                    <div id="totalCompletado" class="mb-2"><span class="mr-3" style="width: 20px; height: 20px; display: inline-block; background-color: #7AC11F !important;"></span> Completado</div>
-                    <div id="totalEvaluado" class="mb-2"><span class="mr-3" style="width: 20px; height: 20px; display: inline-block; background-color: #69E6FF !important;"></span> Evaluado</div>
-                    <div id="totalFeedback" class="mb-2"><span class="mr-3" style="width: 20px; height: 20px; display: inline-block; background-color: #17AFB6 !important;"></span> Feedback</div>
-                    <div id="totalFinalizado" class="mb-2"><span class="mr-3" style="width: 20px; height: 20px; display: inline-block; background-color: #9b9b9b !important;"></span> Finalizado</div>
+            <div style="margin-left: 2.5%; margin-block: 0.5%; position: relative;">
+                <button id="instructivo" class="btn btn-secondary" onclick="DescargarInstructivo()" title="Instructivo" aria-label="Instructivo"> <i class="fa fa-info-circle"></i></button>
+                <button id="abrirModalBtn" class="btn btn-primary" title="Instructivo" aria-label="Instructivo"> <i class="fa fa-video-camera"></i></button>
+                <button id="altaPerformance" type="button" class="btn btn-block btn-warning" style="width: 200px; cursor: pointer;">
+                    Alta Performance @(DateTime.Now.Year)
+                </button>
+                <input type="button" class="btn btn-info boton" onclick="GenerarExcelColaboradores()" title='excel' id="btnExcel" value="Reporte Performance ">
+                <div class="tracking" id="progresoPerformance" style="margin-bottom: 20px; margin-left:480px">
+                    <div class="text-uppercase text-xl font-weight-bolder opacity-7" id="tituloProgreso" style="width:auto">Progreso Performance @(DateTime.Now.Year)</div>
+                </div>
+                <div class="col-md-2" style="position: absolute; top: 10%; right: 2%; margin-right: 0px;">
+                    <div class="d-flex flex-column p-3">
+                        <div id="totalPendiente" class="mb-2"><span class="mr-3" style="width: 20px; height: 20px; display: inline-block; background-color: #7AC11F !important;"></span> Pendiente</div>
+                        <div id="totalCompletado" class="mb-2"><span class="mr-3" style="width: 20px; height: 20px; display: inline-block; background-color: #FFC107 !important;"></span> Completado</div>
+                        <div id="totalEvaluado" class="mb-2"><span class="mr-3" style="width: 20px; height: 20px; display: inline-block; background-color: #69E6FF !important;"></span> Evaluado</div>
+                        <div id="totalFeedback" class="mb-2"><span class="mr-3" style="width: 20px; height: 20px; display: inline-block; background-color: #17AFB6 !important;"></span> Feedback</div>
+                        <div id="totalFinalizado" class="mb-2"><span class="mr-3" style="width: 20px; height: 20px; display: inline-block; background-color: #9b9b9b !important;"></span> Finalizado</div>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="row align-items-center" style="text-align: center; margin-top:20px; margin-left:15px;">
-            <div class="form-group2 col-md-9">
-                <div class="progress" style="margin-bottom: 50px;">
-                    <div id="barraPendiente" class="progress-bar progress-bar-stripeds" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
-                    <div id="barraCompletado" class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
-                    <div id="barraEvaluado" class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
-                    <div id="barraFeedback" class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
-                    <div id="barraFinalizado" class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+            <div class="row align-items-center" style="text-align: center; margin-top:20px; margin-left:15px;">
+                <div class="form-group2 col-md-9">
+                    <div class="progress" style="margin-bottom: 50px;">
+                        <div id="barraPendiente" class="progress-bar progress-bar-stripeds" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                        <div id="barraCompletado" class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                        <div id="barraEvaluado" class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                        <div id="barraFeedback" class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                        <div id="barraFinalizado" class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
                 </div>
             </div>
-        </div>
         }
 
         @*FILTROS SOLICITUDES*@
@@ -218,36 +218,37 @@
         <div class="row m-3" style="overflow: hidden; margin-top: 2% !important;" id="rowFiltro">
             @if (Convert.ToInt32(perfil) == 128 || Convert.ToInt32(perfil) == 129)
             {
-            <div class="form-group2 col-md-2" id="filtroColaborador">
-                <label>Colaborador:</label>
-                <div></div>
-                <div style="font-weight: normal !important;">
-                    <select class="form-control" id="selectColaborador"></select>
+                <div class="form-group2 col-md-2" id="filtroColaborador">
+                    <label>Colaborador:</label>
+                    <div></div>
+                    <div style="font-weight: normal !important;">
+                        <select class="form-control" id="selectColaborador"></select>
+                    </div>
                 </div>
-            </div>
-            <div class="form-group2 col-md-2" id="filtroEstado">
-                <label>Estado:</label>
-                <div></div>
-                <select class="form-control" id="selectEstado">
-                </select>
-            </div>
-            <div class="form-group2 col-md-2" id="filtroAno">
-                <label>Año:</label>
-                <div></div>
-                <div style="font-weight: normal !important;">
-                    <select class="form-control" id="selectAno"></select>
+                <div class="form-group2 col-md-2" id="filtroEstado">
+                    <label>Estado:</label>
+                    <div></div>
+                    <select class="form-control" id="selectEstado">
+                    </select>
                 </div>
-            </div>
-            <div class="form-group2 col-md-1 mt-2" style="padding-top: 1.9%;" id="btnBuscarFiltro">
-                <button id="btnFiltrar" type="button" class="btn btn-success" style="width: 120px; cursor: pointer;">
-                    Buscar
-                </button>
-            </div>
-            <div class="form-group2 col-md-1 mt-2" style="padding-top: 1.9%; margin-left:10px;" id="btnLimpiar">
-                <button id="btnFiltrar" type="button" class="btn btn-info" style="width: 120px; cursor: pointer;">
-                    Limpiar
-                </button>
-            </div>
+                <div class="form-group2 col-md-2" id="filtroAno">
+                    <label>Año:</label>
+                    <div></div>
+                    <div style="font-weight: normal !important;">
+                        <select class="form-control" id="selectAno"></select>
+                    </div>
+                </div>
+                <div class="form-group2 col-md-2 mt-1 pt-4 d-flex" id="btnBuscarFiltro">
+                    <button id="btnFiltrar" type="button" class="btn btn-success me-2" style="width: 120px; cursor: pointer;">
+                        Buscar
+                    </button>
+                    <button id="btnLimpiar" type="button" class="btn btn-info" style="width: 120px; cursor: pointer;">
+                        Limpiar
+                    </button>
+                </div>
+                @*<div class="form-group2 col-md-1 mt-2" style="padding-top: 1.9%; margin-left:10px;" id="btnLimpiar">
+                    
+                </div>*@
             }
         </div>
         <div class="row m-3" style="overflow: hidden; margin-top: 0% !important; display:none;" id="rowFiltro2">
