@@ -191,7 +191,7 @@
                     <div class="text-uppercase text-xl font-weight-bolder opacity-7" id="tituloProgreso" style="width:auto">Progreso Performance @(DateTime.Now.Year)</div>
                 </div>
                 <div class="col-md-2" style="position: absolute; top: 10%; right: 2%; margin-right: 0px;">
-                    <div class="d-flex flex-column border p-3">
+                    <div class="d-flex flex-column p-3">
                         <div id="totalPendiente" class="mb-2"><span class="mr-3" style="width: 20px; height: 20px; display: inline-block; background-color: #7AC11F !important;"></span> Pendiente</div>
                         <div id="totalCompletado" class="mb-2"><span class="mr-3" style="width: 20px; height: 20px; display: inline-block; background-color: #FFC107 !important;"></span> Completado</div>
                         <div id="totalEvaluado" class="mb-2"><span class="mr-3" style="width: 20px; height: 20px; display: inline-block; background-color: #69E6FF !important;"></span> Evaluado</div>
@@ -238,16 +238,17 @@
                         <select class="form-control" id="selectAno"></select>
                     </div>
                 </div>
-                <div class="form-group2 col-md-1 mt-2" style="padding-top: 1.9%;" id="btnBuscarFiltro">
-                    <button id="btnFiltrar" type="button" class="btn btn-success" style="width: 120px; cursor: pointer;">
+                <div class="form-group2 col-md-2 mt-1 pt-4 d-flex" id="btnBuscarFiltro">
+                    <button id="btnFiltrar" type="button" class="btn btn-success me-2" style="width: 120px; cursor: pointer;">
                         Buscar
                     </button>
-                </div>
-                <div class="form-group2 col-md-1 mt-2" style="padding-top: 1.9%; margin-left:10px;" id="btnLimpiar">
-                    <button id="btnFiltrar" type="button" class="btn btn-info" style="width: 120px; cursor: pointer;">
+                    <button id="btnLimpiar" type="button" class="btn btn-info" style="width: 120px; cursor: pointer;">
                         Limpiar
                     </button>
                 </div>
+                @*<div class="form-group2 col-md-1 mt-2" style="padding-top: 1.9%; margin-left:10px;" id="btnLimpiar">
+                    
+                </div>*@
             }
         </div>
         @if (Convert.ToInt32(perfil) == 129)
