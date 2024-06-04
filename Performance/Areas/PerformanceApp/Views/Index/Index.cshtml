@@ -173,44 +173,44 @@
     <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg">
         @if (Convert.ToInt32(perfil) == 127 || Convert.ToInt32(perfil) == 128)
         {
-            <div style="margin-left: 2.5%; margin-block: 0.5%">
-                <button id="instructivo" class="btn btn-secondary" onclick="DescargarInstructivo()" title="Instructivo" aria-label="Instructivo"> <i class=" fa fa-info-circle "></i></button>
-                <button id="abrirModalBtn" class="btn btn-primary" title="Instructivo" aria-label="Instructivo"> <i class=" fa fa-video-camera"></i></button>
-            </div>
+        <div style="margin-left: 2.5%; margin-block: 0.5%">
+            <button id="instructivo" class="btn btn-secondary" onclick="DescargarInstructivo()" title="Instructivo" aria-label="Instructivo"> <i class=" fa fa-info-circle "></i></button>
+            <button id="abrirModalBtn" class="btn btn-primary" title="Instructivo" aria-label="Instructivo"> <i class=" fa fa-video-camera"></i></button>
+        </div>
         }
         @if (Convert.ToInt32(perfil) == 129)
         {
-            <div style="margin-left: 2.5%; margin-block: 0.5%; position: relative;">
-                <button id="instructivo" class="btn btn-secondary" onclick="DescargarInstructivo()" title="Instructivo" aria-label="Instructivo"> <i class="fa fa-info-circle"></i></button>
-                <button id="abrirModalBtn" class="btn btn-primary" title="Instructivo" aria-label="Instructivo"> <i class="fa fa-video-camera"></i></button>
-                <button id="altaPerformance" type="button" class="btn btn-block btn-warning" style="width: 200px; cursor: pointer;">
-                    Alta Performance @(DateTime.Now.Year)
-                </button>
-                <input type="button" class="btn btn-info boton" onclick="GenerarExcelColaboradores()" title='excel' id="btnExcel" value="Reporte Performance ">
-                <div class="tracking" id="progresoPerformance" style="margin-bottom: 20px; margin-left:480px">
-                    <div class="text-uppercase text-xl font-weight-bolder opacity-7" id="tituloProgreso" style="width:auto">Progreso Performance @(DateTime.Now.Year)</div>
-                </div>
-                <div class="col-md-2" style="position: absolute; top: 10%; right: 2%; margin-right: 0px;">
-                    <div class="d-flex flex-column border p-3">
-                        <div id="totalPendiente" class="mb-2"><span class="mr-3" style="width: 20px; height: 20px; display: inline-block; background-color: #7AC11F !important;"></span> Pendiente</div>
-                        <div id="totalCompletado" class="mb-2"><span class="mr-3" style="width: 20px; height: 20px; display: inline-block; background-color: #FFC107 !important;"></span> Completado</div>
-                        <div id="totalEvaluado" class="mb-2"><span class="mr-3" style="width: 20px; height: 20px; display: inline-block; background-color: #69E6FF !important;"></span> Evaluado</div>
-                        <div id="totalFeedback" class="mb-2"><span class="mr-3" style="width: 20px; height: 20px; display: inline-block; background-color: #17AFB6 !important;"></span> Feedback</div>
-                        <div id="totalFinalizado" class="mb-2"><span class="mr-3" style="width: 20px; height: 20px; display: inline-block; background-color: #9b9b9b !important;"></span> Finalizado</div>
-                    </div>
+        <div style="margin-left: 2.5%; margin-block: 0.5%; position: relative;">
+            <button id="instructivo" class="btn btn-secondary" onclick="DescargarInstructivo()" title="Instructivo" aria-label="Instructivo"> <i class="fa fa-info-circle"></i></button>
+            <button id="abrirModalBtn" class="btn btn-primary" title="Instructivo" aria-label="Instructivo"> <i class="fa fa-video-camera"></i></button>
+            <button id="altaPerformance" type="button" class="btn btn-block btn-warning" style="width: 200px; cursor: pointer;">
+                Alta Performance @(DateTime.Now.Year)
+            </button>
+            <input type="button" class="btn btn-info boton" onclick="GenerarExcelColaboradores()" title='excel' id="btnExcel" value="Reporte Performance ">
+            <div class="tracking" id="progresoPerformance" style="margin-bottom: 20px; margin-left:480px">
+                <div class="text-uppercase text-xl font-weight-bolder opacity-7" id="tituloProgreso" style="width:auto">Progreso Performance @(DateTime.Now.Year)</div>
+            </div>
+            <div class="col-md-2" style="position: absolute; top: 10%; right: 2%; margin-right: 0px;">
+                <div class="d-flex flex-column border p-3">
+                    <div id="totalPendiente" class="mb-2"><span class="mr-3" style="width: 20px; height: 20px; display: inline-block; background-color: #FFC107 !important;"></span> Pendiente</div>
+                    <div id="totalCompletado" class="mb-2"><span class="mr-3" style="width: 20px; height: 20px; display: inline-block; background-color: #7AC11F !important;"></span> Completado</div>
+                    <div id="totalEvaluado" class="mb-2"><span class="mr-3" style="width: 20px; height: 20px; display: inline-block; background-color: #69E6FF !important;"></span> Evaluado</div>
+                    <div id="totalFeedback" class="mb-2"><span class="mr-3" style="width: 20px; height: 20px; display: inline-block; background-color: #17AFB6 !important;"></span> Feedback</div>
+                    <div id="totalFinalizado" class="mb-2"><span class="mr-3" style="width: 20px; height: 20px; display: inline-block; background-color: #9b9b9b !important;"></span> Finalizado</div>
                 </div>
             </div>
-            <div class="row align-items-center" style="text-align: center; margin-top:20px; margin-left:15px;">
-                <div class="form-group2 col-md-9">
-                    <div class="progress" style="margin-bottom: 50px;">
-                        <div id="barraPendiente" class="progress-bar progress-bar-stripeds" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
-                        <div id="barraCompletado" class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
-                        <div id="barraEvaluado" class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
-                        <div id="barraFeedback" class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
-                        <div id="barraFinalizado" class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
+        </div>
+        <div class="row align-items-center" style="text-align: center; margin-top:20px; margin-left:15px;">
+            <div class="form-group2 col-md-9">
+                <div class="progress" style="margin-bottom: 50px;">
+                    <div id="barraPendiente" class="progress-bar progress-bar-stripeds" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                    <div id="barraCompletado" class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                    <div id="barraEvaluado" class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                    <div id="barraFeedback" class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                    <div id="barraFinalizado" class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
             </div>
+        </div>
         }
 
         @*FILTROS SOLICITUDES*@
@@ -218,159 +218,157 @@
         <div class="row m-3" style="overflow: hidden; margin-top: 2% !important;" id="rowFiltro">
             @if (Convert.ToInt32(perfil) == 128 || Convert.ToInt32(perfil) == 129)
             {
-                <div class="form-group2 col-md-2" id="filtroColaborador">
-                    <label>Colaborador:</label>
-                    <div></div>
-                    <div style="font-weight: normal !important;">
-                        <select class="form-control" id="selectColaborador"></select>
-                    </div>
-                </div>
-                <div class="form-group2 col-md-2" id="filtroEstado">
-                    <label>Estado:</label>
-                    <div></div>
-                    <select class="form-control" id="selectEstado">
-                    </select>
-                </div>
-                <div class="form-group2 col-md-2" id="filtroAno">
-                    <label>Año:</label>
-                    <div></div>
-                    <div style="font-weight: normal !important;">
-                        <select class="form-control" id="selectAno"></select>
-                    </div>
-                </div>
-                <div class="form-group2 col-md-1 mt-2" style="padding-top: 1.9%;" id="btnBuscarFiltro">
-                    <button id="btnFiltrar" type="button" class="btn btn-success" style="width: 120px; cursor: pointer;">
-                        Buscar
-                    </button>
-                </div>
-                <div class="form-group2 col-md-1 mt-2" style="padding-top: 1.9%; margin-left:10px;" id="btnLimpiar">
-                    <button id="btnFiltrar" type="button" class="btn btn-info" style="width: 120px; cursor: pointer;">
-                        Limpiar
-                    </button>
-                </div>
-            }
-        </div>
-        @if (Convert.ToInt32(perfil) == 129)
-        {
-            <div class="row m-3" style="overflow: hidden; margin-top: 0% !important;" id="rowFiltro">
-                <div class="form-group2 col-md-2" id="filtroLider">
-                    <label>Líder:</label>
-                    <div></div>
-                    <div style="font-weight: normal !important;">
-                        <select class="form-control" id="selectLider"></select>
-                    </div>
-                </div>
-                <div class="form-group2 col-md-2" id="filtroDominio">
-                    <label>Dominio:</label>
-                    <div></div>
-                    <div style="font-weight: normal !important;">
-                        <select class="form-control" id="selectDominio"></select>
-                    </div>
+            <div class="form-group2 col-md-2" id="filtroColaborador">
+                <label>Colaborador:</label>
+                <div></div>
+                <div style="font-weight: normal !important;">
+                    <select class="form-control" id="selectColaborador"></select>
                 </div>
             </div>
-        }
-
+            <div class="form-group2 col-md-2" id="filtroEstado">
+                <label>Estado:</label>
+                <div></div>
+                <select class="form-control" id="selectEstado">
+                </select>
+            </div>
+            <div class="form-group2 col-md-2" id="filtroAno">
+                <label>Año:</label>
+                <div></div>
+                <div style="font-weight: normal !important;">
+                    <select class="form-control" id="selectAno"></select>
+                </div>
+            </div>
+            <div class="form-group2 col-md-1 mt-2" style="padding-top: 1.9%;" id="btnBuscarFiltro">
+                <button id="btnFiltrar" type="button" class="btn btn-success" style="width: 120px; cursor: pointer;">
+                    Buscar
+                </button>
+            </div>
+            <div class="form-group2 col-md-1 mt-2" style="padding-top: 1.9%; margin-left:10px;" id="btnLimpiar">
+                <button id="btnFiltrar" type="button" class="btn btn-info" style="width: 120px; cursor: pointer;">
+                    Limpiar
+                </button>
+            </div>
+            }
+        </div>
+        <div class="row m-3" style="overflow: hidden; margin-top: 0% !important; display:none;" id="rowFiltro2">
+            <div class="form-group2 col-md-2" id="filtroLider">
+                <label>Líder:</label>
+                <div></div>
+                <div style="font-weight: normal !important;">
+                    <select class="form-control" id="selectLider"></select>
+                </div>
+            </div>
+            <div class="form-group2 col-md-2" id="filtroDominio">
+                <label>Dominio:</label>
+                <div></div>
+                <div style="font-weight: normal !important;">
+                    <select class="form-control" id="selectDominio"></select>
+                </div>
+            </div>
+        </div>
 
         <!-- MultiStep Form -->
         <div class="container-fluid py-4" id="grad1">
             <!-- TABLA COLABORADOR -->
             @if (Convert.ToInt32(perfil) == 127)
             {
-                <div class="row">
-                    <div class="col-12">
-                        <div class="card mb-4">
-                            <div class="card-header pb-0">
-                                <div class="text-uppercase text-xl-center  font-weight-bolder opacity-7">Performance Colaborador</div>
-                            </div>
-                            <div class="card-body px-0 pt-0 pb-2">
-                                <div class="table-responsive p-4">
-                                    <table class="table align-items-center mb-0" id="tablaColaborador">
-                                        <thead>
-                                            <tr>
-                                                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Año Performance</th>
-                                                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Colaborador</th>
-                                                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Líder</th>
-                                                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Fecha de Autoevaluación</th>
-                                                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Fecha de Feedback</th>
-                                                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Estado</th>
-                                                @*<th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Acciones</th>*@
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <!-- Los datos de la tabla se agregarán aquí dinámicamente desde JavaScript -->
-                                        </tbody>
-                                    </table>
-                                </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="card mb-4">
+                        <div class="card-header pb-0">
+                            <div class="text-uppercase text-xl-center  font-weight-bolder opacity-7">Performance Colaborador</div>
+                        </div>
+                        <div class="card-body px-0 pt-0 pb-2">
+                            <div class="table-responsive p-4">
+                                <table class="table align-items-center mb-0" id="tablaColaborador">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Año Performance</th>
+                                            <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Colaborador</th>
+                                            <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Líder</th>
+                                            <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Fecha de Autoevaluación</th>
+                                            <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Fecha de Feedback</th>
+                                            <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Estado</th>
+                                            @*
+                                            <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Acciones</th>*@
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- Los datos de la tabla se agregarán aquí dinámicamente desde JavaScript -->
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
             }
             @if (Convert.ToInt32(perfil) == 128)
             {
-                <div class="row">
-                    <div class="col-12">
-                        <div class="card mb-4">
-                            <div class="card-header pb-0">
-                                <div class="text-uppercase text-xl-center  font-weight-bolder opacity-7">Performance Líder</div>
-                            </div>
-                            <div class="card-body px-0 pt-0 pb-2">
-                                <div class="table-responsive p-4">
-                                    <table class="table align-items-center mb-0" id="tablaLider">
-                                        <thead>
-                                            <tr>
-                                                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Año Performance</th>
-                                                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Colaborador</th>
-                                                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Fecha de Autoevaluación</th>
-                                                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Fecha de Evaluación</th>
-                                                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Fecha de Calibración</th>
-                                                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Estado</th>
-                                                @*<th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Acciones</th>*@
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <!-- Los datos de la tabla se agregarán aquí dinámicamente desde JavaScript -->
-                                        </tbody>
-                                    </table>
-                                </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="card mb-4">
+                        <div class="card-header pb-0">
+                            <div class="text-uppercase text-xl-center  font-weight-bolder opacity-7">Performance Líder</div>
+                        </div>
+                        <div class="card-body px-0 pt-0 pb-2">
+                            <div class="table-responsive p-4">
+                                <table class="table align-items-center mb-0" id="tablaLider">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Año Performance</th>
+                                            <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Colaborador</th>
+                                            <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Fecha de Autoevaluación</th>
+                                            <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Fecha de Evaluación</th>
+                                            <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Fecha de Calibración</th>
+                                            <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Estado</th>
+                                            @*
+                                            <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Acciones</th>*@
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- Los datos de la tabla se agregarán aquí dinámicamente desde JavaScript -->
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
             }
             @if (Convert.ToInt32(perfil) == 129)
             {
-                <div class="row">
-                    <div class="col-12">
-                        <div class="card mb-4">
-                            <div class="card-header pb-0">
-                                <div class="text-uppercase text-xl-center  font-weight-bolder opacity-7">Performance Capital Humano</div>
-                            </div>
-                            <div class="card-body px-0 pt-0 pb-2">
-                                <div class="table-responsive p-0">
-                                    <table class="table align-items-center mb-0" id="tablaRRHH">
-                                        <thead>
-                                            <tr>
-                                                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Año Performance</th>
-                                                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Colaborador</th>
-                                                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Líder</th>
-                                                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">F.Autoevaluación</th>
-                                                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">F.Evaluación</th>
-                                                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">F.Calibración</th>
-                                                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">F.Feedback</th>
-                                                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Estado</th>
-                                                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Acciones</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <!-- Los datos de la tabla se agregarán aquí dinámicamente desde JavaScript -->
-                                        </tbody>
-                                    </table>
-                                </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="card mb-4">
+                        <div class="card-header pb-0">
+                            <div class="text-uppercase text-xl-center  font-weight-bolder opacity-7">Performance Capital Humano</div>
+                        </div>
+                        <div class="card-body px-0 pt-0 pb-2">
+                            <div class="table-responsive p-4">
+                                <table class="table align-items-center mb-0" id="tablaRRHH">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Año Performance</th>
+                                            <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Colaborador</th>
+                                            <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Líder</th>
+                                            <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">F.Autoevaluación</th>
+                                            <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">F.Evaluación</th>
+                                            <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">F.Calibración</th>
+                                            <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">F.Feedback</th>
+                                            <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Estado</th>
+                                            <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- Los datos de la tabla se agregarán aquí dinámicamente desde JavaScript -->
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
             }
         </div>
         @*modal preguntar si esta seguro *@
@@ -432,7 +430,9 @@
             });
         });
     });
-
+if(perfil == 129){
+        $('#rowFiltro2').show();
+        }
         $(document).ready(function () {
             CargarEstados();
             CargarAnos();
@@ -1129,8 +1129,8 @@
                     var porcentajeFeedback = datos.porcentajeFeedback;
                     var porcentajeFinalizado = datos.porcentajeFinalizado;
 
-                    var stylePendiente = "width: " + porcentajePendiente + "%; background-color: #7AC11F"; // Verde
-                    var styleCompletado = "width: " + porcentajeCompletado + "%; background-color: #FFC107";     // Amarillo
+                    var stylePendiente = "width: " + porcentajePendiente + "%; background-color: #FFC107"; // Verde
+                    var styleCompletado = "width: " + porcentajeCompletado + "%; background-color: #7AC11F";     // Amarillo
                     var styleEvaluado = "width: " + porcentajeEvaluado + "%; background-color: #69E6FF";   // Azul
                     var styleFeedback = "width: " + porcentajeFeedback + "%; background-color: #17AFB6"; // gris
                     var styleFinalizado = "width: " + porcentajeFinalizado + "%; background-color: #9b9b9b"; // gris
@@ -1143,8 +1143,8 @@
                     $("#barraFinalizado").attr("style", styleFinalizado).text(Math.round(porcentajeFinalizado) + "%");
 
                     //completo el total en las referencias
-                    $("#totalPendiente").html('<span class="mr-3" style="width: 20px; height: 20px; display: inline-block; background-color: #7AC11F !important;"></span> Pendiente: ' + totalPendiente);
-                    $("#totalCompletado").html('<span class="mr-3" style="width: 20px; height: 20px; display: inline-block; background-color: #FFC107 !important;"></span> Completado: ' + totalCompletado);
+                    $("#totalPendiente").html('<span class="mr-3" style="width: 20px; height: 20px; display: inline-block; background-color: #FFC107 !important;"></span> Pendiente: ' + totalPendiente); 
+                    $("#totalCompletado").html('<span class="mr-3" style="width: 20px; height: 20px; display: inline-block; background-color: #7AC11F !important;"></span> Completado: ' + totalCompletado);
                     $("#totalEvaluado").html('<span class="mr-3" style="width: 20px; height: 20px; display: inline-block; background-color: #69E6FF !important;"></span> Evaluado: ' + totalEvaluado);
                     $("#totalFeedback").html('<span class="mr-3" style="width: 20px; height: 20px; display: inline-block; background-color: #17AFB6 !important;"></span> Feedback: ' + totalFeedback);
                     $("#totalFinalizado").html('<span class="mr-3" style="width: 20px; height: 20px; display: inline-block; background-color: #9b9b9b !important;"></span> Finalizado: ' + totalFinalizado);
