@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="PerformanceModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="PerformanceModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AutoEvaluacion">
           <Key>
             <PropertyRef Name="idAutoEvaluacion" />
@@ -107,6 +107,7 @@
           <Property Name="fechaEvaluacion" Type="date" />
           <Property Name="fechaCalibracion" Type="date" />
           <Property Name="calificacionFinal" Type="varchar" MaxLength="50" />
+          <Property Name="idCalificacionFinal" Type="int" />
         </EntityType>
         <EntityContainer Name="PerformanceModelStoreContainer">
           <EntitySet Name="AutoEvaluacion" EntityType="Self.AutoEvaluacion" Schema="dbo" store:Type="Tables" />
@@ -120,8 +121,7 @@
           <EntitySet Name="MenuPerfil" EntityType="Self.MenuPerfil" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PerformanceColaborador" EntityType="Self.PerformanceColaborador" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="PerformanceModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -204,6 +204,18 @@
           <Property Name="idMenu" Type="Int32" Nullable="false" />
           <Property Name="idPerfil" Type="Int32" Nullable="false" />
         </EntityType>
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AutoEvaluacion" EntityType="Self.AutoEvaluacion" />
+          <EntitySet Name="Calificacion" EntityType="Self.Calificacion" />
+          <EntitySet Name="CalificacionFinalLider" EntityType="Self.CalificacionFinalLider" />
+          <EntitySet Name="Encuesta" EntityType="Self.Encuesta" />
+          <EntitySet Name="Estados" EntityType="Self.Estados" />
+          <EntitySet Name="EvaluacionPerformance" EntityType="Self.EvaluacionPerformance" />
+          <EntitySet Name="Habilidades" EntityType="Self.Habilidades" />
+          <EntitySet Name="Menu" EntityType="Self.Menu" />
+          <EntitySet Name="MenuPerfil" EntityType="Self.MenuPerfil" />
+          <EntitySet Name="PerformanceColaborador" EntityType="PerformanceModel.PerformanceColaborador" />
+        </EntityContainer>
         <EntityType Name="PerformanceColaborador">
           <Key>
             <PropertyRef Name="idPerformance" />
@@ -227,19 +239,8 @@
           <Property Name="fechaEvaluacion" Type="DateTime" Precision="0" />
           <Property Name="fechaCalibracion" Type="DateTime" Precision="0" />
           <Property Name="calificacionFinal" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="idCalificacionFinal" Type="Int32" />
         </EntityType>
-        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="AutoEvaluacion" EntityType="Self.AutoEvaluacion" />
-          <EntitySet Name="Calificacion" EntityType="Self.Calificacion" />
-          <EntitySet Name="CalificacionFinalLider" EntityType="Self.CalificacionFinalLider" />
-          <EntitySet Name="Encuesta" EntityType="Self.Encuesta" />
-          <EntitySet Name="Estados" EntityType="Self.Estados" />
-          <EntitySet Name="EvaluacionPerformance" EntityType="Self.EvaluacionPerformance" />
-          <EntitySet Name="Habilidades" EntityType="Self.Habilidades" />
-          <EntitySet Name="Menu" EntityType="Self.Menu" />
-          <EntitySet Name="MenuPerfil" EntityType="Self.MenuPerfil" />
-          <EntitySet Name="PerformanceColaborador" EntityType="Self.PerformanceColaborador" />
-        </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -337,25 +338,26 @@
           <EntitySetMapping Name="PerformanceColaborador">
             <EntityTypeMapping TypeName="PerformanceModel.PerformanceColaborador">
               <MappingFragment StoreEntitySet="PerformanceColaborador">
-                <ScalarProperty Name="idPerformance" ColumnName="idPerformance" />
-                <ScalarProperty Name="idUsuario" ColumnName="idUsuario" />
-                <ScalarProperty Name="legajo" ColumnName="legajo" />
-                <ScalarProperty Name="nombre" ColumnName="nombre" />
-                <ScalarProperty Name="edad" ColumnName="edad" />
-                <ScalarProperty Name="sexo" ColumnName="sexo" />
-                <ScalarProperty Name="antiguedad" ColumnName="antiguedad" />
-                <ScalarProperty Name="pais" ColumnName="pais" />
-                <ScalarProperty Name="convenio" ColumnName="convenio" />
-                <ScalarProperty Name="dominio" ColumnName="dominio" />
-                <ScalarProperty Name="categoria" ColumnName="categoria" />
-                <ScalarProperty Name="idJefe" ColumnName="idJefe" />
-                <ScalarProperty Name="nombreJefe" ColumnName="nombreJefe" />
-                <ScalarProperty Name="ano" ColumnName="ano" />
-                <ScalarProperty Name="estado" ColumnName="estado" />
-                <ScalarProperty Name="fechaAutoevaluacion" ColumnName="fechaAutoevaluacion" />
-                <ScalarProperty Name="fechaEvaluacion" ColumnName="fechaEvaluacion" />
-                <ScalarProperty Name="fechaCalibracion" ColumnName="fechaCalibracion" />
+                <ScalarProperty Name="idCalificacionFinal" ColumnName="idCalificacionFinal" />
                 <ScalarProperty Name="calificacionFinal" ColumnName="calificacionFinal" />
+                <ScalarProperty Name="fechaCalibracion" ColumnName="fechaCalibracion" />
+                <ScalarProperty Name="fechaEvaluacion" ColumnName="fechaEvaluacion" />
+                <ScalarProperty Name="fechaAutoevaluacion" ColumnName="fechaAutoevaluacion" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="ano" ColumnName="ano" />
+                <ScalarProperty Name="nombreJefe" ColumnName="nombreJefe" />
+                <ScalarProperty Name="idJefe" ColumnName="idJefe" />
+                <ScalarProperty Name="categoria" ColumnName="categoria" />
+                <ScalarProperty Name="dominio" ColumnName="dominio" />
+                <ScalarProperty Name="convenio" ColumnName="convenio" />
+                <ScalarProperty Name="pais" ColumnName="pais" />
+                <ScalarProperty Name="antiguedad" ColumnName="antiguedad" />
+                <ScalarProperty Name="sexo" ColumnName="sexo" />
+                <ScalarProperty Name="edad" ColumnName="edad" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="legajo" ColumnName="legajo" />
+                <ScalarProperty Name="idUsuario" ColumnName="idUsuario" />
+                <ScalarProperty Name="idPerformance" ColumnName="idPerformance" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
