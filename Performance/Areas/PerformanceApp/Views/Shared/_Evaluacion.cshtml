@@ -838,7 +838,7 @@ function GuardarEvaluacion() {
                 else {
                     detalleEvaluacion['Habilidad' + cardId.charAt(cardId.length - 1)] = data.calificacion;
                 }
-                
+
             }
         }
     });
@@ -859,7 +859,7 @@ function GuardarEvaluacion() {
                 alert("Error al guardar la evaluación");
                 console.log("Error al guardar la evaluación");
             } else {                // Éxito al guardar
-               
+
                 alert("Evaluación guardada con éxito");
                 var url = "/PerformanceApp/Index?perfil=" + 0 + "&idUsuario=" + 0;
                 window.location.href = url;
@@ -904,6 +904,31 @@ function GuardarEvaluacion() {
                         $(selector).addClass("selected");
                     }
                 }
+                var habilidadesMap = {
+                    1: "a",
+                    2: "b",
+                    3: "c",
+                    4: "d",
+                    5: "e",
+                    6: "f"
+                };
+
+                // recorrer las habilidades
+                for (var i = 1; i <= 6; i++) {
+                    var habilidad = habilidadesMap[i];
+
+                    var selector = "#" + habilidad + data.idCalificacionEvaluacion;
+
+                    if (data.idHabilidadEvaluacion == i) {
+                        $(selector).addClass("selected");
+                    }
+                }
+                if (data.idCalificacionFinal != null) {
+                    var selector = "#g" + data.idCalificacionFinal;
+                    $(selector).addClass("selected");
+                }
+                //calificacion final
+
             });
             //agrega el nombre del colaborador
             const elementos = document.querySelectorAll('.tituloAutoevaluacion');
@@ -916,7 +941,7 @@ function GuardarEvaluacion() {
             var newText = originalText.replace(/líder/gi, datos[0].nombreJefe);
             element.innerHTML = newText;
         });
-    }
+    }     
     ///VER MAS DETALLE
     function verMas(i) {
         var masTexto = document.getElementById("verMas" + i);

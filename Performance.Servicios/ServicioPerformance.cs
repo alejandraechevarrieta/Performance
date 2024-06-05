@@ -401,6 +401,11 @@ namespace Performance.Servicios
                     performance.estado = 3;
                     performance.calificacionFinal = evaluacion.calificacionFinal;
                     performance.fechaEvaluacion = DateTime.Now;
+                    var idCalificacionFinal = db.CalificacionFinalLider
+                               .Where(x => x.nombre.Contains(evaluacion.calificacionFinal))
+                               .Select(x => x.id)
+                               .FirstOrDefault();
+                    performance.idCalificacionFinal = idCalificacionFinal;
 
                     db.SaveChanges();
                 }
@@ -547,6 +552,8 @@ namespace Performance.Servicios
                                     join a in db.AutoEvaluacion on p.idPerformance equals a.idPerformance
                                     join ha in db.Habilidades on a.idHabilidad equals ha.idHabilidad
                                     join ca in db.Calificacion on a.idCalificacion equals ca.idCalificacion
+                                    join cf in db.CalificacionFinalLider on p.idCalificacionFinal equals cf.id into calificacionFinal
+                                    from cf in calificacionFinal.DefaultIfEmpty()
                                     where p.idPerformance == idPerformance
                                     select new DatosPerformanceVM
                                     {
@@ -561,7 +568,9 @@ namespace Performance.Servicios
                                         nombreHabilidadEvaluacion = null,
                                         calificacionEvaluacion = null,
                                         nombreJefe = p.nombreJefe,
-                                        colaborador = p.nombre
+                                        colaborador = p.nombre,
+                                        idCalificacionFinal = cf.id,
+                                        calificacionFinal = cf.nombre
                                     }).ToList();
             var evaluaciones = (
                 from a in db.EvaluacionPerformance
