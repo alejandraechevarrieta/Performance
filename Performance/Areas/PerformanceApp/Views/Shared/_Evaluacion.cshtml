@@ -446,7 +446,7 @@
                                             <input id="a4" type="button" data-toggle="tooltip" data-bs-placement="bottom" title="No es requerida por la posición" value="No aplica" />
                                         </div>
                                     </div>
-                                    <input type="button" name="previous" class="previous action-button-previous boton" value="Volver" />
+                                    <input type="button" name="previous" class="previous action-button-previous boton" value="Anterior" />
                                     <input type="button" name="next" class="next action-button boton" value="Siguiente" />
                                 </fieldset>
                                 <fieldset id="tarj2">
@@ -490,7 +490,7 @@
                                             <input id="b4" type="button" data-toggle="tooltip" data-bs-placement="bottom" title="No es requerida por la posición" value="No aplica" />
                                         </div>
                                     </div>
-                                    <input type="button" name="previous" class="previous action-button-previous boton" value="Volver" />
+                                    <input type="button" name="previous" class="previous action-button-previous boton" value="Anterior" />
                                     <input type="button" name="next" class="next action-button boton" value="Siguiente" />
                                 </fieldset>
                                 <fieldset id="tarj3">
@@ -534,7 +534,7 @@
                                             <input id="c4" type="button" data-toggle="tooltip" data-bs-placement="bottom" title="No es requerida por la posición" value="No aplica" />
                                         </div>
                                     </div>
-                                    <input type="button" name="previous" class="previous action-button-previous boton" value="Volver" />
+                                    <input type="button" name="previous" class="previous action-button-previous boton" value="Anterior" />
                                     <input type="button" name="make_payment" class="next action-button boton" value="Siguiente" />
                                 </fieldset>
                                 <fieldset id="tarj4">
@@ -578,7 +578,7 @@
                                             <input id="d4" type="button" data-toggle="tooltip" data-bs-placement="bottom" title="No es requerida por la posición" value="No aplica" />
                                         </div>
                                     </div>
-                                    <input type="button" name="previous" class="previous action-button-previous boton" value="Volver" />
+                                    <input type="button" name="previous" class="previous action-button-previous boton" value="Anterior" />
                                     <input type="button" name="make_payment" class="next action-button boton" value="Siguiente" />
                                 </fieldset>
                                 <fieldset id="tarj5">
@@ -621,7 +621,7 @@
                                             <input id="e4" type="button" data-toggle="tooltip" data-bs-placement="bottom" title="No es requerida por la posición" value="No aplica" />
                                         </div>
                                     </div>
-                                    <input type="button" name="previous" class="previous action-button-previous boton" value="Volver" />
+                                    <input type="button" name="previous" class="previous action-button-previous boton" value="Anterior" />
                                     <input type="button" name="make_payment" class="next action-button boton" value="Siguiente" />
                                 </fieldset>
                                 <fieldset id="tarj6">
@@ -665,7 +665,7 @@
                                             <input id="f4" type="button" data-toggle="tooltip" data-bs-placement="bottom" title="No es requerida por la posición" value="No aplica" />
                                         </div>
                                     </div>
-                                    <input type="button" name="previous" class="previous action-button-previous" value="Volver" />
+                                    <input type="button" name="previous" class="previous action-button-previous" value="Anterior" />
                                     <input type="button" name="make_payment" class="next action-button toast-btn" value="Siguiente" data-target="infoToast" />
                                 </fieldset>
                                 <fieldset id="tarj7">
@@ -682,7 +682,7 @@
                                             <input id="g5" type="button" data-toggle="tooltip" data-bs-placement="bottom" title="Supera el desempeño requerido" value="Sobresaliente" />
                                         </div>
                                     </div>
-                                    <input type="button" name="previous" class="previous action-button-previous boton" value="Volver" />
+                                    <input type="button" name="previous" class="previous action-button-previous boton" value="Anterior" />
                                     <input type="button" name="make_payment" class="next action-button boton" onclick="AbrirModalEnviar()" value="Confirmar" />
                                 </fieldset>
                             </form>
@@ -829,7 +829,7 @@ $('input[type="button"]').click(function () {
 
 function GuardarEvaluacion() {
     var detalleEvaluacion = {};
-
+    $('#modalDeseaEnviar').hide();
     // Obtener las selecciones guardadas en localStorage
     $('.form-card').each(function () {
         var cardId = $(this).attr('id');
@@ -862,12 +862,12 @@ function GuardarEvaluacion() {
         success: function (response) {
             if (response == 0) {
                 // Error al guardar
+                alert("Error al guardar la evaluación");
                 console.log("Error al guardar la evaluación");
-            } else {
-                // Éxito al guardar
-                $('#modalDeseaEnviar').hide();
+            } else {                // Éxito al guardar
+               
                 alert("Evaluación guardada con éxito");
-                var url = "/PerformanceApp/Index?perfil=" + encodeURIComponent(perfil) + "&idUsuario=" + encodeURIComponent(idUsuario);
+                var url = "/PerformanceApp/Index?perfil=" + 0 + "&idUsuario=" + 0;
                 window.location.href = url;
             }
         },

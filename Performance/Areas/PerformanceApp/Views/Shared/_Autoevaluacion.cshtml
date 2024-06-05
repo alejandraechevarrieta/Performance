@@ -1218,7 +1218,7 @@ $('input[type="button"]').click(function () {
 
 function GuardarAutoevaluacion() {
     var detalleAutoevaluacion = {};
-
+    $('#modalDeseaEnviar').hide();
     // Obtener las selecciones guardadas en localStorage
     $('.form-card').each(function () {
         var cardId = $(this).attr('id');
@@ -1245,12 +1245,12 @@ function GuardarAutoevaluacion() {
         success: function (response) {
             if (response == 0) {
                 // Error al guardar
+                alert("Error al guardar la autoevaluación");
                 console.log("Error al guardar la autoevaluación");
             } else {
-                // Éxito al guardar
-                $('#modalDeseaEnviar').hide();
+                // Éxito al guardar               
                 alert("Autoevaluación guardada con éxito");
-                var url = "/PerformanceApp/Index?perfil=" + encodeURIComponent(perfil) + "&idUsuario=" + encodeURIComponent(idUsuario);
+                var url = "/PerformanceApp/Index?perfil=" + 0 + "&idUsuario=" + 0;
                 window.location.href = url;
             }
         },
