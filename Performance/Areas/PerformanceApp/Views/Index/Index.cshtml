@@ -611,7 +611,7 @@
                                 return '<div style="text-align: center;"><a href="/PerformanceApp/Index/Crud?view=performance&idPerformance=' + encryptedIdPerformance + '&iv=' + ivBase64 + '" class="btn grilla-btn btn-warning" title="Autoevaluación realizada, sin Evaluación" style="font-size: 100% !important;">' + row.estado + '</a></div>';
                             }
                             if (data == 3) {
-                                return '<div style="text-align: center;"><a href="/PerformanceApp/Index/Crud?view=performance&idPerformance=' + encryptedIdPerformance + '&iv=' + ivBase64 + '" class="btn btn-sm grilla-btn btn-success" title="Evaluación del líder realizada" style="font-size: 100% !important;">' + row.estado + '</a></div>';
+                                return '<div style="text-align: center;"><a href="#" class="btn btn-sm grilla-btn btn-success" title="Evaluación del líder realizada" style="font-size: 100% !important;">' + row.estado + '</a></div>';
                             }
                             if (data == 4) {
                                 return '<div style="text-align: center;"><a href="/PerformanceApp/Index/Crud?view=performance&idPerformance=' + encryptedIdPerformance + '&iv=' + ivBase64 + '" class="btn btn-sm grilla-btn btn-primary" title=" Evaluación realizada, Calibración realizada, Etapa de Feedback Abierta" style="font-size: 100% !important;">' + row.estado + '</a></div>';
