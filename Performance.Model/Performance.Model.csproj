@@ -181,6 +181,9 @@
     <Compile Include="Habilidades.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Historial.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Menu.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
