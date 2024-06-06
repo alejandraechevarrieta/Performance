@@ -307,6 +307,7 @@
     <Content Include="assets\js\soft-ui-dashboard.min.js" />
     <Content Include="Content\CssPerformance.css" />
     <Content Include="Content\img\Bienvenida.jpg" />
+    <Content Include="Content\img\BienvenidaEtapa2.jpg" />
     <Content Include="Content\img\puntos.gif" />
     <Content Include="Content\JsPerformance.js" />
     <Content Include="favicon.ico" />
