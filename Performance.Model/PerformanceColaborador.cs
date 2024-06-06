@@ -33,5 +33,6 @@ namespace Performance.Model
         public Nullable<System.DateTime> fechaEvaluacion { get; set; }
         public Nullable<System.DateTime> fechaCalibracion { get; set; }
         public string calificacionFinal { get; set; }
+        public Nullable<int> idCalificacionFinal { get; set; }
     }
 }
