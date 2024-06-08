@@ -405,16 +405,16 @@ function CargarDatos() {
                     habilidades[habilidad].calificacionEvaluacion = data.calificacionEvaluacion;
                     habilidades[habilidad].fechaCalificacionEvaluacion = data.fechaCalificacionEvaluacion ? moment(data.fechaCalificacionEvaluacion).format('DD/MM/YYYY') : '';
                 }
-                var ultimoDato = datos.length - 1;
-                var ano = datos.length > 0 ? datos[ultimoDato].ano : null;
+                //var ultimoDato = datos.length - 1;
+                var ano = datos.length > 0 ? datos[0].ano : null;
                 if (ano !== null) {
                     $('#ano').text(ano);
                 }
-                var colaborador = datos.length > 0 ? datos[ultimoDato].colaborador : null;
+                var colaborador = datos.length > 0 ? datos[0].colaborador : null;
                 if (colaborador !== null) {
                     $('#colaborador').text(colaborador);
                 }
-                var lider = datos.length > 0 ? datos[ultimoDato].lider : null;
+                var lider = datos.length > 0 ? datos[0].lider : null;
                 if (lider !== null) {
                     $('#lider').text(lider);
                 }

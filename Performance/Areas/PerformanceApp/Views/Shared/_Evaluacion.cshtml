@@ -375,7 +375,7 @@
             <div class="col-11 col-sm-9 col-md-7 col-lg-6 text-center p-0 mt-3 mb-2 w-80">
                 <div class="card px-0 pt-4 pb-0 mt-3 mb-3">
                     <p class="h2"><strong>Evaluación de Performance</strong></p>
-                    <p class="h4 holaLider">Hola líder, a continuación debes realizar la Evaluación.</p>
+                    <p class="h4 holaLider">Hola líder, a continuación debes realizar la Evaluación nombre</p>
                     <div class="row">
                         <div class="col-md-12 mx-0">
                             <form id="msform">
@@ -672,7 +672,12 @@
                                     <div class="form-card" id="card7">
                                         <h2 class="fs-title">Performance</h2>
                                         <div class="row mt-1">
-                                            <p class="h5">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+                                            <p class="h5">
+                                                Líder, a continuación, te invitamos a completar la valoración global de Performance del colaborador.
+                                                El objetivo de esta instancia es integrar las valoraciones específicas de las habilidades clave que ya evaluaste para cada uno de tus colaboradores a cargo. Deberás considerar tanto los puntos fuertes como las áreas de mejora identificadas en cada habilidad.
+                                                Considera el impacto del desempeño del colaborador en el éxito general del equipo y de la organización y cómo sus competencias han contribuido al logro de los objetivos.
+                                                Procura que tu valoración global como Líder, refleje de manera justa y equilibrada el desempeño general del colaborador.
+                                            </p>
                                         </div>
                                         <div class="row mt-3">
                                             <input id="g1" type="button" data-toggle="tooltip" data-bs-placement="bottom" title="No alcanza el desempeño requerido" value="Regular" />
@@ -683,7 +688,7 @@
                                         </div>
                                     </div>
                                     <input type="button" name="previous" class="previous action-button-previous boton" value="Anterior" />
-                                    <input type="button" name="make_payment" class="next action-button boton" onclick="AbrirModalEnviar()" value="Confirmar" />
+                                    <input type="button" name="make_payment" class="action-button boton" onclick="AbrirModalEnviar()" value="Confirmar" />
                                 </fieldset>
                             </form>
                         </div>
@@ -821,7 +826,8 @@ $('input[type="button"]').click(function () {
 
     //Modal
     function AbrirModalEnviar() {
-        $('#modalDeseaEnviar').show();
+        VerificarDatos();
+       
     }
     function CerrarModalEnviar() {
         $('#modalDeseaEnviar').hide();
@@ -929,25 +935,45 @@ function GuardarEvaluacion() {
                         $(selector).addClass("selected");
                     }
                 }
-                if (data.idCalificacionFinal != null) {
-                    var selector = "#g" + data.idCalificacionFinal;
-                    $(selector).addClass("selected");
-                }
-                //calificacion final
+               
+            });
+            //agrega el nombre del colaborador en titulo y en tarjetas
+           // if (datos.length > 0) {  
+                const elementos = document.querySelectorAll('.tituloAutoevaluacion');
+                const datosPerformance = datos[0];
+                elementos.forEach(elemento => {
+                    elemento.textContent += " de " + datosPerformance.colaborador;
+                });
+                //titulo
+                var element = document.querySelector('.holaLider');
+                var originalText = element.innerHTML;
+                var nuevoText = " de " + datosPerformance.colaborador;
+                var newText = originalText.replace(/nombre/gi, nuevoText);
+                element.innerHTML = newText;
 
-            });
-            //agrega el nombre del colaborador
-            const elementos = document.querySelectorAll('.tituloAutoevaluacion');
-            elementos.forEach(elemento => {
-                elemento.textContent += " de " + datos[0].colaborador;
-            });
-            //Cambia lider por nombre jefe
-            var element = document.querySelector('.holaLider');
-            var originalText = element.innerHTML;
-            var newText = originalText.replace(/líder/gi, datos[0].nombreJefe);
-            element.innerHTML = newText;
+                //calificacion final
+                var selector = "#g" + datosPerformance.idCalificacionFinal;
+                $(selector).addClass("selected");   
+           // }           
         });
-    }     
+
+    }  
+    ///NOMBRE USUARIO
+    $(document).ready(function () {
+        var nombreUsuario = localStorage.getItem('nombreUsuario');
+        if (nombreUsuario) {
+            var element = document.querySelector('.holaLider');
+            if (element) {
+                var originalText = element.innerHTML;
+                var newText = originalText.replace(/líder/gi, nombreUsuario);
+                element.innerHTML = newText;
+            } else {
+                console.error("No se encontró el elemento con la clase 'hola'.");
+            }
+        } else {
+
+        }
+    });
     ///VER MAS DETALLE
     function verMas(i) {
         var masTexto = document.getElementById("verMas" + i);
@@ -955,6 +981,32 @@ function GuardarEvaluacion() {
             masTexto.style.display = "block";
         } else {
             masTexto.style.display = "none";
+        }
+    }
+    function VerificarDatos() {
+        var todasLasTarjetasCompletas = true;
+
+        //tarjetas
+        for (var i = 1; i <= 6; i++) {
+            var tarjetaCompleta = false;
+            var selector = '#tarj' + i;
+            // verificar si hay una selección en la tarjeta actual (excluyendo los botones de "Siguiente" y "Volver")
+            if ($(selector).find('input[type="button"].selected').not('.next, .previous').length > 0) {
+                tarjetaCompleta = true;
+            }
+
+            if (!tarjetaCompleta) {
+                //$('#confirmar').addClass('next');
+                todasLasTarjetasCompletas = false;
+                break;
+
+            }
+        }
+
+        if (!todasLasTarjetasCompletas) {
+            alert('Falta completar una o más tarjetas.');
+        } else {
+            $('#modalDeseaEnviar').show();       
         }
     }
 
