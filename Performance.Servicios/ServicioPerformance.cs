@@ -703,7 +703,8 @@ namespace Performance.Servicios
                                idHabilidad = a.idHabilidad,
                                idCalificacion = a.idCalificacion,
                                calificacion = c.nombre,
-                               habilidad = h.habilidad
+                               habilidad = h.habilidad,
+                               calificacionFinal = p.calificacionFinal
                            }).OrderBy(x => x.idHabilidad);
                 var list = tmp.ToList();
 
@@ -737,9 +738,10 @@ namespace Performance.Servicios
                                fechaCalificacionAutoevaluacion = p.fechaAutoevaluacion,
                                fechaCalificacionEvaluacion = p.fechaEvaluacion,
                                fechaCalibracion = p.fechaCalibracion,
-                               fechaFeedback = p.fechaEvaluacion, //cambiar
+                               fechaFeedback = null, //cambiar
                                idEstado = p.estado,
                                estado = e.estado,
+                               calificacionFinal = p.calificacionFinal,
                            }).OrderByDescending(x => x.ano).ThenBy(x => x.colaborador);
                 var list = tmp.ToList();
 
@@ -781,6 +783,7 @@ namespace Performance.Servicios
                                p.fechaEvaluacion,
                                p.fechaCalibracion,
                                p.estado,
+                               p.calificacionFinal,
                                estadoNombre = e.estado,
                                autoEvaluaciones = _db.AutoEvaluacion
                                                    .Where(a => a.idPerformance == p.idPerformance)
@@ -830,11 +833,12 @@ namespace Performance.Servicios
                     fechaCalificacionAutoevaluacion = x.fechaAutoevaluacion,
                     fechaCalificacionEvaluacion = x.fechaEvaluacion,
                     fechaCalibracion = x.fechaCalibracion,
-                    fechaFeedback = x.fechaEvaluacion, // cambiar
+                    fechaFeedback = null, // cambiar
                     idEstado = x.estado,
                     estado = x.estadoNombre,
                     autoEvaluaciones = x.autoEvaluaciones,
-                    evaluaciones = x.evaluaciones
+                    evaluaciones = x.evaluaciones,
+                    calificacionFinal = x.calificacionFinal,
                 }).ToList();
 
                 ReporteExcelVM excel = new ReporteExcelVM();

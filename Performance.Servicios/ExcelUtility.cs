@@ -554,7 +554,7 @@ namespace Performance.Servicios
                     CreateCell(RowForeach, 21, item.evaluaciones.Count > 4 ? item.evaluaciones[4]?.ToString() : "", celdasInfo);
                     CreateCell(RowForeach, 22, item.evaluaciones.Count > 5 ? item.evaluaciones[5]?.ToString() : "", celdasInfo);
                    
-                    CreateCell(RowForeach, 23, "", celdasInfo);
+                    CreateCell(RowForeach, 23, item.calificacionFinal, celdasInfo);
                     CreateCell(RowForeach, 24, "", celdasInfo);
                     CreateCell(RowForeach, 25, "", celdasInfo);
                     CreateCell(RowForeach, 26, "", celdasInfo);
