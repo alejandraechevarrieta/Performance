@@ -132,7 +132,7 @@
                 box-shadow: 0 0 0 2px white, 0 0 0 3px #616161;
             }
 
-        #msform input.selected {
+        #msform input.selected:not(.next):not(.previous):not(.confirmar) {
             border-bottom: 2px solid skyblue;
             background-color: rgba(135, 206, 250, 0.2);
             box-shadow: 0 0 5px skyblue;
@@ -375,7 +375,7 @@
             <div class="col-11 col-sm-9 col-md-7 col-lg-6 text-center p-0 mt-3 mb-2 w-80">
                 <div class="card px-0 pt-4 pb-0 mt-3 mb-3">
                     <p class="h2"><strong>Evaluación de Performance</strong></p>
-                    <p class="h4 holaLider">Hola líder, a continuación debes realizar la Evaluación nombre</p>
+                    <p class="h4 holaLider">Hola líder, a continuación debes realizar la valoración</p>
                     <div class="row">
                         <div class="col-md-12 mx-0">
                             <form id="msform">
@@ -402,7 +402,7 @@
                                             </p>
                                         </div>
                                     </div>
-                                    <input type="button" name="next" class="next action-button boton" value="Siguiente" />
+                                    <input type="button" name="next" class="next action-button" value="Siguiente" />
                                 </fieldset>
                                 <fieldset id="tarj1">
                                     <div class="form-card">
@@ -446,8 +446,8 @@
                                             <input id="a4" type="button" data-toggle="tooltip" data-bs-placement="bottom" title="No es requerida por la posición" value="No aplica" />
                                         </div>
                                     </div>
-                                    <input type="button" name="previous" class="previous action-button-previous boton" value="Anterior" />
-                                    <input type="button" name="next" class="next action-button boton" value="Siguiente" />
+                                    <input type="button" name="previous" class="previous action-button-previous" value="Anterior" />
+                                    <input type="button" name="next" class="next action-button" value="Siguiente" />
                                 </fieldset>
                                 <fieldset id="tarj2">
                                     <div class="form-card">
@@ -490,8 +490,8 @@
                                             <input id="b4" type="button" data-toggle="tooltip" data-bs-placement="bottom" title="No es requerida por la posición" value="No aplica" />
                                         </div>
                                     </div>
-                                    <input type="button" name="previous" class="previous action-button-previous boton" value="Anterior" />
-                                    <input type="button" name="next" class="next action-button boton" value="Siguiente" />
+                                    <input type="button" name="previous" class="previous action-button-previous" value="Anterior" />
+                                    <input type="button" name="next" class="next action-button" value="Siguiente" />
                                 </fieldset>
                                 <fieldset id="tarj3">
                                     <div class="form-card">
@@ -534,8 +534,8 @@
                                             <input id="c4" type="button" data-toggle="tooltip" data-bs-placement="bottom" title="No es requerida por la posición" value="No aplica" />
                                         </div>
                                     </div>
-                                    <input type="button" name="previous" class="previous action-button-previous boton" value="Anterior" />
-                                    <input type="button" name="make_payment" class="next action-button boton" value="Siguiente" />
+                                    <input type="button" name="previous" class="previous action-button-previous" value="Anterior" />
+                                    <input type="button" name="make_payment" class="next action-button" value="Siguiente" />
                                 </fieldset>
                                 <fieldset id="tarj4">
                                     <div class="form-card">
@@ -578,8 +578,8 @@
                                             <input id="d4" type="button" data-toggle="tooltip" data-bs-placement="bottom" title="No es requerida por la posición" value="No aplica" />
                                         </div>
                                     </div>
-                                    <input type="button" name="previous" class="previous action-button-previous boton" value="Anterior" />
-                                    <input type="button" name="make_payment" class="next action-button boton" value="Siguiente" />
+                                    <input type="button" name="previous" class="previous action-button-previous" value="Anterior" />
+                                    <input type="button" name="make_payment" class="next action-button" value="Siguiente" />
                                 </fieldset>
                                 <fieldset id="tarj5">
                                     <div class="form-card">
@@ -621,8 +621,8 @@
                                             <input id="e4" type="button" data-toggle="tooltip" data-bs-placement="bottom" title="No es requerida por la posición" value="No aplica" />
                                         </div>
                                     </div>
-                                    <input type="button" name="previous" class="previous action-button-previous boton" value="Anterior" />
-                                    <input type="button" name="make_payment" class="next action-button boton" value="Siguiente" />
+                                    <input type="button" name="previous" class="previous action-button-previous" value="Anterior" />
+                                    <input type="button" name="make_payment" class="next action-button" value="Siguiente" />
                                 </fieldset>
                                 <fieldset id="tarj6">
                                     <div class="form-card">
@@ -688,8 +688,8 @@
                                             <input id="g5" type="button" data-toggle="tooltip" data-bs-placement="bottom" title="Supera el desempeño requerido" value="Sobresaliente" />
                                         </div>
                                     </div>
-                                    <input type="button" name="previous" class="previous action-button-previous boton" value="Anterior" />
-                                    <input type="button" name="make_payment" class="action-button boton" onclick="AbrirModalEnviar()" value="Confirmar" />
+                                    <input type="button" name="previous" class="previous action-button-previous" value="Anterior" />
+                                    <input type="button" name="make_payment" class="action-button confirmar" onclick="AbrirModalEnviar()" value="Confirmar" />
                                 </fieldset>
                             </form>
                         </div>
@@ -835,6 +835,7 @@ $('input[type="button"]').click(function () {
     }
 
 function GuardarEvaluacion() {
+    document.querySelector('input.next').click();
     var detalleEvaluacion = {};
     $('#modalDeseaEnviar').hide();
     // Obtener las selecciones guardadas en localStorage
@@ -938,24 +939,17 @@ function GuardarEvaluacion() {
                 }
                
             });
-            //agrega el nombre del colaborador en titulo y en tarjetas
-           // if (datos.length > 0) {  
-                const elementos = document.querySelectorAll('.tituloAutoevaluacion');
-                const datosPerformance = datos[0];
-                elementos.forEach(elemento => {
-                    elemento.textContent += " de " + datosPerformance.colaborador;
-                });
-                //titulo
-                var element = document.querySelector('.holaLider');
-                var originalText = element.innerHTML;
-                var nuevoText = " de " + datosPerformance.colaborador;
-                var newText = originalText.replace(/nombre/gi, nuevoText);
-                element.innerHTML = newText;
-
-                //calificacion final
-                var selector = "#g" + datosPerformance.idCalificacionFinal;
-                $(selector).addClass("selected");   
-           // }           
+            //agrega el nombre del colaborador
+            const elementos = document.querySelectorAll('.tituloAutoevaluacion');
+            elementos.forEach(elemento => {
+                elemento.textContent += " de " + datos[0].colaborador;
+            });
+            //Cambia lider por nombre jefe
+            var element = document.querySelector('.holaLider');
+            var originalText = element.innerHTML;
+            var newText = originalText.replace(/líder/gi, datos[0].nombreJefe);
+            newText += ' de ' + datos[0].colaborador;
+            element.innerHTML = newText;
         });
 
     }  
