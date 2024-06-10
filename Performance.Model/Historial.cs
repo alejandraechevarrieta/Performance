@@ -12,14 +12,19 @@ namespace Performance.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class EvaluacionPerformance
+    public partial class Historial
     {
-        public int idEvaluacion { get; set; }
+        public int idHistorial { get; set; }
         public int idPerformance { get; set; }
+        public Nullable<int> estado { get; set; }
+        public Nullable<int> idUsuarioCambio { get; set; }
+        public Nullable<bool> autoevaluacion { get; set; }
+        public Nullable<bool> evaluacion { get; set; }
+        public Nullable<bool> calibracion { get; set; }
         public Nullable<int> idHabilidad { get; set; }
         public Nullable<int> idCalificacion { get; set; }
-        public System.DateTime fechaEvaluacion { get; set; }
+        public Nullable<int> idCalificacionFinal { get; set; }
         public string comentario { get; set; }
-        public Nullable<int> idResponsable { get; set; }
+        public System.DateTime fecha { get; set; }
     }
 }

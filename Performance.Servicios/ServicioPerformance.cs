@@ -370,6 +370,7 @@ namespace Performance.Servicios
                             nuevaEvaluacion.idPerformance = evaluacion.idPerformance;
                             nuevaEvaluacion.idHabilidad = habilidad.idHabilidad;
                             nuevaEvaluacion.fechaEvaluacion = DateTime.Now;
+                            nuevaEvaluacion.idResponsable = evaluacion.idResponsable;
 
                             // Obtener la calificación correspondiente a la habilidad actual
                             var habilidadIndex = habilidades.IndexOf(habilidad);
@@ -609,12 +610,22 @@ namespace Performance.Servicios
         public List<DatosPerformanceVM> buscarDatosPerformance(int idPerformance)
         {
             var datosPerformance = (from p in db.PerformanceColaborador
-                                    join a in db.AutoEvaluacion on p.idPerformance equals a.idPerformance
-                                    join ha in db.Habilidades on a.idHabilidad equals ha.idHabilidad
-                                    join ca in db.Calificacion on a.idCalificacion equals ca.idCalificacion
-                                    join cf in db.CalificacionFinalLider on p.idCalificacionFinal equals cf.id into calificacionFinal
-                                    from cf in calificacionFinal.DefaultIfEmpty()
-                                    where p.idPerformance == idPerformance
+                         where p.idPerformance == idPerformance
+                         select new DatosPerformanceVM
+                         {
+                             ano = p.ano,
+                             colaborador = p.nombre,
+                             lider = p.nombreJefe,
+                             idCalificacionFinal = p.idCalificacionFinal,
+                             calificacionFinal = p.calificacionFinal
+                         }).ToList();
+
+            var autoEvaluaciones = (from a in db.AutoEvaluacion
+                                    join ha in db.Habilidades on a.idHabilidad equals ha.idHabilidad into habilidadesAutoEvaluacion
+                                    from ha in habilidadesAutoEvaluacion.DefaultIfEmpty()
+                                    join ce in db.Calificacion on a.idCalificacion equals ce.idCalificacion into calificacionesAutoEvaluacion
+                                    from ca in calificacionesAutoEvaluacion.DefaultIfEmpty()
+                                    where a.idPerformance == idPerformance
                                     select new DatosPerformanceVM
                                     {
                                         idHabilidadAutoevaluacion = ha.idHabilidad,
@@ -626,11 +637,7 @@ namespace Performance.Servicios
                                         idCalificacionEvaluacion = null,
                                         fechaCalificacionEvaluacion = null,
                                         nombreHabilidadEvaluacion = null,
-                                        calificacionEvaluacion = null,
-                                        nombreJefe = p.nombreJefe,
-                                        colaborador = p.nombre,
-                                        idCalificacionFinal = cf.id,
-                                        calificacionFinal = cf.nombre
+                                        calificacionEvaluacion = null,                                       
                                     }).ToList();
             var evaluaciones = (
                 from a in db.EvaluacionPerformance
@@ -653,16 +660,9 @@ namespace Performance.Servicios
                     calificacionEvaluacion = ce.nombre,                   
 
                 }).ToList();
-            var datos = (from p in db.PerformanceColaborador  
-                         where p.idPerformance == idPerformance
-                         select new DatosPerformanceVM
-                         {       
-                             ano = p.ano,
-                             colaborador = p.nombre,
-                             lider = p.nombreJefe,
-                         }).ToList();
-            datosPerformance.AddRange(evaluaciones);
-            datosPerformance.AddRange(datos);
+
+            datosPerformance.AddRange(autoEvaluaciones);
+            datosPerformance.AddRange(evaluaciones);           
 
             return datosPerformance;
         }

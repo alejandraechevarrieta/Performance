@@ -195,6 +195,7 @@
                 success: function (data) {
                     if (data != null) {
                         $("#nombreUsuario").text(data.nombre);
+                        localStorage.setItem('nombreUsuario', data.nombre); // Guardar nombreUsuario en localStorage
                     } else {
                         // Manejar otro caso si es necesario
                     }
