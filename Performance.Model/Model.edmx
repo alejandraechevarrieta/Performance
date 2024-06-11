@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="PerformanceModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="PerformanceModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AutoEvaluacion">
           <Key>
             <PropertyRef Name="idAutoEvaluacion" />
@@ -137,6 +137,7 @@
           <Property Name="fechaCalibracion" Type="date" />
           <Property Name="calificacionFinal" Type="varchar" MaxLength="50" />
           <Property Name="idCalificacionFinal" Type="int" />
+          <Property Name="eliminado" Type="bit" />
         </EntityType>
         <EntityContainer Name="PerformanceModelStoreContainer">
           <EntitySet Name="AutoEvaluacion" EntityType="Self.AutoEvaluacion" Schema="dbo" store:Type="Tables" />
@@ -152,7 +153,8 @@
           <EntitySet Name="MenuPerfil" EntityType="Self.MenuPerfil" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PerformanceColaborador" EntityType="Self.PerformanceColaborador" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="PerformanceModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -199,6 +201,28 @@
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="estado" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
+        <EntityType Name="EstadosFechas">
+          <Key>
+            <PropertyRef Name="idEstadosFechas" />
+          </Key>
+          <Property Name="idEstadosFechas" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ano" Type="Int32" Nullable="false" />
+          <Property Name="estado" Type="Int32" Nullable="false" />
+          <Property Name="fechaDesde" Type="DateTime" Precision="0" />
+          <Property Name="fechaHasta" Type="DateTime" Precision="0" />
+        </EntityType>
+        <EntityType Name="EvaluacionPerformance">
+          <Key>
+            <PropertyRef Name="idEvaluacion" />
+          </Key>
+          <Property Name="idEvaluacion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idPerformance" Type="Int32" Nullable="false" />
+          <Property Name="idHabilidad" Type="Int32" />
+          <Property Name="idCalificacion" Type="Int32" />
+          <Property Name="fechaEvaluacion" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="comentario" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+          <Property Name="idResponsable" Type="Int32" />
+        </EntityType>
         <EntityType Name="Habilidades">
           <Key>
             <PropertyRef Name="idHabilidad" />
@@ -206,6 +230,23 @@
           <Property Name="idHabilidad" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="habilidad" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="activo" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="Historial">
+          <Key>
+            <PropertyRef Name="idHistorial" />
+          </Key>
+          <Property Name="idHistorial" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idPerformance" Type="Int32" Nullable="false" />
+          <Property Name="estado" Type="Int32" />
+          <Property Name="idUsuarioCambio" Type="Int32" />
+          <Property Name="autoevaluacion" Type="Boolean" />
+          <Property Name="evaluacion" Type="Boolean" />
+          <Property Name="calibracion" Type="Boolean" />
+          <Property Name="idHabilidad" Type="Int32" />
+          <Property Name="idCalificacion" Type="Int32" />
+          <Property Name="idCalificacionFinal" Type="Int32" />
+          <Property Name="comentario" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+          <Property Name="fecha" Type="DateTime" Nullable="false" Precision="0" />
         </EntityType>
         <EntityType Name="Menu">
           <Key>
@@ -225,20 +266,6 @@
           <Property Name="idMenu" Type="Int32" Nullable="false" />
           <Property Name="idPerfil" Type="Int32" Nullable="false" />
         </EntityType>
-        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="AutoEvaluacion" EntityType="Self.AutoEvaluacion" />
-          <EntitySet Name="Calificacion" EntityType="Self.Calificacion" />
-          <EntitySet Name="CalificacionFinalLider" EntityType="Self.CalificacionFinalLider" />
-          <EntitySet Name="Encuesta" EntityType="Self.Encuesta" />
-          <EntitySet Name="Estados" EntityType="Self.Estados" />
-          <EntitySet Name="Habilidades" EntityType="Self.Habilidades" />
-          <EntitySet Name="Menu" EntityType="Self.Menu" />
-          <EntitySet Name="MenuPerfil" EntityType="Self.MenuPerfil" />
-          <EntitySet Name="PerformanceColaborador" EntityType="PerformanceModel.PerformanceColaborador" />
-          <EntitySet Name="EstadosFechas" EntityType="PerformanceModel.EstadosFechas" />
-          <EntitySet Name="EvaluacionPerformance" EntityType="PerformanceModel.EvaluacionPerformance" />
-          <EntitySet Name="Historial" EntityType="PerformanceModel.Historial" />
-        </EntityContainer>
         <EntityType Name="PerformanceColaborador">
           <Key>
             <PropertyRef Name="idPerformance" />
@@ -263,46 +290,22 @@
           <Property Name="fechaCalibracion" Type="DateTime" Precision="0" />
           <Property Name="calificacionFinal" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="idCalificacionFinal" Type="Int32" />
+          <Property Name="eliminado" Type="Boolean" />
         </EntityType>
-        <EntityType Name="EstadosFechas">
-          <Key>
-            <PropertyRef Name="idEstadosFechas" />
-          </Key>
-          <Property Name="idEstadosFechas" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ano" Type="Int32" Nullable="false" />
-          <Property Name="estado" Type="Int32" Nullable="false" />
-          <Property Name="fechaDesde" Type="DateTime" Precision="0" />
-          <Property Name="fechaHasta" Type="DateTime" Precision="0" />
-        </EntityType>
-        <EntityType Name="EvaluacionPerformance">
-          <Key>
-            <PropertyRef Name="idEvaluacion" />
-          </Key>
-          <Property Name="idEvaluacion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="idPerformance" Type="Int32" Nullable="false" />
-          <Property Name="idHabilidad" Type="Int32" />
-          <Property Name="idCalificacion" Type="Int32" />
-          <Property Name="fechaEvaluacion" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="comentario" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
-          <Property Name="idResponsable" Type="Int32" />
-        </EntityType>
-        <EntityType Name="Historial">
-          <Key>
-            <PropertyRef Name="idHistorial" />
-          </Key>
-          <Property Name="idHistorial" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="idPerformance" Type="Int32" Nullable="false" />
-          <Property Name="estado" Type="Int32" />
-          <Property Name="idUsuarioCambio" Type="Int32" />
-          <Property Name="autoevaluacion" Type="Boolean" />
-          <Property Name="evaluacion" Type="Boolean" />
-          <Property Name="calibracion" Type="Boolean" />
-          <Property Name="idHabilidad" Type="Int32" />
-          <Property Name="idCalificacion" Type="Int32" />
-          <Property Name="idCalificacionFinal" Type="Int32" />
-          <Property Name="comentario" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
-          <Property Name="fecha" Type="DateTime" Nullable="false" Precision="0" />
-        </EntityType>
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AutoEvaluacion" EntityType="Self.AutoEvaluacion" />
+          <EntitySet Name="Calificacion" EntityType="Self.Calificacion" />
+          <EntitySet Name="CalificacionFinalLider" EntityType="Self.CalificacionFinalLider" />
+          <EntitySet Name="Encuesta" EntityType="Self.Encuesta" />
+          <EntitySet Name="Estados" EntityType="Self.Estados" />
+          <EntitySet Name="EstadosFechas" EntityType="Self.EstadosFechas" />
+          <EntitySet Name="EvaluacionPerformance" EntityType="Self.EvaluacionPerformance" />
+          <EntitySet Name="Habilidades" EntityType="Self.Habilidades" />
+          <EntitySet Name="Historial" EntityType="Self.Historial" />
+          <EntitySet Name="Menu" EntityType="Self.Menu" />
+          <EntitySet Name="MenuPerfil" EntityType="Self.MenuPerfil" />
+          <EntitySet Name="PerformanceColaborador" EntityType="Self.PerformanceColaborador" />
+        </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -357,12 +360,54 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="EstadosFechas">
+            <EntityTypeMapping TypeName="PerformanceModel.EstadosFechas">
+              <MappingFragment StoreEntitySet="EstadosFechas">
+                <ScalarProperty Name="idEstadosFechas" ColumnName="idEstadosFechas" />
+                <ScalarProperty Name="ano" ColumnName="ano" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="fechaDesde" ColumnName="fechaDesde" />
+                <ScalarProperty Name="fechaHasta" ColumnName="fechaHasta" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EvaluacionPerformance">
+            <EntityTypeMapping TypeName="PerformanceModel.EvaluacionPerformance">
+              <MappingFragment StoreEntitySet="EvaluacionPerformance">
+                <ScalarProperty Name="idEvaluacion" ColumnName="idEvaluacion" />
+                <ScalarProperty Name="idPerformance" ColumnName="idPerformance" />
+                <ScalarProperty Name="idHabilidad" ColumnName="idHabilidad" />
+                <ScalarProperty Name="idCalificacion" ColumnName="idCalificacion" />
+                <ScalarProperty Name="fechaEvaluacion" ColumnName="fechaEvaluacion" />
+                <ScalarProperty Name="comentario" ColumnName="comentario" />
+                <ScalarProperty Name="idResponsable" ColumnName="idResponsable" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Habilidades">
             <EntityTypeMapping TypeName="PerformanceModel.Habilidades">
               <MappingFragment StoreEntitySet="Habilidades">
                 <ScalarProperty Name="idHabilidad" ColumnName="idHabilidad" />
                 <ScalarProperty Name="habilidad" ColumnName="habilidad" />
                 <ScalarProperty Name="activo" ColumnName="activo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Historial">
+            <EntityTypeMapping TypeName="PerformanceModel.Historial">
+              <MappingFragment StoreEntitySet="Historial">
+                <ScalarProperty Name="idHistorial" ColumnName="idHistorial" />
+                <ScalarProperty Name="idPerformance" ColumnName="idPerformance" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="idUsuarioCambio" ColumnName="idUsuarioCambio" />
+                <ScalarProperty Name="autoevaluacion" ColumnName="autoevaluacion" />
+                <ScalarProperty Name="evaluacion" ColumnName="evaluacion" />
+                <ScalarProperty Name="calibracion" ColumnName="calibracion" />
+                <ScalarProperty Name="idHabilidad" ColumnName="idHabilidad" />
+                <ScalarProperty Name="idCalificacion" ColumnName="idCalificacion" />
+                <ScalarProperty Name="idCalificacionFinal" ColumnName="idCalificacionFinal" />
+                <ScalarProperty Name="comentario" ColumnName="comentario" />
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -389,68 +434,27 @@
           <EntitySetMapping Name="PerformanceColaborador">
             <EntityTypeMapping TypeName="PerformanceModel.PerformanceColaborador">
               <MappingFragment StoreEntitySet="PerformanceColaborador">
-                <ScalarProperty Name="idCalificacionFinal" ColumnName="idCalificacionFinal" />
-                <ScalarProperty Name="calificacionFinal" ColumnName="calificacionFinal" />
-                <ScalarProperty Name="fechaCalibracion" ColumnName="fechaCalibracion" />
-                <ScalarProperty Name="fechaEvaluacion" ColumnName="fechaEvaluacion" />
-                <ScalarProperty Name="fechaAutoevaluacion" ColumnName="fechaAutoevaluacion" />
-                <ScalarProperty Name="estado" ColumnName="estado" />
-                <ScalarProperty Name="ano" ColumnName="ano" />
-                <ScalarProperty Name="nombreJefe" ColumnName="nombreJefe" />
-                <ScalarProperty Name="idJefe" ColumnName="idJefe" />
-                <ScalarProperty Name="categoria" ColumnName="categoria" />
-                <ScalarProperty Name="dominio" ColumnName="dominio" />
-                <ScalarProperty Name="convenio" ColumnName="convenio" />
-                <ScalarProperty Name="pais" ColumnName="pais" />
-                <ScalarProperty Name="antiguedad" ColumnName="antiguedad" />
-                <ScalarProperty Name="sexo" ColumnName="sexo" />
-                <ScalarProperty Name="edad" ColumnName="edad" />
-                <ScalarProperty Name="nombre" ColumnName="nombre" />
-                <ScalarProperty Name="legajo" ColumnName="legajo" />
+                <ScalarProperty Name="idPerformance" ColumnName="idPerformance" />
                 <ScalarProperty Name="idUsuario" ColumnName="idUsuario" />
-                <ScalarProperty Name="idPerformance" ColumnName="idPerformance" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="EstadosFechas">
-            <EntityTypeMapping TypeName="PerformanceModel.EstadosFechas">
-              <MappingFragment StoreEntitySet="EstadosFechas">
-                <ScalarProperty Name="fechaHasta" ColumnName="fechaHasta" />
-                <ScalarProperty Name="fechaDesde" ColumnName="fechaDesde" />
-                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="legajo" ColumnName="legajo" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="edad" ColumnName="edad" />
+                <ScalarProperty Name="sexo" ColumnName="sexo" />
+                <ScalarProperty Name="antiguedad" ColumnName="antiguedad" />
+                <ScalarProperty Name="pais" ColumnName="pais" />
+                <ScalarProperty Name="convenio" ColumnName="convenio" />
+                <ScalarProperty Name="dominio" ColumnName="dominio" />
+                <ScalarProperty Name="categoria" ColumnName="categoria" />
+                <ScalarProperty Name="idJefe" ColumnName="idJefe" />
+                <ScalarProperty Name="nombreJefe" ColumnName="nombreJefe" />
                 <ScalarProperty Name="ano" ColumnName="ano" />
-                <ScalarProperty Name="idEstadosFechas" ColumnName="idEstadosFechas" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="EvaluacionPerformance">
-            <EntityTypeMapping TypeName="PerformanceModel.EvaluacionPerformance">
-              <MappingFragment StoreEntitySet="EvaluacionPerformance">
-                <ScalarProperty Name="idResponsable" ColumnName="idResponsable" />
-                <ScalarProperty Name="comentario" ColumnName="comentario" />
-                <ScalarProperty Name="fechaEvaluacion" ColumnName="fechaEvaluacion" />
-                <ScalarProperty Name="idCalificacion" ColumnName="idCalificacion" />
-                <ScalarProperty Name="idHabilidad" ColumnName="idHabilidad" />
-                <ScalarProperty Name="idPerformance" ColumnName="idPerformance" />
-                <ScalarProperty Name="idEvaluacion" ColumnName="idEvaluacion" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Historial">
-            <EntityTypeMapping TypeName="PerformanceModel.Historial">
-              <MappingFragment StoreEntitySet="Historial">
-                <ScalarProperty Name="fecha" ColumnName="fecha" />
-                <ScalarProperty Name="comentario" ColumnName="comentario" />
-                <ScalarProperty Name="idCalificacionFinal" ColumnName="idCalificacionFinal" />
-                <ScalarProperty Name="idCalificacion" ColumnName="idCalificacion" />
-                <ScalarProperty Name="idHabilidad" ColumnName="idHabilidad" />
-                <ScalarProperty Name="calibracion" ColumnName="calibracion" />
-                <ScalarProperty Name="evaluacion" ColumnName="evaluacion" />
-                <ScalarProperty Name="autoevaluacion" ColumnName="autoevaluacion" />
-                <ScalarProperty Name="idUsuarioCambio" ColumnName="idUsuarioCambio" />
                 <ScalarProperty Name="estado" ColumnName="estado" />
-                <ScalarProperty Name="idPerformance" ColumnName="idPerformance" />
-                <ScalarProperty Name="idHistorial" ColumnName="idHistorial" />
+                <ScalarProperty Name="fechaAutoevaluacion" ColumnName="fechaAutoevaluacion" />
+                <ScalarProperty Name="fechaEvaluacion" ColumnName="fechaEvaluacion" />
+                <ScalarProperty Name="fechaCalibracion" ColumnName="fechaCalibracion" />
+                <ScalarProperty Name="calificacionFinal" ColumnName="calificacionFinal" />
+                <ScalarProperty Name="idCalificacionFinal" ColumnName="idCalificacionFinal" />
+                <ScalarProperty Name="eliminado" ColumnName="eliminado" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
