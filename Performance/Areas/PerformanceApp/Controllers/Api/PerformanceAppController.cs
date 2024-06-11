@@ -204,6 +204,32 @@ namespace Performance.Areas.PerformanceApp.Controllers.Api
                 return 0;
             }
         }
+        [System.Web.Http.Route("Api/PerformanceApp/EliminarPerformance")]
+        [System.Web.Http.ActionName("EliminarPerformance")]
+        [System.Web.Http.HttpPost]
+        public int EliminarPerformance(PerformanceAutoevaluacionVM objeto)
+        {
+            try
+            {
+                using (var db = new PerformanceEntities())
+                {
+                    Servicios.ServicioPerformance _servicio = new Servicios.ServicioPerformance();
+
+                    var tmp = _servicio.EliminarPerformance(objeto.idPerformance);
+
+                    //var performance = db.PerformanceColaborador.Where(x => x.idPerformance == autoevaluacion.idPerformance).FirstOrDefault();
+
+                    //await EnviarMailLider(performance.idUsuario, performance.idJefe, tmp.body, tmp.asunto);
+
+                    return tmp.idPerformance;
+                }
+
+            }
+            catch (Exception e)
+            {
+                return 0;
+            }
+        }
         [System.Web.Http.Route("Api/PerformanceApp/GuardarEvaluacion")]
         [System.Web.Http.ActionName("GuardarEvaluacion")]
         [System.Web.Http.HttpPost]

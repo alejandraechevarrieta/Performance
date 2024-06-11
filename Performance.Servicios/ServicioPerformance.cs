@@ -55,7 +55,8 @@ namespace Performance.Servicios
                            idEstado = p.estado,
                            estado = e.estado,
                            dominio = p.dominio,
-                       }).OrderByDescending(x => x.ano).ThenBy(x => x.nombre);
+                           eliminado = p.eliminado,
+                       }).Where(x => x.eliminado != true).OrderByDescending(x => x.ano).ThenBy(x => x.nombre);
             var algo = tmp.ToList();
 
             return tmp;
@@ -338,6 +339,18 @@ namespace Performance.Servicios
                 performanceVM.idPerformance = 0;
                 return performanceVM;
             }
+        }
+
+        public PerformanceColaborador EliminarPerformance(int idPerformance)
+        {
+            var performance = db.PerformanceColaborador.Where(x => x.idPerformance == idPerformance).FirstOrDefault();
+
+            performance.eliminado = true;
+
+            db.SaveChanges();
+
+            return performance;
+
         }
         public PerformanceAutoevaluacionVM GuardarEvaluacion(PerformanceAutoevaluacionVM evaluacion, int idResponsable)
         {

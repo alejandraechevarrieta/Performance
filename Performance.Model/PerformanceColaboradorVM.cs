@@ -68,6 +68,7 @@ namespace Performance.Model
         public int? idCalificacion4 { get; set; }
         public int? idCalificacion5 { get; set; }
         public int? idCalificacion6 { get; set; }
+        public bool? eliminado { get; set; }
         public List<PerformanceAutoevaluacionVM> habilidades { get; set; }
     }
     public class PerformanceEstados
