@@ -21,6 +21,7 @@ namespace Performance.Model
         public Nullable<int> idHabilidad { get; set; }
         public Nullable<int> idCalificacion { get; set; }
         public Nullable<int> idCalificacionFinal { get; set; }
+        public Nullable<int> idResponsableOriginal { get; set; }
         public Nullable<System.DateTime> fechaOriginal { get; set; }
         public Nullable<bool> eliminado { get; set; }
         public Nullable<bool> autoevaluacion { get; set; }

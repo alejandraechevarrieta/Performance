@@ -35,5 +35,6 @@ namespace Performance.Model
         public Nullable<int> idCalificacionFinal { get; set; }
         public string calificacionFinal { get; set; }
         public Nullable<bool> eliminado { get; set; }
+        public string comentario { get; set; }
     }
 }
