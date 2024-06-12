@@ -230,6 +230,27 @@ namespace Performance.Areas.PerformanceApp.Controllers.Api
                 return 0;
             }
         }
+        [System.Web.Http.Route("Api/PerformanceApp/GuardarCalibracion")]
+        [System.Web.Http.ActionName("GuardarCalibracion")]
+        [System.Web.Http.HttpPost]
+        public async Task<int> GuardarCalibracion(PerformanceCalibracionVM calibracion)
+        {
+            try
+            {
+                using (var db = new PerformanceEntities())
+                {
+                    Servicios.ServicioPerformance _servicio = new Servicios.ServicioPerformance();
+
+                    var tmp = _servicio.GuardarCalibracion(calibracion);
+                    return tmp.idPerformance;
+                }
+
+            }
+            catch (Exception e)
+            {
+                return 0;
+            }
+        }
 
         [System.Web.Http.Route("Api/PerformanceApp/GenerarAltasPerformance")]
         [System.Web.Http.ActionName("GenerarAltasPerformance")]

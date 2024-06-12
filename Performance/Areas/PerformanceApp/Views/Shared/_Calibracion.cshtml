@@ -132,7 +132,7 @@
                 box-shadow: 0 0 0 2px white, 0 0 0 3px #616161;
             }
 
-        #msform input.selected {
+        #msform input.selected:not(.next):not(.previous):not(.confirmar) {
             border-bottom: 2px solid skyblue;
             background-color: rgba(135, 206, 250, 0.2);
             box-shadow: 0 0 5px skyblue;
@@ -376,7 +376,7 @@
             <div class="col-11 col-sm-9 col-md-7 col-lg-6 text-center p-0 mt-3 mb-2 w-80">
                 <div class="card px-0 pt-4 pb-0 mt-3 mb-3">
                     <p class="h2"><strong>Calibración de Performance</strong></p>
-                    <p class="h4 hola">Hola CH, a continuación debes realizar la Calibración.</p>
+                    <p class="h4 hola">A continuación debes realizar la valoración</p>
                     <div class="row">
                         <div class="col-md-12 mx-0">
                             <form id="msform">
@@ -403,7 +403,7 @@
                                             </p>
                                         </div>
                                     </div>
-                                    <input type="button" name="next" class="next action-button boton" value="Siguiente" />
+                                    <input type="button" name="next" class="next action-button" value="Siguiente" />
                                 </fieldset>
                                 <fieldset id="tarj1">
                                     <div class="form-card">
@@ -412,14 +412,14 @@
                                             <p class="h5">Actitud de superación permanente.  Búsqueda constante del crecimiento personal y profesional, siendo consciente de sus fortalezas y aspectos de mejora. Disposición a  experimentar nuevas ideas, conocimientos y experiencias.</p>
                                         </div>
                                         <div class="button-container mt-2">
-                                            <input id="aa1" disabled type="button" value="En progreso" />
-                                            <input id="aa2" disabled type="button" value="Autónomo" />
-                                            <input id="aa3" disabled type="button" value="Fortaleza" />
-                                            <input id="aa4" disabled type="button" value="No aplica" />
+                                            <input id="aa1" class="next2" disabled type="button" value="En progreso" />
+                                            <input id="aa2" class="next2" disabled type="button" value="Autónomo" />
+                                            <input id="aa3" class="next2" disabled type="button" value="Fortaleza" />
+                                            <input id="aa4" class="next2" disabled type="button" value="No aplica" />
                                         </div>
                                     </div>
                                     <div class="form-card" id="card1">
-                                        <h2 class="fs-title">Evaluación líder</h2>
+                                        <h2 class="fs-title tituloEvaluacion">Evaluación</h2>
                                         <div class="row">
                                             <div class="col-12">
                                                 <p class="h5">
@@ -447,8 +447,8 @@
                                             <input id="a4" type="button" data-toggle="tooltip" data-bs-placement="bottom" title="No es requerida por la posición" value="No aplica" />
                                         </div>
                                     </div>
-                                    <input type="button" name="previous" class="previous action-button-previous boton" value="Anterior" />
-                                    <input type="button" name="next" class="next action-button boton" value="Siguiente" />
+                                    <input type="button" name="previous" class="previous action-button-previous" value="Anterior" />
+                                    <input type="button" name="next" class="next action-button" value="Siguiente" />
                                 </fieldset>
                                 <fieldset id="tarj2">
                                     <div class="form-card">
@@ -457,14 +457,14 @@
                                             <p class="h5">Capacidad de tomar decisiones, actuar y asumir los impactos de las mismas. La autonomía se fundamenta en la voluntad, la disciplina y responsabilidad.</p>
                                         </div>
                                         <div class="button-container mt-2">
-                                            <input id="bb1" disabled type="button" value="En progreso" />
-                                            <input id="bb2" disabled type="button" value="Autónomo" />
-                                            <input id="bb3" disabled type="button" value="Fortaleza" />
-                                            <input id="bb4" disabled type="button" value="No aplica" />
+                                            <input id="bb1" class="next2" disabled type="button" value="En progreso" />
+                                            <input id="bb2" class="next2" disabled type="button" value="Autónomo" />
+                                            <input id="bb3" class="next2" disabled type="button" value="Fortaleza" />
+                                            <input id="bb4" class="next2" disabled type="button" value="No aplica" />
                                         </div>
                                     </div>
                                     <div class="form-card" id="card2">
-                                        <h2 class="fs-title">Evaluación líder</h2>
+                                        <h2 class="fs-title tituloEvaluacion">Evaluación</h2>
                                         <div class="row">
                                             <div class="col-12">
                                                 <p class="h5">
@@ -491,8 +491,8 @@
                                             <input id="b4" type="button" data-toggle="tooltip" data-bs-placement="bottom" title="No es requerida por la posición" value="No aplica" />
                                         </div>
                                     </div>
-                                    <input type="button" name="previous" class="previous action-button-previous boton" value="Anterior" />
-                                    <input type="button" name="next" class="next action-button boton" value="Siguiente" />
+                                    <input type="button" name="previous" class="previous action-button-previous" value="Anterior" />
+                                    <input type="button" name="next" class="next action-button" value="Siguiente" />
                                 </fieldset>
                                 <fieldset id="tarj3">
                                     <div class="form-card">
@@ -501,14 +501,14 @@
                                             <p class="h5">Actitud genuina para cooperar y colaborar con otros miembros de la empresa apuntando al logro de objetivos comunes, produciendo colectivamente resultados superiores a los individuales.</p>
                                         </div>
                                         <div class="button-container mt-2">
-                                            <input id="cc1" disabled type="button" value="En progreso" />
-                                            <input id="cc2" disabled type="button" value="Autónomo" />
-                                            <input id="cc3" disabled type="button" value="Fortaleza" />
-                                            <input id="cc4" disabled type="button" value="No aplica" />
+                                            <input id="cc1" class="next2" disabled type="button" value="En progreso" />
+                                            <input id="cc2" class="next2" disabled type="button" value="Autónomo" />
+                                            <input id="cc3" class="next2" disabled type="button" value="Fortaleza" />
+                                            <input id="cc4" class="next2" disabled type="button" value="No aplica" />
                                         </div>
                                     </div>
                                     <div class="form-card" id="card3">
-                                        <h2 class="fs-title">Evaluación líder</h2>
+                                        <h2 class="fs-title tituloEvaluacion">Evaluación</h2>
                                         <div class="row">
                                             <div class="col-12">
                                                 <p class="h5">
@@ -535,8 +535,8 @@
                                             <input id="c4" type="button" data-toggle="tooltip" data-bs-placement="bottom" title="No es requerida por la posición" value="No aplica" />
                                         </div>
                                     </div>
-                                    <input type="button" name="previous" class="previous action-button-previous boton" value="Anterior" />
-                                    <input type="button" name="make_payment" class="next action-button boton" value="Siguiente" />
+                                    <input type="button" name="previous" class="previous action-button-previous" value="Anterior" />
+                                    <input type="button" name="make_payment" class="next action-button" value="Siguiente" />
                                 </fieldset>
                                 <fieldset id="tarj4">
                                     <div class="form-card">
@@ -545,14 +545,14 @@
                                             <p class="h5">Capacidad de transmitir mensajes de manera clara, concisa y comprensible, así como de escuchar activamente y comprender las ideas y perspectivas de los demás.</p>
                                         </div>
                                         <div class="button-container mt-2">
-                                            <input id="dd1" disabled type="button" value="En progreso" />
-                                            <input id="dd2" disabled type="button" value="Autónomo" />
-                                            <input id="dd3" disabled type="button" value="Fortaleza" />
-                                            <input id="dd4" disabled type="button" value="No aplica" />
+                                            <input id="dd1" class="next2" disabled type="button" value="En progreso" />
+                                            <input id="dd2" class="next2" disabled type="button" value="Autónomo" />
+                                            <input id="dd3" class="next2" disabled type="button" value="Fortaleza" />
+                                            <input id="dd4" class="next2" disabled type="button" value="No aplica" />
                                         </div>
                                     </div>
                                     <div class="form-card" id="card4">
-                                        <h2 class="fs-title">Evaluación líder</h2>
+                                        <h2 class="fs-title tituloEvaluacion">Evaluación</h2>
                                         <div class="row">
                                             <div class="col-12">
                                                 <p class="h5">
@@ -579,8 +579,8 @@
                                             <input id="d4" type="button" data-toggle="tooltip" data-bs-placement="bottom" title="No es requerida por la posición" value="No aplica" />
                                         </div>
                                     </div>
-                                    <input type="button" name="previous" class="previous action-button-previous boton" value="Anterior" />
-                                    <input type="button" name="make_payment" class="next action-button boton" value="Siguiente" />
+                                    <input type="button" name="previous" class="previous action-button-previous" value="Anterior" />
+                                    <input type="button" name="make_payment" class="next action-button" value="Siguiente" />
                                 </fieldset>
                                 <fieldset id="tarj5">
                                     <div class="form-card">
@@ -589,14 +589,14 @@
                                             <p class="h5">Capacidad para actuar en escenarios dinámicos, ambiguos e inciertos, buscando de manera permanente y proactiva, oportunidades para generar ideas y soluciones que agreguen valor a la organización, inspirando a los demás.</p>
                                         </div>
                                         <div class="button-container mt-2">
-                                            <input id="ee1" disabled type="button" value="En progreso" />
-                                            <input id="ee2" disabled type="button" value="Autónomo" />
-                                            <input id="ee3" disabled type="button" value="Fortaleza" />
-                                            <input id="ee4" disabled type="button" value="No aplica" />
+                                            <input id="ee1" class="next2" disabled type="button" value="En progreso" />
+                                            <input id="ee2" class="next2" disabled type="button" value="Autónomo" />
+                                            <input id="ee3" class="next2" disabled type="button" value="Fortaleza" />
+                                            <input id="ee4" class="next2" disabled type="button" value="No aplica" />
                                         </div>
                                     </div>
                                     <div class="form-card" id="card5">
-                                        <h2 class="fs-title">Calibración</h2>
+                                        <h2 class="fs-title tituloEvaluacion">Evaluación</h2>
                                         <div class="row">
                                             <div class="col-12">
                                                 <p class="h5">
@@ -622,8 +622,8 @@
                                             <input id="e4" type="button" data-toggle="tooltip" data-bs-placement="bottom" title="No es requerida por la posición" value="No aplica" />
                                         </div>
                                     </div>
-                                    <input type="button" name="previous" class="previous action-button-previous boton" value="Anterior" />
-                                    <input type="button" name="make_payment" class="next action-button boton" value="Siguiente" />
+                                    <input type="button" name="previous" class="previous action-button-previous" value="Anterior" />
+                                    <input type="button" name="make_payment" class="next action-button" value="Siguiente" />
                                 </fieldset>
                                 <fieldset id="tarj6">
                                     <div class="form-card">
@@ -632,14 +632,14 @@
                                             <p class="h5">Capacidad de entender y considerar el sistema completo en el que opera la organización, reconociendo las interconexiones y las interdependencias entre diferentes actores y procesos.</p>
                                         </div>
                                         <div class="button-container mt-2">
-                                            <input id="ff1" disabled type="button" value="En progreso" />
-                                            <input id="ff2" disabled type="button" value="Autónomo" />
-                                            <input id="ff3" disabled type="button" value="Fortaleza" />
-                                            <input id="ff4" disabled type="button" value="No aplica" />
+                                            <input id="ff1" class="next2" disabled type="button" value="En progreso" />
+                                            <input id="ff2" class="next2" disabled type="button" value="Autónomo" />
+                                            <input id="ff3" class="next2" disabled type="button" value="Fortaleza" />
+                                            <input id="ff4" class="next2" disabled type="button" value="No aplica" />
                                         </div>
                                     </div>
                                     <div class="form-card" id="card6">
-                                        <h2 class="fs-title">Evaluación líder</h2>
+                                        <h2 class="fs-title tituloEvaluacion">Evaluación</h2>
                                         <div class="row">
                                             <div class="col-12">
                                                 <p class="h5">
@@ -673,7 +673,13 @@
                                     <div class="form-card" id="card7">
                                         <h2 class="fs-title">Performance</h2>
                                         <div class="row mt-1">
-                                            <p class="h5">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+                                            <p class="h5">
+                                                A continuación, te invitamos a completar la valoración global de Performance del colaborador.<br />
+                                                El objetivo de esta instancia es integrar las valoraciones específicas de las habilidades clave que ya evaluaste para cada uno de tus colaboradores a cargo. <br />
+                                                Deberás considerar tanto los puntos fuertes como las áreas de mejora identificadas en cada habilidad.<br />
+                                                Considera el impacto del desempeño del colaborador en el éxito general del equipo y de la organización y cómo sus competencias han contribuido al logro de los objetivos.<br />
+                                                Procura que tu valoración global como Líder, refleje de manera justa y equilibrada el desempeño general del colaborador.
+                                            </p>
                                         </div>
                                         <div class="row mt-3">
                                             <input id="g1" type="button" data-toggle="tooltip" data-bs-placement="bottom" title="No alcanza el desempeño requerido" value="Regular" />
@@ -689,8 +695,8 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <input type="button" name="previous" class="previous action-button-previous boton" value="Anterior" />
-                                    <input type="button" name="make_payment" class="next action-button boton" onclick="AbrirModalEnviar()" value="Confirmar" />
+                                    <input type="button" name="previous" class="previous action-button-previous" value="Anterior" />
+                                    <input type="button" name="make_payment" class="action-button confirmar" onclick="AbrirModalEnviar()" value="Confirmar" />
                                 </fieldset>
                             </form>
                         </div>
@@ -711,7 +717,7 @@
                         <a href="#" role="button" class="btn btn-danger btn-sm btn-block" onclick="CerrarModalEnviar();" id="CerrarModalEnviar" style="margin-left: 60%; width: 40%;">Cancelar</a>
                     </div>
                     <div class="col-md-6">
-                        <a href="#" role="button" class="btn btn-info btn-sm btn-block" onclick="GuardarEvaluacion();" id="GuardarEvaluacion" style="width: 40%;">Enviar</a>
+                        <a href="#" role="button" class="btn btn-info btn-sm btn-block" onclick="GuardarCalibracion();" id="GuardarCalibracion" style="width: 40%;">Enviar</a>
                     </div>
                 </div>
             </div>
@@ -828,13 +834,15 @@ $('input[type="button"]').click(function () {
 
     //Modal
     function AbrirModalEnviar() {
-        $('#modalDeseaEnviar').show();
+        VerificarDatos();
+
     }
     function CerrarModalEnviar() {
         $('#modalDeseaEnviar').hide();
     }
 
-function GuardarEvaluacion() {
+function GuardarCalibracion() {
+    document.querySelector('input.next').click();
     var detalleEvaluacion = {};
     $('#modalDeseaEnviar').hide();
     // Obtener las selecciones guardadas en localStorage
@@ -859,18 +867,19 @@ function GuardarEvaluacion() {
     // Agregar el ID de usuario
     detalleEvaluacion.idResponsable = "@idUsuario";
     detalleEvaluacion.idPerformance = "@idPerformance";
+    detalleEvaluacion.comentario = $("#comentarios").val();
 
     // Realizar la solicitud AJAX
     $.ajax({
         type: "POST",
-        url: "/PerformanceApp/Api/PerformanceApp/GuardarEvaluacion",
+        url: "/PerformanceApp/Api/PerformanceApp/GuardarCalibracion",
         data: detalleEvaluacion,
         dataType: "json",
         success: function (response) {
             if (response == 0) {
                 // Error al guardar
-                alert("Error al guardar la evaluación");
-                console.log("Error al guardar la evaluación");
+                alert("Error al guardar la calibración");
+                console.log("Error al guardar la calibración");
             } else {                // Éxito al guardar
 
                 alert("Evaluación guardada con éxito");
@@ -936,42 +945,31 @@ function GuardarEvaluacion() {
                         $(selector).addClass("selected");
                     }
                 }
+                //calificacion final
                 if (data.idCalificacionFinal != null) {
                     var selector = "#g" + data.idCalificacionFinal;
                     $(selector).addClass("selected");
                 }
-                //calificacion final
-
             });
             //agrega el nombre del colaborador
             const elementos = document.querySelectorAll('.tituloAutoevaluacion');
             elementos.forEach(elemento => {
                 elemento.textContent += " de " + datos[0].colaborador;
             });
-            //Cambia lider por nombre jefe
-            var element = document.querySelector('.hola');
-            var originalText = element.innerHTML;
-            var newText = originalText.replace(/CH/gi, datos[0].nombreJefe);
-            element.innerHTML = newText;
+            //agrega el nombre del colaborador primera
+            const elementos2 = document.querySelectorAll('.hola');
+            elementos2.forEach(elemento => {
+                elemento.textContent += " de " + datos[0].colaborador;
+            });  
+            //agrega el nombre del lider
+            const elementos3 = document.querySelectorAll('.tituloEvaluacion');
+            elementos3.forEach(elemento => {
+                elemento.textContent += " de " + datos[0].nombreJefe + ", Calibrar.";
+            });   
         });
+
     }
-    ///NOMBRE USUARIO
-    $(document).ready(function () {
-        var nombreUsuario = localStorage.getItem('nombreUsuario');
-        if (nombreUsuario) {
-            var element = document.querySelector('.hola');
-            if (element) {
-                var originalText = element.innerHTML;
-                var newText = originalText.replace(/CH/gi, nombreUsuario);
-                element.innerHTML = newText;
-            } else {
-                console.error("No se encontró el elemento con la clase 'hola'.");
-            }
-        } else {
-               
-        }
-    });
-  
+   
     ///VER MAS DETALLE
     function verMas(i) {
         var masTexto = document.getElementById("verMas" + i);
@@ -979,6 +977,32 @@ function GuardarEvaluacion() {
             masTexto.style.display = "block";
         } else {
             masTexto.style.display = "none";
+        }
+    }
+    function VerificarDatos() {
+        var todasLasTarjetasCompletas = true;
+
+        //tarjetas
+        for (var i = 1; i <= 7; i++) {
+            var tarjetaCompleta = false;
+            var selector = '#tarj' + i;
+            // verificar si hay una selección en la tarjeta actual (excluyendo los botones de "Siguiente" y "Volver")
+            if ($(selector).find('input[type="button"].selected').not('.next, .previous, .next2').length > 0) {
+                tarjetaCompleta = true;
+            }
+
+            if (!tarjetaCompleta) {
+                //$('#confirmar').addClass('next');
+                todasLasTarjetasCompletas = false;
+                break;
+
+            }
+        }
+
+        if (!todasLasTarjetasCompletas) {
+            alert('Falta completar una o más tarjetas.');
+        } else {
+            $('#modalDeseaEnviar').show();
         }
     }
 
