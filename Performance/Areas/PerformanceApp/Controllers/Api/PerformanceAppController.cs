@@ -215,7 +215,7 @@ namespace Performance.Areas.PerformanceApp.Controllers.Api
                 {
                     Servicios.ServicioPerformance _servicio = new Servicios.ServicioPerformance();
 
-                    var tmp = _servicio.EliminarPerformance(objeto.idPerformance);
+                    var tmp = _servicio.EliminarPerformance(objeto.idPerformance, objeto.idUsuario);
 
                     //var performance = db.PerformanceColaborador.Where(x => x.idPerformance == autoevaluacion.idPerformance).FirstOrDefault();
 

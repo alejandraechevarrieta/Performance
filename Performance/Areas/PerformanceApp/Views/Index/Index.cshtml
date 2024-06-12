@@ -1329,6 +1329,7 @@ if(perfil == 129){
             // Realizar la solicitud AJAX
             var objeto = {};
             objeto.idPerformance = idPerformanceEliminar;
+            objeto.idUsuario = @idUsuario;
             $.ajax({
                 type: "POST",
                 url: "/PerformanceApp/Api/PerformanceApp/EliminarPerformance",

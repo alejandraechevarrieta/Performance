@@ -156,6 +156,23 @@ namespace Performance.Model
         public List<int?> autoEvaluaciones { get; set; }
         public List<int?> evaluaciones { get; set; }
     }
+
+    public class HistorialVM
+    {
+        public int idHistorial { get; set; }
+        public int idPerformance { get; set; }
+        public int? estado { get; set; }
+        public int? idUsuarioCambio { get; set; }
+        public bool? autoevaluacion { get; set; }
+        public bool? evaluacion { get; set; }
+        public bool? calibracion { get; set; }
+        public int? idHabilidad { get; set; }
+        public int? idCalificacion { get; set; }
+        public int? idCalificacionFinal { get; set; }
+        public string comentario { get; set; }
+        public DateTime fecha { get; set; }
+
+    }
     public class MailVM
     {
         public List<int> IdsDestinatarios { get; set; }

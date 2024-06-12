@@ -341,12 +341,31 @@ namespace Performance.Servicios
             }
         }
 
-        public PerformanceColaborador EliminarPerformance(int idPerformance)
+        public PerformanceColaborador EliminarPerformance(int idPerformance, int idUsuario)
         {
+            //Cambia eliminado a true
+
             var performance = db.PerformanceColaborador.Where(x => x.idPerformance == idPerformance).FirstOrDefault();
 
             performance.eliminado = true;
 
+            db.SaveChanges();
+
+            //Guarda movimiento en el historial
+            Historial historial = new Historial();
+            historial.idPerformance = performance.idPerformance;
+            historial.estado = performance.estado;
+            historial.idUsuarioCambio = idUsuario;
+            historial.autoevaluacion = false;
+            historial.evaluacion = false;
+            historial.calibracion = false;
+            historial.idHabilidad = null;
+            historial.idCalificacion = null;
+            historial.idCalificacionFinal = null;
+            historial.comentario = "Se elimina la performance";
+            historial.fecha = DateTime.Now;
+
+            db.Historial.Add(historial);
             db.SaveChanges();
 
             return performance;
