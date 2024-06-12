@@ -276,7 +276,7 @@
                 </div>
                 @*<div class="form-group2 col-md-1 mt-2" style="padding-top: 1.9%; margin-left:10px;" id="btnLimpiar">
 
-                    </div>*@
+                </div>*@
             }
         </div>
         <div class="row m-3" style="overflow: hidden; margin-top: 0% !important; display:none;" id="rowFiltro2">
@@ -319,7 +319,7 @@
                                                 <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Fecha de Feedback</th>
                                                 <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Estado</th>
                                                 @*
-                                                    <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Acciones</th>*@
+                                                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Acciones</th>*@
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -352,7 +352,7 @@
                                                 <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Fecha de Calibración</th>
                                                 <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Estado</th>
                                                 @*
-                                                    <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Acciones</th>*@
+                                                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Acciones</th>*@
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -438,6 +438,24 @@
                 </video>
             </div>
         </div>
+        @*modal preguntar si esta seguro de eliminar performance*@
+        <div class="modal" id="modalDeseaEliminar" style="display: none!important; margin-top: 0%;">
+            <div class="modal-dialog" style="max-width: 900px!important;">
+                <div class="modal-content p-2">
+                    <div class="row mb-3 m-2" style="justify-content:center">
+                        <p class="h4" style="margin-left: 0px; margin-right:0px;">¿Desea eliminar la Performance?</p>
+                    </div>
+                    <div class="row mb-3 pr-2">
+                        <div class="col-md-6">
+                            <a href="#" role="button" class="btn btn-info btn-sm btn-block" onclick="CerrarModalEliminar();" id="CerrarModalEnviar" style="margin-left: 60%; width: 40%;">Cancelar</a>
+                        </div>
+                        <div class="col-md-6">
+                            <a href="#" role="button" class="btn btn-danger btn-sm btn-block" onclick="EliminarPerformance();" id="EliminarPErformance" style="width: 40%;">Eliminar</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </main>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
     <!-- DataTables JS CDN -->
@@ -447,6 +465,7 @@
     <script>
         var perfil = "@perfil";
         var anoActual = new Date().getFullYear();
+        var idPerformanceEliminar = 0;
         $("#divLoading").hide();
     //Codigo para checkbox
     const checkboxes = document.querySelectorAll('.form-check-input');
@@ -634,6 +653,10 @@ if(perfil == 129){
                             var ivBase64 = CryptoJS.enc.Base64.stringify(iv);
                             encryptedIdPerformance = encodeURIComponent(encryptedIdPerformance);
                             ivBase64 = encodeURIComponent(ivBase64);
+                            //IF POR SI DE ALGUNA FORMA TRAE UNA PERFORMANCE ELIMINADA
+                            if (row.eliminado) {
+                                return '<div style="text-align: center;"><a class="btn btn-sm grilla-btn btn-danger" title="Performance Eliminada" style="font-size: 100% !important;">' + 'Eliminado' + '</a></div>';
+                            }
                             if (data == 1) {
                                 if (idEstadoActual == 1 && row.ano == anoActual) {
                                     return '<div style="text-align: center;"><a href="/PerformanceApp/Index/Crud?view=autoevaluacion&idPerformance=' + encryptedIdPerformance + '&nombre=' + row.nombre + '&iv=' + ivBase64 + '" class="btn btn-sm grilla-btn btn-info" title="Autoevaluación sin realizar" style="font-size: 100% !important;">' + row.estado + '</a></div>';
@@ -793,6 +816,10 @@ if(perfil == 129){
                             var ivBase64 = CryptoJS.enc.Base64.stringify(iv);
                             encryptedIdPerformance = encodeURIComponent(encryptedIdPerformance);
                             ivBase64 = encodeURIComponent(ivBase64);
+                            //IF POR SI DE ALGUNA FORMA TRAE UNA PERFORMANCE ELIMINADA
+                            if (row.eliminado) {
+                                return '<div style="text-align: center;"><a class="btn btn-sm grilla-btn btn-danger" title="Performance Eliminada" style="font-size: 100% !important;">' + 'Eliminado' + '</a></div>';
+                            }
                             if (data == 1) {
                                 if (idEstadoActual == 2 && row.ano == anoActual) {
                                     return '<div style="text-align: center;"><a href="/PerformanceApp/Index/Crud?view=evaluacion&idPerformance=' + encryptedIdPerformance + '&iv=' + ivBase64 + '" class="btn btn-sm grilla-btn btn-info" title="Autoevaluación sin realizar" style="font-size: 100% !important;">' + row.estado + '</a></div>';
@@ -973,6 +1000,9 @@ if(perfil == 129){
                             var ivBase64 = CryptoJS.enc.Base64.stringify(iv);
                             encryptedIdPerformance = encodeURIComponent(encryptedIdPerformance);
                             ivBase64 = encodeURIComponent(ivBase64);
+                            if (row.eliminado) {
+                                return '<div style="text-align: center;"><a class="btn btn-sm grilla-btn btn-danger" title="Performance Eliminada" style="font-size: 100% !important;">' + 'Eliminado' + '</a></div>';
+                            }
                             if (@idUsuario == row.idUsuario) {
                                 if (data == 1) {
                                     if (idEstadoActual == 1 && row.ano == anoActual) {
@@ -1019,14 +1049,17 @@ if(perfil == 129){
                         "name": "Acciones",
                         "autoWidth": false,
                         "render": function (data, type, row, meta) {
+                            if (row.eliminado) {
+                                return '';
+                            }
                             if (row.idEstado == 3) {
                                 return '<div style="display: flex; justify-content: center;">' +
                                     "<a href=# class='btn btn-sm btn-info cuadrado-btn' style='color:white;' title='Volver al Lider' id='btnVolverLider' onclick=\"CambiarEstado(" + row.idPerformance + "," + 2 + ")\"><i class='fa fa-reply'></i></a>" +
-                                    "<a href=# class='btn btn-sm btn-danger cuadrado-btn' style='color:white;' title='Eliminar' id='btnEliminar' onclick=\"EliminarPerformance(" + row.idPerformance + ")\"><i class='fa fa-close'></i></a>" +
+                                    "<a href=# class='btn btn-sm btn-danger cuadrado-btn' style='color:white;' title='Eliminar' id='btnEliminar' onclick=\"AbrirModalEliminar(" + row.idPerformance + ")\"><i class='fa fa-close'></i></a>" +
                                     '</div>';
                             } else {
                                 return '<div style="display: flex; justify-content: center;">' +
-                                    "<a href=# class='btn btn-sm btn-danger cuadrado-btn' style='color:white;' title='Eliminar' id='btnEliminar' onclick=\"EliminarPerformance(" + row.idPerformance + ")\"><i class='fa fa-close'></i></a>" +
+                                    "<a href=# class='btn btn-sm btn-danger cuadrado-btn' style='color:white;' title='Eliminar' id='btnEliminar' onclick=\"AbrirModalEliminar(" + row.idPerformance + ")\"><i class='fa fa-close'></i></a>" +
                                     '</div>';
                             }
 
@@ -1293,6 +1326,46 @@ if(perfil == 129){
             videoPlayer[0].pause();
             videoPlayer.attr('src', '');
         });
+
+        function AbrirModalEliminar(id) {
+            $('#modalDeseaEliminar').show();
+            idPerformanceEliminar = id;
+        }
+        function CerrarModalEliminar() {
+            $('#modalDeseaEliminar').hide();
+            idPerformanceEliminar = 0;
+        }
+
+        function EliminarPerformance() {
+            // Realizar la solicitud AJAX
+            var objeto = {};
+            objeto.idPerformance = idPerformanceEliminar;
+            objeto.idUsuario = @idUsuario;
+            $.ajax({
+                type: "POST",
+                url: "/PerformanceApp/Api/PerformanceApp/EliminarPerformance",
+                data: objeto,
+                dataType: "json",
+                success: function (response) {
+                    if (response == 0) {
+                        // Error al guardar
+                        alert("Error al eliminar la Performance");
+                        console.log("Error al eliminar la Performance");
+                    } else {
+                        // Éxito al guardar               
+                        alert("Performance eliminada con éxito");
+                        $('#modalDeseaEliminar').hide();
+                        ListarPerformance();
+                        //var url = "/PerformanceApp/Index?perfil=" + 0 + "&idUsuario=" + 0;
+                        //window.location.href = url;
+                    }
+                },
+                error: function (jqxhr) {
+                    // Error en la solicitud AJAX
+                    console.log("Error en la solicitud AJAX:", jqxhr);
+                }
+            });
+        }
 
         //CAMBIAR ESTADO
         function CambiarEstado(idPerformance, estado) {

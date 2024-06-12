@@ -55,7 +55,8 @@ namespace Performance.Servicios
                            idEstado = p.estado,
                            estado = e.estado,
                            dominio = p.dominio,
-                       }).OrderByDescending(x => x.ano).ThenBy(x => x.nombre);
+                           eliminado = p.eliminado,
+                       }).Where(x => x.eliminado != true).OrderByDescending(x => x.ano).ThenBy(x => x.nombre);
             var algo = tmp.ToList();
 
             return tmp;
@@ -338,6 +339,38 @@ namespace Performance.Servicios
                 performanceVM.idPerformance = 0;
                 return performanceVM;
             }
+        }
+
+        public PerformanceColaborador EliminarPerformance(int idPerformance, int idUsuario)
+        {
+            //Cambia eliminado a true
+
+            var performance = db.PerformanceColaborador.Where(x => x.idPerformance == idPerformance).FirstOrDefault();
+
+            performance.eliminado = true;
+
+            db.SaveChanges();
+
+            //Guarda movimiento en el historial
+            Historial historial = new Historial();
+            historial.idPerformance = performance.idPerformance;
+            historial.estado = performance.estado;
+            historial.idUsuarioCambio = idUsuario;
+            historial.autoevaluacion = false;
+            historial.evaluacion = false;
+            historial.calibracion = false;
+            historial.idHabilidad = null;
+            historial.idCalificacion = null;
+            historial.idCalificacionFinal = null;
+            historial.eliminado = true;
+            historial.fechaOriginal = null;
+            historial.fechaCambio = DateTime.Now;
+
+            db.Historial.Add(historial);
+            db.SaveChanges();
+
+            return performance;
+
         }
         public PerformanceAutoevaluacionVM GuardarEvaluacion(PerformanceAutoevaluacionVM evaluacion, int idResponsable)
         {

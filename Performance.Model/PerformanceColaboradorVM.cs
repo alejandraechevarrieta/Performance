@@ -89,6 +89,7 @@ namespace Performance.Model
         public int? idCalificacion4 { get; set; }
         public int? idCalificacion5 { get; set; }
         public int? idCalificacion6 { get; set; }
+        public bool? eliminado { get; set; }
         public List<PerformanceAutoevaluacionVM> habilidades { get; set; }
     }
     public class PerformanceEstados
@@ -175,6 +176,23 @@ namespace Performance.Model
         public string calificacion { get; set; }
         public List<int?> autoEvaluaciones { get; set; }
         public List<int?> evaluaciones { get; set; }
+    }
+
+    public class HistorialVM
+    {
+        public int idHistorial { get; set; }
+        public int idPerformance { get; set; }
+        public int? estado { get; set; }
+        public int? idUsuarioCambio { get; set; }
+        public bool? autoevaluacion { get; set; }
+        public bool? evaluacion { get; set; }
+        public bool? calibracion { get; set; }
+        public int? idHabilidad { get; set; }
+        public int? idCalificacion { get; set; }
+        public int? idCalificacionFinal { get; set; }
+        public string comentario { get; set; }
+        public DateTime fecha { get; set; }
+
     }
     public class MailVM
     {

@@ -4,19 +4,19 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="602a506ea8744101aaaabca204870ff4" Name="Diagram1">
+      <Diagram DiagramId="e279b224c3854aae93c866f39b946bad" Name="Diagram1">
         <EntityTypeShape EntityType="PerformanceModel.AutoEvaluacion" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="PerformanceModel.Calificacion" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="PerformanceModel.CalificacionFinalLider" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="PerformanceModel.Encuesta" Width="1.5" PointX="2.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="PerformanceModel.Estados" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PerformanceModel.Habilidades" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PerformanceModel.Menu" Width="1.5" PointX="0.75" PointY="6.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PerformanceModel.MenuPerfil" Width="1.5" PointX="2.75" PointY="6.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PerformanceModel.PerformanceColaborador" Width="1.5" PointX="5.375" PointY="6.75" />
-        <EntityTypeShape EntityType="PerformanceModel.EstadosFechas" Width="1.5" PointX="7.375" PointY="3.75" />
-        <EntityTypeShape EntityType="PerformanceModel.EvaluacionPerformance" Width="1.5" PointX="7.375" PointY="6.75" />
-        <EntityTypeShape EntityType="PerformanceModel.Historial" Width="1.5" PointX="9.375" PointY="0.75" />
+        <EntityTypeShape EntityType="PerformanceModel.EstadosFechas" Width="1.5" PointX="4.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PerformanceModel.EvaluacionPerformance" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PerformanceModel.Habilidades" Width="1.5" PointX="0.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PerformanceModel.Historial" Width="1.5" PointX="2.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PerformanceModel.Menu" Width="1.5" PointX="6.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PerformanceModel.MenuPerfil" Width="1.5" PointX="4.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PerformanceModel.PerformanceColaborador" Width="1.5" PointX="6.75" PointY="7.75" IsExpanded="true" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -18,13 +18,14 @@ namespace Performance.Model
         public int idPerformance { get; set; }
         public Nullable<int> estado { get; set; }
         public Nullable<int> idUsuarioCambio { get; set; }
-        public Nullable<bool> autoevaluacion { get; set; }
-        public Nullable<bool> evaluacion { get; set; }
-        public Nullable<bool> calibracion { get; set; }
         public Nullable<int> idHabilidad { get; set; }
         public Nullable<int> idCalificacion { get; set; }
         public Nullable<int> idCalificacionFinal { get; set; }
-        public string comentario { get; set; }
-        public System.DateTime fecha { get; set; }
+        public Nullable<System.DateTime> fechaOriginal { get; set; }
+        public Nullable<bool> eliminado { get; set; }
+        public Nullable<bool> autoevaluacion { get; set; }
+        public Nullable<bool> evaluacion { get; set; }
+        public Nullable<bool> calibracion { get; set; }
+        public System.DateTime fechaCambio { get; set; }
     }
 }
