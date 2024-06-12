@@ -86,14 +86,15 @@
           <Property Name="idPerformance" Type="int" Nullable="false" />
           <Property Name="estado" Type="int" />
           <Property Name="idUsuarioCambio" Type="int" />
-          <Property Name="autoevaluacion" Type="bit" />
-          <Property Name="evaluacion" Type="bit" />
-          <Property Name="calibracion" Type="bit" />
           <Property Name="idHabilidad" Type="int" />
           <Property Name="idCalificacion" Type="int" />
           <Property Name="idCalificacionFinal" Type="int" />
-          <Property Name="comentario" Type="varchar" MaxLength="2000" />
-          <Property Name="fecha" Type="date" Nullable="false" />
+          <Property Name="fechaOriginal" Type="date" />
+          <Property Name="eliminado" Type="bit" />
+          <Property Name="autoevaluacion" Type="bit" />
+          <Property Name="evaluacion" Type="bit" />
+          <Property Name="calibracion" Type="bit" />
+          <Property Name="fechaCambio" Type="date" Nullable="false" />
         </EntityType>
         <EntityType Name="Menu">
           <Key>
@@ -239,14 +240,15 @@
           <Property Name="idPerformance" Type="Int32" Nullable="false" />
           <Property Name="estado" Type="Int32" />
           <Property Name="idUsuarioCambio" Type="Int32" />
-          <Property Name="autoevaluacion" Type="Boolean" />
-          <Property Name="evaluacion" Type="Boolean" />
-          <Property Name="calibracion" Type="Boolean" />
           <Property Name="idHabilidad" Type="Int32" />
           <Property Name="idCalificacion" Type="Int32" />
           <Property Name="idCalificacionFinal" Type="Int32" />
-          <Property Name="comentario" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
-          <Property Name="fecha" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="fechaOriginal" Type="DateTime" Precision="0" />
+          <Property Name="eliminado" Type="Boolean" />
+          <Property Name="autoevaluacion" Type="Boolean" />
+          <Property Name="evaluacion" Type="Boolean" />
+          <Property Name="calibracion" Type="Boolean" />
+          <Property Name="fechaCambio" Type="DateTime" Nullable="false" Precision="0" />
         </EntityType>
         <EntityType Name="Menu">
           <Key>
@@ -400,14 +402,15 @@
                 <ScalarProperty Name="idPerformance" ColumnName="idPerformance" />
                 <ScalarProperty Name="estado" ColumnName="estado" />
                 <ScalarProperty Name="idUsuarioCambio" ColumnName="idUsuarioCambio" />
-                <ScalarProperty Name="autoevaluacion" ColumnName="autoevaluacion" />
-                <ScalarProperty Name="evaluacion" ColumnName="evaluacion" />
-                <ScalarProperty Name="calibracion" ColumnName="calibracion" />
                 <ScalarProperty Name="idHabilidad" ColumnName="idHabilidad" />
                 <ScalarProperty Name="idCalificacion" ColumnName="idCalificacion" />
                 <ScalarProperty Name="idCalificacionFinal" ColumnName="idCalificacionFinal" />
-                <ScalarProperty Name="comentario" ColumnName="comentario" />
-                <ScalarProperty Name="fecha" ColumnName="fecha" />
+                <ScalarProperty Name="fechaOriginal" ColumnName="fechaOriginal" />
+                <ScalarProperty Name="eliminado" ColumnName="eliminado" />
+                <ScalarProperty Name="autoevaluacion" ColumnName="autoevaluacion" />
+                <ScalarProperty Name="evaluacion" ColumnName="evaluacion" />
+                <ScalarProperty Name="calibracion" ColumnName="calibracion" />
+                <ScalarProperty Name="fechaCambio" ColumnName="fechaCambio" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

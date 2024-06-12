@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="69227004083b4bcaa764b0ac9a3e3f49" Name="Diagram1">
+      <Diagram DiagramId="e279b224c3854aae93c866f39b946bad" Name="Diagram1">
         <EntityTypeShape EntityType="PerformanceModel.AutoEvaluacion" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="PerformanceModel.Calificacion" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="PerformanceModel.CalificacionFinalLider" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />

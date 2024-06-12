@@ -362,8 +362,9 @@ namespace Performance.Servicios
             historial.idHabilidad = null;
             historial.idCalificacion = null;
             historial.idCalificacionFinal = null;
-            historial.comentario = "Se elimina la performance";
-            historial.fecha = DateTime.Now;
+            historial.eliminado = true;
+            historial.fechaOriginal = null;
+            historial.fechaCambio = DateTime.Now;
 
             db.Historial.Add(historial);
             db.SaveChanges();
