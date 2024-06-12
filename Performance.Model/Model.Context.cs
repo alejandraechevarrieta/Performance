@@ -13,10 +13,10 @@ namespace Performance.Model
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class Entities : DbContext
+    public partial class PerformanceEntities : DbContext
     {
-        public Entities()
-            : base("name=Entities")
+        public PerformanceEntities()
+            : base("name=PerformanceEntities")
         {
         }
     
