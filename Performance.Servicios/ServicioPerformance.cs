@@ -516,77 +516,86 @@ namespace Performance.Servicios
         public PerformanceCalibracionVM GuardarCalibracion(PerformanceCalibracionVM calibracion)
         {
             try
-            {               
-                var habilidades = db.Habilidades.Where(x => x.activo == true).ToList();
-                var evaluaciones = db.EvaluacionPerformance.Where(x => x.idPerformance ==  calibracion.idPerformance).ToList(); 
-                //guardo evaluaciones en hisotrial para calibrar la evaluacion
-
-                Historial nuevaEvaluacion = new Historial();
-                PerformanceCalibracionVM performanceVM = new PerformanceCalibracionVM();
-
-                List<string> calificacion = new List<string>();
-                calificacion.Add(calibracion.habilidad1);
-                calificacion.Add(calibracion.habilidad2);
-                calificacion.Add(calibracion.habilidad3);
-                calificacion.Add(calibracion.habilidad4);
-                calificacion.Add(calibracion.habilidad5);
-                calificacion.Add(calibracion.habilidad6);
-
-                //Evaluacion
-                var numero = 1; // Inicializar numero en 0
-
-                foreach (var habilidad in habilidades)
+            {
+                var evaluacionesExistentes = db.EvaluacionPerformance.Where(x => x.idPerformance == calibracion.idPerformance).ToList();
+                
+                if (evaluacionesExistentes.Any())
                 {
-                    if (calibracion != null)
+                    var habilidades = db.Habilidades.Where(x => x.activo == true).ToList();
+                    var evaluaciones = db.EvaluacionPerformance.Where(x => x.idPerformance == calibracion.idPerformance).ToList();
+                    var performancce = db.PerformanceColaborador.Where(x => x.idPerformance == calibracion.idPerformance).FirstOrDefault();
+                    //guardo evaluaciones en hisotrial para calibrar la evaluacion
+                    Historial nuevaEvaluacion = new Historial();
+                    foreach (var item in evaluaciones)
                     {
-                        nuevaEvaluacion.idPerformance = calibracion.idPerformance;                        
-                        nuevaEvaluacion.idUsuarioCambio = calibracion.idUsuario;
-                        nuevaEvaluacion.calibracion = true;
-                        nuevaEvaluacion.idHabilidad = habilidad.idHabilidad;
-                        //nuevaEvaluacion.idCalificacionFinal = calibracion.idCalificacionFinal;
-                        nuevaEvaluacion.comentario = calibracion.comentario;
-                        nuevaEvaluacion.fecha = DateTime.Now;                      
+                        nuevaEvaluacion.idPerformance = item.idPerformance;
+                        nuevaEvaluacion.idUsuarioCambio = calibracion.idResponsable;
+                        nuevaEvaluacion.idHabilidad = item.idHabilidad;
+                        nuevaEvaluacion.idCalificacion = item.idCalificacion;
+                        nuevaEvaluacion.idCalificacionFinal = performancce.idCalificacionFinal;
+                        nuevaEvaluacion.fechaOriginal = item.fechaEvaluacion;
+                        nuevaEvaluacion.idResponsableOriginal = item.idResponsable;
+                        nuevaEvaluacion.evaluacion = true;
+                        nuevaEvaluacion.fechaCambio = DateTime.Now;
+                        nuevaEvaluacion.estado = 3;
+                        db.Historial.Add(nuevaEvaluacion);
+                        db.SaveChanges();
+                    }
+                    //guardar la calibración en evaluación
+                    PerformanceCalibracionVM performanceVM = new PerformanceCalibracionVM();
 
-                        // Obtener la calificación correspondiente a la habilidad actual
-                        var habilidadIndex = habilidades.IndexOf(habilidad);
-                        var item = calificacion.ElementAtOrDefault(habilidadIndex); // Obtener la calificación para la habilidad actual
-                        if (item != null)
+                    List<string> calificaciones = new List<string>
+                     {
+                        calibracion.habilidad1,
+                        calibracion.habilidad2,
+                        calibracion.habilidad3,
+                        calibracion.habilidad4,
+                        calibracion.habilidad5,
+                        calibracion.habilidad6
+                    };
+
+                    foreach (var evaluacionExistente in evaluacionesExistentes)
+                    {
+                        var habilidad = db.Habilidades.Where(x => x.idHabilidad == evaluacionExistente.idHabilidad).FirstOrDefault();
+                        if (habilidad != null)
                         {
-                            var idCalificacion = db.Calificacion
-                                .Where(x => x.activo == true && x.formulario == "A" && x.nombre.Contains(item))
-                                .Select(x => x.idCalificacion)
-                                .FirstOrDefault();
+                            int habilidadIndex = evaluacionesExistentes.IndexOf(evaluacionExistente);
+                            string calificacion = calificaciones.ElementAtOrDefault(habilidadIndex);
 
-                            if (idCalificacion != 0)
+                            if (calificacion != null)
                             {
-                                nuevaEvaluacion.idCalificacion = idCalificacion;
+                                var idCalificacion = db.Calificacion
+                                    .Where(x => x.activo == true && x.formulario == "A" && x.nombre.Contains(calificacion))
+                                    .Select(x => x.idCalificacion)
+                                    .FirstOrDefault();
 
-                                db.Historial.Add(nuevaEvaluacion);
-                                db.SaveChanges();
-                            }
-                            else
-                            {
-                                // Manejar la situación donde no se encuentra una calificación para la habilidad actual
+                                if (idCalificacion != 0)
+                                {
+                                    evaluacionExistente.idCalificacion = idCalificacion;
+                                    evaluacionExistente.idResponsable = calibracion.idResponsable;
+                                    evaluacionExistente.fechaEvaluacion = DateTime.Now;
+                                    db.SaveChanges();
+                                }
                             }
                         }
                     }
-                }
+                    // Actualizar el estado y la calificación final de Performance
+                    var performance = db.PerformanceColaborador.Where(x => x.idPerformance == calibracion.idPerformance).FirstOrDefault();
+                    if (performance != null)
+                    {
+                        performance.estado = 4;
+                        performance.calificacionFinal = calibracion.calificacionFinal;
+                        performance.fechaCalibracion = DateTime.Now;
+                        performancce.comentario = calibracion.comentario;                       
 
-                //Performance
-                var performance = db.PerformanceColaborador.Where(x => x.idPerformance == calibracion.idPerformance).FirstOrDefault();
+                        var idCalificacionFinal = db.CalificacionFinalLider
+                            .Where(x => x.nombre.Contains(calibracion.calificacionFinal))
+                            .Select(x => x.id)
+                            .FirstOrDefault();
 
-                if (performance != null)
-                {
-                    performance.estado = 4; 
-                    performance.calificacionFinal = calibracion.calificacionFinal;
-                    performance.fechaEvaluacion = DateTime.Now;
-                    var idCalificacionFinal = db.CalificacionFinalLider
-                               .Where(x => x.nombre.Contains(calibracion.calificacionFinal))
-                               .Select(x => x.id)
-                               .FirstOrDefault();
-                    performance.idCalificacionFinal = idCalificacionFinal;
-
-                    db.SaveChanges();
+                        performance.idCalificacionFinal = idCalificacionFinal;
+                        db.SaveChanges();
+                    }                   
                 }
                 return calibracion;
             }
