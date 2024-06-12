@@ -358,6 +358,7 @@
                                                 <tbody></tbody>
                                             </table>
                                         </div>
+                                        <p class="h4"><span id="performance"></span>
                                     </div>
                                 </div>
                             </div>
@@ -418,6 +419,10 @@ function CargarDatos() {
                 if (lider !== null) {
                     $('#lider').text(lider);
                 }
+                var performance = datos.length > 0 ? datos[0].calificacionFinal : null;
+                if (performance !== null) {
+                    $('#performance').text("Performance:  " + performance);
+                }                
             });
 
             // Crear las filas de la tabla
@@ -434,7 +439,7 @@ function CargarDatos() {
                     tbody.append(row);
                 }
             }
-
+            
         });
 }
 
