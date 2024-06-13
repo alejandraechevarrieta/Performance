@@ -35,6 +35,27 @@ namespace Performance.Model
         public string body { get; set; }
         public string asunto { get; set; }
         public string adjunto { get; set; }
+        public string comentario {  get; set; }
+
+    }
+    public class PerformanceCalibracionVM
+    {
+        public int idUsuario { get; set; }
+        public int idResponsable { get; set; }
+        public int idAutoevaluacion { get; set; }
+        public int idPerformance { get; set; }
+        public int? idHabilidad { get; set; }
+        public int? idCalificacion { get; set; }
+        public DateTime fechaAutoEvaluacion { get; set; }
+        public DateTime fechaCalificacion { get; set; }
+        public string habilidad1 { get; set; }
+        public string habilidad2 { get; set; }
+        public string habilidad3 { get; set; }
+        public string habilidad4 { get; set; }
+        public string habilidad5 { get; set; }
+        public string habilidad6 { get; set; }
+        public string calificacionFinal { get; set; }      
+        public string comentario { get; set; }
 
     }
     public class PerformanceVM

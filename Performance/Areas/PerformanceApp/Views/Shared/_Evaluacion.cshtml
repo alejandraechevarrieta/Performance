@@ -375,7 +375,7 @@
             <div class="col-11 col-sm-9 col-md-7 col-lg-6 text-center p-0 mt-3 mb-2 w-80">
                 <div class="card px-0 pt-4 pb-0 mt-3 mb-3">
                     <p class="h2"><strong>Evaluación de Performance</strong></p>
-                    <p class="h4 holaLider">Hola líder, a continuación debes realizar la valoración</p>
+                    <p class="h4 holaLider">A continuación debes realizar la valoración</p>
                     <div class="row">
                         <div class="col-md-12 mx-0">
                             <form id="msform">
@@ -937,6 +937,11 @@ function GuardarEvaluacion() {
                         $(selector).addClass("selected");
                     }
                 }
+                //calificacion final
+                if (data.idCalificacionFinal != null) {
+                    var selector = "#g" + data.idCalificacionFinal;
+                    $(selector).addClass("selected");
+                }
                
             });
             //agrega el nombre del colaborador
@@ -986,7 +991,7 @@ function GuardarEvaluacion() {
             var tarjetaCompleta = false;
             var selector = '#tarj' + i;
             // verificar si hay una selección en la tarjeta actual (excluyendo los botones de "Siguiente" y "Volver")
-            if ($(selector).find('input[type="button"].selected').not('.next2, .previous').length > 0) {
+            if ($(selector).find('input[type="button"].selected').not('.next, .previous, .next2').length > 0) {
                 tarjetaCompleta = true;
             }
 

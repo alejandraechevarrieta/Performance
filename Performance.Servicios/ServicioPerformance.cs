@@ -513,7 +513,100 @@ namespace Performance.Servicios
                 return performanceVM;
             }
         }
+        public PerformanceCalibracionVM GuardarCalibracion(PerformanceCalibracionVM calibracion)
+        {
+            try
+            {
+                var evaluacionesExistentes = db.EvaluacionPerformance.Where(x => x.idPerformance == calibracion.idPerformance).ToList();
+                
+                if (evaluacionesExistentes.Any())
+                {
+                    var habilidades = db.Habilidades.Where(x => x.activo == true).ToList();
+                    var evaluaciones = db.EvaluacionPerformance.Where(x => x.idPerformance == calibracion.idPerformance).ToList();
+                    var performancce = db.PerformanceColaborador.Where(x => x.idPerformance == calibracion.idPerformance).FirstOrDefault();
+                    //guardo evaluaciones en hisotrial para calibrar la evaluacion
+                    Historial nuevaEvaluacion = new Historial();
+                    foreach (var item in evaluaciones)
+                    {
+                        nuevaEvaluacion.idPerformance = item.idPerformance;
+                        nuevaEvaluacion.idUsuarioCambio = calibracion.idResponsable;
+                        nuevaEvaluacion.idHabilidad = item.idHabilidad;
+                        nuevaEvaluacion.idCalificacion = item.idCalificacion;
+                        nuevaEvaluacion.idCalificacionFinal = performancce.idCalificacionFinal;
+                        nuevaEvaluacion.fechaOriginal = item.fechaEvaluacion;
+                        nuevaEvaluacion.idResponsableOriginal = item.idResponsable;
+                        nuevaEvaluacion.evaluacion = true;
+                        nuevaEvaluacion.fechaCambio = DateTime.Now;
+                        nuevaEvaluacion.estado = 3;
+                        db.Historial.Add(nuevaEvaluacion);
+                        db.SaveChanges();
+                    }
+                    //guardar la calibración en evaluación
+                    PerformanceCalibracionVM performanceVM = new PerformanceCalibracionVM();
 
+                    List<string> calificaciones = new List<string>
+                     {
+                        calibracion.habilidad1,
+                        calibracion.habilidad2,
+                        calibracion.habilidad3,
+                        calibracion.habilidad4,
+                        calibracion.habilidad5,
+                        calibracion.habilidad6
+                    };
+
+                    foreach (var evaluacionExistente in evaluacionesExistentes)
+                    {
+                        var habilidad = db.Habilidades.Where(x => x.idHabilidad == evaluacionExistente.idHabilidad).FirstOrDefault();
+                        if (habilidad != null)
+                        {
+                            int habilidadIndex = evaluacionesExistentes.IndexOf(evaluacionExistente);
+                            string calificacion = calificaciones.ElementAtOrDefault(habilidadIndex);
+
+                            if (calificacion != null)
+                            {
+                                var idCalificacion = db.Calificacion
+                                    .Where(x => x.activo == true && x.formulario == "A" && x.nombre.Contains(calificacion))
+                                    .Select(x => x.idCalificacion)
+                                    .FirstOrDefault();
+
+                                if (idCalificacion != 0)
+                                {
+                                    evaluacionExistente.idCalificacion = idCalificacion;
+                                    evaluacionExistente.idResponsable = calibracion.idResponsable;
+                                    evaluacionExistente.fechaEvaluacion = DateTime.Now;
+                                    db.SaveChanges();
+                                }
+                            }
+                        }
+                    }
+                    // Actualizar el estado y la calificación final de Performance
+                    var performance = db.PerformanceColaborador.Where(x => x.idPerformance == calibracion.idPerformance).FirstOrDefault();
+                    if (performance != null)
+                    {
+                        performance.estado = 4;
+                        performance.calificacionFinal = calibracion.calificacionFinal;
+                        performance.fechaCalibracion = DateTime.Now;
+                        performancce.comentario = calibracion.comentario;                       
+
+                        var idCalificacionFinal = db.CalificacionFinalLider
+                            .Where(x => x.nombre.Contains(calibracion.calificacionFinal))
+                            .Select(x => x.id)
+                            .FirstOrDefault();
+
+                        performance.idCalificacionFinal = idCalificacionFinal;
+                        db.SaveChanges();
+                    }                   
+                }
+                return calibracion;
+            }
+            catch (Exception e)
+            {
+                var ex = e.GetBaseException();
+                PerformanceCalibracionVM performanceVM = new PerformanceCalibracionVM();
+                performanceVM.idPerformance = 0;
+                return performanceVM;
+            }
+        }
         public int GenerarAltasPerformance(List<ColaboradorVM> colaboradores)
         {
             try
@@ -650,7 +743,8 @@ namespace Performance.Servicios
                              colaborador = p.nombre,
                              lider = p.nombreJefe,
                              idCalificacionFinal = p.idCalificacionFinal,
-                             calificacionFinal = p.calificacionFinal
+                             calificacionFinal = p.calificacionFinal,
+                             nombreJefe = p.nombreJefe,
                          }).ToList();
 
             var autoEvaluaciones = (from a in db.AutoEvaluacion
