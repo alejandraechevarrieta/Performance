@@ -82,7 +82,7 @@ namespace Performance.Areas.PerformanceApp.Controllers.Api
         [System.Web.Http.Route("Api/PerformanceApp/ListarPerformance")]
         [System.Web.Http.ActionName("ListarPerformance")]
         [System.Web.Http.HttpPost]
-        public HttpResponseMessage ListarPerformance(DataTableRequestModel requestModel, string idUsuario, string idPerfil, int? colaborador, int? estado, int? lider, int? ano, string dominio)
+        public HttpResponseMessage ListarPerformance(DataTableRequestModel requestModel, string idUsuario, string idPerfil, int? colaborador, int? estado, int? lider, int? ano, string dominio, string convenio)
         {
             var draw = requestModel.draw;
             var start = requestModel.start;
@@ -96,7 +96,7 @@ namespace Performance.Areas.PerformanceApp.Controllers.Api
             Servicios.ServicioPerformance _servicio = new Servicios.ServicioPerformance();
 
             // Consulta a tu servicio para obtener los datos
-            var listaPpal = _servicio.listarPerformance(idUsuario, idPerfil, colaborador, estado, lider, ano, dominio);
+            var listaPpal = _servicio.listarPerformance(idUsuario, idPerfil, colaborador, estado, lider, ano, dominio, convenio);
 
             // Filtrar y paginar los datos según los parámetros recibidos
             var listFiltr = listaPpal.Where(x => x.idPerformance > 0).Distinct().ToList();
@@ -176,6 +176,15 @@ namespace Performance.Areas.PerformanceApp.Controllers.Api
         {
             Servicios.ServicioPerformance _servicio = new Servicios.ServicioPerformance();
             var tmp = _servicio.ListarDominios();
+            return tmp;
+        }
+        [System.Web.Http.Route("/ListarConvenios/")]
+        [System.Web.Http.ActionName("ListarConvenios")]
+        [System.Web.Http.HttpGet]
+        public List<ColaboradorVM> ListarConvenios()
+        {
+            Servicios.ServicioPerformance _servicio = new Servicios.ServicioPerformance();
+            var tmp = _servicio.ListarConvenios();
             return tmp;
         }
         [System.Web.Http.Route("Api/PerformanceApp/GuardarAutoevaluacion")]

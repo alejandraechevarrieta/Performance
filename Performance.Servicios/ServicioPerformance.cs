@@ -56,12 +56,13 @@ namespace Performance.Servicios
                            estado = e.estado,
                            dominio = p.dominio,
                            eliminado = p.eliminado,
+                           convenio = p.convenio,
                        }).Where(x => x.eliminado != true).OrderByDescending(x => x.ano).ThenBy(x => x.nombre);
             var algo = tmp.ToList();
 
             return tmp;
         }
-        public List<PerformanceVM> listarPerformance(string idUsuario, string idPerfil, int? colaborador, int? estado, int? lider, int? ano, string dominio)
+        public List<PerformanceVM> listarPerformance(string idUsuario, string idPerfil, int? colaborador, int? estado, int? lider, int? ano, string dominio, string convenio)
         {
             var listaPpal = ListarPerformanceTodas().ToList();
             var idUsuarioInt = Convert.ToInt16(idUsuario);
@@ -99,6 +100,13 @@ namespace Performance.Servicios
 
                 listaPpal = listaPpal.Where(p => p.dominio != "null" &&
                                                   normalizarTexto(p.dominio).Substring(0, 3) == dominioNormalizado).ToList();
+            }
+            if (convenio != "null" && convenio != null)
+            {
+                var convenioNormalizado = normalizarTexto(convenio).Substring(0, 2);
+
+                listaPpal = listaPpal.Where(p => p.convenio != null &&
+                                                  normalizarTexto(p.convenio).Substring(0, 2) == convenioNormalizado).ToList();
             }
             return listaPpal;
         }
@@ -222,14 +230,31 @@ namespace Performance.Servicios
 
             lista =
             (from d in db.PerformanceColaborador
+             where d.dominio != ""
+             group d by d.dominio.Substring(0, 3) into g
              select new ColaboradorVM
              {
-                 dominio = d.dominio,
-                
-             }).Where(x => x.dominio != "").Distinct().ToList();
+                 dominio = g.FirstOrDefault().dominio
+             }).Distinct().ToList();
 
-            return lista.OrderBy(x => x.dominio).ToList();
+            return lista.OrderBy(x => x.convenio).ToList();
         }
+        public List<ColaboradorVM> ListarConvenios()
+        {
+            List<ColaboradorVM> lista = null;
+
+            lista =
+            (from d in db.PerformanceColaborador
+             where d.convenio != ""
+             group d by d.convenio.Substring(0, 3) into g
+             select new ColaboradorVM
+             {
+                 convenio = g.FirstOrDefault().convenio
+             }).Distinct().ToList();
+
+            return lista.OrderBy(x => x.convenio).ToList();
+        }
+
         public PerformanceAutoevaluacionVM GuardarAutoevaluacion(PerformanceAutoevaluacionVM autoevaluacion)
         {
             try

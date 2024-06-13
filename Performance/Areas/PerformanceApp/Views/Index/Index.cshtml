@@ -294,6 +294,13 @@
                     <select class="form-control" id="selectDominio"></select>
                 </div>
             </div>
+            <div class="form-group2 col-md-2" id="filtroConvenio">
+                <label>Convenio:</label>
+                <div></div>
+                <div style="font-weight: normal !important;">
+                    <select class="form-control" id="selectConvenio"></select>
+                </div>
+            </div>
         </div>
 
         <!-- MultiStep Form -->
@@ -489,6 +496,7 @@ if(perfil == 129){
             CargarColaboradoresFiltro();
             CargarLideresFiltro();
             CargarDominiosFiltro();
+            CargarConveniosFiltro();
             EstadoActual();
         });
 
@@ -514,6 +522,7 @@ if(perfil == 129){
             $('#selectLider').val('');
             $('#selectAno').val('');
             $('#selectDominio').val('');
+            $('#selectConvenio').val('');
             ListarPerformance();
         }
     ///LISTAR PERFORMANCE
@@ -523,6 +532,7 @@ if(perfil == 129){
             var lider = $("#selectLider").val();
             var ano = $("#selectAno").val();
             var dominio = $("#selectDominio").val();
+            var convenio = $("#selectConvenio").val();
             var url = "Api/PerformanceApp/ListarPerformance";
             url = url + "?idUsuario=" + "@idUsuario";
             url = url + "&idPerfil=" + "@perfil";
@@ -531,6 +541,7 @@ if(perfil == 129){
             url = url + "&lider=" + lider;
             url = url + "&ano=" + ano;
             url = url + "&dominio=" + dominio;
+            url = url + "&convenio=" + convenio;
 
             if ("@perfil" == "127") {//Tabla del colaborador
                 IniciarTabla();
@@ -1031,7 +1042,7 @@ if(perfil == 129){
                             }
                             if (data == 3) {
                                 if (idEstadoActual == 3 && row.ano == anoActual) {
-                                    return '<div style="text-align: center;"><a href="/PerformanceApp/Index/Crud?view=performance&idPerformance=' + encryptedIdPerformance + '&iv=' + ivBase64 + '" class="btn btn-sm grilla-btn btn-success" title="Evaluación del líder realizada, calibrar" style="font-size: 100% !important;">' + row.estado + '</a></div>';
+                                    return '<div style="text-align: center;"><a href="/PerformanceApp/Index/Crud?view=calibracion&idPerformance=' + encryptedIdPerformance + '&iv=' + ivBase64 + '" class="btn btn-sm grilla-btn btn-success" title="Evaluación del líder realizada, calibrar" style="font-size: 100% !important;">' + row.estado + '</a></div>';
                                 } else {
                                     return '<div style="text-align: center;"><a href="/PerformanceApp/Index/Crud?view=performance&idPerformance=' + encryptedIdPerformance + '&iv=' + ivBase64 + '" class="btn btn-sm grilla-btn btn-success" title="Evaluación del líder realizada, fuera etapa calibración" style="font-size: 100% !important;">' + row.estado + '</a></div>';
                                 }
@@ -1175,6 +1186,22 @@ if(perfil == 129){
                     });
                 });
         }
+        function CargarConveniosFiltro() {
+            var selectConvenio = $('#selectConvenio');
+            selectConvenio.empty();
+            selectConvenio.append($('<option/>', { value: '', text: 'Seleccionar' }).hide());
+            var url = "Api/PerformanceApp/ListarConvenios";
+            $.getJSON(url)
+                .done(function (data) {
+                    console.log(data);
+                    $.each(data, function (index, result) {
+                        selectConvenio.append($('<option/>', {
+                            value: result.convenio,
+                            text: result.convenio
+                        }));
+                    });
+                });
+        }
         $('#selectColaborador').select2({
             width: '100%',
         });
@@ -1182,6 +1209,9 @@ if(perfil == 129){
             width: '100%',
         });
         $('#selectDominio').select2({
+            width: '100%',
+        });
+        $('#selectConvenio').select2({
             width: '100%',
         });
         $('#selectAno').select2({

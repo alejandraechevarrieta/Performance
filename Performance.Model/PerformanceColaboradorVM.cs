@@ -68,6 +68,7 @@ namespace Performance.Model
         public int idJefe { get; set; }
         public string nombreJefe { get; set; }
         public string dominio { get; set; }
+        public string convenio { get; set; }
         public int idAutoevaluacion { get; set; }
         public int idHabilidad { get; set; }
         public int idCalificacion { get; set; }
