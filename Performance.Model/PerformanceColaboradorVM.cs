@@ -189,11 +189,13 @@ namespace Performance.Model
         public bool? autoevaluacion { get; set; }
         public bool? evaluacion { get; set; }
         public bool? calibracion { get; set; }
+        public bool? eliminado { get; set; }
         public int? idHabilidad { get; set; }
         public int? idCalificacion { get; set; }
         public int? idCalificacionFinal { get; set; }
         public string comentario { get; set; }
-        public DateTime fecha { get; set; }
+        public DateTime fechaCambio { get; set; }
+        public DateTime? fechaOriginal { get; set; }
 
     }
     public class MailVM

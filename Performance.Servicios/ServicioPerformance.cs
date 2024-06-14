@@ -1036,5 +1036,28 @@ namespace Performance.Servicios
             return estadoActual;
         }
 
+        public List<HistorialVM> TraerHistorial(int idPerformance)
+        {
+            var tmp = (from h in db.Historial
+                       join p in db.PerformanceColaborador on h.idPerformance equals p.idPerformance
+                       select new HistorialVM
+                       {
+                           idHistorial = h.idHistorial,
+                           idPerformance = h.idPerformance,
+                           estado = h.estado,
+                           idUsuarioCambio = h.idUsuarioCambio,
+                           idHabilidad = h.idHabilidad,
+                           idCalificacion = h.idCalificacion,
+                           idCalificacionFinal = h.idCalificacionFinal,
+                           fechaOriginal = h.fechaOriginal,
+                           eliminado = h.eliminado,
+                           autoevaluacion = h.autoevaluacion,
+                           evaluacion = h.evaluacion,
+                           calibracion = h.calibracion,
+                           fechaCambio = h.fechaCambio,
+                       }).ToList();
+            return tmp;
+        }
+
     }
 }
