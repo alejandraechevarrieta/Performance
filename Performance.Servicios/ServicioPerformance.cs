@@ -758,7 +758,7 @@ namespace Performance.Servicios
             
             return lista;
         }
-        public List<DatosPerformanceVM> buscarDatosPerformance(int idPerformance)
+        public List<DatosPerformanceVM> buscarDatosPerformance(int idPerformance, int perfil)
         {
             var datosPerformance = (from p in db.PerformanceColaborador
                          where p.idPerformance == idPerformance
@@ -770,6 +770,7 @@ namespace Performance.Servicios
                              idCalificacionFinal = p.idCalificacionFinal,
                              calificacionFinal = p.calificacionFinal,
                              nombreJefe = p.nombreJefe,
+                             comentario = perfil != 127 ? p.comentario : null,
                          }).ToList();
 
             var autoEvaluaciones = (from a in db.AutoEvaluacion

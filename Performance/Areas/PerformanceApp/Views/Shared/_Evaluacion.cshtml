@@ -828,7 +828,7 @@ $('input[type="button"]').click(function () {
     //Modal
     function AbrirModalEnviar() {
         VerificarDatos();
-       
+
     }
     function CerrarModalEnviar() {
         $('#modalDeseaEnviar').hide();
@@ -895,7 +895,7 @@ function GuardarEvaluacion() {
     }
     CargarDatos();
     function CargarDatos() {
-        var url = "/PerformanceApp/Api/PerformanceApp/buscarDatosPerformance?idPerformance=" + "@idPerformance";
+        var url = "/PerformanceApp/Api/PerformanceApp/buscarDatosPerformance?idPerformance=" + "@idPerformance"+ "&perfil=" + "@perfil";
         $.getJSON(url)
         .done(function (datos) {
             datos.forEach(function (data) {
@@ -942,7 +942,7 @@ function GuardarEvaluacion() {
                     var selector = "#g" + data.idCalificacionFinal;
                     $(selector).addClass("selected");
                 }
-               
+
             });
             //agrega el nombre del colaborador
             const elementos = document.querySelectorAll('.tituloAutoevaluacion');
@@ -957,7 +957,7 @@ function GuardarEvaluacion() {
             element.innerHTML = newText;
         });
 
-    }  
+    }
     ///NOMBRE USUARIO
     $(document).ready(function () {
         var nombreUsuario = localStorage.getItem('nombreUsuario');
@@ -1006,8 +1006,8 @@ function GuardarEvaluacion() {
         if (!todasLasTarjetasCompletas) {
             alert('Falta completar una o más tarjetas.');
         } else {
-            $('#modalDeseaEnviar').show();       
+            $('#modalDeseaEnviar').show();
         }
     }
-    
+
 </script>

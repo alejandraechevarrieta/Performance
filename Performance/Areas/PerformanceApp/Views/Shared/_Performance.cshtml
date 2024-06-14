@@ -315,7 +315,20 @@
             td:last-child {
                 border-right: 1px solid #17AFB6;
             }
+        .comentario-container {
+            /*width: calc(100% - 50px);*/ /* Ajusta el ancho restando los márgenes */
+            padding-right: 50px; /* Espacio a la derecha */
+            padding-left: 50px; /* Espacio a la izquierda */
+            box-sizing: border-box; /* Incluye el padding en el cálculo del ancho */
+        }
 
+        .comentario {
+            font-size: 18px;
+            text-align: justify;
+            color: #6c757d;
+            opacity: 1;
+            margin: 0; /* Eliminar márgenes internos del texto */
+        }
 
 
     </style>
@@ -358,8 +371,12 @@
                                                 <tbody></tbody>
                                             </table>
                                         </div>
-                                        <p class="h4"><span id="performance"></span>
-                                    </div>
+                                        <p class="h4">
+                                            <span id="performance"></span>
+                                            <div class="comentario-container">
+                                                <div class="comentario" id="comentario"> </div>
+                                            </div>
+                                        </div>
                                 </div>
                             </div>
                         </div>
@@ -378,12 +395,12 @@ var idUsuario = "@idUsuario";
 CargarDatos();
         //BUSCAR DATOS
 function CargarDatos() {
-    var url = "/PerformanceApp/Api/PerformanceApp/buscarDatosPerformance?idPerformance=" + "@idPerformance";
+    var url = "/PerformanceApp/Api/PerformanceApp/buscarDatosPerformance?idPerformance=" + "@idPerformance" + "&perfil=" + "@perfil";
     $.getJSON(url)
         .done(function (datos) {
             var tbody = $('#tablaPerformance tbody');
             tbody.empty();  // Limpiar el cuerpo de la tabla antes de agregar nuevas filas
-          
+
 
             var habilidades = {};
 
@@ -422,7 +439,13 @@ function CargarDatos() {
                 var performance = datos.length > 0 ? datos[0].calificacionFinal : null;
                 if (performance !== null) {
                     $('#performance').text("Performance:  " + performance);
-                }                
+                }
+                if (@perfil != 127) {
+                    var comentario = datos.length > 0 ? datos[0].comentario : null;
+                    if (comentario !== null) {
+                        $('#comentario').html("<strong>Comentario Capital Humano:</strong> " + comentario);
+                    }
+                }
             });
 
             // Crear las filas de la tabla
@@ -439,7 +462,7 @@ function CargarDatos() {
                     tbody.append(row);
                 }
             }
-            
+
         });
 }
 
@@ -451,7 +474,7 @@ function CargarDatos() {
     $(document).ready(function () {
         $('[data-toggle="tooltip"]').tooltip();
     });
-    
+
         //VOLVER
         function volverAtras() {
             window.history.back();

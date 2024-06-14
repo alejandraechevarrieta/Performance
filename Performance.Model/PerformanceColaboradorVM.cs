@@ -168,6 +168,7 @@ namespace Performance.Model
         public string calificacionEvaluacion { get; set; }
         public int? idCalificacionFinal {  get; set; }
         public string calificacionFinal { get; set; }
+        public string comentario { get; set; }
 
         //COSAS DE AUTOEVALUACION
         public int idAutoevaluacion { get; set; }

@@ -903,7 +903,7 @@ function GuardarCalibracion() {
     }
     CargarDatos();
     function CargarDatos() {
-        var url = "/PerformanceApp/Api/PerformanceApp/buscarDatosPerformance?idPerformance=" + "@idPerformance";
+        var url = "/PerformanceApp/Api/PerformanceApp/buscarDatosPerformance?idPerformance=" + "@idPerformance"+ "&perfil=" + "@perfil";
         $.getJSON(url)
         .done(function (datos) {
             datos.forEach(function (data) {
@@ -960,16 +960,16 @@ function GuardarCalibracion() {
             const elementos2 = document.querySelectorAll('.hola');
             elementos2.forEach(elemento => {
                 elemento.textContent += " de " + datos[0].colaborador;
-            });  
+            });
             //agrega el nombre del lider
             const elementos3 = document.querySelectorAll('.tituloEvaluacion');
             elementos3.forEach(elemento => {
                 elemento.textContent += " de " + datos[0].nombreJefe + ", Calibrar.";
-            });   
+            });
         });
 
     }
-   
+
     ///VER MAS DETALLE
     function verMas(i) {
         var masTexto = document.getElementById("verMas" + i);
