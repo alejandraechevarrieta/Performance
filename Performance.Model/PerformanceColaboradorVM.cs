@@ -18,6 +18,7 @@ namespace Performance.Model
     public class PerformanceAutoevaluacionVM
     {
         public int idUsuario { get; set; }
+        public string nombreUsuario { get; set; }
         public int idResponsable { get; set; }
         public int idAutoevaluacion { get; set; }
         public int idPerformance { get; set; }
@@ -185,6 +186,7 @@ namespace Performance.Model
         public int idHistorial { get; set; }
         public int idPerformance { get; set; }
         public int? estado { get; set; }
+        public string estadoStr { get; set; }
         public int? idUsuarioCambio { get; set; }
         public bool? autoevaluacion { get; set; }
         public bool? evaluacion { get; set; }
@@ -196,6 +198,8 @@ namespace Performance.Model
         public string comentario { get; set; }
         public DateTime fechaCambio { get; set; }
         public DateTime? fechaOriginal { get; set; }
+        public DateTime? fechaPerformance { get; set; }
+        public string nombreUsuario { get; set; }
 
     }
     public class MailVM

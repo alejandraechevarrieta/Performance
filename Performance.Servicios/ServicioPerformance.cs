@@ -355,6 +355,25 @@ namespace Performance.Servicios
                 performanceVM.asunto = asunto;
                 performanceVM.idPerformance = performance.idPerformance;
 
+                //HISTORIAL
+                Historial historial = new Historial();
+                historial.idPerformance = performance.idPerformance;
+                historial.estado = 1;
+                historial.idUsuarioCambio = autoevaluacion.idUsuario;
+                historial.autoevaluacion = true;
+                historial.evaluacion = false;
+                historial.calibracion = false;
+                historial.idHabilidad = null;
+                historial.idCalificacion = null;
+                historial.idCalificacionFinal = null;
+                historial.eliminado = false;
+                historial.fechaOriginal = null;
+                historial.fechaCambio = DateTime.Now;
+                historial.nombreUsuarioCambio = autoevaluacion.nombreUsuario;
+
+                db.Historial.Add(historial);
+                db.SaveChanges();
+
                 return performanceVM;
             }
             catch (Exception e)
@@ -366,7 +385,7 @@ namespace Performance.Servicios
             }
         }
 
-        public PerformanceColaborador EliminarPerformance(int idPerformance, int idUsuario)
+        public PerformanceColaborador EliminarPerformance(int idPerformance, int idUsuario, string nombreUsuario)
         {
             //Cambia eliminado a true
 
@@ -390,6 +409,7 @@ namespace Performance.Servicios
             historial.eliminado = true;
             historial.fechaOriginal = null;
             historial.fechaCambio = DateTime.Now;
+            historial.nombreUsuarioCambio = nombreUsuario;
 
             db.Historial.Add(historial);
             db.SaveChanges();
@@ -527,6 +547,25 @@ namespace Performance.Servicios
                         performance.idCalificacionFinal = idCalificacionFinal;
                         db.SaveChanges();
                     }
+
+                    //HISTORIAL
+                    Historial historial = new Historial();
+                    historial.idPerformance = performance.idPerformance;
+                    historial.estado = performance.estado;
+                    historial.idUsuarioCambio = idResponsable;
+                    historial.autoevaluacion = false;
+                    historial.evaluacion = true;
+                    historial.calibracion = false;
+                    historial.idHabilidad = null;
+                    historial.idCalificacion = null;
+                    historial.idCalificacionFinal = null;
+                    historial.eliminado = false;
+                    historial.fechaOriginal = null;
+                    historial.fechaCambio = DateTime.Now;
+
+                    db.Historial.Add(historial);
+                    db.SaveChanges();
+
                     return evaluacion;
                 }                
             }
@@ -1036,10 +1075,12 @@ namespace Performance.Servicios
             return estadoActual;
         }
 
-        public List<HistorialVM> TraerHistorial(int idPerformance)
+        public List<HistorialVM> ListarHistorial(int idPerformance, int idUsuario)
         {
             var tmp = (from h in db.Historial
                        join p in db.PerformanceColaborador on h.idPerformance equals p.idPerformance
+                       join e in db.Estados on h.estado equals e.id
+                       where h.idPerformance == idPerformance
                        select new HistorialVM
                        {
                            idHistorial = h.idHistorial,
@@ -1055,7 +1096,9 @@ namespace Performance.Servicios
                            evaluacion = h.evaluacion,
                            calibracion = h.calibracion,
                            fechaCambio = h.fechaCambio,
-                       }).ToList();
+                           estadoStr = e.estado,
+                           nombreUsuario = h.nombreUsuarioCambio ?? "",
+                       }).OrderBy(x => x.idHistorial).ToList();
             return tmp;
         }
 

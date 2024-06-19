@@ -1234,6 +1234,7 @@ function GuardarAutoevaluacion() {
 
     // Agregar el ID de usuario
     detalleAutoevaluacion.idUsuario = "@idUsuario";
+    detalleAutoevaluacion.nombreUsuario = localStorage.getItem('nombreUsuario');
     detalleAutoevaluacion.idPerformance = "@idPerformance";
 
     // Realizar la solicitud AJAX
