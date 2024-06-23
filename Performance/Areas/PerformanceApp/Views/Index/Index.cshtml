@@ -1247,6 +1247,13 @@ if(perfil == 129){
                         $(row).addClass('jefe');
                         $(row).removeClass('propias');
                     }
+                    // Aquí puedes aplicar estilos o clases a las filas según tus datos
+                    $(row).addClass('fila-con-mano');
+                    // evento click a las filas al crearlas
+                    $(row).on('dblclick', function () {
+                        var idPerformance = data.idPerformance;
+                        CargarHistoria(idPerformance);
+                    });
                 },
                 "ordering": true,
                 "paging": true,
