@@ -860,6 +860,7 @@ function GuardarEvaluacion() {
     // Agregar el ID de usuario
     detalleEvaluacion.idResponsable = "@idUsuario";
     detalleEvaluacion.idPerformance = "@idPerformance";
+    detalleEvaluacion.nombreUsuario = localStorage.getItem('nombreUsuario');
 
     // Realizar la solicitud AJAX
     $.ajax({

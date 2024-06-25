@@ -1201,7 +1201,7 @@ if(perfil == 129){
                                 }
                             }
                             if (data == 3) {
-                                if (idEstadoActual == 3 && row.ano == anoActual) {
+                                if (data == 3 && row.ano == anoActual) {
                                     return '<div style="text-align: center;"><a href="/PerformanceApp/Index/Crud?view=calibracion&idPerformance=' + encryptedIdPerformance + '&iv=' + ivBase64 + '" class="btn btn-sm grilla-btn btn-success" title="Evaluación del líder realizada, calibrar" style="font-size: 100% !important;">' + row.estado + '</a></div>';
                                 } else {
                                     return '<div style="text-align: center;"><a href="/PerformanceApp/Index/Crud?view=performance&idPerformance=' + encryptedIdPerformance + '&iv=' + ivBase64 + '" class="btn btn-sm grilla-btn btn-success" title="Evaluación del líder realizada, fuera etapa calibración" style="font-size: 100% !important;">' + row.estado + '</a></div>';
@@ -1588,7 +1588,7 @@ if(perfil == 129){
                 .done(function (data) {
                     $.each(data, function (index, result) {
                         var item = '<li class="step0 active " id="step1">';
-                        item += '<div>' + result.estadoStr.toLowerCase();
+                        item += '<div>' + result.estadoStr;
                         item += " " + moment(result.fechaCambio).format("DD/MM/YYYY") + "<br>" + result.nombreUsuario;
                         item += "</li>"
                         $('#progressbar').append(item);

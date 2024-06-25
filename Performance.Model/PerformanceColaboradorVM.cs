@@ -43,6 +43,7 @@ namespace Performance.Model
     {
         public int idUsuario { get; set; }
         public int idResponsable { get; set; }
+        public string nombreUsuario { get; set; }
         public int idAutoevaluacion { get; set; }
         public int idPerformance { get; set; }
         public int? idHabilidad { get; set; }

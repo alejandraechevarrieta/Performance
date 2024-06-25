@@ -492,6 +492,26 @@ namespace Performance.Servicios
 
                         db.SaveChanges();
                     }
+
+                    //HISTORIAL
+                    Historial historial = new Historial();
+                    historial.idPerformance = performance.idPerformance;
+                    historial.estado = 2;
+                    historial.nombreUsuarioCambio = evaluacion.nombreUsuario;
+                    historial.idUsuarioCambio = idResponsable;
+                    historial.autoevaluacion = false;
+                    historial.evaluacion = true;
+                    historial.calibracion = false;
+                    historial.idHabilidad = null;
+                    historial.idCalificacion = null;
+                    historial.idCalificacionFinal = null;
+                    historial.eliminado = false;
+                    historial.fechaOriginal = null;
+                    historial.fechaCambio = DateTime.Now;
+
+                    db.Historial.Add(historial);
+                    db.SaveChanges();
+
                     return evaluacion;
                 }
                 else
@@ -552,6 +572,7 @@ namespace Performance.Servicios
                     Historial historial = new Historial();
                     historial.idPerformance = performance.idPerformance;
                     historial.estado = performance.estado;
+                    historial.nombreUsuarioCambio = evaluacion.nombreUsuario;
                     historial.idUsuarioCambio = idResponsable;
                     historial.autoevaluacion = false;
                     historial.evaluacion = true;
@@ -590,21 +611,36 @@ namespace Performance.Servicios
                     var performancce = db.PerformanceColaborador.Where(x => x.idPerformance == calibracion.idPerformance).FirstOrDefault();
                     //guardo evaluaciones en hisotrial para calibrar la evaluacion
                     Historial nuevaEvaluacion = new Historial();
-                    foreach (var item in evaluaciones)
-                    {
-                        nuevaEvaluacion.idPerformance = item.idPerformance;
-                        nuevaEvaluacion.idUsuarioCambio = calibracion.idResponsable;
-                        nuevaEvaluacion.idHabilidad = item.idHabilidad;
-                        nuevaEvaluacion.idCalificacion = item.idCalificacion;
-                        nuevaEvaluacion.idCalificacionFinal = performancce.idCalificacionFinal;
-                        nuevaEvaluacion.fechaOriginal = item.fechaEvaluacion;
-                        nuevaEvaluacion.idResponsableOriginal = item.idResponsable;
-                        nuevaEvaluacion.evaluacion = true;
-                        nuevaEvaluacion.fechaCambio = DateTime.Now;
-                        nuevaEvaluacion.estado = 3;
-                        db.Historial.Add(nuevaEvaluacion);
-                        db.SaveChanges();
-                    }
+                    //foreach (var item in evaluaciones)
+                    //{
+                    //    nuevaEvaluacion.idPerformance = item.idPerformance;
+                    //    nuevaEvaluacion.idUsuarioCambio = calibracion.idResponsable;
+                    //    nuevaEvaluacion.idHabilidad = item.idHabilidad;
+                    //    nuevaEvaluacion.idCalificacion = item.idCalificacion;
+                    //    nuevaEvaluacion.idCalificacionFinal = performancce.idCalificacionFinal;
+                    //    nuevaEvaluacion.fechaOriginal = item.fechaEvaluacion;
+                    //    nuevaEvaluacion.idResponsableOriginal = item.idResponsable;
+                    //    nuevaEvaluacion.evaluacion = true;
+                    //    nuevaEvaluacion.fechaCambio = DateTime.Now;
+                    //    nuevaEvaluacion.estado = 3;
+                    //    db.Historial.Add(nuevaEvaluacion);
+                    //    db.SaveChanges();
+                    //}
+
+                    nuevaEvaluacion.idPerformance = performancce.idPerformance;
+                    nuevaEvaluacion.idUsuarioCambio = calibracion.idResponsable;
+                    nuevaEvaluacion.nombreUsuarioCambio = calibracion.nombreUsuario;
+                    nuevaEvaluacion.idHabilidad = null;
+                    nuevaEvaluacion.idCalificacion = null;
+                    nuevaEvaluacion.idCalificacionFinal = null;
+                    nuevaEvaluacion.fechaOriginal = performancce.fechaEvaluacion;
+                    nuevaEvaluacion.idResponsableOriginal = performancce.idJefe;
+                    nuevaEvaluacion.calibracion = true;
+                    nuevaEvaluacion.fechaCambio = DateTime.Now;
+                    nuevaEvaluacion.estado = 3;
+                    db.Historial.Add(nuevaEvaluacion);
+                    db.SaveChanges();
+
                     //guardar la calibración en evaluación
                     PerformanceCalibracionVM performanceVM = new PerformanceCalibracionVM();
 
@@ -1099,6 +1135,22 @@ namespace Performance.Servicios
                            estadoStr = e.estado,
                            nombreUsuario = h.nombreUsuarioCambio ?? "",
                        }).OrderBy(x => x.idHistorial).ToList();
+
+            foreach(var item in tmp)
+            {
+                if (item.estado == 1)
+                {
+                    item.estadoStr = "Autoevaluación";
+                }
+                else if (item.estado == 2)
+                {
+                    item.estadoStr = "Evaluación";
+                }
+                else if (item.estado == 3)
+                {
+                    item.estadoStr = "Calibración";
+                }
+            }
             return tmp;
         }
 
