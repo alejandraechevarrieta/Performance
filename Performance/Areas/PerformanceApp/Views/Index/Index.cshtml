@@ -23,6 +23,7 @@
     <script src="https://cdn.datatables.net/1.12.0/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
@@ -43,6 +44,7 @@
         #grad1 {
             background-color: #f3f3f3;
         }
+
         .modalLoading {
             position: fixed;
             z-index: 1000;
@@ -72,6 +74,7 @@
             display: flex; /* Utilizar flexbox para alinear los botones */
             justify-content: space-between; /* Espaciar uniformemente los botones */
         }
+
         .modalLoading {
             position: fixed;
             z-index: 1000;
@@ -82,12 +85,15 @@
             background: rgba(214, 214, 214, 0.8) url('../../Content/img/puntos.gif') 50% 50% no-repeat;
             background-size: 300px 240px;
         }
-                .modal {
+
+        .modal {
             background-color: rgba(0, 0, 0, 0.5);
         }
+
         .nav-item {
             cursor: pointer; /* Cambia el cursor a una mano */
         }
+
         .grilla-btn {
             width: 150px;
             height: 40px;
@@ -110,9 +116,11 @@
             height: 40px; /* Ajusta la altura según sea necesario */
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
         }
+
         .btn-primary {
             background-color: #17AFB6;
         }
+
             .btn-primary:hover,
             .btn-primary:focus,
             .btn-primary:active {
@@ -167,18 +175,18 @@
                 background-color: #f1f1f0 !important;
             }
 
-            /*SELECT2 ESTILOS*/
+        /*SELECT2 ESTILOS*/
         /* Centrar verticalmente el texto en el cuadro de búsqueda */
         .select2-container .select2-search__field {
             font-size: 12px !important;
-            color: rgba(214, 214, 214, 0.8) !important; 
+            color: rgba(214, 214, 214, 0.8) !important;
             line-height: 30px;
         }
 
         /* Centrar verticalmente el texto en el menú desplegable */
         .select2-container .select2-selection__rendered {
             font-size: 16px !important;
-            color: #9d9797 !important; 
+            color: #9d9797 !important;
             line-height: 30px;
         }
 
@@ -189,8 +197,130 @@
 
         /* Cambiar el color de fondo del menú desplegable */
         .select2-container .select2-dropdown {
-            background-color: #f0f0f0 !important; 
+            background-color: #f0f0f0 !important;
         }
+
+        #progressbar {
+            margin-bottom: 3vh;
+            overflow: hidden;
+            color: rgb(252, 103, 49);
+            padding-left: 0px;
+            margin-top: 3vh;
+        }
+
+            #progressbar li {
+                list-style-type: none;
+                font-size: small; /* Aumentar el tamaño de la fuente */
+                width: 25%;
+                float: left;
+                position: relative;
+                font-weight: 400;
+                color: #17AFB6;
+            }
+
+            #progressbar #step1:before,
+            #progressbar #step2:before,
+            #progressbar #step3:before {
+                content: "";
+                color: #fff;
+                width: 12px; /* Aumentar el ancho del círculo */
+                height: 12px; /* Aumentar el alto del círculo */
+                position: absolute; /* Cambiar a posición absoluta */
+                top: 50%; /* Centrar verticalmente */
+                transform: translateY(-50%); /* Ajustar para centrar perfectamente */
+                border-radius: 50%; /* Hacer el círculo redondo */
+                z-index: 2; /* Asegurar que los círculos estén encima de la barra */
+            }
+
+            #step1,
+            #step2{
+                height: 90px;
+            }
+
+            #progressbar #step1:before {
+                margin-left: 0px !important;
+            }
+
+            #progressbar #step3:before {
+                margin-right: 32%;
+            }
+
+            #progressbar #step4:before {
+                margin-right: 0px !important;
+                width: 12px; /* Aumentar el ancho del círculo */
+                height: 12px; /* Aumentar el alto del círculo */
+                position: absolute; /* Cambiar a posición absoluta */
+                top: 50%; /* Centrar verticalmente */
+                transform: translateY(-50%); /* Ajustar para centrar perfectamente */
+                border-radius: 50%; /* Hacer el círculo redondo */
+                z-index: 2; /* Asegurar que los círculos estén encima de la barra */
+                padding-top: 20px;
+            }
+
+            #progressbar li:before {
+                content: '';
+                height: 4px; /* Aumentar el grosor de la barra */
+                background: #ddd;
+                position: absolute;
+                left: 0%;
+                right: 0%;
+                margin-bottom: 2vh;
+                top: 50%; /* Alinear verticalmente con los círculos */
+                transform: translateY(-50%); /* Ajustar para centrar perfectamente */
+                z-index: 1;
+            }
+
+            #progressbar li:after {
+                content: '';
+                height: 4px; /* Aumentar el grosor de la barra */
+                background: #ddd;
+                position: absolute;
+                left: 0%;
+                right: 0%;
+                margin-bottom: 2vh;
+                top: 50%; /* Alinear verticalmente con los círculos */
+                transform: translateY(-50%); /* Ajustar para centrar perfectamente */
+                z-index: 1;
+            }
+
+        .progress-track {
+            padding: 0 8%;
+            padding-top: 30px;
+        }
+
+        #progressbar li:nth-child(2):after {
+            margin-right: auto;
+        }
+
+        #progressbar li:nth-child(1):after {
+            margin: auto;
+        }
+
+        #progressbar li:nth-child(3):after {
+            float: left;
+            width: 68%;
+        }
+
+        #progressbar li:nth-child(4):after {
+            margin-left: auto;
+            width: 132%;
+        }
+
+        #progressbar li.active {
+            color: black;
+        }
+
+            #progressbar li.active:before,
+            #progressbar li.active:after {
+                background: #17AFB6;
+            }
+
+
+        .fila-con-mano:hover {
+            cursor: pointer;
+            background-color: #17afb629;
+        }
+
     </style>
 
 
@@ -445,6 +575,29 @@
                 </video>
             </div>
         </div>
+        <div class="modal" id="modalProgressBar" style="display: none!important; overflow-y:hidden; margin-top: 0%;">
+            <div class="modal-dialog" style="max-width: 900px !important; max-height: 600px !important;">
+                <div class="modal-content" style="">
+                    <div class="modal-body">
+                        <div class="row" style="text-align: center">
+                            <div class="tracking">
+                                <div class="title">Historial de Performance</div>
+                            </div>
+                            <div class="progress-track" style="width: 100%">
+                                <ul id="progressbar" style="width: 100%">
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="row" style="text-align: center; justify-content: end">
+                            <div class="col-md-6" style="margin-right: 30px;">
+                                <a href="#" role="button" class="btn btn-danger btn-sm btn-block" onclick="CerrarModalHistorial();" id="CerrarModalHistorial" style="margin-left: 60%; margin-right: 0; width: 40%;">Cerrar</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         @*modal preguntar si esta seguro de eliminar performance*@
         <div class="modal" id="modalDeseaEliminar" style="display: none!important; margin-top: 0%;">
             <div class="modal-dialog" style="max-width: 900px!important;">
@@ -875,6 +1028,12 @@ if(perfil == 129){
                 ],
                 "createdRow": function (row, data, index) {
                     // Aquí puedes aplicar estilos o clases a las filas según tus datos
+                    $(row).addClass('fila-con-mano');
+                    // evento click a las filas al crearlas
+                    $(row).on('dblclick', function () {
+                        var idPerformance = data.idPerformance;
+                        CargarHistoria(idPerformance);
+                    });
                 },
                 "ordering": true,
                 "paging": true,
@@ -1042,7 +1201,7 @@ if(perfil == 129){
                                 }
                             }
                             if (data == 3) {
-                                if (idEstadoActual == 3 && row.ano == anoActual) {
+                                if (data == 3 && row.ano == anoActual) {
                                     return '<div style="text-align: center;"><a href="/PerformanceApp/Index/Crud?view=calibracion&idPerformance=' + encryptedIdPerformance + '&iv=' + ivBase64 + '" class="btn btn-sm grilla-btn btn-success" title="Evaluación del líder realizada, calibrar" style="font-size: 100% !important;">' + row.estado + '</a></div>';
                                 } else {
                                     return '<div style="text-align: center;"><a href="/PerformanceApp/Index/Crud?view=performance&idPerformance=' + encryptedIdPerformance + '&iv=' + ivBase64 + '" class="btn btn-sm grilla-btn btn-success" title="Evaluación del líder realizada, fuera etapa calibración" style="font-size: 100% !important;">' + row.estado + '</a></div>';
@@ -1088,6 +1247,13 @@ if(perfil == 129){
                         $(row).addClass('jefe');
                         $(row).removeClass('propias');
                     }
+                    // Aquí puedes aplicar estilos o clases a las filas según tus datos
+                    $(row).addClass('fila-con-mano');
+                    // evento click a las filas al crearlas
+                    $(row).on('dblclick', function () {
+                        var idPerformance = data.idPerformance;
+                        CargarHistoria(idPerformance);
+                    });
                 },
                 "ordering": true,
                 "paging": true,
@@ -1372,6 +1538,7 @@ if(perfil == 129){
             var objeto = {};
             objeto.idPerformance = idPerformanceEliminar;
             objeto.idUsuario = @idUsuario;
+            objeto.nombreUsuario = localStorage.getItem('nombreUsuario')
             $.ajax({
                 type: "POST",
                 url: "/PerformanceApp/Api/PerformanceApp/EliminarPerformance",
@@ -1406,6 +1573,30 @@ if(perfil == 129){
             $.getJSON(url)
                 .done(function (data) {
                     ListarPerformance();
+                });
+        }
+
+        //Historial
+        function CerrarModalHistorial() {
+            $('#progressbar').empty();
+            $('#modalProgressBar').hide();
+        }
+        function CargarHistoria(idPerformanceHistorial) {
+            var url = "Api/PerformanceApp/listarHistorial?idPerformance=" + idPerformanceHistorial + "&idUsuario=" + @idUsuario;
+            $('#modalProgressBar').show();
+            $.getJSON(url)
+                .done(function (data) {
+                    $.each(data, function (index, result) {
+                        var item = '<li class="step0 active " id="step1">';
+                        item += '<div>' + result.estadoStr;
+                        item += " " + moment(result.fechaCambio).format("DD/MM/YYYY") + "<br>" + result.nombreUsuario;
+                        item += "</li>"
+                        $('#progressbar').append(item);
+                    });
+                    if (data.length > 0) {
+                        $('#progressbar').append('<li class="step1" id="step2"><div>' + '</div></li>');
+                    }
+                    
                 });
         }
     </script>

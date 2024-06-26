@@ -28,5 +28,6 @@ namespace Performance.Model
         public Nullable<bool> evaluacion { get; set; }
         public Nullable<bool> calibracion { get; set; }
         public System.DateTime fechaCambio { get; set; }
+        public string nombreUsuarioCambio { get; set; }
     }
 }

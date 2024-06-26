@@ -867,6 +867,7 @@ function GuardarCalibracion() {
     // Agregar el ID de usuario
     detalleEvaluacion.idResponsable = "@idUsuario";
     detalleEvaluacion.idPerformance = "@idPerformance";
+    detalleEvaluacion.nombreUsuario = localStorage.getItem('nombreUsuario');
     detalleEvaluacion.comentario = $("#comentarios").val();
 
     // Realizar la solicitud AJAX

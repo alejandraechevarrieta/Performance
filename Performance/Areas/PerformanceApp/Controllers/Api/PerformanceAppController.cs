@@ -187,6 +187,14 @@ namespace Performance.Areas.PerformanceApp.Controllers.Api
             var tmp = _servicio.ListarConvenios();
             return tmp;
         }
+        [System.Web.Http.Route("Api/PerformanceApp/listarHistorial")]
+        [System.Web.Http.ActionName("listarHistorial")]
+        [System.Web.Http.HttpGet]
+        public List<HistorialVM> listarHistorial(int idPerformance, int idUsuario)
+        {
+            Servicios.ServicioPerformance servicio = new Servicios.ServicioPerformance();
+            return servicio.ListarHistorial(idPerformance, idUsuario);
+        }
         [System.Web.Http.Route("Api/PerformanceApp/GuardarAutoevaluacion")]
         [System.Web.Http.ActionName("GuardarAutoevaluacion")]
         [System.Web.Http.HttpPost]
@@ -224,7 +232,7 @@ namespace Performance.Areas.PerformanceApp.Controllers.Api
                 {
                     Servicios.ServicioPerformance _servicio = new Servicios.ServicioPerformance();
 
-                    var tmp = _servicio.EliminarPerformance(objeto.idPerformance, objeto.idUsuario);
+                    var tmp = _servicio.EliminarPerformance(objeto.idPerformance, objeto.idUsuario, objeto.nombreUsuario);
 
                     //var performance = db.PerformanceColaborador.Where(x => x.idPerformance == autoevaluacion.idPerformance).FirstOrDefault();
 
