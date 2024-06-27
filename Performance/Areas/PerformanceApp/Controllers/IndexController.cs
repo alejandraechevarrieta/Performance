@@ -70,7 +70,15 @@ namespace Performance.Areas.PerformanceApp.Controllers
             }
             else
             {
-                return RedirectToAction("Index", new { area = "Login" });
+                if(view == "pdi")
+                {
+                    ViewBag.View = view;
+                    ViewBag.IdPerformance = 0;                   
+                }
+                else
+                {
+                    return RedirectToAction("Index", new { area = "Login" });
+                }                
             }
 
             return View();

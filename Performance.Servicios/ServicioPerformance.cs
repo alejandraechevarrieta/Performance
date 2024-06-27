@@ -1153,6 +1153,97 @@ namespace Performance.Servicios
             }
             return tmp;
         }
+        public List<PDIAccionesVM> buscarDatosPDI(int idUsuario, int idPerformance)
+        {
+            //si no tiene idPerformance buscar idUsuario
+            var idUsuarioPDI = idUsuario;
+            if (idPerformance != 0)
+            {
+                var performance = db.PerformanceColaborador.Where(x => x.idPerformance == idPerformance).FirstOrDefault();
+                idUsuarioPDI = performance.idUsuario;
+            }
+            var plan = db.PDIColaborador.Where(x => x.idUsuario == idUsuarioPDI).FirstOrDefault();
+            var idPdi = plan.idPDI;
 
+            
+
+            var acciones = (from p in db.PDIColaboradorAcciones
+                            join m in db.PDImetodologia on p.metodologia equals m.idMetodologia into metodologia
+                            from me in metodologia.DefaultIfEmpty()
+                            join h in db.Habilidades on p.habilidad equals h.idHabilidad into habilidades
+                            from ha in habilidades.DefaultIfEmpty()
+                            join a in db.PDIavance on p.avance equals a.idAvance into avance
+                            from av in avance.DefaultIfEmpty()
+                            where p.idPDI == idPdi
+                            select new PDIAccionesVM
+                            {
+                                idPDI = p.idPDI,                               
+                                nombreMetodologia = me.nombre,
+                                metodologia = me.idMetodologia,
+                                nombreHabilidad = ha.habilidad,
+                                acciones = p.acciones,
+                                fechaDesde = p.fechaDesde,
+                                fechaHasta = p.fechaHasta,
+                                nombreAvance = av.nombre,
+                                accionesRealizadas = p.accionesRealizadas,
+                            }).ToList();
+            var datosPDI = (from p in db.PerformanceColaborador
+                            join pf in db.PDIColaborador on p.idUsuario equals pf.idUsuario
+                            where p.idUsuario == idUsuarioPDI
+                            select new PDIAccionesVM
+                            {
+                                idUsuario = p.idUsuario,
+                                colaborador = p.nombre,
+                                lider = p.nombreJefe,
+                                dominio = p.dominio,
+
+                            }).ToList();
+
+            acciones.AddRange(datosPDI);
+            return acciones;
+        }
+      
+        public List<MetodologiasVM> ListarMetodologias()
+        {
+            List<MetodologiasVM> lista = null;
+
+            lista =
+            (from m in db.PDImetodologia
+             select new MetodologiasVM
+             {
+                 idMetodologia = m.idMetodologia,
+                 nombre = m.nombre,
+             }).ToList();
+
+            return lista.OrderBy(x => x.idMetodologia).ToList();
+        }
+        public List<AvancesVM> ListarAvances()
+        {
+            List<AvancesVM> lista = null;
+
+            lista =
+            (from a in db.PDIavance
+             select new AvancesVM
+             {
+                 idAvance = a.idAvance,
+                 nombre = a.nombre,
+             }).ToList();
+
+            return lista.OrderBy(x => x.idAvance).ToList();
+        }
+        public List<HabilidadesVM> ListarHabilidades()
+        {
+            List<HabilidadesVM> lista = null;
+
+            lista =
+            (from h in db.Habilidades
+             select new HabilidadesVM
+             {
+                 idHabilidad = h.idHabilidad,
+                 habilidad = h.habilidad,
+             }).ToList();
+
+            return lista.OrderBy(x => x.idHabilidad).ToList();
+        }
     }
 }
