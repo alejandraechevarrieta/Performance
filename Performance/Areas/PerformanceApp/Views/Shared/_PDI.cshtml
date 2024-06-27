@@ -1,0 +1,586 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+    int idPerformance = ViewBag.IdPerformance;
+    var perfil = Session["perfil"];
+    var idUsuario = Session["idUsuario"];   
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    <!-- Estilos de Bootstrap -->
+    @*<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0/css/bootstrap.min.css">*@
+
+    <!-- Estilos de DataTables -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
+    <!-- JavaScript de jQuery (necesario para DataTables) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.datatables.net/1.12.0/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            height: 100%;
+        }
+
+        /*Background color*/
+        #grad1 {
+            background-color: #f3f3f3;
+        }
+
+        .modal {
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+        /*form styles*/
+        #msform {
+            text-align: center;
+            position: relative;
+            margin-top: 20px;
+        }
+
+            #msform fieldset .form-card {
+                background: white;
+                border: 0 none;
+                border-radius: 0px;
+                box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.2);
+                padding: 20px 40px 30px 40px;
+                box-sizing: border-box;
+                width: 94%;
+                margin: 0 3% 20px 3%;
+                /*stacking fieldsets above each other*/
+                position: relative;
+            }
+
+            #msform fieldset {
+                background: white;
+                border: 0 none;
+                border-radius: 0.5rem;
+                box-sizing: border-box;
+                width: 100%;
+                margin: 0;
+                padding-bottom: 20px;
+                /*stacking fieldsets above each other*/
+                position: relative;
+            }
+
+                /*Hide all except first fieldset*/
+                #msform fieldset:not(:first-of-type) {
+                    display: none;
+                }
+
+                #msform fieldset .form-card {
+                    text-align: left;
+                    color: #9E9E9E;
+                }
+
+            #msform input, #msform textarea {
+                padding: 0px 8px 4px 8px;
+                border: none;
+                border-bottom: 1px solid #ccc;
+                border-radius: 0px;
+                margin-bottom: 25px;
+                margin-top: 2px;
+                width: 100%;
+                box-sizing: border-box;
+                font-family: 'Arial', sans-serif;
+                color: #2C3E50;
+                font-size: 16px;
+                letter-spacing: 1px;
+            }
+
+                #msform input:focus, #msform textarea:focus {
+                    -moz-box-shadow: none !important;
+                    -webkit-box-shadow: none !important;
+                    box-shadow: none !important;
+                    border: none;
+                    font-weight: bold;
+                    border-bottom: 2px solid skyblue;
+                    outline-width: 0;
+                }
+
+            /*Blue Buttons*/
+            #msform .action-button {
+                width: 150px; /* Cambia el valor según sea necesario */
+                background: #00aec7;
+                font-weight: bold;
+                color: white;
+                border: 0 none;
+                border-radius: 0px;
+                cursor: pointer;
+                padding: 10px 10px; /* Aumenta el valor del padding según sea necesario */
+                margin: 10px 5px;
+            }
+
+
+                #msform .action-button:hover, #msform .action-button:focus {
+                    box-shadow: 0 0 0 2px white, 0 0 0 3px skyblue;
+                }
+
+            /*Previous Buttons*/
+            #msform .action-button-previous {
+                width: 150px;
+                background: #616161;
+                font-weight: bold;
+                color: white;
+                border: 0 none;
+                border-radius: 0px;
+                cursor: pointer;
+                padding: 10px 5px;
+                margin: 10px 5px;
+            }
+
+                #msform .action-button-previous:hover, #msform .action-button-previous:focus {
+                    box-shadow: 0 0 0 2px white, 0 0 0 3px #616161;
+                }
+
+            #msform input.selected {
+                border-bottom: 2px solid skyblue;
+                background-color: rgba(135, 206, 250, 0.2);
+                box-shadow: 0 0 5px skyblue;
+                border: 2px solid skyblue;
+            }
+
+        .boton {
+            border-bottom: 2px solid skyblue !important;
+            background-color: #00aec7 !important;
+            box-shadow: 0 0 5px !important;
+            border: 2px solid !important;
+        }
+        /*Dropdown List Exp Date*/
+        select.list-dt {
+            border: none;
+            outline: 0;
+            border-bottom: 1px solid #ccc;
+            padding: 2px 5px 3px 5px;
+            margin: 2px;
+        }
+
+            select.list-dt:focus {
+                border-bottom: 2px solid skyblue;
+            }
+
+        /*The background card*/
+        .card {
+            z-index: 0;
+            border: none;
+            border-radius: 0.5rem;
+            position: relative;
+        }
+
+        /*FieldSet headings*/
+        .fs-title {
+            font-size: 25px;
+            color: #2C3E50;
+            margin-bottom: 10px;
+            font-weight: bold;
+            text-align: left;
+        }      
+
+        /*Fit image in bootstrap div*/
+        .fit-image {
+            width: 100%;
+            object-fit: cover;
+        }
+
+        .form-card {
+            display: inline-block; /* Mostrar los botones en línea */
+        }
+
+            /* Ajuste para el último botón dentro de .form-card */
+            .form-card input[type="button"]:last-child {
+                margin-right: 0; /* Elimina el margen derecho del último botón */
+            }
+
+        /* Estilos para los botones dentro de .form-card */
+        .form-card {
+            display: flex; /* Usar flexbox para alinear los elementos */
+            justify-content: space-between; /* Espacio uniforme entre los elementos */
+        }
+
+            .form-card input[type="button"] {
+                flex: 1; /* Los botones ocupan igualmente todo el espacio disponible */
+                margin-right: 10px; /* Espacio entre los botones */
+            }
+
+                /* Ajuste para el último botón dentro de .form-card */
+                .form-card input[type="button"]:last-child {
+                    margin-right: 0; /* Elimina el margen derecho del último botón */
+                }
+        /* Estilos para los botones dentro de .form-card */
+        .form-card {
+            display: flex; /* Utilizar flexbox para alinear los elementos */
+            flex-direction: column; /* Alinear elementos verticalmente */
+        }
+
+        .button-container {
+            display: flex; /* Utilizar flexbox para alinear los botones */
+            justify-content: space-between; /* Espaciar uniformemente los botones */
+        }
+
+        .separator {
+            margin-top: 20px; /* Ajustar el margen superior según sea necesario */
+            margin: 0 auto; /* Eliminar los márgenes laterales y centrar el separador */
+            border-bottom: 3px solid #7380C4; /* Aumentar el grosor del borde inferior */
+            padding: 10px 10px; /* Aumentar el espacio interior del separador */
+            color: #034;
+            clear: both;
+        }
+
+        .description {
+            font-size: 14px;
+            color: #666;
+            margin-top: 20px;
+        }
+
+
+        .tituloResumen {
+            margin-right: inherit;
+        }
+        .titulo {
+            font-size: 18px;
+            text-align: center; /* Justificación a la izquierda */
+            text-transform: uppercase;
+            color: #6c757d; /* Texto secundario */
+            font-weight: 700; /* Negrita */
+            opacity: 1;
+            width: auto; /* Ancho automático */
+            display: inline-block; /* Mostrar en línea */
+            margin-right: 2px; /* Margen derecho */
+           
+        }
+
+        .habilidad {
+            font-size: 18px;
+            text-align: left; /* Justificación a la izquierda */
+            text-transform: uppercase;
+            color: #6c757d; /* Texto secundario */
+            font-weight: 700; /* Negrita */
+            opacity: 1;
+            width: auto; /* Ancho automático */
+            display: inline-block; /* Mostrar en línea */
+            margin-right: 5px; /* Margen derecho */
+        }
+
+        .calificacion {
+            font-size: 15px;
+            text-align: left; /* Justificación a la izquierda */
+            text-transform: uppercase;
+            color: #6c757d; /* Texto secundario */
+            font-weight: 700; /* Negrita */
+            opacity: 1;
+            width: auto; /* Ancho automático */
+            display: inline-block; /* Mostrar en línea */
+            margin-right: 50px !important; /* Margen derecho */
+        }
+        .fondo {
+            background-color: #e0dddd;
+            box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.2);
+        }
+        .table-container {
+            padding: 0; /* Eliminar el padding para ajustar el tamaño al de la tabla */
+            display: inline-block; /* Ajustar el tamaño del contenedor al contenido */
+        }
+        .table-shadow {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin: 0; /* Eliminar márgenes para evitar que la sombra se salga */
+        }
+        .data-container {
+            height: 280px;
+            overflow: auto;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td {
+            border-left: 1px solid #17AFB6;
+            border-right: 1px solid #17AFB6;
+        }
+
+            td:first-child {
+                border-left: 1px solid #17AFB6;
+            }
+
+            td:last-child {
+                border-right: 1px solid #17AFB6;
+            }
+        .comentario-container {
+            /*width: calc(100% - 50px);*/ /* Ajusta el ancho restando los márgenes */
+            padding-right: 50px; /* Espacio a la derecha */
+            padding-left: 50px; /* Espacio a la izquierda */
+            box-sizing: border-box; /* Incluye el padding en el cálculo del ancho */
+        }
+
+        .comentario {
+            font-size: 18px;
+            text-align: justify;
+            color: #6c757d;
+            opacity: 1;
+            margin: 0; /* Eliminar márgenes internos del texto */
+        }
+        .titulo {
+            font-size: 25px;
+            margin-left: 260px
+        }
+
+        .titulo2 {
+            font-size: 15px;
+        }
+
+        .titulo3 {
+            font-size: 20px;
+            margin-left: 260px;
+        }
+
+        .separator {
+            margin-top: 20px; /* Ajustar el margen superior según sea necesario */
+            margin: 0 auto; /* Eliminar los márgenes laterales y centrar el separador */
+            border-bottom: 3px solid #7380C4; /* Aumentar el grosor del borde inferior */
+            padding: 10px 10px; /* Aumentar el espacio interior del separador */
+            color: #034;
+            clear: both;
+        }
+
+    </style>
+
+
+</head>
+<body>
+    <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+        @*PDI*@
+        <div class="container-fluid" style="max-width: 1300px!important;">
+            <div class="row justify-content-center mt-0">
+                <div style="background-color: white; padding: 20px; border: 1px solid #ddd; border-radius: 5px; margin-top: 40px;">
+                    <div class="titulo">
+                        Plan de Desarrollo Individual – Acciones y Metas (PDI)
+                    </div>
+                    <div class="titulo2">
+                        "El PDI es un proceso colaborativo que involucra a cada uno de ustedes en la planificación y ejecución de su desarrollo profesional.<br />
+                        A través de este plan, tendrán la oportunidad de identificar sus fortalezas, áreas de crecimiento, metas a corto y largo plazo, así como las acciones necesarias para alcanzarlas.<br />
+                        Alentamos el protagonismo y la responsabilidad en su propio desarrollo, mientras trabajamos juntos para crear un entorno que fomente el aprendizaje continuo y la excelencia en el desempeño."<br />
+
+                    </div>
+                    <div class="titulo2">
+                        "Recuerda que la construcción del Plan de Desarrollo individual lo diseñamos bajo la metodología de Aprendizaje 70-20-10:<br />
+                        70% ---> Experiencias Prácticas en referencia al desarrollo a través de oportunidades y proyectos en tu posición actual, que ayuden a fortalecer tus habilidades <br />(proyectos especiales, globales, eventos de negocio, asignaciones, etc)<br />
+                        20% ---> Interacciones y retroalimentación. En referencia al aprendizaje a través y en contacto con otros como Mentoring, Coaching y conversaciones con aliados en tu desarrollo.<br />
+                        10% ---> Programas de capacitación formales. Se refiere al entrenamiento y documentación formal de aprendizaje  <br /> (cursos internos o externos, Learning connection, estudio a través de la investigación de mercado, artículos de interés, etc) "
+                    </div>
+                    <div></div>
+                    <div class="row" style="margin-top: 20px;">
+                        <p class="h4" id="datosColaborador" style="text-align: center;"></p>
+                        <div class="separator"> </div>
+                        <div class="titulo3">
+                            MAPA DE ACCIONES DE DESARROLLO: Clasificalas en 70% - 20% - 10%
+                        </div>
+                        <div class="separator"> </div>
+                        <div class="col-md-6">
+                            <label>Acciones a realizar:</label>
+                            <input type="text" class="form-control requeridoPDI" id="accion1" />
+                        </div>
+                        <div class="col-md-3">
+                            <label>Metodología:</label>
+                            <div></div>
+                            <div style="font-weight: normal !important;">
+                                <select class="form-control" id="selectMetodologia"></select>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <label>Habilidad:</label>
+                            <div></div>
+                            <div style="font-weight: normal !important;">
+                                <select class="form-control" id="selectHabilidad"></select>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <label>Fecha Desde</label>
+                            <input type="date" class="form-control" id="fechaDesde">
+                        </div>
+                        <div class="col-md-2">
+                            <label>Fecha Hasta</label>
+                            <input type="date" class="form-control" id="fechaHasta">
+                        </div>
+                        <div class="col-md-2">
+                            <label>Avance:</label>
+                            <div></div>
+                            <div style="font-weight: normal !important;">
+                                <select class="form-control" id="selectAvance"></select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label>Acciones realizadas:</label>
+                            <input type="text" class="form-control requeridoPDI" id="accionRealizada1" />
+                        </div>
+                        <div class="row mb-3 pr-2 mt-3">
+                            <div class="col-md-6">
+                                <a href="#" role="button" class="btn btn-danger btn-sm btn-block" onclick="CerrarModalPDI();" id="CerrarModalPDI" style="margin-left: 70%; width: 30%;">Cancelar</a>
+                            </div>
+                            <div class="col-md-6">
+                                <a href="#" role="button" class="btn btn-info btn-sm btn-block" onclick="GuardarPDI();" id="guardarPDI" style="margin-left: 10%; width: 30%;">Guardar</a>
+                            </div>
+                        </div>
+                        <div class="separator"> </div>
+                        <div class="titulo2">
+                            70%: Tus nuevas acciones de desarrollo en tu posición actual (aprendizaje en la acción)
+                        </div>
+                        <div class="separator"> </div>
+                        <div id="metodologia1">
+
+                        </div>
+                        <div class="separator"> </div>
+                        <div class="titulo2">
+                            20%: Recomendaciones y Asesoría de Mentores y Coaching. Retroalimentación
+                        </div>
+                        <div class="separator"> </div>
+                        <div id="metodologia2">
+
+                        </div>
+                        <div class="separator"> </div>
+                        <div class="titulo2">
+                            10%: Cursos y Actualizaciones relacionadas con Conocimiento Formal
+                        </div>
+                        <div class="separator"> </div>
+                        <div id="metodologia3">
+
+                        </div>
+                    </div><br />                   
+                </div>
+            </div>
+        </div>
+    </main>
+    @*Estos links son para formularios (Si no van aca no funcionan)*@
+    <!-- DataTables JS CDN -->
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
+    <script>
+
+    var perfil = "@perfil";
+    var idUsuario = "@idUsuario";
+
+        CargarDatos();
+        CargarMetodologias();
+        CargarAvances();
+        CargarHabilidades();
+        //BUSCAR DATOS
+        function CargarDatos() {
+    var url = "/PerformanceApp/Api/PerformanceApp/buscarDatosPDI?idUsuario=" + "@idUsuario" + "&idPerformance=" + "@idPerformance";
+    $.getJSON(url)
+        .done(function (datos) {
+            datos.forEach(function (data) {
+                $("#datosColaborador").text("Colaborador: " + data.colaborador + "  -  Líder: " + data.lider + "  -  Dominio: " + data.dominio + ".");
+
+                var htmlContent = `
+                    <div class="item">
+                        <p>-Acción: ${data.acciones}</p>                       
+                        <p>Nombre Habilidad: ${data.nombreHabilidad} - Fecha Desde: ${data.fechaDesde} - Fecha Hasta: ${data.fechaHasta} - Avance: ${data.nombreAvance}</p>                       
+                        <p>Acciones Realizadas: ${data.accionesRealizadas}</p>
+                    </div>
+                `;
+
+                if (data.metodologia == 1) {
+                    $("#metodologia1").append(htmlContent);
+                }
+                if (data.metodologia == 2) {
+                    $("#metodologia2").append(htmlContent);
+                }
+                if (data.metodologia == 3) {
+                    $("#metodologia3").append(htmlContent);
+                }
+            });
+        });
+}
+
+        @*function CargarDatos() {
+            var url = "/PerformanceApp/Api/PerformanceApp/buscarDatosPDI?idUsuario=" + "@idUsuario" + "&idPerformance=" + "@idPerformance";
+                $.getJSON(url)
+                    .done(function (datos) {
+                     datos.forEach(function (data) {
+                        $("#datosColaborador").text("Colaborador: " + data.colaborador + "  -  Líder: " + data.lider + "  -  Dominio: " + data.dominio + ".");
+                         if (data.metodologia == 1) {
+
+                         }
+                         if (data.metodologia == 2) {
+
+                         }
+                         if (data.metodologia == 3) {
+
+                         }
+                    });
+                });
+        }*@
+
+        function CargarMetodologias() {
+            var selectMetodologia = $('#selectMetodologia');
+            selectMetodologia.empty();
+            selectMetodologia.append($('<option/>', { value: '', text: 'Seleccionar' }).hide());
+            var url = "/PerformanceApp/Api/PerformanceApp/ListarMetodologias";
+            $.getJSON(url)
+                .done(function (data) {
+                    console.log(data);
+                    $.each(data, function (index, result) {
+                        selectMetodologia.append($('<option/>', {
+                            value: result.idMetodologia,
+                            text: result.nombre
+                        }));
+                    });
+                });
+        }
+        function CargarAvances() {
+            var selectAvance = $('#selectAvance');
+            selectAvance.empty();
+            selectAvance.append($('<option/>', { value: '', text: 'Seleccionar' }).hide());
+            var url = "/PerformanceApp/Api/PerformanceApp/ListarAvances";
+            $.getJSON(url)
+                .done(function (data) {
+                    console.log(data);
+                    $.each(data, function (index, result) {
+                        selectAvance.append($('<option/>', {
+                            value: result.idAvances,
+                            text: result.nombre
+                        }));
+                    });
+                });
+        }
+        function CargarHabilidades() {
+            var selectHabilidad = $('#selectHabilidad');
+            selectHabilidad.empty();
+            selectHabilidad.append($('<option/>', { value: '', text: 'Seleccionar' }).hide());
+            var url = "/PerformanceApp/Api/PerformanceApp/ListarHabilidades";
+            $.getJSON(url)
+                .done(function (data) {
+                    console.log(data);
+                    $.each(data, function (index, result) {
+                        selectHabilidad.append($('<option/>', {
+                            value: result.idHabilidad,
+                            text: result.habilidad
+                        }));
+                    });
+                });
+        }
+
+    //Funcion para que ande el popover
+    $(document).ready(function () {
+        $('[data-toggle="popover"]').popover();
+    });
+    //Funcion para que ande el tooltip
+    $(document).ready(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+
+        //VOLVER
+        function volverAtras() {
+            window.history.back();
+        }
+
+    </script>
+</body>
+</html>

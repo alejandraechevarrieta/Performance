@@ -574,6 +574,41 @@ namespace Performance.Areas.PerformanceApp.Controllers.Api
             Servicios.ServicioPerformance servicio = new Servicios.ServicioPerformance();
             return servicio.EstadoActual();
         }
+        [System.Web.Http.Route("Api/PerformanceApp/buscarDatosPDI")]
+        [System.Web.Http.ActionName("buscarDatosPDI")]
+        [System.Web.Http.HttpGet]
+        public List<PDIAccionesVM> buscarDatosPDI(int idUsuario, int idPerformance)
+        {
+            Servicios.ServicioPerformance servicio = new Servicios.ServicioPerformance();
+            return servicio.buscarDatosPDI(idUsuario, idPerformance);
+        }
+        [System.Web.Http.Route("/ListarMetodologias/")]
+        [System.Web.Http.ActionName("ListarMetodologias")]
+        [System.Web.Http.HttpGet]
+        public List<MetodologiasVM> ListarMetodologias()
+        {
+            Servicios.ServicioPerformance _servicio = new Servicios.ServicioPerformance();
+            var tmp = _servicio.ListarMetodologias();
+            return tmp;
+        }
+        [System.Web.Http.Route("/ListarAvances/")]
+        [System.Web.Http.ActionName("ListarAvances")]
+        [System.Web.Http.HttpGet]
+        public List<AvancesVM> ListarAvances()
+        {
+            Servicios.ServicioPerformance _servicio = new Servicios.ServicioPerformance();
+            var tmp = _servicio.ListarAvances();
+            return tmp;
+        }
+        [System.Web.Http.Route("/ListarHabilidades/")]
+        [System.Web.Http.ActionName("ListarHabilidades")]
+        [System.Web.Http.HttpGet]
+        public List<HabilidadesVM> ListarHabilidades()
+        {
+            Servicios.ServicioPerformance _servicio = new Servicios.ServicioPerformance();
+            var tmp = _servicio.ListarHabilidades();
+            return tmp;
+        }
         public class DataTableRequestModel
         {
             public int draw { get; set; }
