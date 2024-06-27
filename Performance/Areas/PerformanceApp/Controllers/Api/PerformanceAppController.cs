@@ -371,7 +371,7 @@ namespace Performance.Areas.PerformanceApp.Controllers.Api
         [System.Web.Http.Route("Api/PerformanceApp/buscarDatosPerformance")]
         [System.Web.Http.ActionName("buscarDatosPerformance")]
         [System.Web.Http.HttpGet]
-        public List<DatosPerformanceVM> buscarDatosPerformance(int idPerformance, int perfil)
+        public DatosGeneralPerformanceVM buscarDatosPerformance(int idPerformance, int perfil)
         {
             Servicios.ServicioPerformance servicio = new Servicios.ServicioPerformance();
             return servicio.buscarDatosPerformance(idPerformance, perfil);
