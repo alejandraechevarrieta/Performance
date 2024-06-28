@@ -1163,9 +1163,11 @@ namespace Performance.Servicios
                 idUsuarioPDI = performance.idUsuario;
             }
             var plan = db.PDIColaborador.Where(x => x.idUsuario == idUsuarioPDI).FirstOrDefault();
-            var idPdi = plan.idPDI;
-
-            
+            var idPdi = 0;
+            if (plan != null)
+            {
+                idPdi = plan.idPDI;
+            }     
 
             var acciones = (from p in db.PDIColaboradorAcciones
                             join m in db.PDImetodologia on p.metodologia equals m.idMetodologia into metodologia
