@@ -833,8 +833,9 @@ namespace Performance.Servicios
             
             return lista;
         }
-        public List<DatosPerformanceVM> buscarDatosPerformance(int idPerformance, int perfil)
+        public DatosGeneralPerformanceVM buscarDatosPerformance(int idPerformance, int perfil)
         {
+            DatosGeneralPerformanceVM objeto = new DatosGeneralPerformanceVM();
             var datosPerformance = (from p in db.PerformanceColaborador
                          where p.idPerformance == idPerformance
                          select new DatosPerformanceVM
@@ -890,9 +891,13 @@ namespace Performance.Servicios
                 }).ToList();
 
             datosPerformance.AddRange(autoEvaluaciones);
-            datosPerformance.AddRange(evaluaciones);           
+            datosPerformance.AddRange(evaluaciones);
 
-            return datosPerformance;
+            objeto.listDatosPerformance = datosPerformance;
+            var performance = db.PerformanceColaborador.Where(x => x.idPerformance == idPerformance).FirstOrDefault();
+            objeto.idCalificacionFinal = performance?.idCalificacionFinal ?? null;
+
+            return objeto;
         }
 
         public ReporteExcelVM GenerarExcelUnColaborador(int idPerformance)
