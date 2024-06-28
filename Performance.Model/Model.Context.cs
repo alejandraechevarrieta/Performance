@@ -36,10 +36,10 @@ namespace Performance.Model
         public virtual DbSet<Historial> Historial { get; set; }
         public virtual DbSet<Menu> Menu { get; set; }
         public virtual DbSet<MenuPerfil> MenuPerfil { get; set; }
-        public virtual DbSet<PDIavance> PDIavance { get; set; }
         public virtual DbSet<PDIColaborador> PDIColaborador { get; set; }
-        public virtual DbSet<PDIColaboradorAcciones> PDIColaboradorAcciones { get; set; }
-        public virtual DbSet<PDImetodologia> PDImetodologia { get; set; }
         public virtual DbSet<PerformanceColaborador> PerformanceColaborador { get; set; }
+        public virtual DbSet<PDIColaboradorObjetivos> PDIColaboradorObjetivos { get; set; }
+        public virtual DbSet<PDIStatus> PDIStatus { get; set; }
+        public virtual DbSet<PDItipoAccion> PDItipoAccion { get; set; }
     }
 }
