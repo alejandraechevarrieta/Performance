@@ -12,16 +12,9 @@ namespace Performance.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class PDIColaboradorAcciones
+    public partial class PDIStatus
     {
-        public int idAccion { get; set; }
-        public Nullable<int> idPDI { get; set; }
-        public Nullable<int> metodologia { get; set; }
-        public Nullable<int> habilidad { get; set; }
-        public string acciones { get; set; }
-        public Nullable<System.DateTime> fechaDesde { get; set; }
-        public Nullable<System.DateTime> fechaHasta { get; set; }
-        public Nullable<int> avance { get; set; }
-        public string accionesRealizadas { get; set; }
+        public int idStatus { get; set; }
+        public string nombre { get; set; }
     }
 }

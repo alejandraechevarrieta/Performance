@@ -333,8 +333,7 @@
         {
         <div style="margin-left: 2.5%; margin-block: 0.5%">
             <button id="instructivo" class="btn btn-secondary" onclick="DescargarInstructivo()" title="Instructivo" aria-label="Instructivo"> <i class=" fa fa-info-circle "></i></button>
-            <button id="abrirModalBtn" class="btn btn-primary" title="Instructivo" aria-label="Instructivo"> <i class=" fa fa-video-camera"></i></button>
-           @* <button id="abrirPDIBtn" class="btn btn-success" title="Plan de Desarrollo Individual"> <i class=" fa fa-handshake-o"> PDI</i></button>*@
+            <button id="abrirModalBtn" class="btn btn-primary" title="Instructivo" aria-label="Instructivo"> <i class=" fa fa-video-camera"></i></button>           
         </div>
         }
         @if (Convert.ToInt32(perfil) == 129)
@@ -1601,10 +1600,7 @@ if(perfil == 129){
                 });
         }
 
-        //PDI
-        document.getElementById("abrirPDIBtn").addEventListener("click", function() {
-        window.location.href = "/PerformanceApp/Index/Crud?view=pdi&idPerformance=&iv=";
-    });
+      
     </script>
 
 </body>

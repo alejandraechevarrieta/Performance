@@ -12,9 +12,9 @@ namespace Performance.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class PDImetodologia
+    public partial class PDItipoAccion
     {
-        public int idMetodologia { get; set; }
+        public int idTipoAccion { get; set; }
         public string nombre { get; set; }
     }
 }

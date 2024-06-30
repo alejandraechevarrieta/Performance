@@ -1094,7 +1094,7 @@ namespace Performance.Servicios
             }
             return tmp;
         }
-        public List<PDIAccionesVM> buscarDatosPDI(int idUsuario, int idPerformance)
+        public List<PDIObjetivosVM> buscarDatosPDI(int idUsuario, int idPerformance)
         {
             //si no tiene idPerformance buscar idUsuario
             var idUsuarioPDI = idUsuario;
@@ -1104,34 +1104,37 @@ namespace Performance.Servicios
                 idUsuarioPDI = performance.idUsuario;
             }
             var plan = db.PDIColaborador.Where(x => x.idUsuario == idUsuarioPDI).FirstOrDefault();
-            var idPdi = plan.idPDI;
+            var idPdi = 0;
+            if (plan != null)
+            {
+                idPdi = plan.idPDI;
+            }     
 
-            
-
-            var acciones = (from p in db.PDIColaboradorAcciones
-                            join m in db.PDImetodologia on p.metodologia equals m.idMetodologia into metodologia
-                            from me in metodologia.DefaultIfEmpty()
+            var acciones = (from p in db.PDIColaboradorObjetivos
+                            join t in db.PDItipoAccion on p.tipoAccion equals t.idTipoAccion into tipoAccion
+                            from ta in tipoAccion.DefaultIfEmpty()
                             join h in db.Habilidades on p.habilidad equals h.idHabilidad into habilidades
                             from ha in habilidades.DefaultIfEmpty()
-                            join a in db.PDIavance on p.avance equals a.idAvance into avance
-                            from av in avance.DefaultIfEmpty()
+                            join s in db.PDIStatus on p.status equals s.idStatus into status
+                            from st in status.DefaultIfEmpty()
                             where p.idPDI == idPdi
-                            select new PDIAccionesVM
+                            select new PDIObjetivosVM
                             {
                                 idPDI = p.idPDI,                               
-                                nombreMetodologia = me.nombre,
-                                metodologia = me.idMetodologia,
+                                nombreTipoAccion = ta.nombre,
+                                tipoAccion = ta.idTipoAccion,
                                 nombreHabilidad = ha.habilidad,
-                                acciones = p.acciones,
+                                objetivo = p.objetivo,
+                                objetivoDescripcion = p.objetivoDescripcion,
                                 fechaDesde = p.fechaDesde,
                                 fechaHasta = p.fechaHasta,
-                                nombreAvance = av.nombre,
+                                nombreStatus = st.nombre,
                                 accionesRealizadas = p.accionesRealizadas,
                             }).ToList();
             var datosPDI = (from p in db.PerformanceColaborador
                             join pf in db.PDIColaborador on p.idUsuario equals pf.idUsuario
                             where p.idUsuario == idUsuarioPDI
-                            select new PDIAccionesVM
+                            select new PDIObjetivosVM
                             {
                                 idUsuario = p.idUsuario,
                                 colaborador = p.nombre,
@@ -1144,33 +1147,33 @@ namespace Performance.Servicios
             return acciones;
         }
       
-        public List<MetodologiasVM> ListarMetodologias()
+        public List<TipoAccionVM> ListarTipoAccion()
         {
-            List<MetodologiasVM> lista = null;
+            List<TipoAccionVM> lista = null;
 
             lista =
-            (from m in db.PDImetodologia
-             select new MetodologiasVM
+            (from t in db.PDItipoAccion
+             select new TipoAccionVM
              {
-                 idMetodologia = m.idMetodologia,
-                 nombre = m.nombre,
+                 idTipoAccion = t.idTipoAccion,
+                 nombre = t.nombre,
              }).ToList();
 
-            return lista.OrderBy(x => x.idMetodologia).ToList();
+            return lista.OrderBy(x => x.idTipoAccion).ToList();
         }
-        public List<AvancesVM> ListarAvances()
+        public List<StatusVM> ListarStatus()
         {
-            List<AvancesVM> lista = null;
+            List<StatusVM> lista = null;
 
             lista =
-            (from a in db.PDIavance
-             select new AvancesVM
+            (from a in db.PDIStatus
+             select new StatusVM
              {
-                 idAvance = a.idAvance,
+                 idStatus= a.idStatus,
                  nombre = a.nombre,
              }).ToList();
 
-            return lista.OrderBy(x => x.idAvance).ToList();
+            return lista.OrderBy(x => x.idStatus).ToList();
         }
         public List<HabilidadesVM> ListarHabilidades()
         {
