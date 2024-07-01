@@ -613,6 +613,8 @@ function CargarDatos() {
             detalleEvaluacion.idPerformance = "@idPerformance";
             detalleEvaluacion.nombreUsuario = localStorage.getItem('nombreUsuario');
             detalleEvaluacion.calificacionFinal = botonSeleccionado;
+            const textarea = document.getElementById('comentarios');
+            detalleEvaluacion.comentario = textarea.value;
             // Realizar la solicitud AJAX
             $.ajax({
                 type: "POST",
@@ -626,7 +628,7 @@ function CargarDatos() {
                         console.log("Error al guardar la calibración");
                     } else {
                         alert("calibración guardada con éxito");
-                        var url = "/PerformanceApp/Index?perfil=" + 0 + "&idUsuario=" + 0;
+                        var url = "/PerformanceApp/Index?perfil=" + '' + "&idUsuario=" + '';
                         window.location.href = url;
                     }
                 },

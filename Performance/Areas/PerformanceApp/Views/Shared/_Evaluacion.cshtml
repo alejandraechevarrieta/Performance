@@ -876,7 +876,7 @@ function GuardarEvaluacion() {
             } else {                // Éxito al guardar
 
                 alert("Evaluación guardada con éxito");
-                var url = "/PerformanceApp/Index?perfil=" + 0 + "&idUsuario=" + 0;
+                var url = "/PerformanceApp/Index?perfil=" + '' + "&idUsuario=" + '';
                 window.location.href = url;
             }
         },
@@ -899,7 +899,7 @@ function GuardarEvaluacion() {
         var url = "/PerformanceApp/Api/PerformanceApp/buscarDatosPerformance?idPerformance=" + "@idPerformance"+ "&perfil=" + "@perfil";
         $.getJSON(url)
         .done(function (datos) {
-            datos.forEach(function (data) {
+            datos.listDatosPerformance.forEach(function (data) {
                 var habilidadesMap = {
                     1: "aa",
                     2: "bb",

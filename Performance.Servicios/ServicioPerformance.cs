@@ -605,13 +605,15 @@ namespace Performance.Servicios
                 var evaluacionesExistentes = db.EvaluacionPerformance.Where(x => x.idPerformance == calibracion.idPerformance).ToList();
                 var performance = db.PerformanceColaborador.Where(x => x.idPerformance == calibracion.idPerformance).FirstOrDefault();
                 var calificacionFinal = db.CalificacionFinalLider.Where(x => x.nombre == calibracion.calificacionFinal).FirstOrDefault();
-                var calificacionAntes = performance.idCalificacionFinal;
+                var calificacionAntes = db.CalificacionFinalLider.Where(x => x.id == performance.idCalificacionFinal).FirstOrDefault();
 
                 performance.estado = 4;
                 performance.idCalificacionFinal = calificacionFinal.id;
                 performance.calificacionFinal = calificacionFinal.nombre;
                 performance.fechaCalibracion = DateTime.Now;
                 performance.comentario = calibracion.comentario;
+                performance.calificacionFinalAntes = calificacionAntes.nombre;
+                performance.idCalificacionFinalAntes = calificacionAntes.id;
 
                 db.SaveChanges();
 
@@ -623,7 +625,7 @@ namespace Performance.Servicios
                 nuevaEvaluacion.idHabilidad = null;
                 nuevaEvaluacion.idCalificacion = null;
                 nuevaEvaluacion.idCalificacionFinal = calificacionFinal.id;
-                nuevaEvaluacion.idCalificacionFinalAntes = calificacionAntes;
+                nuevaEvaluacion.idCalificacionFinalAntes = calificacionAntes.id;
                 nuevaEvaluacion.fechaOriginal = performance.fechaEvaluacion;
                 nuevaEvaluacion.idResponsableOriginal = performance.idJefe;
                 nuevaEvaluacion.calibracion = true;
