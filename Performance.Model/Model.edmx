@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="PerformanceModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="PerformanceModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AutoEvaluacion">
           <Key>
             <PropertyRef Name="idAutoEvaluacion" />
@@ -174,10 +174,12 @@
           <Property Name="fechaAutoevaluacion" Type="date" />
           <Property Name="fechaEvaluacion" Type="date" />
           <Property Name="fechaCalibracion" Type="date" />
-          <Property Name="idCalificacionFinal" Type="int" />
           <Property Name="calificacionFinal" Type="varchar" MaxLength="50" />
+          <Property Name="idCalificacionFinal" Type="int" />
           <Property Name="eliminado" Type="bit" />
           <Property Name="comentario" Type="varchar" MaxLength="2000" />
+          <Property Name="idCalificacionFinalAntes" Type="int" />
+          <Property Name="calificacionFinalAntes" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityContainer Name="PerformanceModelStoreContainer">
           <EntitySet Name="AutoEvaluacion" EntityType="Self.AutoEvaluacion" Schema="dbo" store:Type="Tables" />
@@ -197,7 +199,8 @@
           <EntitySet Name="PDItipoAccion" EntityType="Self.PDItipoAccion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PerformanceColaborador" EntityType="Self.PerformanceColaborador" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="PerformanceModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -319,51 +322,6 @@
           <Property Name="idPDI" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="idUsuario" Type="Int32" Nullable="false" />
         </EntityType>
-        <EntityType Name="PerformanceColaborador">
-          <Key>
-            <PropertyRef Name="idPerformance" />
-          </Key>
-          <Property Name="idPerformance" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="idUsuario" Type="Int32" Nullable="false" />
-          <Property Name="legajo" Type="Int32" />
-          <Property Name="nombre" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="edad" Type="Int32" />
-          <Property Name="sexo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="antiguedad" Type="Int32" Nullable="false" />
-          <Property Name="pais" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="convenio" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="dominio" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="categoria" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="idJefe" Type="Int32" Nullable="false" />
-          <Property Name="nombreJefe" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="ano" Type="Int32" Nullable="false" />
-          <Property Name="estado" Type="Int32" />
-          <Property Name="fechaAutoevaluacion" Type="DateTime" Precision="0" />
-          <Property Name="fechaEvaluacion" Type="DateTime" Precision="0" />
-          <Property Name="fechaCalibracion" Type="DateTime" Precision="0" />
-          <Property Name="calificacionFinal" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="idCalificacionFinal" Type="Int32" />
-          <Property Name="eliminado" Type="Boolean" />
-          <Property Name="comentario" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="AutoEvaluacion" EntityType="Self.AutoEvaluacion" />
-          <EntitySet Name="Calificacion" EntityType="Self.Calificacion" />
-          <EntitySet Name="CalificacionFinalLider" EntityType="Self.CalificacionFinalLider" />
-          <EntitySet Name="Encuesta" EntityType="Self.Encuesta" />
-          <EntitySet Name="Estados" EntityType="Self.Estados" />
-          <EntitySet Name="EstadosFechas" EntityType="Self.EstadosFechas" />
-          <EntitySet Name="EvaluacionPerformance" EntityType="Self.EvaluacionPerformance" />
-          <EntitySet Name="Habilidades" EntityType="Self.Habilidades" />
-          <EntitySet Name="Historial" EntityType="Self.Historial" />
-          <EntitySet Name="Menu" EntityType="Self.Menu" />
-          <EntitySet Name="MenuPerfil" EntityType="Self.MenuPerfil" />
-          <EntitySet Name="PDIColaborador" EntityType="Self.PDIColaborador" />
-          <EntitySet Name="PerformanceColaborador" EntityType="Self.PerformanceColaborador" />
-          <EntitySet Name="PDIColaboradorObjetivos" EntityType="PerformanceModel.PDIColaboradorObjetivos" />
-          <EntitySet Name="PDIStatus" EntityType="PerformanceModel.PDIStatus" />
-          <EntitySet Name="PDItipoAccion" EntityType="PerformanceModel.PDItipoAccion" />
-        </EntityContainer>
         <EntityType Name="PDIColaboradorObjetivos">
           <Key>
             <PropertyRef Name="idObjetivo" />
@@ -393,6 +351,53 @@
           <Property Name="idTipoAccion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="nombre" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
         </EntityType>
+        <EntityType Name="PerformanceColaborador">
+          <Key>
+            <PropertyRef Name="idPerformance" />
+          </Key>
+          <Property Name="idPerformance" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idUsuario" Type="Int32" Nullable="false" />
+          <Property Name="legajo" Type="Int32" />
+          <Property Name="nombre" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="edad" Type="Int32" />
+          <Property Name="sexo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="antiguedad" Type="Int32" Nullable="false" />
+          <Property Name="pais" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="convenio" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="dominio" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="categoria" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="idJefe" Type="Int32" Nullable="false" />
+          <Property Name="nombreJefe" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="ano" Type="Int32" Nullable="false" />
+          <Property Name="estado" Type="Int32" />
+          <Property Name="fechaAutoevaluacion" Type="DateTime" Precision="0" />
+          <Property Name="fechaEvaluacion" Type="DateTime" Precision="0" />
+          <Property Name="fechaCalibracion" Type="DateTime" Precision="0" />
+          <Property Name="calificacionFinal" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="idCalificacionFinal" Type="Int32" />
+          <Property Name="eliminado" Type="Boolean" />
+          <Property Name="comentario" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+          <Property Name="idCalificacionFinalAntes" Type="Int32" />
+          <Property Name="calificacionFinalAntes" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AutoEvaluacion" EntityType="Self.AutoEvaluacion" />
+          <EntitySet Name="Calificacion" EntityType="Self.Calificacion" />
+          <EntitySet Name="CalificacionFinalLider" EntityType="Self.CalificacionFinalLider" />
+          <EntitySet Name="Encuesta" EntityType="Self.Encuesta" />
+          <EntitySet Name="Estados" EntityType="Self.Estados" />
+          <EntitySet Name="EstadosFechas" EntityType="Self.EstadosFechas" />
+          <EntitySet Name="EvaluacionPerformance" EntityType="Self.EvaluacionPerformance" />
+          <EntitySet Name="Habilidades" EntityType="Self.Habilidades" />
+          <EntitySet Name="Historial" EntityType="Self.Historial" />
+          <EntitySet Name="Menu" EntityType="Self.Menu" />
+          <EntitySet Name="MenuPerfil" EntityType="Self.MenuPerfil" />
+          <EntitySet Name="PDIColaborador" EntityType="Self.PDIColaborador" />
+          <EntitySet Name="PDIColaboradorObjetivos" EntityType="Self.PDIColaboradorObjetivos" />
+          <EntitySet Name="PDIStatus" EntityType="Self.PDIStatus" />
+          <EntitySet Name="PDItipoAccion" EntityType="Self.PDItipoAccion" />
+          <EntitySet Name="PerformanceColaborador" EntityType="Self.PerformanceColaborador" />
+        </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -529,6 +534,38 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="PDIColaboradorObjetivos">
+            <EntityTypeMapping TypeName="PerformanceModel.PDIColaboradorObjetivos">
+              <MappingFragment StoreEntitySet="PDIColaboradorObjetivos">
+                <ScalarProperty Name="idObjetivo" ColumnName="idObjetivo" />
+                <ScalarProperty Name="idPDI" ColumnName="idPDI" />
+                <ScalarProperty Name="tipoAccion" ColumnName="tipoAccion" />
+                <ScalarProperty Name="habilidad" ColumnName="habilidad" />
+                <ScalarProperty Name="objetivo" ColumnName="objetivo" />
+                <ScalarProperty Name="objetivoDescripcion" ColumnName="objetivoDescripcion" />
+                <ScalarProperty Name="fechaDesde" ColumnName="fechaDesde" />
+                <ScalarProperty Name="fechaHasta" ColumnName="fechaHasta" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="accionesRealizadas" ColumnName="accionesRealizadas" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PDIStatus">
+            <EntityTypeMapping TypeName="PerformanceModel.PDIStatus">
+              <MappingFragment StoreEntitySet="PDIStatus">
+                <ScalarProperty Name="idStatus" ColumnName="idStatus" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PDItipoAccion">
+            <EntityTypeMapping TypeName="PerformanceModel.PDItipoAccion">
+              <MappingFragment StoreEntitySet="PDItipoAccion">
+                <ScalarProperty Name="idTipoAccion" ColumnName="idTipoAccion" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="PerformanceColaborador">
             <EntityTypeMapping TypeName="PerformanceModel.PerformanceColaborador">
               <MappingFragment StoreEntitySet="PerformanceColaborador">
@@ -554,38 +591,8 @@
                 <ScalarProperty Name="idCalificacionFinal" ColumnName="idCalificacionFinal" />
                 <ScalarProperty Name="eliminado" ColumnName="eliminado" />
                 <ScalarProperty Name="comentario" ColumnName="comentario" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="PDIColaboradorObjetivos">
-            <EntityTypeMapping TypeName="PerformanceModel.PDIColaboradorObjetivos">
-              <MappingFragment StoreEntitySet="PDIColaboradorObjetivos">
-                <ScalarProperty Name="accionesRealizadas" ColumnName="accionesRealizadas" />
-                <ScalarProperty Name="status" ColumnName="status" />
-                <ScalarProperty Name="fechaHasta" ColumnName="fechaHasta" />
-                <ScalarProperty Name="fechaDesde" ColumnName="fechaDesde" />
-                <ScalarProperty Name="objetivoDescripcion" ColumnName="objetivoDescripcion" />
-                <ScalarProperty Name="objetivo" ColumnName="objetivo" />
-                <ScalarProperty Name="habilidad" ColumnName="habilidad" />
-                <ScalarProperty Name="tipoAccion" ColumnName="tipoAccion" />
-                <ScalarProperty Name="idPDI" ColumnName="idPDI" />
-                <ScalarProperty Name="idObjetivo" ColumnName="idObjetivo" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="PDIStatus">
-            <EntityTypeMapping TypeName="PerformanceModel.PDIStatus">
-              <MappingFragment StoreEntitySet="PDIStatus">
-                <ScalarProperty Name="nombre" ColumnName="nombre" />
-                <ScalarProperty Name="idStatus" ColumnName="idStatus" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="PDItipoAccion">
-            <EntityTypeMapping TypeName="PerformanceModel.PDItipoAccion">
-              <MappingFragment StoreEntitySet="PDItipoAccion">
-                <ScalarProperty Name="nombre" ColumnName="nombre" />
-                <ScalarProperty Name="idTipoAccion" ColumnName="idTipoAccion" />
+                <ScalarProperty Name="idCalificacionFinalAntes" ColumnName="idCalificacionFinalAntes" />
+                <ScalarProperty Name="calificacionFinalAntes" ColumnName="calificacionFinalAntes" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

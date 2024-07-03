@@ -405,7 +405,7 @@ function CargarDatos() {
             var habilidades = {};
 
             // Organizar los datos en un objeto por habilidades
-            datos.forEach(function (data) {
+            datos.listDatosPerformance.forEach(function (data) {
                 var habilidad = data.nombreHabilidadAutoevaluacion || data.nombreHabilidadEvaluacion;
                 if (!habilidades[habilidad]) {
                     habilidades[habilidad] = {
@@ -424,24 +424,24 @@ function CargarDatos() {
                     habilidades[habilidad].fechaCalificacionEvaluacion = data.fechaCalificacionEvaluacion ? moment(data.fechaCalificacionEvaluacion).format('DD/MM/YYYY') : '';
                 }
                 //var ultimoDato = datos.length - 1;
-                var ano = datos.length > 0 ? datos[0].ano : null;
+                var ano = datos.listDatosPerformance.length > 0 ? datos.listDatosPerformance[0].ano : null;
                 if (ano !== null) {
                     $('#ano').text(ano);
                 }
-                var colaborador = datos.length > 0 ? datos[0].colaborador : null;
+                var colaborador = datos.listDatosPerformance.length > 0 ? datos.listDatosPerformance[0].colaborador : null;
                 if (colaborador !== null) {
                     $('#colaborador').text(colaborador);
                 }
-                var lider = datos.length > 0 ? datos[0].lider : null;
+                var lider = datos.listDatosPerformance.length > 0 ? datos.listDatosPerformance[0].lider : null;
                 if (lider !== null) {
                     $('#lider').text(lider);
                 }
-                var performance = datos.length > 0 ? datos[0].calificacionFinal : null;
+                var performance = datos.listDatosPerformance.length > 0 ? datos.listDatosPerformance[0].calificacionFinal : null;
                 if (performance !== null) {
                     $('#performance').text("Performance:  " + performance);
                 }
                 if (@perfil != 127) {
-                    var comentario = datos.length > 0 ? datos[0].comentario : null;
+                    var comentario = datos.listDatosPerformance.length > 0 ? datos.listDatosPerformance[0].comentario : null;
                     if (comentario !== null) {
                         $('#comentario').html("<strong>Comentario Capital Humano:</strong> " + comentario);
                     }

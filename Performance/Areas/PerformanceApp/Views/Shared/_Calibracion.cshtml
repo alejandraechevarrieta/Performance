@@ -1,68 +1,380 @@
 ﻿@{
-    ViewBag.Title = "FormularioB";
+    ViewBag.Title = "Home Page";
+    int idPerformance = ViewBag.IdPerformance;
     var perfil = Session["perfil"];
     var idUsuario = Session["idUsuario"];
-    int idPerformance = ViewBag.IdPerformance;
 
 }
-<style>
-    * {
-        margin: 0;
-        padding: 0;
-    }
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    <!-- Estilos de Bootstrap -->
+    @*<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0/css/bootstrap.min.css">*@
 
-    html {
-        height: 100%;
-    }
-
-    /*Background color*/
-    #grad1 {
-        background-color: #f3f3f3;
-    }
-
-    /*form styles*/
-    #msform {
-        text-align: center;
-        position: relative;
-        margin-top: 20px;
-    }
-
-        #msform fieldset .form-card {
-            background: white;
-            border: 0 none;
-            border-radius: 0px;
-            box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.2);
-            padding: 20px 40px 30px 40px;
-            box-sizing: border-box;
-            width: 94%;
-            margin: 0 3% 20px 3%;
-            /*stacking fieldsets above each other*/
-            position: relative;
-        }
-
-        #msform fieldset {
-            background: white;
-            border: 0 none;
-            border-radius: 0.5rem;
-            box-sizing: border-box;
-            width: 100%;
+    <!-- Estilos de DataTables -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
+    <!-- JavaScript de jQuery (necesario para DataTables) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.datatables.net/1.12.0/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+    <style>
+        * {
             margin: 0;
-            padding-bottom: 20px;
-            /*stacking fieldsets above each other*/
-            position: relative;
+            padding: 0;
         }
 
-            /*Hide all except first fieldset*/
-            #msform fieldset:not(:first-of-type) {
-                display: none;
-            }
+        html {
+            height: 100%;
+        }
+
+        /*Background color*/
+        #grad1 {
+            background-color: #f3f3f3;
+        }
+
+        .modal {
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+        /*form styles*/
+        #msform {
+            text-align: center;
+            position: relative;
+            margin-top: 20px;
+        }
 
             #msform fieldset .form-card {
-                text-align: left;
-                color: #9E9E9E;
+                background: white;
+                border: 0 none;
+                border-radius: 0px;
+                box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.2);
+                padding: 20px 40px 30px 40px;
+                box-sizing: border-box;
+                width: 94%;
+                margin: 0 3% 20px 3%;
+                /*stacking fieldsets above each other*/
+                position: relative;
             }
 
-        #msform input, #msform textarea {
+            #msform fieldset {
+                background: white;
+                border: 0 none;
+                border-radius: 0.5rem;
+                box-sizing: border-box;
+                width: 100%;
+                margin: 0;
+                padding-bottom: 20px;
+                /*stacking fieldsets above each other*/
+                position: relative;
+            }
+
+                /*Hide all except first fieldset*/
+                #msform fieldset:not(:first-of-type) {
+                    display: none;
+                }
+
+                #msform fieldset .form-card {
+                    text-align: left;
+                    color: #9E9E9E;
+                }
+
+            #msform input, #msform textarea {
+                padding: 0px 8px 4px 8px;
+                border: none;
+                border-bottom: 1px solid #ccc;
+                border-radius: 0px;
+                margin-bottom: 25px;
+                margin-top: 2px;
+                width: 100%;
+                box-sizing: border-box;
+                font-family: 'Arial', sans-serif;
+                color: #2C3E50;
+                font-size: 16px;
+                letter-spacing: 1px;
+            }
+
+                #msform input:focus, #msform textarea:focus {
+                    -moz-box-shadow: none !important;
+                    -webkit-box-shadow: none !important;
+                    box-shadow: none !important;
+                    border: none;
+                    font-weight: bold;
+                    border-bottom: 2px solid skyblue;
+                    outline-width: 0;
+                }
+
+            /*Blue Buttons*/
+            #msform .action-button {
+                width: 150px; /* Cambia el valor según sea necesario */
+                background: #00aec7;
+                font-weight: bold;
+                color: white;
+                border: 0 none;
+                border-radius: 0px;
+                cursor: pointer;
+                padding: 10px 10px; /* Aumenta el valor del padding según sea necesario */
+                margin: 10px 5px;
+            }
+
+
+                #msform .action-button:hover, #msform .action-button:focus {
+                    box-shadow: 0 0 0 2px white, 0 0 0 3px skyblue;
+                }
+
+            /*Previous Buttons*/
+            #msform .action-button-previous {
+                width: 150px;
+                background: #616161;
+                font-weight: bold;
+                color: white;
+                border: 0 none;
+                border-radius: 0px;
+                cursor: pointer;
+                padding: 10px 5px;
+                margin: 10px 5px;
+            }
+
+                #msform .action-button-previous:hover, #msform .action-button-previous:focus {
+                    box-shadow: 0 0 0 2px white, 0 0 0 3px #616161;
+                }
+
+            #msform input.selected {
+                border-bottom: 2px solid skyblue;
+                background-color: rgba(135, 206, 250, 0.2);
+                box-shadow: 0 0 5px skyblue;
+                border: 2px solid skyblue;
+            }
+
+        .boton {
+            border-bottom: 2px solid skyblue !important;
+            background-color: #00aec7 !important;
+            box-shadow: 0 0 5px !important;
+            border: 2px solid !important;
+        }
+        /*Dropdown List Exp Date*/
+        select.list-dt {
+            border: none;
+            outline: 0;
+            border-bottom: 1px solid #ccc;
+            padding: 2px 5px 3px 5px;
+            margin: 2px;
+        }
+
+            select.list-dt:focus {
+                border-bottom: 2px solid skyblue;
+            }
+
+        /*The background card*/
+        .card {
+            z-index: 0;
+            border: none;
+            border-radius: 0.5rem;
+            position: relative;
+        }
+
+        /*FieldSet headings*/
+        .fs-title {
+            font-size: 25px;
+            color: #2C3E50;
+            margin-bottom: 10px;
+            font-weight: bold;
+            text-align: left;
+        }
+
+        /*Fit image in bootstrap div*/
+        .fit-image {
+            width: 100%;
+            object-fit: cover;
+        }
+
+        .form-card {
+            display: inline-block; /* Mostrar los botones en línea */
+        }
+
+            /* Ajuste para el último botón dentro de .form-card */
+            .form-card input[type="button"]:last-child {
+                margin-right: 0; /* Elimina el margen derecho del último botón */
+            }
+
+        /* Estilos para los botones dentro de .form-card */
+        .form-card {
+            display: flex; /* Usar flexbox para alinear los elementos */
+            justify-content: space-between; /* Espacio uniforme entre los elementos */
+        }
+
+            .form-card input[type="button"] {
+                flex: 1; /* Los botones ocupan igualmente todo el espacio disponible */
+                margin-right: 10px; /* Espacio entre los botones */
+            }
+
+                /* Ajuste para el último botón dentro de .form-card */
+                .form-card input[type="button"]:last-child {
+                    margin-right: 0; /* Elimina el margen derecho del último botón */
+                }
+        /* Estilos para los botones dentro de .form-card */
+        .form-card {
+            display: flex; /* Utilizar flexbox para alinear los elementos */
+            flex-direction: column; /* Alinear elementos verticalmente */
+            padding-inline: 5%;
+        }
+
+        .button-container {
+            display: flex; /* Utilizar flexbox para alinear los botones */
+            justify-content: space-between; /* Espaciar uniformemente los botones */
+        }
+
+        .separator {
+            margin-top: 20px; /* Ajustar el margen superior según sea necesario */
+            margin: 0 auto; /* Eliminar los márgenes laterales y centrar el separador */
+            border-bottom: 3px solid #7380C4; /* Aumentar el grosor del borde inferior */
+            padding: 10px 10px; /* Aumentar el espacio interior del separador */
+            color: #034;
+            clear: both;
+        }
+
+        .description {
+            font-size: 14px;
+            color: #666;
+            margin-top: 20px;
+        }
+
+
+        .tituloResumen {
+            margin-right: inherit;
+        }
+
+        .titulo {
+            font-size: 18px;
+            text-align: center; /* Justificación a la izquierda */
+            text-transform: uppercase;
+            color: #6c757d; /* Texto secundario */
+            font-weight: 700; /* Negrita */
+            opacity: 1;
+            width: auto; /* Ancho automático */
+            display: inline-block; /* Mostrar en línea */
+            margin-right: 2px; /* Margen derecho */
+        }
+
+        .habilidad {
+            font-size: 18px;
+            text-align: left; /* Justificación a la izquierda */
+            text-transform: uppercase;
+            color: #6c757d; /* Texto secundario */
+            font-weight: 700; /* Negrita */
+            opacity: 1;
+            width: auto; /* Ancho automático */
+            display: inline-block; /* Mostrar en línea */
+            margin-right: 5px; /* Margen derecho */
+        }
+        .container-calificacion{
+
+        }
+
+        .calificacion {
+            padding: 0px 8px 4px 8px;
+            border: none;
+            border-bottom: 1px solid #ccc;
+            border-radius: 0px;
+            margin-bottom: 25px;
+            margin-top: 2px;
+            width: 15%;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+            color: #2C3E50;
+            font-size: 16px;
+            letter-spacing: 1px;
+        }
+            .calificacion.selected {
+                border-bottom: 2px solid skyblue;
+                background-color: rgba(135, 206, 250, 0.2);
+                box-shadow: 0 0 5px skyblue;
+                border: 2px solid skyblue;
+            }
+
+            .calificacion.focused {
+                -moz-box-shadow: none !important;
+                -webkit-box-shadow: none !important;
+                box-shadow: none !important;
+                border: none;
+                border-bottom: 2px solid skyblue;
+                outline-width: 0;
+            }
+
+            .calificacion:focus {
+                -moz-box-shadow: none !important;
+                -webkit-box-shadow: none !important;
+                box-shadow: none !important;
+                border: none;
+                border-bottom: 2px solid skyblue;
+                outline-width: 0;
+            }
+
+        .fondo {
+            background-color: #e0dddd;
+            box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.2);
+        }
+
+        .table-container {
+            padding: 0; /* Eliminar el padding para ajustar el tamaño al de la tabla */
+            display: inline-block; /* Ajustar el tamaño del contenedor al contenido */
+        }
+
+        .table-shadow {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin: 0; /* Eliminar márgenes para evitar que la sombra se salga */
+        }
+
+        .data-container {
+            height: 280px;
+            overflow: auto;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td {
+            border-left: 1px solid #17AFB6;
+            border-right: 1px solid #17AFB6;
+        }
+
+            td:first-child {
+                border-left: 1px solid #17AFB6;
+            }
+
+            td:last-child {
+                border-right: 1px solid #17AFB6;
+            }
+
+        .comentario-container {
+            /*width: calc(100% - 50px);*/ /* Ajusta el ancho restando los márgenes */
+            padding-right: 50px; /* Espacio a la derecha */
+            padding-left: 50px; /* Espacio a la izquierda */
+            box-sizing: border-box; /* Incluye el padding en el cálculo del ancho */
+        }
+
+        .comentario {
+            font-size: 18px;
+            text-align: justify;
+            color: #6c757d;
+            opacity: 1;
+            margin: 0; /* Eliminar márgenes internos del texto */
+        }
+        .fs-title {
+            font-size: 25px;
+            color: #2C3E50;
+            margin-bottom: 10px;
+            font-weight: bold;
+            text-align: left;
+        }
+
+        textarea {
             padding: 0px 8px 4px 8px;
             border: none;
             border-bottom: 1px solid #ccc;
@@ -77,7 +389,7 @@
             letter-spacing: 1px;
         }
 
-            #msform input:focus, #msform textarea:focus {
+            textarea:focus {
                 -moz-box-shadow: none !important;
                 -webkit-box-shadow: none !important;
                 box-shadow: none !important;
@@ -86,721 +398,192 @@
                 border-bottom: 2px solid skyblue;
                 outline-width: 0;
             }
-
-            #msform input.focused {
-                -moz-box-shadow: none !important;
-                -webkit-box-shadow: none !important;
-                box-shadow: none !important;
-                border: none;
-                font-weight: bold;
-                border-bottom: 2px solid skyblue;
-                outline-width: 0;
-            }
-
-        /*Blue Buttons*/
-        #msform .action-button {
-            width: 150px; /* Cambia el valor según sea necesario */
-            background: #00aec7;
-            font-weight: bold;
-            color: white;
-            border: 0 none;
-            border-radius: 0px;
-            cursor: pointer;
-            padding: 10px 10px; /* Aumenta el valor del padding según sea necesario */
-            margin: 10px 5px;
-        }
+    </style>
 
 
-            #msform .action-button:hover, #msform .action-button:focus {
-                box-shadow: 0 0 0 2px white, 0 0 0 3px skyblue;
-            }
-
-        /*Previous Buttons*/
-        #msform .action-button-previous {
-            width: 150px;
-            background: #616161;
-            font-weight: bold;
-            color: white;
-            border: 0 none;
-            border-radius: 0px;
-            cursor: pointer;
-            padding: 10px 5px;
-            margin: 10px 5px;
-        }
-
-            #msform .action-button-previous:hover, #msform .action-button-previous:focus {
-                box-shadow: 0 0 0 2px white, 0 0 0 3px #616161;
-            }
-
-        #msform input.selected:not(.next):not(.previous):not(.confirmar) {
-            border-bottom: 2px solid skyblue;
-            background-color: rgba(135, 206, 250, 0.2);
-            box-shadow: 0 0 5px skyblue;
-            border: 2px solid skyblue;
-        }
-
-    .boton {
-        border-bottom: 2px solid skyblue !important;
-        background-color: #00aec7 !important;
-        box-shadow: 0 0 5px !important;
-        border: 2px solid !important;
-    }
-
-    /*Dropdown List Exp Date*/
-    select.list-dt {
-        border: none;
-        outline: 0;
-        border-bottom: 1px solid #ccc;
-        padding: 2px 5px 3px 5px;
-        margin: 2px;
-    }
-
-        select.list-dt:focus {
-            border-bottom: 2px solid skyblue;
-        }
-
-    /*The background card*/
-    .card {
-        z-index: 0;
-        border: none;
-        border-radius: 0.5rem;
-        position: relative;
-    }
-
-    /*FieldSet headings*/
-    .fs-title {
-        font-size: 25px;
-        color: #2C3E50;
-        margin-bottom: 10px;
-        font-weight: bold;
-        text-align: left;
-    }
-
-    /*progressbar*/
-    #progressbar {
-        margin-bottom: 30px;
-        overflow: hidden;
-        color: lightgrey;
-        display: flex; /* Cambia el comportamiento del contenedor a flex */
-    }
-
-        #progressbar .active {
-            color: #000000;
-        }
-
-        #progressbar li {
-            list-style-type: none;
-            font-size: 12px;
-            width: auto; /* Cambia el ancho a automático para que los elementos se ajusten automáticamente */
-            flex: 1; /* Ajusta el ancho de cada elemento automáticamente */
-            position: relative;
-            text-align: center; /* Centra el contenido */
-        }
-
-        /*Icons in the ProgressBar*/
-        #progressbar #descripcion:before {
-            font-family: FontAwesome;
-            content: "\f2b5";
-        }
-
-        #progressbar #account:before {
-            content: "";
-            background-image: url('/Content/img/i1.png');
-            background-size: 28px;
-            background-repeat: no-repeat;
-            background-position: center;
-        }
-
-        #progressbar #personal:before {
-            content: "";
-            background-image: url('/Content/img/i2.png');
-            background-size: 28px;
-            background-repeat: no-repeat;
-            background-position: center;
-        }
-
-        #progressbar #payment:before {
-            content: "";
-            background-image: url('/Content/img/i3.png');
-            background-size: 28px;
-            background-repeat: no-repeat;
-            background-position: center;
-        }
-
-        #progressbar #interpersonal:before {
-            content: "";
-            background-image: url('/Content/img/i4.png');
-            background-size: 28px;
-            background-repeat: no-repeat;
-            background-position: center;
-        }
-
-        #progressbar #cambio:before {
-            content: "";
-            background-image: url('/Content/img/i5.png');
-            background-size: 28px;
-            background-repeat: no-repeat;
-            background-position: center;
-        }
-
-        #progressbar #confirm:before {
-            content: "";
-            background-image: url('/Content/img/i6.png');
-            background-size: 28px;
-            background-repeat: no-repeat;
-            background-position: center;
-        }
-
-        #progressbar #finish:before {
-            font-family: FontAwesome;
-            content: "\f03a";
-        }
-
-        /*ProgressBar before any progress*/
-        #progressbar li:before {
-            width: 50px;
-            height: 50px;
-            line-height: 45px;
-            display: block;
-            font-size: 18px;
-            color: #ffffff;
-            background: lightgray;
-            border-radius: 50%;
-            margin: 0 auto 10px auto;
-            padding: 2px;
-        }
-
-        /*ProgressBar connectors*/
-        #progressbar li:after {
-            content: '';
-            width: 100%;
-            height: 2px;
-            background: lightgray;
-            position: absolute;
-            left: 0;
-            top: 25px;
-            z-index: -1;
-        }
-
-        /*Color number of the step and the connector before it*/
-        #progressbar li.active:before, #progressbar li.active:after {
-            background: #00aec7;
-        }
-
-    /*Imaged Radio Buttons*/
-    .radio-group {
-        position: relative;
-        margin-bottom: 25px;
-    }
-
-    .radio {
-        display: inline-block;
-        width: 204px;
-        height: 104px;
-        border-radius: 0;
-        background: lightblue;
-        box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.2);
-        box-sizing: border-box;
-        cursor: pointer;
-        margin: 8px 2px;
-    }
-
-        .radio:hover {
-            box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.3);
-        }
-
-        .radio.selected {
-            box-shadow: 1px 1px 2px 2px rgba(0, 0, 0, 0.1);
-        }
-
-    /*Fit image in bootstrap div*/
-    .fit-image {
-        width: 100%;
-        object-fit: cover;
-    }
-
-    .form-card {
-        display: inline-block; /* Mostrar los botones en línea */
-    }
-
-        /* Ajuste para el último botón dentro de .form-card */
-        .form-card input[type="button"]:last-child {
-            margin-right: 0; /* Elimina el margen derecho del último botón */
-        }
-
-    /* Estilos para los botones dentro de .form-card */
-    .form-card {
-        display: flex; /* Usar flexbox para alinear los elementos */
-        justify-content: space-between; /* Espacio uniforme entre los elementos */
-    }
-
-        .form-card input[type="button"] {
-            flex: 1; /* Los botones ocupan igualmente todo el espacio disponible */
-            margin-right: 10px; /* Espacio entre los botones */
-        }
-
-            /* Ajuste para el último botón dentro de .form-card */
-            .form-card input[type="button"]:last-child {
-                margin-right: 0; /* Elimina el margen derecho del último botón */
-            }
-    /* Estilos para los botones dentro de .form-card */
-    .form-card {
-        display: flex; /* Utilizar flexbox para alinear los elementos */
-        flex-direction: column; /* Alinear elementos verticalmente */
-    }
-
-    .button-container {
-        display: flex; /* Utilizar flexbox para alinear los botones */
-        justify-content: space-between; /* Espaciar uniformemente los botones */
-    }
-
-    /*.popover {
-        max-width: none;*/ /* Para que el popover tenga el ancho que necesite */
-    /*}*/
-    /* Ajustes opcionales de estilo */
-    .tooltip {
-        display: block !important; /* Mostrar el tooltip */
-        visibility: visible !important; /* Hacer visible el tooltip */
-        opacity: 1 !important; /* Ajustar la opacidad del tooltip */
-    }
-
-    .modal {
-        background-color: rgba(0, 0, 0, 0.5);
-    }
-</style>
-
-<main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
-    <div class="container-fluid" id="grad1">
-        <button type="button" style="background-color: #00aec7; margin-left: initial" class="btn w-auto my-4 mb-2 text-white" id="volver" onclick="volverAtras();">Volver</button>
-        <div class="row justify-content-center mt-0">
-            <div class="col-11 col-sm-9 col-md-7 col-lg-6 text-center p-0 mt-3 mb-2 w-80">
-                <div class="card px-0 pt-4 pb-0 mt-3 mb-3">
-                    <p class="h2"><strong>Calibración de Performance</strong></p>
-                    <p class="h4 hola">A continuación debes realizar la valoración</p>
-                    <div class="row">
-                        <div class="col-md-12 mx-0">
-                            <form id="msform">
-                                <ul id="progressbar" class="p-0">
-                                    <li class="active" id="descripcion"><strong>Inicio</strong></li>
-                                    <li id="account"><strong>Aprendizaje continuo</strong></li>
-                                    <li id="personal"><strong>Autonomía</strong></li>
-                                    <li id="payment"><strong>Colaboración</strong></li>
-                                    <li id="interpersonal"><strong>Comunicación efectiva</strong></li>
-                                    <li id="cambio"><strong>Gestion del cambio</strong></li>
-                                    <li id="confirm"><strong>Visión sistémica</strong></li>
-                                    <li id="finish"><strong>Performance</strong></li>
-                                </ul>
-                                <fieldset>
-                                    <div class="form-card">
-                                        <h2 class="fs-title">Instructivo</h2>
-                                        <div class="row">
-                                            <p class="h5">
-                                                En las siguientes pestañas deberás valorizar las habilidades del colaborador seleccionando
-                                                una de las cuatro opciones, podrás ver como él/ella se autoevaluó en cada una.<br>
-                                                En la última pestaña realizarás la valoración integral de Performance.<br>
-                                                Para finalizar la Evaluación hacer click en el botón "Confirmar".
-                                                <br />
-                                            </p>
+</head>
+<body>
+    <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+        @*MultiStep Form*@
+        <div class="container-fluid" id="grad1">
+            <button type="button" style="background-color: #00aec7; margin-left: initial" class="btn w-auto my-4 mb-2 text-white" id="volver" onclick="volverAtras();">Volver</button>
+            <div class="row justify-content-center mt-0">
+                <div class="col-11 col-sm-9 col-md-7 col-lg-6 text-center p-0 mt-3 mb-2 w-80">
+                    <div class="card px-0 pt-4 pb-0 mt-3 mb-3">
+                        <div class="box-header with-border">
+                            <div class="col-md-14">
+                                <div class="form-group">
+                                    <div class="row" style="margin-top:1%;">
+                                        <p class="h2"><strong>Performance (<span id="ano"></span>)</strong></p>
+                                        <p class="h4">Calibración</p>
+                                        <p class="h4">Esta es la performance del colaborador/a <span id="colaborador"></span>, líder <span id="lider"></span>.</p>
+                                        <div class="table-container" style="border-radius: 15px; overflow: hidden;">
+                                            <table class="table table-sm table-bordered table-shadow" style="height: 60px;">
+                                                <thead align="center" class="thead-dark">
+                                                    <tr>
+                                                        <th scope="col" style="background-image: linear-gradient(to right, #17AFB6, #7fdc7c); color: white; border-color: #17AFB6; width: 30%; border-bottom-left-radius: 15px; border-top-left-radius: 15px; " rowspan="2">HABILIDADES</th>
+                                                        <th scope="col" style="background-image: linear-gradient(to right, #7fdc7c, #7fdc7c); color: white; border-color: #3dbb39; width: 35%; " colspan="2">AUTOEVALUACIÓN</th>
+                                                        <th scope="col" style="background-image: linear-gradient(to right, #7fdc7c, #17AFBc); color: white; border-color: #17AFB6; width: 35%; border-top-right-radius: 15px;  " colspan="2">EVALUACION LÍDER</th>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="col" style="background-image: linear-gradient(to right, #7fdc7c, #7fdc7c); color: white; border-color: #17AFB6; width: 20%; ">CALIFICACIÓN</th>
+                                                        <th scope="col" style="background-image: linear-gradient(to right, #7fdc7c, #7fdc7c); color: white; border-color: #17AFB6; width: 15%; ">FECHA</th>
+                                                        <th scope="col" style="background-image: linear-gradient(to right, #7fdc7c, #17AFBc); color: white; border-color: #17AFB6; width: 20%; ">CALIFICACIÓN</th>
+                                                        <th scope="col" style="background-image: linear-gradient(to right, #17AFBc, #17AFBc); color: white; border-color: #17AFB6; width: 15%; border-bottom-right-radius: 15px; ">FECHA</th>
+                                                    </tr>
+                                                </thead>
+                                            </table>
                                         </div>
-                                    </div>
-                                    <input type="button" name="next" class="next action-button" value="Siguiente" />
-                                </fieldset>
-                                <fieldset id="tarj1">
-                                    <div class="form-card">
-                                        <h2 class="fs-title tituloAutoevaluacion">Autoevaluación</h2>
-                                        <div class="row mt-1">
-                                            <p class="h5">Actitud de superación permanente.  Búsqueda constante del crecimiento personal y profesional, siendo consciente de sus fortalezas y aspectos de mejora. Disposición a  experimentar nuevas ideas, conocimientos y experiencias.</p>
+                                        <div style="height: 280px; overflow: auto;">
+                                            <table class="table table-sm table-bordered" id="tablaPerformance">
+                                                <tbody></tbody>
+                                            </table>
                                         </div>
-                                        <div class="button-container mt-2">
-                                            <input id="aa1" class="next2" disabled type="button" value="En progreso" />
-                                            <input id="aa2" class="next2" disabled type="button" value="Autónomo" />
-                                            <input id="aa3" class="next2" disabled type="button" value="Fortaleza" />
-                                            <input id="aa4" class="next2" disabled type="button" value="No aplica" />
-                                        </div>
-                                    </div>
-                                    <div class="form-card" id="card1">
-                                        <h2 class="fs-title tituloEvaluacion">Evaluación</h2>
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <p class="h5">
-                                                    Actitud de superación permanente.  Búsqueda constante del crecimiento personal y profesional, siendo consciente de sus fortalezas y aspectos de mejora. Disposición a  experimentar nuevas ideas, conocimientos y experiencias.
-                                                    <button type="button" data-toggle="tooltip" data-bs-placement="bottom" title="Ver más" class="btn btn-sm btn-info btn-square" onclick="verMas(1);">
-                                                        <i class="fas fa-chevron-down"></i>
-                                                    </button>
-                                                </p>
-                                            </div>
-                                            <div class="col-12">
-                                                <p id="verMas1" style="display: none; color:black">
-                                                    1 - Demuestra capacidad para autogestionar su aprendizaje, estableciendo metas personales y trabajando de manera constante para alcanzarlas. <br />
-                                                    2 - Aprende de los aportes de los demás. Se enriquece con el talento de otros. <br />
-                                                    3 - Muestra una actitud proactiva al afrontar obstáculos, y aprende de los errores para seguir creciendo. <br />
-                                                    4 - Experimenta y aprende, disponiéndose abiertamente a nuevos desafíos y experiencias. <br />
-                                                    5 - Toma conciencia sobre los aspectos que debe mejorar y fortalecer, y ejecuta acciones de autodesarrollo. <br />
-                                                    6 - Da y recibe feedback con apertura. Se muestra abierto a recibir aportes constructivos y los utiliza para ajustar su enfoque y mejorar su desempeño.
-                                                </p>
+                                        <div class="mt-4 mb-4" style="padding-inline: 5%; text-align: center;">
+                                            <div style="border-bottom: 1px #c8c8c8 solid">
+
                                             </div>
                                         </div>
-                                        <div class="button-container mt-2">
-                                            <input id="a1" type="button" data-toggle="tooltip" data-bs-placement="bottom" title="Necesita ayuda para mostrar esta habilidad" value="En progreso" />
-                                            <input id="a2" type="button" data-toggle="tooltip" data-bs-placement="bottom" title="Se desenvuelve bien sin ayuda" value="Autónomo" />
-                                            <input id="a3" type="button" data-toggle="tooltip" data-bs-placement="bottom" title="Es capaz de ayudar y enseñar a otros miembros del equipo" value="Fortaleza" />
-                                            <input id="a4" type="button" data-toggle="tooltip" data-bs-placement="bottom" title="No es requerida por la posición" value="No aplica" />
+                                        <div class="container-calificacion">
+                                            <p class="h4 mb-2">Calificación final</p>
+                                            <input id="g1" class="calificacion m-3 d-inline-block" type="button" data-toggle="tooltip" data-bs-placement="bottom" title="No alcanza el desempeño requerido" value="Regular" />
+                                            <input id="g2" class="calificacion m-3 d-inline-block" type="button" data-toggle="tooltip" data-bs-placement="bottom" title="Alcanza el desempeño mínimo requerido con asistencia" value="A nivel" />
+                                            <input id="g3" class="calificacion m-3" type="button" data-toggle="tooltip" data-bs-placement="bottom" title="Alcanza el desempeño de manera satisfactoria" value="Satisfactorio" />
+                                            <input id="g4" class="calificacion m-3" type="button" data-toggle="tooltip" data-bs-placement="bottom" title="Alcanza el desempeño, dando valor agregado" value="Destacado" />
+                                            <input id="g5" class="calificacion m-3" type="button" data-toggle="tooltip" data-bs-placement="bottom" title="Supera el desempeño requerido" value="Sobresaliente" />
                                         </div>
-                                    </div>
-                                    <input type="button" name="previous" class="previous action-button-previous" value="Anterior" />
-                                    <input type="button" name="next" class="next action-button" value="Siguiente" />
-                                </fieldset>
-                                <fieldset id="tarj2">
-                                    <div class="form-card">
-                                        <h2 class="fs-title tituloAutoevaluacion">Autoevaluación</h2>
-                                        <div class="row mt-1">
-                                            <p class="h5">Capacidad de tomar decisiones, actuar y asumir los impactos de las mismas. La autonomía se fundamenta en la voluntad, la disciplina y responsabilidad.</p>
-                                        </div>
-                                        <div class="button-container mt-2">
-                                            <input id="bb1" class="next2" disabled type="button" value="En progreso" />
-                                            <input id="bb2" class="next2" disabled type="button" value="Autónomo" />
-                                            <input id="bb3" class="next2" disabled type="button" value="Fortaleza" />
-                                            <input id="bb4" class="next2" disabled type="button" value="No aplica" />
-                                        </div>
-                                    </div>
-                                    <div class="form-card" id="card2">
-                                        <h2 class="fs-title tituloEvaluacion">Evaluación</h2>
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <p class="h5">
-                                                    Capacidad de tomar decisiones, actuar y asumir los impactos de las mismas. La autonomía se fundamenta en la voluntad, la disciplina y responsabilidad.
-                                                    <button type="button" data-toggle="tooltip" data-bs-placement="bottom" title="Ver más" class="btn btn-sm btn-info btn-square" onclick="verMas(2);">
-                                                        <i class="fas fa-chevron-down"></i>
-                                                    </button>
-                                                </p>
-                                            </div>
-                                            <div class="col-12">
-                                                <p id="verMas2" style="display: none; color: black">
-                                                    1 -	Actúa en función de un propósito, valores y metas compartidas. <br />
-                                                    2 -	Se apropia de los procesos de principio a fin, haciéndose cargo de los resultados y logrando los compromisos asumidos consistentemente. <br />
-                                                    3 -	Se involucra y es protagonista en los temas con los que se compromete, le confieren o propone. <br />
-                                                    4 -	Comprende su aporte y contribución a los resultados de la organización, analizando el impacto y la relevancia de sus acciones y decisiones. <br />
-                                                    5 -	Administra tiempo y recursos de manera eficiente para alcanzar objetivos y responsabilidades.
-                                                </p>
+                                        <div class="mt-4" style="padding-inline: 5%; text-align: center;">
+                                            <div style="border-bottom: 1px #c8c8c8 solid">
+
                                             </div>
                                         </div>
-                                        <div class="button-container mt-2">
-                                            <input id="b1" type="button" data-toggle="tooltip" data-bs-placement="bottom" title="Necesita ayuda para mostrar esta habilidad" value="En progreso" />
-                                            <input id="b2" type="button" data-toggle="tooltip" data-bs-placement="bottom" title="Se desenvuelve bien sin ayuda" value="Autónomo" />
-                                            <input id="b3" type="button" data-toggle="tooltip" data-bs-placement="bottom" title="Es capaz de ayudar y enseñar a otros miembros del equipo" value="Fortaleza" />
-                                            <input id="b4" type="button" data-toggle="tooltip" data-bs-placement="bottom" title="No es requerida por la posición" value="No aplica" />
-                                        </div>
-                                    </div>
-                                    <input type="button" name="previous" class="previous action-button-previous" value="Anterior" />
-                                    <input type="button" name="next" class="next action-button" value="Siguiente" />
-                                </fieldset>
-                                <fieldset id="tarj3">
-                                    <div class="form-card">
-                                        <h2 class="fs-title tituloAutoevaluacion">Autoevaluación</h2>
-                                        <div class="row mt-1">
-                                            <p class="h5">Actitud genuina para cooperar y colaborar con otros miembros de la empresa apuntando al logro de objetivos comunes, produciendo colectivamente resultados superiores a los individuales.</p>
-                                        </div>
-                                        <div class="button-container mt-2">
-                                            <input id="cc1" class="next2" disabled type="button" value="En progreso" />
-                                            <input id="cc2" class="next2" disabled type="button" value="Autónomo" />
-                                            <input id="cc3" class="next2" disabled type="button" value="Fortaleza" />
-                                            <input id="cc4" class="next2" disabled type="button" value="No aplica" />
-                                        </div>
-                                    </div>
-                                    <div class="form-card" id="card3">
-                                        <h2 class="fs-title tituloEvaluacion">Evaluación</h2>
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <p class="h5">
-                                                    Actitud genuina para cooperar y colaborar con otros miembros de la empresa apuntando al logro de objetivos comunes, produciendo colectivamente resultados superiores a los individuales.
-                                                    <button type="button" data-toggle="tooltip" data-bs-placement="bottom" title="Ver más" class="btn btn-sm btn-info btn-square" onclick="verMas(3);">
-                                                        <i class="fas fa-chevron-down"></i>
-                                                    </button>
-                                                </p>
-                                            </div>
-                                            <div class="col-12">
-                                                <p id="verMas3" style="display: none; color: black">
-                                                    1 -	Desarrolla vínculos de confianza, aportando al buen clima del equipo, y de la organización. <br />
-                                                    2 -	Colabora y aporta con generosidad sus conocimientos y experiencia, creando un contexto de apertura para la expresión de ideas y la gestión del conocimiento. <br />
-                                                    3 -	Contribuye activamente con ideas, energía y deseo de lograr resultados como equipo. <br />
-                                                    4 -	Construye de manera interdisciplinaria, generando sinergia con personas dentro y fuera de la organización. <br />
-                                                    5 -	Reconoce los logros y comparte los éxitos con el equipo.
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <div class="button-container mt-2">
-                                            <input id="c1" type="button" data-toggle="tooltip" data-bs-placement="bottom" title="Necesita ayuda para mostrar esta habilidad" value="En progreso" />
-                                            <input id="c2" type="button" data-toggle="tooltip" data-bs-placement="bottom" title="Se desenvuelve bien sin ayuda" value="Autónomo" />
-                                            <input id="c3" type="button" data-toggle="tooltip" data-bs-placement="bottom" title="Es capaz de ayudar y enseñar a otros miembros del equipo" value="Fortaleza" />
-                                            <input id="c4" type="button" data-toggle="tooltip" data-bs-placement="bottom" title="No es requerida por la posición" value="No aplica" />
-                                        </div>
-                                    </div>
-                                    <input type="button" name="previous" class="previous action-button-previous" value="Anterior" />
-                                    <input type="button" name="make_payment" class="next action-button" value="Siguiente" />
-                                </fieldset>
-                                <fieldset id="tarj4">
-                                    <div class="form-card">
-                                        <h2 class="fs-title tituloAutoevaluacion">Autoevaluación</h2>
-                                        <div class="row mt-1">
-                                            <p class="h5">Capacidad de transmitir mensajes de manera clara, concisa y comprensible, así como de escuchar activamente y comprender las ideas y perspectivas de los demás.</p>
-                                        </div>
-                                        <div class="button-container mt-2">
-                                            <input id="dd1" class="next2" disabled type="button" value="En progreso" />
-                                            <input id="dd2" class="next2" disabled type="button" value="Autónomo" />
-                                            <input id="dd3" class="next2" disabled type="button" value="Fortaleza" />
-                                            <input id="dd4" class="next2" disabled type="button" value="No aplica" />
-                                        </div>
-                                    </div>
-                                    <div class="form-card" id="card4">
-                                        <h2 class="fs-title tituloEvaluacion">Evaluación</h2>
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <p class="h5">
-                                                    Capacidad de transmitir mensajes de manera clara, concisa y comprensible, así como de escuchar activamente y comprender las ideas y perspectivas de los demás.
-                                                    <button type="button" data-toggle="tooltip" data-bs-placement="bottom" title="Ver más" class="btn btn-sm btn-info btn-square" onclick="verMas(4);">
-                                                        <i class="fas fa-chevron-down"></i>
-                                                    </button>
-                                                </p>
-                                            </div>
-                                            <div class="col-12">
-                                                <p id="verMas4" style="display: none; color: black">
-                                                    1 -	Se expresa de manera clara y concisa, utilizando un lenguaje comprensible. <br />
-                                                    2 -	Escucha atentamente, hace preguntas para aclarar puntos y demuestran interés genuino en comprender las perspectivas de los demás. <br />
-                                                    3 -	Capaz de ponerse en el lugar de los demás y adaptar su comunicación en consecuencia. <br />
-                                                    4 -	Ofrece retroalimentación de manera constructiva realizando comentarios claros, específicos y útiles que ayudan a mejorar el rendimiento y fortalecer las relaciones dentro del equipo. <br />
-                                                    5 -	Aborda los conflictos de manera abierta y constructiva, buscando soluciones que beneficien a todas las partes involucradas.
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <div class="button-container mt-2">
-                                            <input id="d1" type="button" data-toggle="tooltip" data-bs-placement="bottom" title="Necesita ayuda para mostrar esta habilidad" value="En progreso" />
-                                            <input id="d2" type="button" data-toggle="tooltip" data-bs-placement="bottom" title="Se desenvuelve bien sin ayuda" value="Autónomo" />
-                                            <input id="d3" type="button" data-toggle="tooltip" data-bs-placement="bottom" title="Es capaz de ayudar y enseñar a otros miembros del equipo" value="Fortaleza" />
-                                            <input id="d4" type="button" data-toggle="tooltip" data-bs-placement="bottom" title="No es requerida por la posición" value="No aplica" />
-                                        </div>
-                                    </div>
-                                    <input type="button" name="previous" class="previous action-button-previous" value="Anterior" />
-                                    <input type="button" name="make_payment" class="next action-button" value="Siguiente" />
-                                </fieldset>
-                                <fieldset id="tarj5">
-                                    <div class="form-card">
-                                        <h2 class="fs-title tituloAutoevaluacion">Autoevaluación</h2>
-                                        <div class="row mt-1">
-                                            <p class="h5">Capacidad para actuar en escenarios dinámicos, ambiguos e inciertos, buscando de manera permanente y proactiva, oportunidades para generar ideas y soluciones que agreguen valor a la organización, inspirando a los demás.</p>
-                                        </div>
-                                        <div class="button-container mt-2">
-                                            <input id="ee1" class="next2" disabled type="button" value="En progreso" />
-                                            <input id="ee2" class="next2" disabled type="button" value="Autónomo" />
-                                            <input id="ee3" class="next2" disabled type="button" value="Fortaleza" />
-                                            <input id="ee4" class="next2" disabled type="button" value="No aplica" />
-                                        </div>
-                                    </div>
-                                    <div class="form-card" id="card5">
-                                        <h2 class="fs-title tituloEvaluacion">Evaluación</h2>
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <p class="h5">
-                                                    Capacidad para actuar en escenarios dinámicos, ambiguos e inciertos, buscando de manera permanente y proactiva, oportunidades para generar ideas y soluciones que agreguen valor a la organización, inspirando a los demás.
-                                                    <button type="button" data-toggle="tooltip" data-bs-placement="bottom" title="Ver más" class="btn btn-sm btn-info btn-square" onclick="verMas(5);">
-                                                        <i class="fas fa-chevron-down"></i>
-                                                    </button>
-                                                </p>
-                                            </div>
-                                            <div class="col-12">
-                                                <p id="verMas5" style="display: none; color: black">
-                                                    1 -	Frente a situaciones dinámicas y cambiantes del entorno, se comporta de manera flexible y se adapta rápidamente. <br />
-                                                    2 -	Fomenta la experimentación en los demás, cuidando el impacto y poniendo en valor los aprendizajes del proceso. <br />
-                                                    3 -	Identifica procesos redundantes o inconsistentes y propone mejores alternativas. <br />
-                                                    4 -	Promueve, apoya y alienta a los demás en la implementación de nuevas ideas, métodos, herramientas, y/o tecnologías para mejorar los resultados.
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <div class="button-container mt-2">
-                                            <input id="e1" type="button" data-toggle="tooltip" data-bs-placement="bottom" title="Necesita ayuda para mostrar esta habilidad" value="En progreso" />
-                                            <input id="e2" type="button" data-toggle="tooltip" data-bs-placement="bottom" title="Se desenvuelve bien sin ayuda" value="Autónomo" />
-                                            <input id="e3" type="button" data-toggle="tooltip" data-bs-placement="bottom" title="Es capaz de ayudar y enseñar a otros miembros del equipo" value="Fortaleza" />
-                                            <input id="e4" type="button" data-toggle="tooltip" data-bs-placement="bottom" title="No es requerida por la posición" value="No aplica" />
-                                        </div>
-                                    </div>
-                                    <input type="button" name="previous" class="previous action-button-previous" value="Anterior" />
-                                    <input type="button" name="make_payment" class="next action-button" value="Siguiente" />
-                                </fieldset>
-                                <fieldset id="tarj6">
-                                    <div class="form-card">
-                                        <h2 class="fs-title tituloAutoevaluacion">Autoevaluación</h2>
-                                        <div class="row mt-1">
-                                            <p class="h5">Capacidad de entender y considerar el sistema completo en el que opera la organización, reconociendo las interconexiones y las interdependencias entre diferentes actores y procesos.</p>
-                                        </div>
-                                        <div class="button-container mt-2">
-                                            <input id="ff1" class="next2" disabled type="button" value="En progreso" />
-                                            <input id="ff2" class="next2" disabled type="button" value="Autónomo" />
-                                            <input id="ff3" class="next2" disabled type="button" value="Fortaleza" />
-                                            <input id="ff4" class="next2" disabled type="button" value="No aplica" />
-                                        </div>
-                                    </div>
-                                    <div class="form-card" id="card6">
-                                        <h2 class="fs-title tituloEvaluacion">Evaluación</h2>
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <p class="h5">
-                                                    Capacidad de entender y considerar el sistema completo en el que opera la organización, reconociendo las interconexiones y las interdependencias entre diferentes actores y procesos.
-                                                    <button type="button" data-toggle="tooltip" data-bs-placement="bottom" title="Ver más" class="btn btn-sm btn-info btn-square" onclick="verMas(6);">
-                                                        <i class="fas fa-chevron-down"></i>
-                                                    </button>
-                                                </p>
-                                            </div>
-                                            <div class="col-12">
-                                                <p id="verMas6" style="display: none; color: black">
-                                                    1 -	Conoce el propósito de la organización, su estrategia y el impacto de su trabajo en la misma. <br />
-                                                    2 - Conoce el ecosistema de negocios, sus interrelaciones y variables que operan en él. <br />
-                                                    3 -	Puede resolver problemas complejos, generando soluciones que agreguen valor a la compañía. <br />
-                                                    4 -	Conoce las necesidades y expectativas de clientes internos y externos; establece y mantiene buenas relaciones con los clientes; y realiza acciones para mejorar su experiencia. <br />
-                                                    5 -	Explora el mercado, sus condiciones y las tendencias de negocio, manteniéndose actualizado.
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <div class="button-container mt-2">
-                                            <input id="f1" type="button" data-toggle="tooltip" data-bs-placement="bottom" title="Necesita ayuda para mostrar esta habilidad" value="En progreso" />
-                                            <input id="f2" type="button" data-toggle="tooltip" data-bs-placement="bottom" title="Se desenvuelve bien sin ayuda" value="Autónomo" />
-                                            <input id="f3" type="button" data-toggle="tooltip" data-bs-placement="bottom" title="Es capaz de ayudar y enseñar a otros miembros del equipo" value="Fortaleza" />
-                                            <input id="f4" type="button" data-toggle="tooltip" data-bs-placement="bottom" title="No es requerida por la posición" value="No aplica" />
-                                        </div>
-                                    </div>
-                                    <input type="button" name="previous" class="previous action-button-previous" value="Anterior" />
-                                    <input type="button" name="make_payment" class="next action-button toast-btn" value="Siguiente" data-target="infoToast" />
-                                </fieldset>
-                                <fieldset id="tarj7">
-                                    <div class="form-card" id="card7">
-                                        <h2 class="fs-title">Performance</h2>
-                                        <div class="row mt-1">
-                                            <p class="h5">
-                                                A continuación, te invitamos a completar la valoración global de Performance del colaborador.<br />
-                                                El objetivo de esta instancia es integrar las valoraciones específicas de las habilidades clave que ya evaluaste para cada uno de tus colaboradores a cargo. <br />
-                                                Deberás considerar tanto los puntos fuertes como las áreas de mejora identificadas en cada habilidad.<br />
-                                                Considera el impacto del desempeño del colaborador en el éxito general del equipo y de la organización y cómo sus competencias han contribuido al logro de los objetivos.<br />
-                                                Procura que tu valoración global como Líder, refleje de manera justa y equilibrada el desempeño general del colaborador.
-                                            </p>
-                                        </div>
-                                        <div class="row mt-3">
-                                            <input id="g1" type="button" data-toggle="tooltip" data-bs-placement="bottom" title="No alcanza el desempeño requerido" value="Regular" />
-                                            <input id="g2" type="button" data-toggle="tooltip" data-bs-placement="bottom" title="Alcanza el desempeño mínimo requerido con asistencia" value="A nivel" />
-                                            <input id="g3" type="button" data-toggle="tooltip" data-bs-placement="bottom" title="Alcanza el desempeño de manera satisfactoria" value="Satisfactorio" />
-                                            <input id="g4" type="button" data-toggle="tooltip" data-bs-placement="bottom" title="Alcanza el desempeño, dando valor agregado" value="Destacado" />
-                                            <input id="g5" type="button" data-toggle="tooltip" data-bs-placement="bottom" title="Supera el desempeño requerido" value="Sobresaliente" />
-                                        </div>
-                                        <div class="form-card" id="comentariosCH">
+                                        <div class="form-card mt-5" id="comentariosCH">
                                             <h2 class="fs-title">Comentarios Capital Humano</h2>
-                                            <div class="row mt-3">
+                                            <div class="mt-3">
                                                 <textarea id="comentarios" name="comentarios" rows="4" cols="50" placeholder="Ingrese sus comentarios aquí..."></textarea>
                                             </div>
                                         </div>
+                                        <div class="container mt-3 pr-2">
+                                            <div class="row justify-content-center">
+                                                <div class="col-md-4 text-center">
+                                                    <a href="#" role="button" class="btn btn-info btn-sm" onclick="AbrirModalEnviar();" id="GuardarCalibración" style="width: auto;">Enviar</a>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <input type="button" name="previous" class="previous action-button-previous" value="Anterior" />
-                                    <input type="button" name="make_payment" class="action-button confirmar" onclick="AbrirModalEnviar()" value="Confirmar" />
-                                </fieldset>
-                            </form>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    @*modal preguntar si esta seguro *@
-    <div class="modal" id="modalDeseaEnviar" style="display: none!important; margin-top: 0%;">
-        <div class="modal-dialog" style="max-width: 900px!important;">
-            <div class="modal-content p-2">
-                <div class="row mb-3 m-2" style="justify-content:center">
-                    <p class="h4" style="margin-left: 0px; margin-right:0px;"> Recuerde que una vez enviado no podrá modificar su evaluación. ¿Desea enviar la evaluación a Capital Humano?</p>
-                </div>
-                <div class="row mb-3 pr-2">
-                    <div class="col-md-6">
-                        <a href="#" role="button" class="btn btn-danger btn-sm btn-block" onclick="CerrarModalEnviar();" id="CerrarModalEnviar" style="margin-left: 60%; width: 40%;">Cancelar</a>
+        @*modal preguntar si esta seguro *@
+        <div class="modal" id="modalDeseaEnviar" style="display: none!important; margin-top: 0%;">
+            <div class="modal-dialog" style="max-width: 900px!important;">
+                <div class="modal-content p-2">
+                    <div class="row mb-3 m-2" style="justify-content:center">
+                        <p class="h4" style="margin-left: 0px; margin-right:0px;"> Recuerde que una vez enviado no podrá modificar su calibración. ¿Desea confirmar la acción?</p>
                     </div>
-                    <div class="col-md-6">
-                        <a href="#" role="button" class="btn btn-info btn-sm btn-block" onclick="GuardarCalibracion();" id="GuardarCalibracion" style="width: 40%;">Enviar</a>
+                    <div class="row mb-3 pr-2">
+                        <div class="col-md-6">
+                            <a href="#" role="button" class="btn btn-danger btn-sm btn-block" onclick="CerrarModalEnviar();" id="CerrarModalEnviar" style="margin-left: 60%; width: 40%;">Cancelar</a>
+                        </div>
+                        <div class="col-md-6">
+                            <a href="#" role="button" class="btn btn-info btn-sm btn-block" onclick="GuardarCalibración();" id="GuardarCalibración" style="width: 40%;">Enviar</a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</main>
+    </main>
+    @*Estos links son para formularios (Si no van aca no funcionan)*@
+    <!-- DataTables JS CDN -->
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
+    <script>
+
+var perfil = "@perfil";
+var idUsuario = "@idUsuario";
+CargarDatos();
+        //BUSCAR DATOS
+function CargarDatos() {
+    var url = "/PerformanceApp/Api/PerformanceApp/buscarDatosPerformance?idPerformance=" + "@idPerformance" + "&perfil=" + "@perfil";
+    $.getJSON(url)
+        .done(function (datos) {
+            var tbody = $('#tablaPerformance tbody');
+            tbody.empty();  // Limpiar el cuerpo de la tabla antes de agregar nuevas filas
 
 
-<!--Estos links son para formularios (Si no van aca no funcionan)-->
-@*<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>*@
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script>
+            var habilidades = {};
 
-    $(document).ready(function () {
-
-        var current_fs, next_fs, previous_fs; //fieldsets
-        var opacity;
-
-        $(".next").click(function () {
-
-            current_fs = $(this).parent();
-            next_fs = $(this).parent().next();
-
-            //Add Class Active
-            $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
-
-            //show the next fieldset
-            next_fs.show();
-            //hide the current fieldset with style
-            current_fs.animate({ opacity: 0 }, {
-                step: function (now) {
-                    // for making fielset appear animation
-                    opacity = 1 - now;
-
-                    current_fs.css({
-                        'display': 'none',
-                        'position': 'relative'
-                    });
-                    next_fs.css({ 'opacity': opacity });
-                },
-                duration: 600
+            // Organizar los datos en un objeto por habilidades
+            datos.listDatosPerformance.forEach(function (data) {
+                var habilidad = data.nombreHabilidadAutoevaluacion || data.nombreHabilidadEvaluacion;
+                if (!habilidades[habilidad]) {
+                    habilidades[habilidad] = {
+                        calificacionAutoevaluacion: '',
+                        fechaCalificacionAutoevaluacion: '',
+                        calificacionEvaluacion: '',
+                        fechaCalificacionEvaluacion: ''
+                    };
+                }
+                if (data.nombreHabilidadAutoevaluacion) {
+                    habilidades[habilidad].calificacionAutoevaluacion = data.calificacionAutoevaluacion;
+                    habilidades[habilidad].fechaCalificacionAutoevaluacion = data.fechaCalificacionAutoevaluacion ? moment(data.fechaCalificacionAutoevaluacion).format('DD/MM/YYYY') : '';
+                }
+                if (data.nombreHabilidadEvaluacion) {
+                    habilidades[habilidad].calificacionEvaluacion = data.calificacionEvaluacion;
+                    habilidades[habilidad].fechaCalificacionEvaluacion = data.fechaCalificacionEvaluacion ? moment(data.fechaCalificacionEvaluacion).format('DD/MM/YYYY') : '';
+                }
+                //var ultimoDato = datos.length - 1;
+                var ano = datos.listDatosPerformance.length > 0 ? datos.listDatosPerformance[0].ano : null;
+                if (ano !== null) {
+                    $('#ano').text(ano);
+                }
+                var colaborador = datos.listDatosPerformance.length > 0 ? datos.listDatosPerformance[0].colaborador : null;
+                if (colaborador !== null) {
+                    $('#colaborador').text(colaborador);
+                }
+                var lider = datos.listDatosPerformance.length > 0 ? datos.listDatosPerformance[0].lider : null;
+                if (lider !== null) {
+                    $('#lider').text(lider);
+                }
+                var performance = datos.listDatosPerformance.length > 0 ? datos.listDatosPerformance[0].calificacionFinal : null;
+                if (performance !== null) {
+                    $('#performance').text("Performance:  " + performance);
+                }
+                if (@perfil != 127) {
+                    var comentario = datos.listDatosPerformance.length > 0 ? datos.listDatosPerformance[0].comentario : null;
+                    if (comentario !== null) {
+                        $('#comentario').html("<strong>Comentario Capital Humano:</strong> " + comentario);
+                    }
+                }
             });
+
+            // Crear las filas de la tabla
+            for (var habilidad in habilidades) {
+                if (habilidad != "null") {
+                    var row = '<tr>';
+                    row += '<td style="background-color: #fff; color: black; border-left: 1px solid #17AFB6; border-right: 1px solid #17AFB6; width: 30%;">' + habilidad + '</td>';
+                    row += '<td style="background-color: #fff; color: black; border-left: 1px solid #17AFB6; border-right: 1px solid #17AFB6; width: 20%;">' + (habilidades[habilidad].calificacionAutoevaluacion || '') + '</td>';
+                    row += '<td style="background-color: #fff; color: black; border-left: 1px solid #17AFB6; border-right: 1px solid #17AFB6; width: 15%;">' + (habilidades[habilidad].fechaCalificacionAutoevaluacion || '') + '</td>';
+                    row += '<td style="background-color: #fff; color: black; border-left: 1px solid #17AFB6; border-right: 1px solid #17AFB6; width: 20%;">' + (habilidades[habilidad].calificacionEvaluacion || '') + '</td>';
+                    row += '<td style="background-color: #fff; color: black; border-left: 1px solid #17AFB6; border-right: 1px solid #17AFB6; width: 15%;">' + (habilidades[habilidad].fechaCalificacionEvaluacion || '') + '</td>';
+                    row += '</tr>';
+
+                    tbody.append(row);
+                }
+            }
+
+            if (datos.idCalificacionFinal != 0 && datos.idCalificacionFinal != null) {
+                var idBoton = 'g' + datos.idCalificacionFinal;
+                $('#' + idBoton).addClass('selected');
+            }
+
         });
+}
 
-        $(".previous").click(function () {
-
-            current_fs = $(this).parent();
-            previous_fs = $(this).parent().prev();
-
-            //Remove class active
-            $("#progressbar li").eq($("fieldset").index(current_fs)).removeClass("active");
-
-            //show the previous fieldset
-            previous_fs.show();
-
-            //hide the current fieldset with style
-            current_fs.animate({ opacity: 0 }, {
-                step: function (now) {
-                    // for making fielset appear animation
-                    opacity = 1 - now;
-
-                    current_fs.css({
-                        'display': 'none',
-                        'position': 'relative'
-                    });
-                    previous_fs.css({ 'opacity': opacity });
-                },
-                duration: 600
-            });
-        });
-
-        $('.radio-group .radio').click(function () {
-            $(this).parent().find('.radio').removeClass('selected');
-            $(this).addClass('selected');
-        });
-
-        $(".submit").click(function () {
-            return false;
-        })
-
-    });
-
-    //funcion para que ande el popover
+    //Funcion para que ande el popover
     $(document).ready(function () {
         $('[data-toggle="popover"]').popover();
     });
@@ -808,203 +591,67 @@
     $(document).ready(function () {
         $('[data-toggle="tooltip"]').tooltip();
     });
-    //Active para navbar
-    $(document).ready(function () {
-        $('#navFormB').addClass('active');
-    });
-    //VOLVER
-    function volverAtras() {
-        window.history.back();
-    }
-// Función para manejar clic en botones
-$('input[type="button"]').click(function () {
-    var calificacion = $(this).val(); // Obtener el valor del botón
-    var idCalificacion = $(this).attr('id'); // Obtener el ID del botón
-    var idHabilidad = $(this).closest('.form-card').attr('id'); // Obtener el ID de la tarjeta
-    var tarjetaHabilidad = idCalificacion ? idCalificacion.substring(0, 1) : null; // Obtener la categoría del botón (primer carácter del id)
 
-    // Eliminar la selección anterior en la misma tarjeta y categoría
-    if (tarjetaHabilidad) {
-        $('#' + idHabilidad + ' input[id^="' + tarjetaHabilidad + '"]').removeClass('selected');        }
-
-    $(this).addClass('selected');   // Agregar clase 'selected' al botón clicado
-
-    localStorage.setItem(idHabilidad, JSON.stringify({ calificacion: calificacion, idCalificacion: idCalificacion }));  // Guardar la selección y el ID del botón en localStorage
-});
-
-    //Modal
-    function AbrirModalEnviar() {
-        VerificarDatos();
-
-    }
-    function CerrarModalEnviar() {
-        $('#modalDeseaEnviar').hide();
-    }
-
-function GuardarCalibracion() {
-    document.querySelector('input.next').click();
-    var detalleEvaluacion = {};
-    $('#modalDeseaEnviar').hide();
-    // Obtener las selecciones guardadas en localStorage
-    $('.form-card').each(function () {
-        var cardId = $(this).attr('id');
-        if (cardId) { // Verificar si el ID de la tarjeta es válido
-            var storedData = localStorage.getItem(cardId);
-            if (storedData) {
-                var data = JSON.parse(storedData);
-                // Agregar la selección al objeto de detalleAutoevaluacion
-                if (cardId.charAt(cardId.length - 1) == 7) {
-                    detalleEvaluacion['calificacionFinal'] = data.calificacion;
-                }
-                else {
-                    detalleEvaluacion['Habilidad' + cardId.charAt(cardId.length - 1)] = data.calificacion;
-                }
-
-            }
+        //VOLVER
+        function volverAtras() {
+            window.history.back();
         }
-    });
 
-    // Agregar el ID de usuario
-    detalleEvaluacion.idResponsable = "@idUsuario";
-    detalleEvaluacion.idPerformance = "@idPerformance";
-    detalleEvaluacion.nombreUsuario = localStorage.getItem('nombreUsuario');
-    detalleEvaluacion.comentario = $("#comentarios").val();
-
-    // Realizar la solicitud AJAX
-    $.ajax({
-        type: "POST",
-        url: "/PerformanceApp/Api/PerformanceApp/GuardarCalibracion",
-        data: detalleEvaluacion,
-        dataType: "json",
-        success: function (response) {
-            if (response == 0) {
-                // Error al guardar
-                alert("Error al guardar la calibración");
-                console.log("Error al guardar la calibración");
-            } else {                // Éxito al guardar
-
-                alert("Evaluación guardada con éxito");
-                var url = "/PerformanceApp/Index?perfil=" + 0 + "&idUsuario=" + 0;
-                window.location.href = url;
-            }
-        },
-        error: function (jqxhr) {
-            // Error en la solicitud AJAX
-            console.log("Error en la solicitud AJAX:", jqxhr);
+        function getSelectedCalificacion() {
+            const selectedInput = document.querySelector('.container-calificacion .calificacion.selected');
+            return selectedInput ? selectedInput.value : null;
         }
-    });
-    }
-    function buscarPerformance() {
-        var url = "Api/PerformanceApp/buscarPerformance?idPerformance=" + 2003;
-        $.getJSON(url)
-            .done(function (data) {
-                console.log(data);
 
-            });
-    }
-    CargarDatos();
-    function CargarDatos() {
-        var url = "/PerformanceApp/Api/PerformanceApp/buscarDatosPerformance?idPerformance=" + "@idPerformance"+ "&perfil=" + "@perfil";
-        $.getJSON(url)
-        .done(function (datos) {
-            datos.forEach(function (data) {
-                var habilidadesMap = {
-                    1: "aa",
-                    2: "bb",
-                    3: "cc",
-                    4: "dd",
-                    5: "ee",
-                    6: "ff"
-                };
+        function GuardarCalibración() {
+            var detalleEvaluacion = {};
+            $('#modalDeseaEnviar').hide();
 
-                // recorrer las habilidades
-                for (var i = 1; i <= 6; i++) {
-                    var habilidad = habilidadesMap[i];
+            var botonSeleccionado = document.querySelector('.calificacion.selected').value;
 
-                    var selector = "#" + habilidad + data.idCalificacionAutoevaluacion;
-
-                    if (data.idHabilidadAutoevaluacion == i) {
-                        $(selector).addClass("selected");
+            // Agregar el ID de usuario
+            detalleEvaluacion.idResponsable = "@idUsuario";
+            detalleEvaluacion.idPerformance = "@idPerformance";
+            detalleEvaluacion.nombreUsuario = localStorage.getItem('nombreUsuario');
+            detalleEvaluacion.calificacionFinal = botonSeleccionado;
+            const textarea = document.getElementById('comentarios');
+            detalleEvaluacion.comentario = textarea.value;
+            // Realizar la solicitud AJAX
+            $.ajax({
+                type: "POST",
+                url: "/PerformanceApp/Api/PerformanceApp/GuardarCalibracion",
+                data: detalleEvaluacion,
+                dataType: "json",
+                success: function (response) {
+                    if (response == 0) {
+                        // Error al guardar
+                        alert("Error al guardar la calibración");
+                        console.log("Error al guardar la calibración");
+                    } else {
+                        alert("calibración guardada con éxito");
+                        var url = "/PerformanceApp/Index?perfil=" + '' + "&idUsuario=" + '';
+                        window.location.href = url;
                     }
-                }
-                var habilidadesMap = {
-                    1: "a",
-                    2: "b",
-                    3: "c",
-                    4: "d",
-                    5: "e",
-                    6: "f"
-                };
-
-                // recorrer las habilidades
-                for (var i = 1; i <= 6; i++) {
-                    var habilidad = habilidadesMap[i];
-
-                    var selector = "#" + habilidad + data.idCalificacionEvaluacion;
-
-                    if (data.idHabilidadEvaluacion == i) {
-                        $(selector).addClass("selected");
-                    }
-                }
-                //calificacion final
-                if (data.idCalificacionFinal != null) {
-                    var selector = "#g" + data.idCalificacionFinal;
-                    $(selector).addClass("selected");
+                },
+                error: function (jqxhr) {
+                    // Error en la solicitud AJAX
+                    console.log("Error en la solicitud AJAX:", jqxhr);
                 }
             });
-            //agrega el nombre del colaborador
-            const elementos = document.querySelectorAll('.tituloAutoevaluacion');
-            elementos.forEach(elemento => {
-                elemento.textContent += " de " + datos[0].colaborador;
-            });
-            //agrega el nombre del colaborador primera
-            const elementos2 = document.querySelectorAll('.hola');
-            elementos2.forEach(elemento => {
-                elemento.textContent += " de " + datos[0].colaborador;
-            });
-            //agrega el nombre del lider
-            const elementos3 = document.querySelectorAll('.tituloEvaluacion');
-            elementos3.forEach(elemento => {
-                elemento.textContent += " de " + datos[0].nombreJefe + ", Calibrar.";
-            });
-        });
-
-    }
-
-    ///VER MAS DETALLE
-    function verMas(i) {
-        var masTexto = document.getElementById("verMas" + i);
-        if (masTexto.style.display === "none") {
-            masTexto.style.display = "block";
-        } else {
-            masTexto.style.display = "none";
-        }
-    }
-    function VerificarDatos() {
-        var todasLasTarjetasCompletas = true;
-
-        //tarjetas
-        for (var i = 1; i <= 7; i++) {
-            var tarjetaCompleta = false;
-            var selector = '#tarj' + i;
-            // verificar si hay una selección en la tarjeta actual (excluyendo los botones de "Siguiente" y "Volver")
-            if ($(selector).find('input[type="button"].selected').not('.next, .previous, .next2').length > 0) {
-                tarjetaCompleta = true;
-            }
-
-            if (!tarjetaCompleta) {
-                //$('#confirmar').addClass('next');
-                todasLasTarjetasCompletas = false;
-                break;
-
-            }
         }
 
-        if (!todasLasTarjetasCompletas) {
-            alert('Falta completar una o más tarjetas.');
-        } else {
+        function AbrirModalEnviar() {
             $('#modalDeseaEnviar').show();
         }
-    }
+        function CerrarModalEnviar() {
+            $('#modalDeseaEnviar').hide();
+        }
 
-</script>
+        $('input[type="button"]').click(function () {
+            var calificacion = $(this).val(); // Obtener el valor del botón
+            var idCalificacion = $(this).attr('id'); // Obtener el ID del botón
+            $('input[type="button"]').removeClass('selected');
+            $(this).addClass('selected');
+        });
+    </script>
+</body>
+</html>
