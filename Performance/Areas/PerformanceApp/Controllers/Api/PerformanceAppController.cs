@@ -609,6 +609,28 @@ namespace Performance.Areas.PerformanceApp.Controllers.Api
             var tmp = _servicio.ListarHabilidades();
             return tmp;
         }
+        [System.Web.Http.Route("Api/PerformanceApp/GuardarObjetivo")]
+        [System.Web.Http.ActionName("GuardarObjetivo")]
+        [System.Web.Http.HttpPost]
+        public int GuardarObjetivo(PDIObjetivosVM objetivo)
+        {
+            try
+            {
+                using (var db = new PerformanceEntities())
+                {
+                    Servicios.ServicioPerformance _servicio = new Servicios.ServicioPerformance();
+
+                    var tmp = _servicio.GuardarObjetivo(objetivo);
+                
+                    return tmp;
+                }
+
+            }
+            catch (Exception e)
+            {
+                return 0;
+            }
+        }
         public class DataTableRequestModel
         {
             public int draw { get; set; }
