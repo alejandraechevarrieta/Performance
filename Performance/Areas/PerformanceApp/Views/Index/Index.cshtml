@@ -321,6 +321,122 @@
             background-color: #17afb629;
         }
 
+        .step-progress {
+            width: 300px;
+            position: relative;
+            left: 10%;
+        }
+
+        .step {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            position: relative;
+            height: 80px;
+        }
+
+        .step-number {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid #bbbbbb;
+            background-color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 18px;
+            color: #9f9f9f;
+            font-weight: bold;
+            position: relative;
+            z-index: 1;
+            margin-left: 20px;
+        }
+
+            .step-number::after {
+                content: '';
+                position: absolute;
+                width: 14px;
+                height: 14px;
+                background-color: #bbbbbb;
+                border-radius: 50%;
+                z-index: 2;
+            }
+
+        .step.completed .step-number {
+            border: 2px solid #4caf50;
+            color: #4caf50;
+        }
+
+            .step.completed .step-number::after {
+                background-color: #4caf50;
+            }
+
+        .step-description {
+            font-size: 16px;
+            color: #333;
+            position: absolute;
+            width: 180px;
+        }
+
+        .step-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .step-subtitle {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .step-description.left {
+            left: -170px;
+        }
+
+        .step-description.right {
+            left: 70px;
+        }
+
+        .step::before {
+            content: '';
+            position: absolute;
+            width: 4px;
+            height: 100%;
+            background-color: #ccc;
+            left: 38px;
+            top: 0;
+            z-index: 0;
+        }
+
+        .step.completed::before {
+            background-color: #4caf50;
+        }
+
+        .step:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            width: 4px;
+            height: 100%;
+            background-color: #ccc;
+            left: 38px;
+            top: 50%;
+            z-index: 0;
+        }
+
+        .step.completed:not(:last-child)::after {
+            background-color: #4caf50;
+        }
+
+        .step:first-child::before {
+            top: 50%;
+        }
+
+        .progressVertical {
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+        }
     </style>
 
 
@@ -331,10 +447,10 @@
     <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg">
         @if (Convert.ToInt32(perfil) == 127 || Convert.ToInt32(perfil) == 128)
         {
-        <div style="margin-left: 2.5%; margin-block: 0.5%">
-            <button id="instructivo" class="btn btn-secondary" onclick="DescargarInstructivo()" title="Instructivo" aria-label="Instructivo"> <i class=" fa fa-info-circle "></i></button>
-            <button id="abrirModalBtn" class="btn btn-primary" title="Instructivo" aria-label="Instructivo"> <i class=" fa fa-video-camera"></i></button>           
-        </div>
+            <div style="margin-left: 2.5%; margin-block: 0.5%">
+                <button id="instructivo" class="btn btn-secondary" onclick="DescargarInstructivo()" title="Instructivo" aria-label="Instructivo"> <i class=" fa fa-info-circle "></i></button>
+                <button id="abrirModalBtn" class="btn btn-primary" title="Instructivo" aria-label="Instructivo"> <i class=" fa fa-video-camera"></i></button>
+            </div>
         }
         @if (Convert.ToInt32(perfil) == 129)
         {
@@ -575,23 +691,17 @@
                 </video>
             </div>
         </div>
-        <div class="modal" id="modalProgressBar" style="display: none!important; overflow-y:hidden; margin-top: 0%;">
+        <div class="modal" id="modalProgressBar" style="display: none!important; overflow-x: hidden; overflow-y:hidden; margin-top: 0%;">
             <div class="modal-dialog" style="max-width: 900px !important; max-height: 600px !important;">
                 <div class="modal-content" style="">
-                    <div class="modal-body">
-                        <div class="row" style="text-align: center">
-                            <div class="tracking">
-                                <div class="title">Historial de Performance</div>
-                            </div>
-                            <div class="progress-track" style="width: 100%">
-                                <ul id="progressbar" style="width: 100%">
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="row" style="text-align: center; justify-content: end">
-                            <div class="col-md-6" style="margin-right: 30px;">
-                                <a href="#" role="button" class="btn btn-danger btn-sm btn-block" onclick="CerrarModalHistorial();" id="CerrarModalHistorial" style="margin-left: 60%; margin-right: 0; width: 40%;">Cerrar</a>
-                            </div>
+                    <button type="button" class="btn-close text-dark" style="position: absolute; top: 0px; right: 10px; font-size: 1.5rem;" data-bs-dismiss="modal" aria-label="Close" onclick="CerrarModalHistorial();">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <div class="tracking" style="width: 100%; text-align: center;">
+                        <div class="step-title">Historial de Performance</div>
+                    </div>
+                    <div class="modal-body progressVertical" style="overflow-y: auto; max-height: 500px;">
+                        <div id="historialBar" class="step-progress">
                         </div>
                     </div>
                 </div>
@@ -1570,6 +1680,9 @@ if(perfil == 129){
             var url = 'Api/PerformanceApp/CambiarEstado';
             url = url + "?idPerformance=" + idPerformance;
             url = url + "&estado=" + estado;
+            url = url + "&idUsuario=" + @idUsuario;
+            url = url + "&nombreUsuario=" + localStorage.getItem('nombreUsuario');
+
             $.getJSON(url)
                 .done(function (data) {
                     ListarPerformance();
@@ -1581,20 +1694,39 @@ if(perfil == 129){
             $('#progressbar').empty();
             $('#modalProgressBar').hide();
         }
+        function CerrarModalHistorial() {
+            $('#historialBar').empty();
+            $('#modalProgressBar').hide();
+        }
         function CargarHistoria(idPerformanceHistorial) {
             var url = "Api/PerformanceApp/listarHistorial?idPerformance=" + idPerformanceHistorial + "&idUsuario=" + @idUsuario;
             $('#modalProgressBar').show();
+            var contador = 1;
             $.getJSON(url)
                 .done(function (data) {
                     $.each(data, function (index, result) {
-                        var item = '<li class="step0 active " id="step1">';
-                        item += '<div>' + result.estadoStr;
-                        item += " " + moment(result.fechaCambio).format("DD/MM/YYYY") + "<br>" + result.nombreUsuario;
-                        item += "</li>"
-                        $('#progressbar').append(item);
+                        var item = '<div class="step completed">';
+                        if (contador % 2 !== 0) { // Verificar si el contador es impar
+                            item += '<div class="step-description left">' + '<div class="step-title">' + result.nombreUsuario + '</div>';
+                            item += '<div class="step-subtitle">' + moment(result.fechaCambio).format("DD/MM/YYYY") + ' ' + result.estadoStr + '</div>';
+                            item += "</div>";
+                            item += '<div class="step-number">1</div>';
+                            item += "</div>"
+                        } else {
+                            item += '<div class="step-description right">' + '<div class="step-title">' + result.nombreUsuario + '</div>';
+                            item += '<div class="step-subtitle">' + moment(result.fechaCambio).format("DD/MM/YYYY") + ' ' + result.estadoStr + '</div>';
+                            item += "</div>";
+                            item += '<div class="step-number">1</div>';
+                            item += "</div>"
+                        }
+                        
+                        
+                        $('#historialBar').append(item);
+
+                        contador++;
                     });
                     if (data.length > 0) {
-                        $('#progressbar').append('<li class="step1" id="step2"><div>' + '</div></li>');
+                        $('#historialBar').append('<div class="step"><div class="step-description left"></div ><div class="step-number">3</div></div>');
                     }
                     
                 });
