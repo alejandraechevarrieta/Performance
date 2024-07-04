@@ -108,62 +108,62 @@
                     <div></div>
                     <div class="row" style="margin-top: 20px;">
                         <p class="h4" id="datosColaborador" style="text-align: center;"></p>
-                        <div class="row" style="margin-top: 20px;" id="formPDI" style="display:none;">
-                            <div class="separator"> </div>
-                            <div class="titulo3">
-                                MAPA DE ACCIONES DE DESARROLLO: Clasificalas en 70% - 20% - 10%
-                            </div>
-                            <div class="separator"> </div>
-                            <div class="col-md-6">
-                                <label>Título del Objetivo:</label>
-                                <input type="text" class="form-control requeridoPDI" id="objetivoT" />
-                            </div>
-                            <div class="col-md-3">
-                                <label>Tipo de acción:</label>
-                                <div></div>
-                                <div style="font-weight: normal !important;">
-                                    <select class="form-control requeridoPDI" id="selectTipoAccion"></select>
+                        <div class="row" style="margin-top: 20px; display: none;" id="formPDI">                           
+                                <div class="separator"> </div>
+                                <div class="titulo3">
+                                    MAPA DE ACCIONES DE DESARROLLO: Clasificalas en 70% - 20% - 10%
                                 </div>
-                            </div>
-                            <div class="col-md-3">
-                                <label>Habilidad:</label>
-                                <div></div>
-                                <div style="font-weight: normal !important;">
-                                    <select class="form-control requeridoPDI" id="selectHabilidad"></select>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <label>Descripción del Objetivo:</label>
-                                <input type="text" class="form-control requeridoPDI" id="objetivoD" />
-                            </div>
-                            <div class="col-md-2">
-                                <label>Fecha Desde</label>
-                                <input type="date" class="form-control requeridoPDI" id="fechaDesde">
-                            </div>
-                            <div class="col-md-2">
-                                <label>Fecha Hasta</label>
-                                <input type="date" class="form-control requeridoPDI" id="fechaHasta" onblur="VerificarFechas()">
-                            </div>
-                            <div class="col-md-2">
-                                <label>Status:</label>
-                                <div></div>
-                                <div style="font-weight: normal !important;">
-                                    <select class="form-control requeridoPDI" id="selectStatus"></select>
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <label>Acciones realizadas:</label>
-                                <input type="text" class="form-control" id="accionRealizada" />
-                            </div>
-                            <div class="row mb-3 pr-2 mt-3">
+                                <div class="separator"> </div>
                                 <div class="col-md-6">
-                                    <a href="#" role="button" class="btn btn-danger btn-sm btn-block" onclick="vaciarObjetivo();" style="margin-left: 70%; width: 30%;">Cancelar</a>
+                                    <label>Título del Objetivo:</label>
+                                    <input type="text" class="form-control requeridoPDI" id="objetivoT" />
+                                </div>
+                                <div class="col-md-3">
+                                    <label>Tipo de acción:</label>
+                                    <div></div>
+                                    <div style="font-weight: normal !important;">
+                                        <select class="form-control requeridoPDI" id="selectTipoAccion"></select>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <label>Habilidad:</label>
+                                    <div></div>
+                                    <div style="font-weight: normal !important;">
+                                        <select class="form-control requeridoPDI" id="selectHabilidad"></select>
+                                    </div>
                                 </div>
                                 <div class="col-md-6">
-                                    <a href="#" role="button" class="btn btn-info btn-sm btn-block" onclick="ValidarDatosFaltantes();" id="guardarPDI" style="margin-left: 10%; width: 30%;">Guardar</a>
+                                    <label>Descripción del Objetivo:</label>
+                                    <input type="text" class="form-control requeridoPDI" id="objetivoD" />
+                                </div>
+                                <div class="col-md-2">
+                                    <label>Fecha Desde</label>
+                                    <input type="date" class="form-control requeridoPDI" id="fechaDesde">
+                                </div>
+                                <div class="col-md-2">
+                                    <label>Fecha Hasta</label>
+                                    <input type="date" class="form-control requeridoPDI" id="fechaHasta" onblur="VerificarFechas()">
+                                </div>
+                                <div class="col-md-2">
+                                    <label>Status:</label>
+                                    <div></div>
+                                    <div style="font-weight: normal !important;">
+                                        <select class="form-control requeridoPDI" id="selectStatus"></select>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <label>Acciones realizadas:</label>
+                                    <input type="text" class="form-control" id="accionRealizada" />
+                                </div>
+                                <div class="row mb-3 pr-2 mt-3">
+                                    <div class="col-md-6">
+                                        <a href="#" role="button" class="btn btn-danger btn-sm btn-block" onclick="vaciarObjetivo();" style="margin-left: 70%; width: 30%;">Cancelar</a>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <a href="#" role="button" class="btn btn-info btn-sm btn-block" onclick="ValidarDatosFaltantes();" id="guardarPDI" style="margin-left: 10%; width: 30%;">Guardar</a>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
                             <div class="separator"> </div>
                             <div class="titulo3" style="margin-left:35%;">
                                 OBJETIVOS Y ACCIONES PROPUESTOS
@@ -201,9 +201,9 @@ function CargarDatos() {
                 // Actualiza los valores de colaborador, líder y dominio
                 $("#datosColaborador").text("Colaborador: " + datosPersonales.colaborador + "  -  Líder: " + datosPersonales.lider + "  -  Dominio: " + datosPersonales.dominio + ".");
 
-                @*if (datosPersonales.idUsuario == @idUsuario) {
+                if (datosPersonales.idUsuario == @idUsuario) {                   
                     $('#formPDI').show();
-                }*@
+                }
 
                 var htmlObjetivos = `
                     <div class="item">
