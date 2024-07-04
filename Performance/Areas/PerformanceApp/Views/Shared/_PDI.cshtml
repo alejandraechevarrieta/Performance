@@ -10,7 +10,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title</title>
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">    
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdn.datatables.net/1.12.0/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
@@ -18,8 +18,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />   
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>    
     <style>
         * {
             margin: 0;
@@ -40,10 +40,10 @@
         }
 
         .separator {
-            margin-top: 20px; /* Ajustar el margen superior según sea necesario */
+            margin-top: 10px !important;
+            margin-block: 10px !important;
             margin: 0 auto; /* Eliminar los márgenes laterales y centrar el separador */
             border-bottom: 3px solid #7380C4; /* Aumentar el grosor del borde inferior */
-            padding: 10px 10px; /* Aumentar el espacio interior del separador */
             color: #034;
             clear: both;
         }
@@ -61,14 +61,24 @@
             font-size: 20px;
             margin-left: 260px;
         }
-
-        .separator {
-            margin-top: 20px; /* Ajustar el margen superior según sea necesario */
-            margin: 0 auto; /* Eliminar los márgenes laterales y centrar el separador */
-            border-bottom: 3px solid #7380C4; /* Aumentar el grosor del borde inferior */
-            padding: 10px 10px; /* Aumentar el espacio interior del separador */
-            color: #034;
-            clear: both;
+        #mensajeGuardado {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 600px; /* Ajusta el ancho del cuadro */
+            height: 70px; /* Ajusta la altura del cuadro */
+            background-color: #aff5aa;
+            color: #15161a;
+            padding: 10px; /* Ajusta el relleno interno */
+            border: 1px solid #aff5aa;
+            border-radius: 5px;
+            z-index: 1000;
+            text-align: center; /* Centra el texto dentro del cuadro */
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
     </style>
 
@@ -98,71 +108,75 @@
                     <div></div>
                     <div class="row" style="margin-top: 20px;">
                         <p class="h4" id="datosColaborador" style="text-align: center;"></p>
-                        <div class="separator"> </div>
-                        <div class="titulo3">
-                            MAPA DE ACCIONES DE DESARROLLO: Clasificalas en 70% - 20% - 10%
-                        </div>
-                        <div class="separator"> </div>
-                        <div class="col-md-6">
-                            <label>Título del Objetivo:</label>
-                            <input type="text" class="form-control requeridoPDI" id="objetivoT" />
-                        </div>
-                        <div class="col-md-3">
-                            <label>Tipo de acción:</label>
-                            <div></div>
-                            <div style="font-weight: normal !important;">
-                                <select class="form-control" id="selectTipoAccion"></select>
+                        <div class="row" style="margin-top: 20px; display: none;" id="formPDI">                           
+                                <div class="separator"> </div>
+                                <div class="titulo3">
+                                    MAPA DE ACCIONES DE DESARROLLO: Clasificalas en 70% - 20% - 10%
+                                </div>
+                                <div class="separator"> </div>
+                                <div class="col-md-6">
+                                    <label>Título del Objetivo:</label>
+                                    <input type="text" class="form-control requeridoPDI" id="objetivoT" />
+                                </div>
+                                <div class="col-md-3">
+                                    <label>Tipo de acción:</label>
+                                    <div></div>
+                                    <div style="font-weight: normal !important;">
+                                        <select class="form-control requeridoPDI" id="selectTipoAccion"></select>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <label>Habilidad:</label>
+                                    <div></div>
+                                    <div style="font-weight: normal !important;">
+                                        <select class="form-control requeridoPDI" id="selectHabilidad"></select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Descripción del Objetivo:</label>
+                                    <input type="text" class="form-control requeridoPDI" id="objetivoD" />
+                                </div>
+                                <div class="col-md-2">
+                                    <label>Fecha Desde</label>
+                                    <input type="date" class="form-control requeridoPDI" id="fechaDesde">
+                                </div>
+                                <div class="col-md-2">
+                                    <label>Fecha Hasta</label>
+                                    <input type="date" class="form-control requeridoPDI" id="fechaHasta" onblur="VerificarFechas()">
+                                </div>
+                                <div class="col-md-2">
+                                    <label>Status:</label>
+                                    <div></div>
+                                    <div style="font-weight: normal !important;">
+                                        <select class="form-control requeridoPDI" id="selectStatus"></select>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <label>Acciones realizadas:</label>
+                                    <input type="text" class="form-control" id="accionRealizada" />
+                                </div>
+                                <div class="row mb-3 pr-2 mt-3">
+                                    <div class="col-md-6">
+                                        <a href="#" role="button" class="btn btn-danger btn-sm btn-block" onclick="vaciarObjetivo();" style="margin-left: 70%; width: 30%;">Cancelar</a>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <a href="#" role="button" class="btn btn-info btn-sm btn-block" onclick="ValidarDatosFaltantes();" id="guardarPDI" style="margin-left: 10%; width: 30%;">Guardar</a>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-3">
-                            <label>Habilidad:</label>
-                            <div></div>
-                            <div style="font-weight: normal !important;">
-                                <select class="form-control" id="selectHabilidad"></select>
+                            <div class="separator"> </div>
+                            <div class="titulo3" style="margin-left:35%;">
+                                OBJETIVOS Y ACCIONES PROPUESTOS
                             </div>
-                        </div>
-                        <div class="col-md-6">
-                            <label>Descripción del Objetivo:</label>
-                            <input type="text" class="form-control requeridoPDI" id="objetivoD" />
-                        </div>
-                        <div class="col-md-2">
-                            <label>Fecha Desde</label>
-                            <input type="date" class="form-control" id="fechaDesde">
-                        </div>
-                        <div class="col-md-2">
-                            <label>Fecha Hasta</label>
-                            <input type="date" class="form-control" id="fechaHasta">
-                        </div>
-                        <div class="col-md-2">
-                            <label>Status:</label>
-                            <div></div>
-                            <div style="font-weight: normal !important;">
-                                <select class="form-control" id="selectStatus"></select>
+                            <div class="separator"> </div>
+                            <div id="objetivosList">
                             </div>
-                        </div>
-                        <div class="col-md-12">
-                            <label>Acciones realizadas:</label>
-                            <input type="text" class="form-control requeridoPDI" id="accionRealizada" />
-                        </div>
-                        <div class="row mb-3 pr-2 mt-3">
-                            <div class="col-md-6">
-                                <a href="#" role="button" class="btn btn-danger btn-sm btn-block" onclick="volverAtras();" id="CerrarModalPDI" style="margin-left: 70%; width: 30%;">Cancelar</a>
-                            </div>
-                            <div class="col-md-6">
-                                <a href="#" role="button" class="btn btn-info btn-sm btn-block" onclick="GuardarPDI();" id="guardarPDI" style="margin-left: 10%; width: 30%;">Guardar</a>
-                            </div>
-                        </div>
-                        <div class="separator"> </div>
-                        <div class="titulo3" style="margin-left:35%;">
-                            OBJETIVOS Y ACCIONES PROPUESTOS
-                        </div>
-                        <div class="separator"> </div>
-                        <div id="objetivosList">
-                        </div>
-                    </div><br />                   
-                </div>
+                        </div><br /> <br />
+                    </div>
             </div>
         </div>
+        <div id="mensajeGuardado" style="display:none;">Guardado con éxito</div>
+
     </main>
     @*Estos links son para formularios (Si no van aca no funcionan)*@
     <!-- DataTables JS CDN -->
@@ -177,23 +191,39 @@
         CargarStatus();
         CargarHabilidades();
         //BUSCAR DATOS
-        function CargarDatos() {
+function CargarDatos() {
     var url = "/PerformanceApp/Api/PerformanceApp/buscarDatosPDI?idUsuario=" + "@idUsuario" + "&idPerformance=" + "@idPerformance";
     $.getJSON(url)
         .done(function (datos) {
+            $("#objetivosList").empty();
             datos.forEach(function (data) {
-                $("#datosColaborador").text("Colaborador: " + data.colaborador + "  -  Líder: " + data.lider + "  -  Dominio: " + data.dominio + ".");
+                var datosPersonales = datos[0];
+                // Actualiza los valores de colaborador, líder y dominio
+                $("#datosColaborador").text("Colaborador: " + datosPersonales.colaborador + "  -  Líder: " + datosPersonales.lider + "  -  Dominio: " + datosPersonales.dominio + ".");
+
+                if (datosPersonales.idUsuario == @idUsuario) {                   
+                    $('#formPDI').show();
+                }
 
                 var htmlObjetivos = `
                     <div class="item">
-                        <p>-Título del Objetivo: ${data.objetivo}</p> 
-                        <p>-Descripción del Objetivo: ${data.objetivoDescripcion}</p> 
-                        <p>Habilidad relacionada: ${data.nombreHabilidad} - Fecha Desde: ${data.fechaDesde} - Fecha Hasta: ${data.fechaHasta} - Status: ${data.nombreStatus}</p>                       
-                        <p>Acciones Realizadas: ${data.accionesRealizadas}</p>
+                        <p><strong>-Título del Objetivo:</strong> ${data.objetivo}</p>
+                        <p><strong>-Descripción del Objetivo:</strong> ${data.objetivoDescripcion}</p>
+                        <p>- <strong>Tipo de Acción:</strong> ${data.nombreTipoAccion} &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; - <strong>Habilidad relacionada:</strong> ${data.nombreHabilidad} &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; - <strong>Status:</strong> ${data.nombreStatus} </p>
+                        <p>- <strong>Fecha Desde:</strong> ${moment(data.fechaDesde).format('DD/MM/YYYY')} &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; - <strong>Fecha Hasta:</strong> ${moment(data.fechaHasta).format('DD/MM/YYYY')}</p>
+                        <p><strong>-Acciones Realizadas:</strong> ${data.accionesRealizadas ? data.accionesRealizadas : ''}</p>
                         <div class="separator"> </div>
                     </div>
-                `;               
-                $("#objetivosList").append(htmlObjetivos);           
+                    `;
+
+                var htmlVacio = `
+                    <div class="item">
+                        <p></p> <br /><br />
+                    </div>
+                `;
+                if (data.objetivo != null) {
+                    $("#objetivosList").append(htmlObjetivos);
+                }
             });
         });
 }
@@ -248,14 +278,99 @@
                 });
         }
 
-    //Funcion para que ande el popover
-    $(document).ready(function () {
-        $('[data-toggle="popover"]').popover();
-    });
-    //Funcion para que ande el tooltip
-    $(document).ready(function () {
-        $('[data-toggle="tooltip"]').tooltip();
-    });
+        function GuardarObjetivo() {
+            var objetivoDetalle = new Object();
+
+            objetivoDetalle.idUsuario = idUsuario;
+            objetivoDetalle.tipoAccion = $("#selectTipoAccion").val();
+            objetivoDetalle.habilidad = $("#selectHabilidad").val();
+            objetivoDetalle.objetivo = $("#objetivoT").val();
+            objetivoDetalle.objetivoDescripcion = $("#objetivoD").val();
+            objetivoDetalle.fechaDesde = $("#fechaDesde").val();
+            objetivoDetalle.fechaHasta = $("#fechaHasta").val();
+            objetivoDetalle.status = $("#selectStatus").val();
+            objetivoDetalle.accionesRealizadas = $("#accionRealizada").val();
+
+            $.ajax({
+                type: "POST",
+                url: "/PerformanceApp/Api/PerformanceApp/GuardarObjetivo",
+                data: objetivoDetalle,
+                dataType: "json",
+                success: function (response) {
+                    if (response == 0) {
+                        mostrarMensajeGuardado();
+                        CargarDatos();
+                        vaciarObjetivo();
+                    } else {
+                        alet("Error al guardar");
+                    }
+                },
+                error: function (jqxhr) {
+                    //$('#modal-error').show();
+                    console.log(jqxhr);
+                }
+            });
+        }
+        function mostrarMensajeGuardado() {
+            $("#mensajeGuardado").fadeIn("slow", function () {
+                setTimeout(function () {
+                    $("#mensajeGuardado").fadeOut("slow");
+                }, 3000);
+            });
+        }
+        //VACIAR
+        function vaciarObjetivo() {
+            $('#selectTipoAccion').val('').change();
+            $('#selectHabilidad').val('').change();
+            $('#objetivoT').val('').change();
+            $('#objetivoD').val('').change();
+            $('#fechaDesde').val('').change();
+            $('#fechaHasta').val('').change();
+            $('#selectStatus').val('').change();
+            $('#accionRealizada').val('').change();
+        }
+
+       ///VALIDACIONES
+        $('.requeridoPDI').each(function (index, element) {
+            $('#' + element.id).on('change blur', function () {
+                ValidarFaltantes();
+            });
+        });
+        function ValidarFaltantes() {
+            var elementos = $('.requeridoPDI');
+            var validado = true;
+            elementos.each(function (index, element) {
+                if (element.value == '' || element.value == undefined) {
+                    validado = false;
+                } else {
+                    element.style.backgroundColor = "";
+                }
+            });
+        }
+        function ValidarDatosFaltantes() {
+            var elementos = $('.requeridoPDI');
+            var validado = true;
+
+            elementos.each(function (index, element) {
+                if (element.value == '' || element.value == undefined) {
+                    validado = false;
+                    element.style.backgroundColor = "#ef8a99";
+                }
+            });
+            if (validado) {
+                GuardarObjetivo();
+            } else {
+                alert("Falta completar datos obligatorios");
+            }
+        }
+        function VerificarFechas() {
+            var fechaDesde = new Date($("#fechaDesde").val());
+            var fechaHasta = new Date($("#fechaHasta").val());
+            if (fechaHasta < fechaDesde) {
+                alert('La fecha de finalización no puede ser anterior a la fecha de inicio.');
+                $('#fechaHasta').val('').change();
+            }
+        }
 
         //VOLVER
         function volverAtras() {

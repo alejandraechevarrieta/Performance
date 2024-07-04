@@ -1109,43 +1109,39 @@ namespace Performance.Servicios
             }
             return tmp;
         }
+        /// <summary>
+        /// PDI
+        /// </summary>
+        /// <param name="idUsuario"></param>
+        /// <param name="idPerformance"></param>
+        /// <returns></returns>
         public List<PDIObjetivosVM> buscarDatosPDI(int idUsuario, int idPerformance)
-        {
-            //si no tiene idPerformance buscar idUsuario
+        {           
+            //si no envia idPerformance buscar idUsuario logueado
             var idUsuarioPDI = idUsuario;
             if (idPerformance != 0)
             {
                 var performance = db.PerformanceColaborador.Where(x => x.idPerformance == idPerformance).FirstOrDefault();
                 idUsuarioPDI = performance.idUsuario;
             }
+
+            //si no tiene PDI agregar uno     
             var plan = db.PDIColaborador.Where(x => x.idUsuario == idUsuarioPDI).FirstOrDefault();
             var idPdi = 0;
             if (plan != null)
             {
                 idPdi = plan.idPDI;
-            }     
-
-            var acciones = (from p in db.PDIColaboradorObjetivos
-                            join t in db.PDItipoAccion on p.tipoAccion equals t.idTipoAccion into tipoAccion
-                            from ta in tipoAccion.DefaultIfEmpty()
-                            join h in db.Habilidades on p.habilidad equals h.idHabilidad into habilidades
-                            from ha in habilidades.DefaultIfEmpty()
-                            join s in db.PDIStatus on p.status equals s.idStatus into status
-                            from st in status.DefaultIfEmpty()
-                            where p.idPDI == idPdi
-                            select new PDIObjetivosVM
-                            {
-                                idPDI = p.idPDI,                               
-                                nombreTipoAccion = ta.nombre,
-                                tipoAccion = ta.idTipoAccion,
-                                nombreHabilidad = ha.habilidad,
-                                objetivo = p.objetivo,
-                                objetivoDescripcion = p.objetivoDescripcion,
-                                fechaDesde = p.fechaDesde,
-                                fechaHasta = p.fechaHasta,
-                                nombreStatus = st.nombre,
-                                accionesRealizadas = p.accionesRealizadas,
-                            }).ToList();
+            }
+            else
+            {
+                PDIColaborador nuevoPDI = new PDIColaborador();
+                nuevoPDI.idUsuario = idUsuarioPDI;
+                db.PDIColaborador.Add(nuevoPDI);
+                db.SaveChanges();
+                var pdiNuevo = db.PDIColaborador.Where(x => x.idUsuario == idUsuarioPDI).FirstOrDefault();
+                idPdi = pdiNuevo.idPDI;
+            }               
+           
             var datosPDI = (from p in db.PerformanceColaborador
                             join pf in db.PDIColaborador on p.idUsuario equals pf.idUsuario
                             where p.idUsuario == idUsuarioPDI
@@ -1157,9 +1153,30 @@ namespace Performance.Servicios
                                 dominio = p.dominio,
 
                             }).ToList();
+            var acciones = (from p in db.PDIColaboradorObjetivos
+                            join t in db.PDItipoAccion on p.tipoAccion equals t.idTipoAccion into tipoAccion
+                            from ta in tipoAccion.DefaultIfEmpty()
+                            join h in db.Habilidades on p.habilidad equals h.idHabilidad into habilidades
+                            from ha in habilidades.DefaultIfEmpty()
+                            join s in db.PDIStatus on p.status equals s.idStatus into status
+                            from st in status.DefaultIfEmpty()
+                            where p.idPDI == idPdi
+                            select new PDIObjetivosVM
+                            {
+                                idPDI = p.idPDI,
+                                nombreTipoAccion = ta.nombre,
+                                tipoAccion = ta.idTipoAccion,
+                                nombreHabilidad = ha.habilidad,
+                                objetivo = p.objetivo,
+                                objetivoDescripcion = p.objetivoDescripcion,
+                                fechaDesde = p.fechaDesde,
+                                fechaHasta = p.fechaHasta,
+                                nombreStatus = st.nombre,
+                                accionesRealizadas = p.accionesRealizadas,
+                            }).ToList();
 
-            acciones.AddRange(datosPDI);
-            return acciones;
+            datosPDI.AddRange(acciones);
+            return datosPDI;
         }
       
         public List<TipoAccionVM> ListarTipoAccion()
@@ -1203,6 +1220,39 @@ namespace Performance.Servicios
              }).ToList();
 
             return lista.OrderBy(x => x.idHabilidad).ToList();
+        }
+        public int GuardarObjetivo(PDIObjetivosVM objetivo)
+        {
+            try
+            {     
+                if(objetivo.idUsuario != null)
+                {                  
+
+                var pdiColaborador = db.PDIColaborador.Where(x => x.idUsuario == objetivo.idUsuario).FirstOrDefault();
+
+                PDIColaboradorObjetivos nuevoObjetivo = new PDIColaboradorObjetivos();
+                nuevoObjetivo.idPDI = pdiColaborador.idPDI;
+                nuevoObjetivo.tipoAccion = objetivo.tipoAccion;
+                nuevoObjetivo.habilidad = objetivo.habilidad;
+                nuevoObjetivo.objetivo = objetivo.objetivo;
+                nuevoObjetivo.objetivoDescripcion = objetivo.objetivoDescripcion;
+                nuevoObjetivo.fechaDesde = objetivo.fechaDesde;
+                nuevoObjetivo.fechaHasta = objetivo.fechaHasta;
+                nuevoObjetivo.status = objetivo.status;
+                nuevoObjetivo.accionesRealizadas = objetivo.accionesRealizadas;
+
+                db.PDIColaboradorObjetivos.Add(nuevoObjetivo);
+                db.SaveChanges();
+                }
+                return 0;
+                
+            }
+            catch (Exception e)
+            {
+                var ex = e.GetBaseException();
+               
+                return 1;
+            }
         }
     }
 }

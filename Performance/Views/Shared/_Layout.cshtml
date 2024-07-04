@@ -89,7 +89,7 @@
                                 </g>
                             </svg>
                         </div>
-                        <span class="nav-link-text ms-1">PDI</span>
+                        <span class="nav-link-text ms-1">Plan de Desarrollo Individual</span>
                     </a>
                 </li>               
             </ul>
@@ -175,6 +175,11 @@
                     if (data != null) {
                         $("#nombreUsuario").text(data.nombre);
                         localStorage.setItem('nombreUsuario', data.nombre); // Guardar nombreUsuario en localStorage
+
+                        //provisorio 
+                        if (@perfil == 127 || @perfil == 128) {
+                            $('#navPDI').hide();
+                        }
                     } else {
                         // Manejar otro caso si es necesario
                     }
