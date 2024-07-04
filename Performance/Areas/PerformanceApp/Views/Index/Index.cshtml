@@ -670,13 +670,13 @@ if(perfil == 129){
             LimpiarFiltros();
         });
         function LimpiarFiltros() {
-            $('#selectColaborador').val('');
-            $('#selectEstado').val('');
-            $('#selectLider').val('');
-            $('#selectAno').val('');
-            $('#selectDominio').val('');
-            $('#selectConvenio').val('');
-            ListarPerformance();
+            $('#selectColaborador').val('').trigger('change');
+            $('#selectEstado').val('').trigger('change');
+            $('#selectLider').val('').trigger('change');
+            $('#selectAno').val('').trigger('change');
+            $('#selectDominio').val('').trigger('change');
+            $('#selectConvenio').val('').trigger('change');
+            ListarPerformance();           
         }
     ///LISTAR PERFORMANCE
         function ListarPerformance() {
@@ -1242,7 +1242,7 @@ if(perfil == 129){
                             } else {
                                 return '<div style="display: flex; justify-content: center;">' +
                                     "<a href=# class='btn btn-sm btn-danger cuadrado-btn' style='color:white;' title='Eliminar' id='btnEliminar' onclick=\"AbrirModalEliminar(" + row.idPerformance + ")\"><i class='fa fa-close'></i></a>" +
-                                    //"<a href='/PerformanceApp/Index/Crud?view=pdi&idPerformance=" + encryptedIdPerformance + "&iv=" + ivBase64 + "' class='btn btn-sm btn-info cuadrado-btn' style='color:white;' title='PDI'><i'>PDI</i></a>" +
+                                   //"<a href='/PerformanceApp/Index/Crud?view=pdi&idPerformance=" + encryptedIdPerformance + "&iv=" + ivBase64 + "' class='btn btn-sm btn-info cuadrado-btn' style='color:white;' title='PDI'><i'>PDI</i></a>" +
                                     '</div>';
                             }
 
