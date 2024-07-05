@@ -59,10 +59,11 @@ namespace Performance.Servicios
                            convenio = p.convenio,
                        }).Where(x => x.eliminado != true).OrderByDescending(x => x.ano).ThenBy(x => x.nombre);
             var algo = tmp.ToList();
-
-            return tmp;
+            var temp = (IQueryable<PerformanceVM>)tmp;
+            temp = temp.Union(temp);
+            return temp;
         }
-        public List<PerformanceVM> listarPerformance(string idUsuario, string idPerfil, int? colaborador, int? estado, int? lider, int? ano, string dominio, string convenio)
+        public List<PerformanceVM> listarPerformance(string filtro, string orden, string direccion, string idUsuario, string idPerfil, int? colaborador, int? estado, int? lider, int? ano, string dominio, string convenio)
         {
             var listaPpal = ListarPerformanceTodas().ToList();
             var idUsuarioInt = Convert.ToInt16(idUsuario);
@@ -107,8 +108,81 @@ namespace Performance.Servicios
 
                 listaPpal = listaPpal.Where(p => p.convenio != null &&
                                                   normalizarTexto(p.convenio).Substring(0, 2) == convenioNormalizado).ToList();
+            }           
+            var temp = listaPpal.AsQueryable();
+            //filtro
+            if (!string.IsNullOrEmpty(filtro))
+            {
+                string filtroLower = filtro.ToLower(); // Convertir filtro a minúsculas
+
+                temp = temp.Where(x => x.nombre.ToLower().Contains(filtroLower));
             }
-            return listaPpal;
+
+            //orden
+
+            if (orden != null)
+            {
+                if (direccion == "desc")
+                {
+                    switch (orden)
+                    {
+                        case "nombre":
+                            temp = temp.OrderBy(x => x.nombre);
+                            break;
+                        case "nombreJefe":
+                            temp = temp.OrderBy(x => x.nombreJefe);
+                            break;
+                        case "fechaAutoevaluacion":
+                            temp = temp.OrderBy(x => x.fechaAutoevaluacion);
+                            break;
+                        case "fechaEvaluacion":
+                            temp = temp.OrderBy(x => x.fechaEvaluacion);
+                            break;
+                        case "fechaCalibracion":
+                            temp = temp.OrderBy(x => x.fechaCalibracion);
+                            break;
+                        case "fechaFeedback":
+                            temp = temp.OrderBy(x => x.fechaFeedback);
+                            break;
+                        case "idEstado":
+                            temp = temp.OrderBy(x => x.idEstado);
+                            break;
+                    }
+                }
+                else
+                {
+                    switch (orden)
+                    {
+                        case "nombre":
+                            temp = temp.OrderByDescending(x => x.nombre);
+                            break;
+                        case "nombreJefe":
+                            temp = temp.OrderByDescending(x => x.nombreJefe);
+                            break;
+                        case "fechaAutoevaluacion":
+                            temp = temp.OrderByDescending(x => x.fechaAutoevaluacion);
+                            break;
+                        case "fechaEvaluacion":
+                            temp = temp.OrderByDescending(x => x.fechaEvaluacion);
+                            break;
+                        case "fechaCalibracion":
+                            temp = temp.OrderByDescending(x => x.fechaCalibracion);
+                            break;
+                        case "fechaFeedback":
+                            temp = temp.OrderByDescending(x => x.fechaFeedback);
+                            break;
+                        case "idEstado":
+                            temp = temp.OrderByDescending(x => x.idEstado);
+                            break;
+                    }
+                }
+            }
+            else
+            {
+                temp = temp.OrderByDescending(x => x.ano);
+            }
+            var lista = temp.ToList();
+            return lista;
         }
         public static string normalizarTexto(string text)
         {

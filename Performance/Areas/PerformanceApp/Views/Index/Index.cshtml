@@ -17,7 +17,7 @@
     @*<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0/css/bootstrap.min.css">*@
 
     <!-- Estilos de DataTables -->
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
+    @*<link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">*@
     <!-- JavaScript de jQuery (necesario para DataTables) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdn.datatables.net/1.12.0/js/jquery.dataTables.min.js"></script>
@@ -726,7 +726,7 @@ if(perfil == 129){
             var table = $("#tablaColaborador").DataTable({
                 "processing": true,
                 "serverSide": true,
-                "stateSave": true,
+                "stateSave": false,
                 "bDestroy": true,
                 "language": {
                     "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
@@ -884,7 +884,7 @@ if(perfil == 129){
             var table = $("#tablaLider").DataTable({
                 "processing": true,
                 "serverSide": true,
-                "stateSave": true,
+                "stateSave": false,
                 "bDestroy": true,
                 "language": {
                     "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
@@ -1054,7 +1054,7 @@ if(perfil == 129){
             var table = $("#tablaRRHH").DataTable({
                 "processing": true,
                 "serverSide": true,
-                "stateSave": true,
+                "stateSave": false,
                 "bDestroy": true,
                 "language": {
                     "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
@@ -1063,15 +1063,14 @@ if(perfil == 129){
                     "url": url,
                     "type": "POST",
                     "contentType": "application/json",
-                    "data": function (d) {
+                    "data": function (d) {                        
                         return JSON.stringify(d);
-
                     },
                     "datatype": "json",
                 },
                 "pageLength": 25,
                 "filter": true,
-                "responsivePriority": 1,
+                "responsivePriority": 1,             
                 "columnDefs": [
                     { "width": "7%", "targets": 0 },
                     { "width": "15%", "targets": 1 },

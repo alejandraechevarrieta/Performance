@@ -84,11 +84,14 @@ namespace Performance.Areas.PerformanceApp.Controllers.Api
         [System.Web.Http.HttpPost]
         public HttpResponseMessage ListarPerformance(DataTableRequestModel requestModel, string idUsuario, string idPerfil, int? colaborador, int? estado, int? lider, int? ano, string dominio, string convenio)
         {
-            var draw = requestModel.draw;
-            var start = requestModel.start;
-            var length = requestModel.length;
-            var sortColumn = 1;
-            var searchValue = 1;
+
+            var draw = requestModel.Draw;
+            var start = requestModel.Start;
+            var length = requestModel.Length;
+            var sortColumn = requestModel.Columns[Convert.ToInt32(requestModel.Order[0].Column)].Data;
+            var sortColumnDir = requestModel.Order[0].Dir;
+            var searchValue = requestModel.Search.Value;
+
             int pageSize = length != null ? Convert.ToInt32(length) : 0;
             int skip = start != null ? Convert.ToInt32(start) : 0;
             int recordsTotal = 0;
@@ -96,7 +99,7 @@ namespace Performance.Areas.PerformanceApp.Controllers.Api
             Servicios.ServicioPerformance _servicio = new Servicios.ServicioPerformance();
 
             // Consulta a tu servicio para obtener los datos
-            var listaPpal = _servicio.listarPerformance(idUsuario, idPerfil, colaborador, estado, lider, ano, dominio, convenio);
+            var listaPpal = _servicio.listarPerformance(searchValue, sortColumn, sortColumnDir, idUsuario, idPerfil, colaborador, estado, lider, ano, dominio, convenio);
 
             // Filtrar y paginar los datos según los parámetros recibidos
             var listFiltr = listaPpal.Where(x => x.idPerformance > 0).Distinct().ToList();
@@ -633,17 +636,37 @@ namespace Performance.Areas.PerformanceApp.Controllers.Api
         }
         public class DataTableRequestModel
         {
-            public int draw { get; set; }
-            public int start { get; set; }
-            public int length { get; set; }
+            public int Draw { get; set; }
+            public int Start { get; set; }
+            public int Length { get; set; }
+            public List<Column> Columns { get; set; }
+            public List<Order> Order { get; set; }
+            public Search Search { get; set; }
             public int? colaborador { get; set; }
             public int? estado { get; set; }
             public int idPerfil { get; set; }
-        }
+        }       
 
         public class TokenResponse
         {
             public string Token { get; set; }
+        }
+       
+
+        public class Column
+        {
+            public string Data { get; set; }
+        }
+
+        public class Order
+        {
+            public int Column { get; set; }
+            public string Dir { get; set; }
+        }
+
+        public class Search
+        {
+            public string Value { get; set; }
         }
 
     }
