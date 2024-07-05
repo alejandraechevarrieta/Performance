@@ -564,10 +564,10 @@ namespace Performance.Areas.PerformanceApp.Controllers.Api
         [System.Web.Http.Route("Api/PerformanceApp/CambiarEstado")]
         [System.Web.Http.ActionName("CambiarEstado")]
         [System.Web.Http.HttpGet]
-        public void CambiarEstado(int idPerformance, int estado)
+        public void CambiarEstado(int idPerformance, int estado, int idUsuario, string nombreUsuario)
         {
             Servicios.ServicioPerformance _servicio = new Servicios.ServicioPerformance();
-            _servicio.CambiarEstado(idPerformance, estado);            
+            _servicio.CambiarEstado(idPerformance, estado, idUsuario, nombreUsuario);            
         }
         [System.Web.Http.Route("Api/PerformanceApp/EstadoActual")]
         [System.Web.Http.ActionName("EstadoActual")]

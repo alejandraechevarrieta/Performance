@@ -1097,11 +1097,20 @@ namespace Performance.Servicios
                 return excel;
             }
         }
-        public void CambiarEstado(int idPerformance, int estado)
+        public void CambiarEstado(int idPerformance, int estado, int idUsuario, string nombreUsuario)
         {
             var performance = db.PerformanceColaborador.Where(x => x.idPerformance == idPerformance).FirstOrDefault();
+            Historial historial = new Historial();
 
             performance.estado = estado;
+            db.SaveChanges();
+
+            historial.idPerformance = idPerformance;
+            historial.estado = 6;
+            historial.idUsuarioCambio = idUsuario;
+            historial.fechaCambio = DateTime.Now;
+            historial.nombreUsuarioCambio = nombreUsuario;
+            db.Historial.Add(historial);
             db.SaveChanges();
         }
         public int EstadoActual()
@@ -1155,17 +1164,21 @@ namespace Performance.Servicios
 
             foreach(var item in tmp)
             {
-                if (item.estado == 1)
+                if (item.autoevaluacion == true)
                 {
                     item.estadoStr = "Autoevaluación";
                 }
-                else if (item.estado == 2)
+                else if (item.evaluacion == true)
                 {
                     item.estadoStr = "Evaluación";
                 }
-                else if (item.estado == 3)
+                else if (item.calibracion == true)
                 {
                     item.estadoStr = "Calibración";
+                }
+                else if (item.estado == 6)
+                {
+                    item.estadoStr = "Regreso a lider";
                 }
             }
             return tmp;
