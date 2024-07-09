@@ -1310,8 +1310,8 @@ if(perfil == 129){
                                 }
                             }
                             if (data == 3) {
-                                if (data == 3 && row.ano == anoActual) {
-                                    return '<div style="text-align: center;"><a href="/PerformanceApp/Index/Crud?view=performance&idPerformance=' + encryptedIdPerformance + '&iv=' + ivBase64 + '" class="btn btn-sm grilla-btn btn-success" title="Evaluación del líder realizada, calibrar" style="font-size: 100% !important;">' + row.estado + '</a></div>';
+                                if (idEstadoActual == 3 && row.ano == anoActual) {
+                                    return '<div style="text-align: center;"><a href="/PerformanceApp/Index/Crud?view=calibracion&idPerformance=' + encryptedIdPerformance + '&iv=' + ivBase64 + '" class="btn btn-sm grilla-btn btn-success" title="Evaluación del líder realizada, calibrar" style="font-size: 100% !important;">' + row.estado + '</a></div>';
                                 } else {
                                     return '<div style="text-align: center;"><a href="/PerformanceApp/Index/Crud?view=performance&idPerformance=' + encryptedIdPerformance + '&iv=' + ivBase64 + '" class="btn btn-sm grilla-btn btn-success" title="Evaluación del líder realizada, fuera etapa calibración" style="font-size: 100% !important;">' + row.estado + '</a></div>';
                                 }
