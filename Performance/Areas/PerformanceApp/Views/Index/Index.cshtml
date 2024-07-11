@@ -1287,26 +1287,40 @@ if(perfil == 129){
                                 if (data == 1) {
                                     if (idEstadoActual == 1 && row.ano == anoActual) {
                                         return '<div style="text-align: center;"><a href="/PerformanceApp/Index/Crud?view=autoevaluacion&idPerformance=' + encryptedIdPerformance + '&iv=' + ivBase64 + '" class="btn btn-sm grilla-btn btn-info" title="Autoevaluación sin realizar" style="font-size: 100% !important;">' + row.estado + '</a></div>';
+                                    }
+                                    if (idEstadoActual == 3 && row.ano == anoActual) {
+                                        return '<div style="text-align: center;"><a href="/PerformanceApp/Index/Crud?view=calibracion&idPerformance=' + encryptedIdPerformance + '&iv=' + ivBase64 + '" class="btn btn-sm grilla-btn btn-info" title="Autoevaluación sin realizar, calibrar" style="font-size: 100% !important;">' + row.estado + '</a></div>';
                                     } else {
                                         return '<div style="text-align: center;"><a href="#" class="btn btn-sm grilla-btn btn-info" title="Autoevaluación sin realizar" style="font-size: 100% !important;">' + row.estado + '</a></div>';
                                     }
                                 }
                             } else {
                                 if (data == 1) {
-                                    return '<div style="text-align: center;"><a href="/PerformanceApp/Index/Crud?view=performance&idPerformance=' + encryptedIdPerformance + '&iv=' + ivBase64 + '" class="btn btn-sm grilla-btn btn-info" title="Autoevaluación sin realizar" style="font-size: 100% !important;">' + row.estado + '</a></div>';
+                                    if (idEstadoActual == 3 && row.ano == anoActual) {
+                                        return '<div style="text-align: center;"><a href="/PerformanceApp/Index/Crud?view=calibracion&idPerformance=' + encryptedIdPerformance + '&iv=' + ivBase64 + '" class="btn btn-sm grilla-btn btn-info" title="Autoevaluación sin realizar, calibrar" style="font-size: 100% !important;">' + row.estado + '</a></div>';
+                                    } else {
+                                        return '<div style="text-align: center;"><a href="/PerformanceApp/Index/Crud?view=performance&idPerformance=' + encryptedIdPerformance + '&iv=' + ivBase64 + '" class="btn btn-sm grilla-btn btn-info" title="Autoevaluación sin realizar" style="font-size: 100% !important;">' + row.estado + '</a></div>';
+                                    }                                   
                                 }
                             }
                             if (@idUsuario == row.idJefe) {
                                 if (data == 2) {
                                     if (idEstadoActual == 2 && row.ano == anoActual) {
                                         return '<div style="text-align: center;"><a href="/PerformanceApp/Index/Crud?view=evaluacion&idPerformance=' + encryptedIdPerformance + '&iv=' + ivBase64 + '" class="btn grilla-btn btn-warning" title="Autoevaluación realizada, sin Evaluación" style="font-size: 100% !important;">' + row.estado + '</a></div>';
+                                    }
+                                    if (idEstadoActual == 3 && row.ano == anoActual) {
+                                        return '<div style="text-align: center;"><a href="/PerformanceApp/Index/Crud?view=calibracion&idPerformance=' + encryptedIdPerformance + '&iv=' + ivBase64 + '" class="btn btn-sm grilla-btn btn-warning" title="Evaluación sin realizar, calibrar" style="font-size: 100% !important;">' + row.estado + '</a></div>';
                                     } else {
                                         return '<div style="text-align: center;"><a href="/PerformanceApp/Index/Crud?view=performance&idPerformance=' + encryptedIdPerformance + '&iv=' + ivBase64 + '" class="btn grilla-btn btn-warning" title="Autoevaluación realizada, sin Evaluación, fuera de etapa" style="font-size: 100% !important;">' + row.estado + '</a></div>';
                                     }
                                 }
                             } else {
                                 if (data == 2) {
-                                    return '<div style="text-align: center;"><a href="/PerformanceApp/Index/Crud?view=performance&idPerformance=' + encryptedIdPerformance + '&iv=' + ivBase64 + '" class="btn btn-sm grilla-btn btn-warning" title="Autoevaluación realizada, sin Evaluación" style="font-size: 100% !important;">' + row.estado + '</a></div>';
+                                    if (idEstadoActual == 3 && row.ano == anoActual) {
+                                        return '<div style="text-align: center;"><a href="/PerformanceApp/Index/Crud?view=calibracion&idPerformance=' + encryptedIdPerformance + '&iv=' + ivBase64 + '" class="btn btn-sm grilla-btn btn-warning" title="Evaluación sin realizar, calibrar" style="font-size: 100% !important;">' + row.estado + '</a></div>';
+                                    } else {
+                                        return '<div style="text-align: center;"><a href="/PerformanceApp/Index/Crud?view=performance&idPerformance=' + encryptedIdPerformance + '&iv=' + ivBase64 + '" class="btn btn-sm grilla-btn btn-warning" title="Autoevaluación realizada, sin Evaluación" style="font-size: 100% !important;">' + row.estado + '</a></div>';
+                                    }                                    
                                 }
                             }
                             if (data == 3) {

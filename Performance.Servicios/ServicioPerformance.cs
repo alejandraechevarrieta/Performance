@@ -682,12 +682,20 @@ namespace Performance.Servicios
                 var calificacionAntes = db.CalificacionFinalLider.Where(x => x.id == performance.idCalificacionFinal).FirstOrDefault();
 
                 performance.estado = 4;
+                
+                if (performance.calificacionFinal != null)
+                {
+                    performance.calificacionFinalAntes = calificacionAntes.nombre;
+                    performance.idCalificacionFinalAntes = calificacionAntes.id;
+                }
+                else
+                {
+                    performance.calificacionFinalAntes = "No calificado por el líder";
+                }
                 performance.idCalificacionFinal = calificacionFinal.id;
                 performance.calificacionFinal = calificacionFinal.nombre;
                 performance.fechaCalibracion = DateTime.Now;
                 performance.comentario = calibracion.comentario;
-                performance.calificacionFinalAntes = calificacionAntes.nombre;
-                performance.idCalificacionFinalAntes = calificacionAntes.id;
 
                 db.SaveChanges();
 
@@ -699,7 +707,10 @@ namespace Performance.Servicios
                 nuevaEvaluacion.idHabilidad = null;
                 nuevaEvaluacion.idCalificacion = null;
                 nuevaEvaluacion.idCalificacionFinal = calificacionFinal.id;
-                nuevaEvaluacion.idCalificacionFinalAntes = calificacionAntes.id;
+                if(calificacionAntes != null)
+                {
+                    nuevaEvaluacion.idCalificacionFinalAntes = calificacionAntes.id;
+                }               
                 nuevaEvaluacion.fechaOriginal = performance.fechaEvaluacion;
                 nuevaEvaluacion.idResponsableOriginal = performance.idJefe;
                 nuevaEvaluacion.calibracion = true;
@@ -1029,6 +1040,7 @@ namespace Performance.Servicios
                                p.fechaCalibracion,
                                p.estado,
                                p.calificacionFinal,
+                               p.calificacionFinalAntes,
                                estadoNombre = e.estado,
                                autoEvaluaciones = _db.AutoEvaluacion
                                                    .Where(a => a.idPerformance == p.idPerformance)
@@ -1084,6 +1096,7 @@ namespace Performance.Servicios
                     autoEvaluaciones = x.autoEvaluaciones,
                     evaluaciones = x.evaluaciones,
                     calificacionFinal = x.calificacionFinal,
+                    calificacionFinalAntes = x.calificacionFinalAntes,
                 }).ToList();
 
                 ReporteExcelVM excel = new ReporteExcelVM();
