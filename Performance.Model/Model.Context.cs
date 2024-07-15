@@ -32,7 +32,6 @@ namespace Performance.Model
         public virtual DbSet<Estados> Estados { get; set; }
         public virtual DbSet<EstadosFechas> EstadosFechas { get; set; }
         public virtual DbSet<EvaluacionPerformance> EvaluacionPerformance { get; set; }
-        public virtual DbSet<Habilidades> Habilidades { get; set; }
         public virtual DbSet<Historial> Historial { get; set; }
         public virtual DbSet<Menu> Menu { get; set; }
         public virtual DbSet<MenuPerfil> MenuPerfil { get; set; }
@@ -41,5 +40,6 @@ namespace Performance.Model
         public virtual DbSet<PDIStatus> PDIStatus { get; set; }
         public virtual DbSet<PDItipoAccion> PDItipoAccion { get; set; }
         public virtual DbSet<PerformanceColaborador> PerformanceColaborador { get; set; }
+        public virtual DbSet<Habilidades> Habilidades { get; set; }
     }
 }

@@ -12,7 +12,6 @@
         <EntityTypeShape EntityType="PerformanceModel.Estados" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="PerformanceModel.EstadosFechas" Width="1.5" PointX="4.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="PerformanceModel.EvaluacionPerformance" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PerformanceModel.Habilidades" Width="1.5" PointX="0.75" PointY="6.75" IsExpanded="true" />
         <EntityTypeShape EntityType="PerformanceModel.Historial" Width="1.5" PointX="2.75" PointY="6.75" IsExpanded="true" />
         <EntityTypeShape EntityType="PerformanceModel.Menu" Width="1.5" PointX="6.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="PerformanceModel.MenuPerfil" Width="1.5" PointX="4.75" PointY="6.75" IsExpanded="true" />
@@ -21,6 +20,7 @@
         <EntityTypeShape EntityType="PerformanceModel.PDIStatus" Width="1.5" PointX="8.75" PointY="4.75" IsExpanded="true" />
         <EntityTypeShape EntityType="PerformanceModel.PDItipoAccion" Width="1.5" PointX="8.75" PointY="7.75" IsExpanded="true" />
         <EntityTypeShape EntityType="PerformanceModel.PerformanceColaborador" Width="1.5" PointX="4.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PerformanceModel.Habilidades" Width="1.5" PointX="7.375" PointY="10.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

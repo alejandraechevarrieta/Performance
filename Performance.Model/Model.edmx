@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="PerformanceModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="PerformanceModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AutoEvaluacion">
           <Key>
             <PropertyRef Name="idAutoEvaluacion" />
@@ -76,6 +76,7 @@
           <Property Name="idHabilidad" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="habilidad" Type="varchar" MaxLength="500" />
           <Property Name="activo" Type="bit" />
+          <Property Name="esEvaluado" Type="bit" />
         </EntityType>
         <EntityType Name="Historial">
           <Key>
@@ -174,8 +175,8 @@
           <Property Name="fechaAutoevaluacion" Type="date" />
           <Property Name="fechaEvaluacion" Type="date" />
           <Property Name="fechaCalibracion" Type="date" />
-          <Property Name="calificacionFinal" Type="varchar" MaxLength="50" />
           <Property Name="idCalificacionFinal" Type="int" />
+          <Property Name="calificacionFinal" Type="varchar" MaxLength="50" />
           <Property Name="eliminado" Type="bit" />
           <Property Name="comentario" Type="varchar" MaxLength="2000" />
           <Property Name="idCalificacionFinalAntes" Type="int" />
@@ -199,8 +200,7 @@
           <EntitySet Name="PDItipoAccion" EntityType="Self.PDItipoAccion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PerformanceColaborador" EntityType="Self.PerformanceColaborador" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="PerformanceModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -267,14 +267,6 @@
           <Property Name="idCalificacion" Type="Int32" />
           <Property Name="fechaEvaluacion" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="idResponsable" Type="Int32" />
-        </EntityType>
-        <EntityType Name="Habilidades">
-          <Key>
-            <PropertyRef Name="idHabilidad" />
-          </Key>
-          <Property Name="idHabilidad" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="habilidad" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="activo" Type="Boolean" />
         </EntityType>
         <EntityType Name="Historial">
           <Key>
@@ -388,7 +380,6 @@
           <EntitySet Name="Estados" EntityType="Self.Estados" />
           <EntitySet Name="EstadosFechas" EntityType="Self.EstadosFechas" />
           <EntitySet Name="EvaluacionPerformance" EntityType="Self.EvaluacionPerformance" />
-          <EntitySet Name="Habilidades" EntityType="Self.Habilidades" />
           <EntitySet Name="Historial" EntityType="Self.Historial" />
           <EntitySet Name="Menu" EntityType="Self.Menu" />
           <EntitySet Name="MenuPerfil" EntityType="Self.MenuPerfil" />
@@ -397,7 +388,17 @@
           <EntitySet Name="PDIStatus" EntityType="Self.PDIStatus" />
           <EntitySet Name="PDItipoAccion" EntityType="Self.PDItipoAccion" />
           <EntitySet Name="PerformanceColaborador" EntityType="Self.PerformanceColaborador" />
+          <EntitySet Name="Habilidades" EntityType="PerformanceModel.Habilidades" />
         </EntityContainer>
+        <EntityType Name="Habilidades">
+          <Key>
+            <PropertyRef Name="idHabilidad" />
+          </Key>
+          <Property Name="idHabilidad" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="habilidad" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="activo" Type="Boolean" />
+          <Property Name="esEvaluado" Type="Boolean" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -472,15 +473,6 @@
                 <ScalarProperty Name="idCalificacion" ColumnName="idCalificacion" />
                 <ScalarProperty Name="fechaEvaluacion" ColumnName="fechaEvaluacion" />
                 <ScalarProperty Name="idResponsable" ColumnName="idResponsable" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Habilidades">
-            <EntityTypeMapping TypeName="PerformanceModel.Habilidades">
-              <MappingFragment StoreEntitySet="Habilidades">
-                <ScalarProperty Name="idHabilidad" ColumnName="idHabilidad" />
-                <ScalarProperty Name="habilidad" ColumnName="habilidad" />
-                <ScalarProperty Name="activo" ColumnName="activo" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -593,6 +585,16 @@
                 <ScalarProperty Name="comentario" ColumnName="comentario" />
                 <ScalarProperty Name="idCalificacionFinalAntes" ColumnName="idCalificacionFinalAntes" />
                 <ScalarProperty Name="calificacionFinalAntes" ColumnName="calificacionFinalAntes" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Habilidades">
+            <EntityTypeMapping TypeName="PerformanceModel.Habilidades">
+              <MappingFragment StoreEntitySet="Habilidades">
+                <ScalarProperty Name="esEvaluado" ColumnName="esEvaluado" />
+                <ScalarProperty Name="activo" ColumnName="activo" />
+                <ScalarProperty Name="habilidad" ColumnName="habilidad" />
+                <ScalarProperty Name="idHabilidad" ColumnName="idHabilidad" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
