@@ -12,14 +12,14 @@ namespace Performance.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class PDIColaboradorObjetivos
+    public partial class PDIColaboradorMetas
     {
-        public int idObjetivo { get; set; }
+        public int idMeta { get; set; }
         public Nullable<int> idPDI { get; set; }
         public Nullable<int> tipoAccion { get; set; }
         public Nullable<int> habilidad { get; set; }
-        public string objetivo { get; set; }
-        public string objetivoDescripcion { get; set; }
+        public string metaTitulo { get; set; }
+        public string metaDescripcion { get; set; }
         public Nullable<System.DateTime> fechaDesde { get; set; }
         public Nullable<System.DateTime> fechaHasta { get; set; }
         public Nullable<int> status { get; set; }

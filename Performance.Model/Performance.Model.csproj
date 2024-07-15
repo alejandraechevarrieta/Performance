@@ -208,7 +208,7 @@
     <Compile Include="PDIColaborador.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="PDIColaboradorObjetivos.cs">
+    <Compile Include="PDIColaboradorMetas.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="PDIStatus.cs">
