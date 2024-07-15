@@ -333,7 +333,7 @@ namespace Performance.Servicios
         {
             try
             {
-                var habilidades = db.Habilidades.Where(x => x.activo == true).ToList();
+                var habilidades = db.Habilidades.Where(x => x.activo == true && x.esEvaluado == true).ToList();
 
                 AutoEvaluacion nuevaAutoevaluacion = new AutoEvaluacion();
                 PerformanceAutoevaluacionVM performanceVM = new PerformanceAutoevaluacionVM();
@@ -499,7 +499,7 @@ namespace Performance.Servicios
 
                 if (!evaluacionesExistentes.Any())
                 {                    
-                    var habilidades = db.Habilidades.Where(x => x.activo == true).ToList();
+                    var habilidades = db.Habilidades.Where(x => x.activo == true && x.esEvaluado == true).ToList();
 
                     EvaluacionPerformance nuevaEvaluacion = new EvaluacionPerformance();
                     PerformanceAutoevaluacionVM performanceVM = new PerformanceAutoevaluacionVM();
@@ -1202,7 +1202,7 @@ namespace Performance.Servicios
         /// <param name="idUsuario"></param>
         /// <param name="idPerformance"></param>
         /// <returns></returns>
-        public List<PDIObjetivosVM> buscarDatosPDI(int idUsuario, int idPerformance)
+        public List<PDIMetasVM> buscarDatosPDI(int idUsuario, int idPerformance)
         {           
             //si no envia idPerformance buscar idUsuario logueado
             var idUsuarioPDI = idUsuario;
@@ -1232,7 +1232,7 @@ namespace Performance.Servicios
             var datosPDI = (from p in db.PerformanceColaborador
                             join pf in db.PDIColaborador on p.idUsuario equals pf.idUsuario
                             where p.idUsuario == idUsuarioPDI
-                            select new PDIObjetivosVM
+                            select new PDIMetasVM
                             {
                                 idUsuario = p.idUsuario,
                                 colaborador = p.nombre,
@@ -1240,7 +1240,7 @@ namespace Performance.Servicios
                                 dominio = p.dominio,
 
                             }).ToList();
-            var acciones = (from p in db.PDIColaboradorObjetivos
+            var acciones = (from p in db.PDIColaboradorMetas
                             join t in db.PDItipoAccion on p.tipoAccion equals t.idTipoAccion into tipoAccion
                             from ta in tipoAccion.DefaultIfEmpty()
                             join h in db.Habilidades on p.habilidad equals h.idHabilidad into habilidades
@@ -1248,14 +1248,15 @@ namespace Performance.Servicios
                             join s in db.PDIStatus on p.status equals s.idStatus into status
                             from st in status.DefaultIfEmpty()
                             where p.idPDI == idPdi
-                            select new PDIObjetivosVM
+                            select new PDIMetasVM
                             {
                                 idPDI = p.idPDI,
+                                idMeta = p.idMeta,
                                 nombreTipoAccion = ta.nombre,
                                 tipoAccion = ta.idTipoAccion,
                                 nombreHabilidad = ha.habilidad,
-                                objetivo = p.objetivo,
-                                objetivoDescripcion = p.objetivoDescripcion,
+                                metaTitulo = p.metaTitulo,
+                                metaDescripcion = p.metaDescripcion,
                                 fechaDesde = p.fechaDesde,
                                 fechaHasta = p.fechaHasta,
                                 nombreStatus = st.nombre,
@@ -1308,27 +1309,27 @@ namespace Performance.Servicios
 
             return lista.OrderBy(x => x.idHabilidad).ToList();
         }
-        public int GuardarObjetivo(PDIObjetivosVM objetivo)
+        public int GuardarMeta(PDIMetasVM meta)
         {
             try
             {     
-                if(objetivo.idUsuario != null)
+                if(meta.idUsuario != null)
                 {                  
 
-                var pdiColaborador = db.PDIColaborador.Where(x => x.idUsuario == objetivo.idUsuario).FirstOrDefault();
+                var pdiColaborador = db.PDIColaborador.Where(x => x.idUsuario == meta.idUsuario).FirstOrDefault();
 
-                PDIColaboradorObjetivos nuevoObjetivo = new PDIColaboradorObjetivos();
-                nuevoObjetivo.idPDI = pdiColaborador.idPDI;
-                nuevoObjetivo.tipoAccion = objetivo.tipoAccion;
-                nuevoObjetivo.habilidad = objetivo.habilidad;
-                nuevoObjetivo.objetivo = objetivo.objetivo;
-                nuevoObjetivo.objetivoDescripcion = objetivo.objetivoDescripcion;
-                nuevoObjetivo.fechaDesde = objetivo.fechaDesde;
-                nuevoObjetivo.fechaHasta = objetivo.fechaHasta;
-                nuevoObjetivo.status = objetivo.status;
-                nuevoObjetivo.accionesRealizadas = objetivo.accionesRealizadas;
+                PDIColaboradorMetas nuevaMeta = new PDIColaboradorMetas();
+                    nuevaMeta.idPDI = pdiColaborador.idPDI;
+                    nuevaMeta.tipoAccion = meta.tipoAccion;
+                    nuevaMeta.habilidad = meta.habilidad;
+                    nuevaMeta.metaTitulo = meta.metaTitulo;
+                    nuevaMeta.metaDescripcion = meta.metaDescripcion;
+                    nuevaMeta.fechaDesde = meta.fechaDesde;
+                    nuevaMeta.fechaHasta = meta.fechaHasta;
+                    nuevaMeta.status = meta.status;
+                    nuevaMeta.accionesRealizadas = meta.accionesRealizadas;
 
-                db.PDIColaboradorObjetivos.Add(nuevoObjetivo);
+                db.PDIColaboradorMetas.Add(nuevaMeta);
                 db.SaveChanges();
                 }
                 return 0;
@@ -1340,6 +1341,41 @@ namespace Performance.Servicios
                
                 return 1;
             }
+        }
+        public PDIMetasVM buscarDatosMeta(int idUsuario, int idMeta)
+        {
+            PDIMetasVM objeto = new PDIMetasVM();
+            var datos = (from p in db.PDIColaboradorMetas
+                            join pf in db.PDIColaborador on p.idPDI equals pf.idPDI
+                            join c in db.PerformanceColaborador on pf.idUsuario equals c.idUsuario
+                            join t in db.PDItipoAccion on p.tipoAccion equals t.idTipoAccion into tipoAccion
+                            from ta in tipoAccion.DefaultIfEmpty()
+                            join h in db.Habilidades on p.habilidad equals h.idHabilidad into habilidades
+                            from ha in habilidades.DefaultIfEmpty()
+                            join s in db.PDIStatus on p.status equals s.idStatus into status
+                            from st in status.DefaultIfEmpty()
+                            where p.idMeta == idMeta
+                            select new PDIMetasVM
+                            {
+                                idUsuario = c.idUsuario,
+                                colaborador = c.nombre,
+                                lider = c.nombreJefe,
+                                dominio = c.dominio,                             
+                                idPDI = p.idPDI,
+                                idMeta = p.idMeta,
+                                nombreTipoAccion = ta.nombre,
+                                tipoAccion = ta.idTipoAccion,
+                                nombreHabilidad = ha.habilidad,
+                                metaTitulo = p.metaTitulo,
+                                metaDescripcion = p.metaTitulo,
+                                fechaDesde = p.fechaDesde,
+                                fechaHasta = p.fechaHasta,
+                                nombreStatus = st.nombre,
+                                accionesRealizadas = p.accionesRealizadas,
+
+                            }).FirstOrDefault();   
+
+            return datos;
         }
     }
 }

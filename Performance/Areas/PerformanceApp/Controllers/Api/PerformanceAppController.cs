@@ -580,7 +580,7 @@ namespace Performance.Areas.PerformanceApp.Controllers.Api
         [System.Web.Http.Route("Api/PerformanceApp/buscarDatosPDI")]
         [System.Web.Http.ActionName("buscarDatosPDI")]
         [System.Web.Http.HttpGet]
-        public List<PDIObjetivosVM> buscarDatosPDI(int idUsuario, int idPerformance)
+        public List<PDIMetasVM> buscarDatosPDI(int idUsuario, int idPerformance)
         {
             Servicios.ServicioPerformance servicio = new Servicios.ServicioPerformance();
             return servicio.buscarDatosPDI(idUsuario, idPerformance);
@@ -612,10 +612,10 @@ namespace Performance.Areas.PerformanceApp.Controllers.Api
             var tmp = _servicio.ListarHabilidades();
             return tmp;
         }
-        [System.Web.Http.Route("Api/PerformanceApp/GuardarObjetivo")]
-        [System.Web.Http.ActionName("GuardarObjetivo")]
+        [System.Web.Http.Route("Api/PerformanceApp/GuardarMeta")]
+        [System.Web.Http.ActionName("GuardarMeta")]
         [System.Web.Http.HttpPost]
-        public int GuardarObjetivo(PDIObjetivosVM objetivo)
+        public int GuardarMeta(PDIMetasVM meta)
         {
             try
             {
@@ -623,7 +623,7 @@ namespace Performance.Areas.PerformanceApp.Controllers.Api
                 {
                     Servicios.ServicioPerformance _servicio = new Servicios.ServicioPerformance();
 
-                    var tmp = _servicio.GuardarObjetivo(objetivo);
+                    var tmp = _servicio.GuardarMeta(meta);
                 
                     return tmp;
                 }
@@ -633,6 +633,14 @@ namespace Performance.Areas.PerformanceApp.Controllers.Api
             {
                 return 0;
             }
+        }
+        [System.Web.Http.Route("Api/PerformanceApp/buscarDatosMeta")]
+        [System.Web.Http.ActionName("buscarDatosMeta")]
+        [System.Web.Http.HttpGet]
+        public PDIMetasVM buscarDatosMeta(int idUsuario, int idMeta)
+        {
+            Servicios.ServicioPerformance servicio = new Servicios.ServicioPerformance();
+            return servicio.buscarDatosMeta(idUsuario, idMeta);
         }
         public class DataTableRequestModel
         {

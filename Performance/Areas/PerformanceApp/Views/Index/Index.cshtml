@@ -1360,12 +1360,12 @@ if(perfil == 129){
                                 return '<div style="display: flex; justify-content: center;">' +
                                     "<a href=# class='btn btn-sm btn-info cuadrado-btn' style='color:white;' title='Volver al Lider' id='btnVolverLider' onclick=\"CambiarEstado(" + row.idPerformance + "," + 2 + ")\"><i class='fa fa-reply'></i></a>" +
                                     "<a href=# class='btn btn-sm btn-danger cuadrado-btn' style='color:white;' title='Eliminar' id='btnEliminar' onclick=\"AbrirModalEliminar(" + row.idPerformance + ")\"><i class='fa fa-close'></i></a>" +
-                                    //"<a href='/PerformanceApp/Index/Crud?view=pdi&idPerformance=" + encryptedIdPerformance + "&iv=" + ivBase64 + "' class='btn btn-sm btn-info cuadrado-btn' style='color:white;' title='PDI'><i'>PDI</i></a>" +
+                                    "<a href='/PerformanceApp/Index/Crud?view=pdi&idPerformance=" + encryptedIdPerformance + "&iv=" + ivBase64 + "' class='btn btn-sm btn-info cuadrado-btn' style='color:white;' title='PDI'><i'>PDI</i></a>" +
                                     '</div>';
                             } else {
                                 return '<div style="display: flex; justify-content: center;">' +
                                     "<a href=# class='btn btn-sm btn-danger cuadrado-btn' style='color:white;' title='Eliminar' id='btnEliminar' onclick=\"AbrirModalEliminar(" + row.idPerformance + ")\"><i class='fa fa-close'></i></a>" +
-                                   //"<a href='/PerformanceApp/Index/Crud?view=pdi&idPerformance=" + encryptedIdPerformance + "&iv=" + ivBase64 + "' class='btn btn-sm btn-info cuadrado-btn' style='color:white;' title='PDI'><i'>PDI</i></a>" +
+                                    "<a href='/PerformanceApp/Index/Crud?view=pdi&idPerformance=" + encryptedIdPerformance + "&iv=" + ivBase64 + "' class='btn btn-sm btn-info cuadrado-btn' style='color:white;' title='PDI'><i'>PDI</i></a>" +
                                     '</div>';
                             }
 

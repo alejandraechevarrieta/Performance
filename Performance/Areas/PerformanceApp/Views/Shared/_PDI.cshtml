@@ -50,7 +50,7 @@
 
         .titulo {
             font-size: 25px;
-            margin-left: 260px
+            margin-left: 300px
         }
 
         .titulo2 {
@@ -59,7 +59,7 @@
 
         .titulo3 {
             font-size: 20px;
-            margin-left: 260px;
+            margin-left: 430px;
         }
         #mensajeGuardado {
             display: none;
@@ -80,6 +80,22 @@
             align-items: center;
             justify-content: center;
         }
+        /*LAPIZ*/
+        .lapiz {
+            color: #676464;
+            cursor: default;
+            transition: color 0.3s;
+            position: relative;           
+            margin-right: 10px;
+        }
+
+            .lapiz:hover {
+                cursor: pointer;
+            }
+
+            .lapiz:active {
+                color: #13bcf5;
+            }
     </style>
 
 
@@ -91,92 +107,148 @@
             <div class="row justify-content-center mt-0">
                 <div style="background-color: white; padding: 20px; border: 1px solid #ddd; border-radius: 5px; margin-top: 40px;">
                     <div class="titulo">
-                        Plan de Desarrollo Individual – Acciones y Metas (PDI)
+                        Plan de Desarrollo Individual – Metas y Acciones (PDI)
                     </div>
-                    <div class="titulo2">
-                        "El PDI es un proceso colaborativo que involucra a cada uno de ustedes en la planificación y ejecución de su desarrollo profesional.<br />
-                        A través de este plan, tendrán la oportunidad de identificar sus fortalezas, áreas de crecimiento, metas a corto y largo plazo, así como las acciones necesarias para alcanzarlas.<br />
-                        Alentamos el protagonismo y la responsabilidad en su propio desarrollo, mientras trabajamos juntos para crear un entorno que fomente el aprendizaje continuo y la excelencia en el desempeño."<br />
+                    <div>
+                        <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
+                        <img src="~/Content/img/pdi.jpg" style="height:550px; width:1230px">
 
-                    </div>
-                    <div class="titulo2">
-                        "Recuerda que la construcción del Plan de Desarrollo individual lo diseñamos bajo la metodología de Aprendizaje 70-20-10:<br />
-                        70% ---> Experiencias Prácticas en referencia al desarrollo a través de oportunidades y proyectos en tu posición actual, que ayuden a fortalecer tus habilidades <br />(proyectos especiales, globales, eventos de negocio, asignaciones, etc)<br />
-                        20% ---> Interacciones y retroalimentación. En referencia al aprendizaje a través y en contacto con otros como Mentoring, Coaching y conversaciones con aliados en tu desarrollo.<br />
-                        10% ---> Programas de capacitación formales. Se refiere al entrenamiento y documentación formal de aprendizaje  <br /> (cursos internos o externos, Learning connection, estudio a través de la investigación de mercado, artículos de interés, etc) "
                     </div>
                     <div></div>
                     <div class="row" style="margin-top: 20px;">
                         <p class="h4" id="datosColaborador" style="text-align: center;"></p>
-                        <div class="row" style="margin-top: 20px; display: none;" id="formPDI">                           
-                                <div class="separator"> </div>
-                                <div class="titulo3">
-                                    MAPA DE ACCIONES DE DESARROLLO: Clasificalas en 70% - 20% - 10%
-                                </div>
-                                <div class="separator"> </div>
-                                <div class="col-md-6">
-                                    <label>Título del Objetivo:</label>
-                                    <input type="text" class="form-control requeridoPDI" id="objetivoT" />
-                                </div>
-                                <div class="col-md-3">
-                                    <label>Tipo de acción:</label>
-                                    <div></div>
-                                    <div style="font-weight: normal !important;">
-                                        <select class="form-control requeridoPDI" id="selectTipoAccion"></select>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <label>Habilidad:</label>
-                                    <div></div>
-                                    <div style="font-weight: normal !important;">
-                                        <select class="form-control requeridoPDI" id="selectHabilidad"></select>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <label>Descripción del Objetivo:</label>
-                                    <input type="text" class="form-control requeridoPDI" id="objetivoD" />
-                                </div>
-                                <div class="col-md-2">
-                                    <label>Fecha Desde</label>
-                                    <input type="date" class="form-control requeridoPDI" id="fechaDesde">
-                                </div>
-                                <div class="col-md-2">
-                                    <label>Fecha Hasta</label>
-                                    <input type="date" class="form-control requeridoPDI" id="fechaHasta" onblur="VerificarFechas()">
-                                </div>
-                                <div class="col-md-2">
-                                    <label>Status:</label>
-                                    <div></div>
-                                    <div style="font-weight: normal !important;">
-                                        <select class="form-control requeridoPDI" id="selectStatus"></select>
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <label>Acciones realizadas:</label>
-                                    <input type="text" class="form-control" id="accionRealizada" />
-                                </div>
-                                <div class="row mb-3 pr-2 mt-3">
-                                    <div class="col-md-6">
-                                        <a href="#" role="button" class="btn btn-danger btn-sm btn-block" onclick="vaciarObjetivo();" style="margin-left: 70%; width: 30%;">Cancelar</a>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <a href="#" role="button" class="btn btn-info btn-sm btn-block" onclick="ValidarDatosFaltantes();" id="guardarPDI" style="margin-left: 10%; width: 30%;">Guardar</a>
-                                    </div>
-                                </div>
+                        <div class="row" style="margin-top: 20px; display: none;" id="formPDI">
+                            <div class="separator"> </div>
+                            <div class="titulo3">
+                                MAPA DE ACCIONES DE DESARROLLO
                             </div>
                             <div class="separator"> </div>
-                            <div class="titulo3" style="margin-left:35%;">
-                                OBJETIVOS Y ACCIONES PROPUESTOS
+                            <div class="col-md-6">
+                                <label>Título de la meta:</label>
+                                <input type="text" class="form-control requeridoPDI" id="metaT" />
                             </div>
-                            <div class="separator"> </div>
-                            <div id="objetivosList">
+                            <div class="col-md-3">
+                                <label>Tipo de acción:</label>
+                                <div></div>
+                                <div style="font-weight: normal !important;">
+                                    <select class="form-control requeridoPDI" id="selectTipoAccion"></select>
+                                </div>
                             </div>
-                        </div><br /> <br />
-                    </div>
+                            <div class="col-md-3">
+                                <label>Habilidad:</label>
+                                <div></div>
+                                <div style="font-weight: normal !important;">
+                                    <select class="form-control requeridoPDI" id="selectHabilidad"></select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label>Descripción de la meta:</label>
+                                <input type="text" class="form-control requeridoPDI" id="metaD" />
+                            </div>
+                            <div class="col-md-2">
+                                <label>Fecha Desde</label>
+                                <input type="date" class="form-control requeridoPDI" id="fechaDesde">
+                            </div>
+                            <div class="col-md-2">
+                                <label>Fecha Hasta</label>
+                                <input type="date" class="form-control requeridoPDI" id="fechaHasta" onblur="VerificarFechas()">
+                            </div>
+                            <div class="col-md-2">
+                                <label>Status:</label>
+                                <div></div>
+                                <div style="font-weight: normal !important;">
+                                    <select class="form-control requeridoPDI" id="selectStatus"></select>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <label>Acciones realizadas:</label>
+                                <input type="text" class="form-control" id="accionRealizada" />
+                            </div>
+                            <div class="row mb-3 pr-2 mt-3">
+                                <div class="col-md-6">
+                                    <a href="#" role="button" class="btn btn-danger btn-sm btn-block" onclick="vaciarMeta();" style="margin-left: 70%; width: 30%;">Cancelar</a>
+                                </div>
+                                <div class="col-md-6">
+                                    <a href="#" role="button" class="btn btn-info btn-sm btn-block" onclick="ValidarDatosFaltantes();" id="guardarPDI" style="margin-left: 10%; width: 30%;">Guardar</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="separator"> </div>
+                        <div class="titulo3" style="margin-left:35%;">
+                            METAS Y ACCIONES PROPUESTAS
+                        </div>
+                        <div class="separator"> </div>
+                        <div id="metasList">
+                        </div>
+                    </div><br /> <br />
+                </div>
             </div>
         </div>
         <div id="mensajeGuardado" style="display:none;">Guardado con éxito</div>
-
+        @*MODAL EDITAR METAS*@
+        <div class="modal" id="modal-editar" style="display: none!important; margin-top: 0%;">
+            <div class="modal-dialog" style="max-width: 900px!important;">
+                <div class="modal-content">
+                    <div class="modal-body" style="margin-left: 2% !important">
+                        <div class="titulo">
+                            EDITAR METAS
+                        </div>
+                        <div></div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Meta:</label>
+                                <input type="text" class="form-control" id="metaTedit" disabled/>
+                            </div>
+                            <div class="col-md-3">
+                                <label>Tipo de acción:</label>
+                                <div></div>
+                                <div style="font-weight: normal !important;">
+                                    <input type="text" class="form-control" id="tipoAccionedit" disabled/>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <label>Habilidad:</label>
+                                <div></div>
+                                <input type="text" class="form-control" id="habilidadEdit" disabled/>
+                            </div>
+                            <div class="col-md-12">
+                                <label>Descripción de la meta:</label>
+                                <input type="text" class="form-control" id="metaDedit" disabled/>
+                            </div>
+                            <div class="col-md-3">
+                                <label>Fecha Desde</label>
+                                <input type="date" class="form-control requeridoPDIEdit" id="fechaDesdeEdit">
+                            </div>
+                            <div class="col-md-3">
+                                <label>Fecha Hasta</label>
+                                <input type="date" class="form-control requeridoPDIEdit" id="fechaHastaEdit" onblur="VerificarFechas()">
+                            </div>
+                            <div class="col-md-6">
+                                <label>Status:</label>
+                                <div></div>
+                                <div style="font-weight: normal !important;">
+                                    <select class="form-control requeridoPDIEdit" id="selectStatusEdit"></select>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <label>Acciones realizadas:</label>
+                                <input type="text" class="form-control" id="accionRealizadaEdit" />
+                            </div>                           
+                        </div>
+                        <div class="row">
+                            <div class="row mb-3 pr-2 mt-3">
+                                <div class="col-md-6">
+                                    <a href="#" role="button" class="btn btn-danger btn-sm btn-block" onclick="cerrarModalEditar();" style="margin-left: 70%; width: 30%;">Cancelar</a>
+                                </div>
+                                <div class="col-md-6">
+                                    <a href="#" role="button" class="btn btn-info btn-sm btn-block" onclick="ValidarDatosFaltantesEditar();" style="margin-left: 10%; width: 30%;">Guardar</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </main>
     @*Estos links son para formularios (Si no van aca no funcionan)*@
     <!-- DataTables JS CDN -->
@@ -195,39 +267,38 @@ function CargarDatos() {
     var url = "/PerformanceApp/Api/PerformanceApp/buscarDatosPDI?idUsuario=" + "@idUsuario" + "&idPerformance=" + "@idPerformance";
     $.getJSON(url)
         .done(function (datos) {
-            $("#objetivosList").empty();
+            $("#metassList").empty();
             datos.forEach(function (data) {
                 var datosPersonales = datos[0];
                 // Actualiza los valores de colaborador, líder y dominio
-                $("#datosColaborador").text("Colaborador: " + datosPersonales.colaborador + "  -  Líder: " + datosPersonales.lider + "  -  Dominio: " + datosPersonales.dominio + ".");
+                $("#datosColaborador").text("Colaborador: " + datosPersonales.colaborador + "  -  Líder: " + datosPersonales.lider + "  -  Dominio/Negocio: " + datosPersonales.dominio + ".");
 
-                if (datosPersonales.idUsuario == @idUsuario) {                   
+                if (datosPersonales.idUsuario == @idUsuario) {
                     $('#formPDI').show();
                 }
-
-                var htmlObjetivos = `
-                    <div class="item">
-                        <p><strong>-Título del Objetivo:</strong> ${data.objetivo}</p>
-                        <p><strong>-Descripción del Objetivo:</strong> ${data.objetivoDescripcion}</p>
-                        <p>- <strong>Tipo de Acción:</strong> ${data.nombreTipoAccion} &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; - <strong>Habilidad relacionada:</strong> ${data.nombreHabilidad} &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; - <strong>Status:</strong> ${data.nombreStatus} </p>
-                        <p>- <strong>Fecha Desde:</strong> ${moment(data.fechaDesde).format('DD/MM/YYYY')} &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; - <strong>Fecha Hasta:</strong> ${moment(data.fechaHasta).format('DD/MM/YYYY')}</p>
-                        <p><strong>-Acciones Realizadas:</strong> ${data.accionesRealizadas ? data.accionesRealizadas : ''}</p>
-                        <div class="separator"> </div>
-                    </div>
-                    `;
+                var htmlMetas = `
+<div class="item">
+    <p><strong>-Título de la meta:</strong> ${data.metaTitulo}</p>
+    <p><strong>-Descripción de la meta:</strong> ${data.metaDescripcion}</p>
+    <p><strong>-Tipo de Acción:</strong> ${data.nombreTipoAccion}<strong style="margin-left: 90px;">-Habilidad relacionada:</strong> ${data.nombreHabilidad}<strong style="margin-left: 90px;">-Status:</strong> ${data.nombreStatus}</p>
+    <p><strong>-Fecha Desde:</strong> ${moment(data.fechaDesde).format('DD/MM/YYYY')}<strong style="margin-left: 180px;">-Fecha Hasta:</strong> ${moment(data.fechaHasta).format('DD/MM/YYYY')} </p>
+    <p><strong>-Acciones Realizadas:</strong> ${data.accionesRealizadas ? data.accionesRealizadas : ''}</p>
+    <div class="separator"> </div>
+</div>
+`;
 
                 var htmlVacio = `
                     <div class="item">
                         <p></p> <br /><br />
                     </div>
                 `;
-                if (data.objetivo != null) {
-                    $("#objetivosList").append(htmlObjetivos);
+                if (data.metaTitulo != null) {
+                    $("#metasList").append(htmlMetas);
                 }
             });
         });
 }
-
+      //  <p><strong>-Fecha Desde:</strong> ${moment(data.fechaDesde).format('DD/MM/YYYY')}<strong style="margin-left: 180px;">-Fecha Hasta:</strong> ${moment(data.fechaHasta).format('DD/MM/YYYY')} <i class="lapiz fas fa-pencil-alt" style="margin-left: 600px;" onclick="EditarMeta(${data.idMeta})"></i></p>
 
         function CargarTiposAccion() {
             var selectTipoAccion = $('#selectTipoAccion');
@@ -278,29 +349,29 @@ function CargarDatos() {
                 });
         }
 
-        function GuardarObjetivo() {
-            var objetivoDetalle = new Object();
+        function GuardarMeta() {
+            var metaDetalle = new Object();
 
-            objetivoDetalle.idUsuario = idUsuario;
-            objetivoDetalle.tipoAccion = $("#selectTipoAccion").val();
-            objetivoDetalle.habilidad = $("#selectHabilidad").val();
-            objetivoDetalle.objetivo = $("#objetivoT").val();
-            objetivoDetalle.objetivoDescripcion = $("#objetivoD").val();
-            objetivoDetalle.fechaDesde = $("#fechaDesde").val();
-            objetivoDetalle.fechaHasta = $("#fechaHasta").val();
-            objetivoDetalle.status = $("#selectStatus").val();
-            objetivoDetalle.accionesRealizadas = $("#accionRealizada").val();
+            metaDetalle.idUsuario = idUsuario;
+            metaDetalle.tipoAccion = $("#selectTipoAccion").val();
+            metaDetalle.habilidad = $("#selectHabilidad").val();
+            metaDetalle.metaTitulo = $("#metaT").val();
+            metaDetalle.metaDescripcion = $("#metaD").val();
+            metaDetalle.fechaDesde = $("#fechaDesde").val();
+            metaDetalle.fechaHasta = $("#fechaHasta").val();
+            metaDetalle.status = $("#selectStatus").val();
+            metaDetalle.accionesRealizadas = $("#accionRealizada").val();
 
             $.ajax({
                 type: "POST",
-                url: "/PerformanceApp/Api/PerformanceApp/GuardarObjetivo",
-                data: objetivoDetalle,
+                url: "/PerformanceApp/Api/PerformanceApp/GuardarMeta",
+                data: metaDetalle,
                 dataType: "json",
                 success: function (response) {
                     if (response == 0) {
                         mostrarMensajeGuardado();
                         CargarDatos();
-                        vaciarObjetivo();
+                        vaciarMeta();
                     } else {
                         alet("Error al guardar");
                     }
@@ -319,11 +390,11 @@ function CargarDatos() {
             });
         }
         //VACIAR
-        function vaciarObjetivo() {
+        function vaciarMeta() {
             $('#selectTipoAccion').val('').change();
             $('#selectHabilidad').val('').change();
-            $('#objetivoT').val('').change();
-            $('#objetivoD').val('').change();
+            $('#metaT').val('').change();
+            $('#metaD').val('').change();
             $('#fechaDesde').val('').change();
             $('#fechaHasta').val('').change();
             $('#selectStatus').val('').change();
@@ -358,7 +429,7 @@ function CargarDatos() {
                 }
             });
             if (validado) {
-                GuardarObjetivo();
+                GuardarMeta();
             } else {
                 alert("Falta completar datos obligatorios");
             }
@@ -372,9 +443,56 @@ function CargarDatos() {
             }
         }
 
-        //VOLVER
-        function volverAtras() {
-            window.history.back();
+        ///EDITAR
+        var idMeta = 0;
+        function EditarMeta(idMet) {
+            $('#modal-editar').show();
+            idMeta = idMet;
+            CargarStatusEdicion();
+            BuscarDatosMeta();
+        }
+        function cerrarModalEditar() {
+            $('#modal-editar').hide();
+            idMeta = 0;
+        }
+        function vaciarMetaEdicion() {
+            $('#selectTipoAccion').val('').change();
+            $('#selectHabilidad').val('').change();
+            $('#metaT').val('').change();
+            $('#metaD').val('').change();
+            $('#fechaDesde').val('').change();
+            $('#fechaHasta').val('').change();
+            $('#selectStatus').val('').change();
+            $('#accionRealizada').val('').change();
+        }
+        function CargarStatusEdicion() {
+            var selectStatus = $('#selectStatusEdit');
+            selectStatus.empty();
+            selectStatus.append($('<option/>', { value: '', text: 'Seleccionar' }).hide());
+            var url = "/PerformanceApp/Api/PerformanceApp/ListarStatus";
+            $.getJSON(url)
+                .done(function (data) {
+                    console.log(data);
+                    $.each(data, function (index, result) {
+                        selectStatus.append($('<option/>', {
+                            value: result.idStatus,
+                            text: result.nombre
+                        }));
+                    });
+                });
+        }
+        function BuscarDatosMeta() {
+            var url = "/PerformanceApp/Api/PerformanceApp/buscarDatosMeta?idUsuario=" + "@idUsuario" + "&idMeta=" + idMeta;
+           
+            $.getJSON(url)
+                .done(function (data) {
+                    $("#metaTedit").val(data.metaTitulo);
+                    $("#tipoAccionedit").val(data.nombreTipoAccion);
+                    $("#habilidadEdit").val(data.nombreHabilidad);
+                    $("#metaDedit").val(data.metaDescripcion);
+                    $("#fechaDesdeEdit").val(data.fechaDesde);
+                    $("#fechaHastaEdit").val(data.fechaHasta);
+                });
         }
 
     </script>
