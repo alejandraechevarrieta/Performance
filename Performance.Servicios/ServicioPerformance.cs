@@ -1367,15 +1367,42 @@ namespace Performance.Servicios
                                 tipoAccion = ta.idTipoAccion,
                                 nombreHabilidad = ha.habilidad,
                                 metaTitulo = p.metaTitulo,
-                                metaDescripcion = p.metaTitulo,
+                                metaDescripcion = p.metaDescripcion,
                                 fechaDesde = p.fechaDesde,
                                 fechaHasta = p.fechaHasta,
+                                status = st.idStatus,
                                 nombreStatus = st.nombre,
                                 accionesRealizadas = p.accionesRealizadas,
 
                             }).FirstOrDefault();   
 
             return datos;
+        }
+        public int GuardarMetaEdit(PDIMetasVM meta)
+        {
+            try
+            {
+                if (meta.idUsuario != null)
+                {
+
+                    var pdiColaborador = db.PDIColaboradorMetas.Where(x => x.idMeta == meta.idMeta).FirstOrDefault();
+                    if(pdiColaborador != null)
+                    {
+                        pdiColaborador.fechaDesde = meta.fechaDesde;
+                        pdiColaborador.fechaHasta = meta.fechaHasta;
+                        pdiColaborador.status = meta.status;
+                        pdiColaborador.accionesRealizadas = meta.accionesRealizadas;
+                        db.SaveChanges();
+                    }                   
+                }
+                return 0;
+            }
+            catch (Exception e)
+            {
+                var ex = e.GetBaseException();
+
+                return 1;
+            }
         }
         public void cambiarFeedback(int idUsuario, string nombreUsuario)
         {

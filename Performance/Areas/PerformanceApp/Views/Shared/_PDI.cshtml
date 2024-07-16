@@ -147,7 +147,7 @@
                             </div>
                             <div class="col-md-2">
                                 <label>Fecha Desde</label>
-                                <input type="date" class="form-control requeridoPDI" id="fechaDesde">
+                                <input type="date" class="form-control requeridoPDI" id="fechaDesde" onblur="VerificarFechas()">
                             </div>
                             <div class="col-md-2">
                                 <label>Fecha Hasta</label>
@@ -217,11 +217,11 @@
                             </div>
                             <div class="col-md-3">
                                 <label>Fecha Desde</label>
-                                <input type="date" class="form-control requeridoPDIEdit" id="fechaDesdeEdit">
+                                <input type="date" class="form-control requeridoPDIEdit" id="fechaDesdeEdit" onblur="VerificarFechasEdit()">
                             </div>
                             <div class="col-md-3">
                                 <label>Fecha Hasta</label>
-                                <input type="date" class="form-control requeridoPDIEdit" id="fechaHastaEdit" onblur="VerificarFechas()">
+                                <input type="date" class="form-control requeridoPDIEdit" id="fechaHastaEdit" onblur="VerificarFechasEdit()">
                             </div>
                             <div class="col-md-6">
                                 <label>Status:</label>
@@ -241,7 +241,7 @@
                                     <a href="#" role="button" class="btn btn-danger btn-sm btn-block" onclick="cerrarModalEditar();" style="margin-left: 70%; width: 30%;">Cancelar</a>
                                 </div>
                                 <div class="col-md-6">
-                                    <a href="#" role="button" class="btn btn-info btn-sm btn-block" onclick="ValidarDatosFaltantesEditar();" style="margin-left: 10%; width: 30%;">Guardar</a>
+                                    <a href="#" role="button" class="btn btn-info btn-sm btn-block" onclick="ValidarDatosFaltantesEdit();" style="margin-left: 10%; width: 30%;">Guardar</a>
                                 </div>
                             </div>
                         </div>
@@ -267,26 +267,36 @@ function CargarDatos() {
     var url = "/PerformanceApp/Api/PerformanceApp/buscarDatosPDI?idUsuario=" + "@idUsuario" + "&idPerformance=" + "@idPerformance";
     $.getJSON(url)
         .done(function (datos) {
-            $("#metassList").empty();
+            $("#metasList").empty();
             datos.forEach(function (data) {
                 var datosPersonales = datos[0];
                 // Actualiza los valores de colaborador, líder y dominio
                 $("#datosColaborador").text("Colaborador: " + datosPersonales.colaborador + "  -  Líder: " + datosPersonales.lider + "  -  Dominio/Negocio: " + datosPersonales.dominio + ".");
-
-                if (datosPersonales.idUsuario == @idUsuario) {
+                var htmlMetas = "";
+                if (datosPersonales.idUsuario == @idUsuario) {    
                     $('#formPDI').show();
-                }
-                var htmlMetas = `
-<div class="item">
-    <p><strong>-Título de la meta:</strong> ${data.metaTitulo}</p>
-    <p><strong>-Descripción de la meta:</strong> ${data.metaDescripcion}</p>
-    <p><strong>-Tipo de Acción:</strong> ${data.nombreTipoAccion}<strong style="margin-left: 90px;">-Habilidad relacionada:</strong> ${data.nombreHabilidad}<strong style="margin-left: 90px;">-Status:</strong> ${data.nombreStatus}</p>
-    <p><strong>-Fecha Desde:</strong> ${moment(data.fechaDesde).format('DD/MM/YYYY')}<strong style="margin-left: 180px;">-Fecha Hasta:</strong> ${moment(data.fechaHasta).format('DD/MM/YYYY')} </p>
-    <p><strong>-Acciones Realizadas:</strong> ${data.accionesRealizadas ? data.accionesRealizadas : ''}</p>
-    <div class="separator"> </div>
-</div>
-`;
-
+                    htmlMetas = `
+                        <div class="item">
+                            <p><strong>-Título de la meta:</strong> ${data.metaTitulo}</p>
+                            <p><strong>-Descripción de la meta:</strong> ${data.metaDescripcion}</p>
+                            <p><strong>-Tipo de Acción:</strong> ${data.nombreTipoAccion}<strong style="margin-left: 90px;">-Habilidad relacionada:</strong> ${data.nombreHabilidad}<strong style="margin-left: 90px;">-Status:</strong> ${data.nombreStatus}</p>
+                            <p><strong>-Fecha Desde:</strong> ${moment(data.fechaDesde).format('DD/MM/YYYY')}<strong style="margin-left: 180px;">-Fecha Hasta:</strong> ${moment(data.fechaHasta).format('DD/MM/YYYY')} <i class="lapiz fas fa-pencil-alt" style="margin-left: 600px;" onclick="EditarMeta(${data.idMeta})"></i></p>
+                            <p><strong>-Acciones Realizadas:</strong> ${data.accionesRealizadas ? data.accionesRealizadas : ''}</p>
+                            <div class="separator"> </div>
+                        </div>
+                    `;
+                } else {
+                    htmlMetas = `
+                        <div class="item">
+                            <p><strong>-Título de la meta:</strong> ${data.metaTitulo}</p>
+                            <p><strong>-Descripción de la meta:</strong> ${data.metaDescripcion}</p>
+                            <p><strong>-Tipo de Acción:</strong> ${data.nombreTipoAccion}<strong style="margin-left: 90px;">-Habilidad relacionada:</strong> ${data.nombreHabilidad}<strong style="margin-left: 90px;">-Status:</strong> ${data.nombreStatus}</p>
+                            <p><strong>-Fecha Desde:</strong> ${moment(data.fechaDesde).format('DD/MM/YYYY')}<strong style="margin-left: 180px;">-Fecha Hasta:</strong> ${moment(data.fechaHasta).format('DD/MM/YYYY')} </p>
+                            <p><strong>-Acciones Realizadas:</strong> ${data.accionesRealizadas ? data.accionesRealizadas : ''}</p>
+                            <div class="separator"> </div>
+                        </div>
+                    `;
+                }   
                 var htmlVacio = `
                     <div class="item">
                         <p></p> <br /><br />
@@ -298,7 +308,7 @@ function CargarDatos() {
             });
         });
 }
-      //  <p><strong>-Fecha Desde:</strong> ${moment(data.fechaDesde).format('DD/MM/YYYY')}<strong style="margin-left: 180px;">-Fecha Hasta:</strong> ${moment(data.fechaHasta).format('DD/MM/YYYY')} <i class="lapiz fas fa-pencil-alt" style="margin-left: 600px;" onclick="EditarMeta(${data.idMeta})"></i></p>
+      
 
         function CargarTiposAccion() {
             var selectTipoAccion = $('#selectTipoAccion');
@@ -455,15 +465,15 @@ function CargarDatos() {
             $('#modal-editar').hide();
             idMeta = 0;
         }
-        function vaciarMetaEdicion() {
-            $('#selectTipoAccion').val('').change();
-            $('#selectHabilidad').val('').change();
-            $('#metaT').val('').change();
-            $('#metaD').val('').change();
-            $('#fechaDesde').val('').change();
-            $('#fechaHasta').val('').change();
-            $('#selectStatus').val('').change();
-            $('#accionRealizada').val('').change();
+        function vaciarMetaEdit() {
+            $('#tipoAccionedit').val('').change();
+            $('#habilidadEdit').val('').change();
+            $('#metaTedit').val('').change();
+            $('#metaDedit').val('').change();
+            $('#fechaDesdeEdit').val('').change();
+            $('#fechaHastaEdit').val('').change();
+            $('#selectStatusEdit').val('').change();
+            $('#accionRealizadaEdit').val('').change();
         }
         function CargarStatusEdicion() {
             var selectStatus = $('#selectStatusEdit');
@@ -490,11 +500,92 @@ function CargarDatos() {
                     $("#tipoAccionedit").val(data.nombreTipoAccion);
                     $("#habilidadEdit").val(data.nombreHabilidad);
                     $("#metaDedit").val(data.metaDescripcion);
-                    $("#fechaDesdeEdit").val(data.fechaDesde);
-                    $("#fechaHastaEdit").val(data.fechaHasta);
+                    $("#selectStatusEdit").val(data.status);
+                    loadFecha(data.fechaDesde, $('#fechaDesdeEdit'));
+                    loadFecha(data.fechaHasta, $('#fechaHastaEdit'));
+                    $("#accionRealizadaEdit").val(data.accionesRealizadas);
                 });
         }
+        function loadFecha(fecha, control) {
+            if (fecha != null) {
+                var now = new Date(fecha);
+                var day = ("0" + now.getDate()).slice(-2);
+                var month = ("0" + (now.getMonth() + 1)).slice(-2);
+                var today = now.getFullYear() + "-" + (month) + "-" + (day);
+                control.val(today);
+            }
+        }
+        ///VALIDACIONES
+        $('.requeridoPDIEdit').each(function (index, element) {
+            $('#' + element.id).on('change blur', function () {
+                ValidarFaltantesEdit();
+            });
+        });
+        function ValidarFaltantesEdit() {
+            var elementos = $('.requeridoPDIEdit');
+            var validado = true;
+            elementos.each(function (index, element) {
+                if (element.value == '' || element.value == undefined) {
+                    validado = false;
+                } else {
+                    element.style.backgroundColor = "";
+                }
+            });
+        }
+        function ValidarDatosFaltantesEdit() {
+            var elementos = $('.requeridoPDIEdit');
+            var validado = true;
 
+            elementos.each(function (index, element) {
+                if (element.value == '' || element.value == undefined) {
+                    validado = false;
+                    element.style.backgroundColor = "#ef8a99";
+                }
+            });
+            if (validado) {
+                GuardarMetaEdit();
+            } else {
+                alert("Falta completar datos obligatorios");
+            }
+        }
+        function VerificarFechasEdit() {
+            var fechaDesde = new Date($("#fechaDesdeEdit").val());
+            var fechaHasta = new Date($("#fechaHastaEdit").val());
+            if (fechaHasta < fechaDesde) {
+                alert('La fecha de finalización no puede ser anterior a la fecha de inicio.');
+                $('#fechaHastaEdit').val('').change();
+            }
+        }
+        function GuardarMetaEdit() {
+            var metaDetalle = new Object();
+            metaDetalle.idMeta = idMeta;     
+            metaDetalle.idUsuario = idUsuario;           
+            metaDetalle.fechaDesde = $("#fechaDesdeEdit").val();
+            metaDetalle.fechaHasta = $("#fechaHastaEdit").val();
+            metaDetalle.status = $("#selectStatusEdit").val();
+            metaDetalle.accionesRealizadas = $("#accionRealizadaEdit").val();
+
+            $.ajax({
+                type: "POST",
+                url: "/PerformanceApp/Api/PerformanceApp/GuardarMetaEdit",
+                data: metaDetalle,
+                dataType: "json",
+                success: function (response) {
+                    if (response == 0) {
+                        mostrarMensajeGuardado();
+                        CargarDatos();
+                        vaciarMetaEdit();
+                        cerrarModalEditar();
+                    } else {
+                        alet("Error al guardar");
+                    }
+                },
+                error: function (jqxhr) {
+                    //$('#modal-error').show();
+                    console.log(jqxhr);
+                }
+            });
+        }
     </script>
 </body>
 </html>

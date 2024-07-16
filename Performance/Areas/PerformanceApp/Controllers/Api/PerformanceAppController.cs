@@ -642,6 +642,24 @@ namespace Performance.Areas.PerformanceApp.Controllers.Api
             Servicios.ServicioPerformance servicio = new Servicios.ServicioPerformance();
             return servicio.buscarDatosMeta(idUsuario, idMeta);
         }
+        [System.Web.Http.Route("Api/PerformanceApp/GuardarMetaEdit")]
+        [System.Web.Http.ActionName("GuardarMetaEdit")]
+        [System.Web.Http.HttpPost]
+        public int GuardarMetaEdit(PDIMetasVM meta)
+        {
+            try
+            {                
+                {
+                    Servicios.ServicioPerformance _servicio = new Servicios.ServicioPerformance();
+                    var tmp = _servicio.GuardarMetaEdit(meta);
+                    return tmp;
+                }
+            }
+            catch (Exception e)
+            {
+                return 0;
+            }
+        }
         [System.Web.Http.Route("Api/PerformanceApp/cambiarFeedback")]
         [System.Web.Http.ActionName("cambiarFeedback")]
         [System.Web.Http.HttpGet]
