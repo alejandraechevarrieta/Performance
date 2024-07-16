@@ -1377,5 +1377,30 @@ namespace Performance.Servicios
 
             return datos;
         }
+        public void cambiarFeedback(int idUsuario, string nombreUsuario)
+        {
+            int anoActual = DateTime.Now.Year;
+            var performance = db.PerformanceColaborador.Where(x => x.ano == anoActual) .ToList();
+            Historial historial = new Historial();
+
+            foreach (var item  in performance)
+            {
+                item.estado = 4;
+                db.SaveChanges();
+
+                //historial guardar si no ha cambiado previamente a feedback
+                var existe = db.Historial.Where(x => x.idPerformance == item.idPerformance && x.estado == 4).FirstOrDefault();
+                if (existe == null)
+                {
+                    historial.idPerformance = item.idPerformance;
+                    historial.estado = 4;
+                    historial.idUsuarioCambio = idUsuario;
+                    historial.fechaCambio = DateTime.Now;
+                    historial.nombreUsuarioCambio = nombreUsuario;
+                    db.Historial.Add(historial);
+                    db.SaveChanges();
+                }               
+            }   
+        }
     }
 }

@@ -642,6 +642,14 @@ namespace Performance.Areas.PerformanceApp.Controllers.Api
             Servicios.ServicioPerformance servicio = new Servicios.ServicioPerformance();
             return servicio.buscarDatosMeta(idUsuario, idMeta);
         }
+        [System.Web.Http.Route("Api/PerformanceApp/cambiarFeedback")]
+        [System.Web.Http.ActionName("cambiarFeedback")]
+        [System.Web.Http.HttpGet]
+        public void cambiarFeedback(int idUsuario, string nombreUsuario)
+        {
+            Servicios.ServicioPerformance _servicio = new Servicios.ServicioPerformance();
+            _servicio.cambiarFeedback(idUsuario, nombreUsuario);
+        }
         public class DataTableRequestModel
         {
             public int Draw { get; set; }
