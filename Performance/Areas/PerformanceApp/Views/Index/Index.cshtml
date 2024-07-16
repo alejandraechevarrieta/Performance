@@ -604,9 +604,8 @@
                                             <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Fecha de Autoevaluación</th>
                                             <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Fecha de Evaluación</th>
                                             <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Fecha de Calibración</th>
-                                            <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Estado</th>
-                                            @*
-                                            <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Acciones</th>*@
+                                            <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Estado</th>                                            
+                                            <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Acciones</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -1037,7 +1036,7 @@ if(perfil == 129){
                     { "width": "16%", "targets": 3 },
                     { "width": "16%", "targets": 4 },
                     { "width": "20%", "targets": 5 },
-                    /*{ "width": "10%", "targets": 6 },*/
+                    { "width": "10%", "targets": 6 },
                 ],
                 "columns": [
                     {
@@ -1139,21 +1138,30 @@ if(perfil == 129){
                             }
                         }
                     },
-                    //{
-                    //    "data": "idEstado",
-                    //    "name": "Acciones",
-                    //    "autoWidth": false,
-                    //    "render": function (data, type, row, meta) {
-                    //        if (data == 2) {
-                    //            return '<div style="text-align: center;" title="Descargar excel AutoEvaluación">' +
-                    //                '<button class="btn btn-primary" onclick="GenerarExcelUnColaborador(' + row.idPerformance + ')"><i class="fas fa-cloud-download-alt"></i></button>' +
-                    //                '</div>';
-                    //        }
-                    //        else {
-                    //            return '';
-                    //        }
-                    //    }
-                    //},
+                    {
+                        "data": "estado",
+                        "name": "Acciones",
+                        "autoWidth": false,
+                        "render": function (data, type, row, meta) {
+                            var currentDate = new Date();
+                            var formattedDate = currentDate.getFullYear() +
+                                ('0' + (currentDate.getMonth() + 1)).slice(-2) +
+                                ('0' + currentDate.getDate()).slice(-2);
+                            var secretKey = formattedDate + "12345678";
+                            var iv = CryptoJS.lib.WordArray.random(16);
+                            var encryptedIdPerformance = CryptoJS.AES.encrypt((row.idPerformance).toString(), CryptoJS.enc.Utf8.parse(secretKey), { iv: iv }).toString();
+                            var ivBase64 = CryptoJS.enc.Base64.stringify(iv);
+                            encryptedIdPerformance = encodeURIComponent(encryptedIdPerformance);
+                            ivBase64 = encodeURIComponent(ivBase64);
+                            if (row.eliminado) {
+                                return '';
+                            }
+                            return '<div style="display: flex; justify-content: center;">' +
+                                "<a href='/PerformanceApp/Index/Crud?view=pdi&idPerformance=" + encryptedIdPerformance + "&iv=" + ivBase64 + "' class='btn btn-sm btn-info cuadrado-btn' style='color:white;' title='PDI'><i'>PDI</i></a>" +
+                                '</div>';
+                        }
+                    },
+                   
                 ],
                 "createdRow": function (row, data, index) {
                     // Aquí puedes aplicar estilos o clases a las filas según tus datos
