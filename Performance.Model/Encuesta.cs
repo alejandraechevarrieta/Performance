@@ -16,8 +16,8 @@ namespace Performance.Model
     {
         public int idEncuesta { get; set; }
         public int idPerformance { get; set; }
-        public int recibido { get; set; }
-        public int calidad { get; set; }
+        public int feedback { get; set; }
+        public Nullable<int> calidad { get; set; }
         public string comentario { get; set; }
     }
 }

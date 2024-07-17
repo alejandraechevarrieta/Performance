@@ -257,4 +257,25 @@ namespace Performance.Model
         public string habilidad { get; set; }
         public Nullable<bool> activo { get; set; }
     }
+    public class EncuestasVM
+    {
+        public int idUsuario { get; set; }
+        public string colaborador { get; set; }
+        public int idJefe { get; set; }
+        public string lider { get; set; }
+        public string dominio { get; set; }
+        public int idMeta { get; set; }
+        public Nullable<int> idPDI { get; set; }
+        public Nullable<int> tipoAccion { get; set; }
+        public string nombreTipoAccion { get; set; }
+        public Nullable<int> habilidad { get; set; }
+        public string nombreHabilidad { get; set; }
+        public string metaTitulo { get; set; }
+        public string metaDescripcion { get; set; }
+        public Nullable<System.DateTime> fechaDesde { get; set; }
+        public Nullable<System.DateTime> fechaHasta { get; set; }
+        public Nullable<int> status { get; set; }
+        public string nombreStatus { get; set; }
+        public string accionesRealizadas { get; set; }
+    }
 }

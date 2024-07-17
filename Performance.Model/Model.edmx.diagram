@@ -8,7 +8,6 @@
         <EntityTypeShape EntityType="PerformanceModel.AutoEvaluacion" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="PerformanceModel.Calificacion" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="PerformanceModel.CalificacionFinalLider" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PerformanceModel.Encuesta" Width="1.5" PointX="2.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="PerformanceModel.Estados" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="PerformanceModel.EstadosFechas" Width="1.5" PointX="4.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="PerformanceModel.EvaluacionPerformance" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
@@ -21,6 +20,7 @@
         <EntityTypeShape EntityType="PerformanceModel.PerformanceColaborador" Width="1.5" PointX="4.75" PointY="9.75" IsExpanded="true" />
         <EntityTypeShape EntityType="PerformanceModel.Habilidades" Width="1.5" PointX="7.375" PointY="10.75" />
         <EntityTypeShape EntityType="PerformanceModel.PDIColaboradorMetas" Width="1.5" PointX="9.375" PointY="0.75" />
+        <EntityTypeShape EntityType="PerformanceModel.Encuesta" Width="1.5" PointX="9.375" PointY="10.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
