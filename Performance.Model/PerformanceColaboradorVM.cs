@@ -260,22 +260,10 @@ namespace Performance.Model
     public class EncuestasVM
     {
         public int idUsuario { get; set; }
-        public string colaborador { get; set; }
-        public int idJefe { get; set; }
-        public string lider { get; set; }
-        public string dominio { get; set; }
-        public int idMeta { get; set; }
-        public Nullable<int> idPDI { get; set; }
-        public Nullable<int> tipoAccion { get; set; }
-        public string nombreTipoAccion { get; set; }
-        public Nullable<int> habilidad { get; set; }
-        public string nombreHabilidad { get; set; }
-        public string metaTitulo { get; set; }
-        public string metaDescripcion { get; set; }
-        public Nullable<System.DateTime> fechaDesde { get; set; }
-        public Nullable<System.DateTime> fechaHasta { get; set; }
-        public Nullable<int> status { get; set; }
-        public string nombreStatus { get; set; }
-        public string accionesRealizadas { get; set; }
+        public int idPerformance { get; set; }
+        public int feedback { get; set; }
+        public Nullable<int> calidad { get; set; }
+        public string comentario { get; set; }
+        public Nullable<System.DateTime> fecha { get; set; }
     }
 }

@@ -19,5 +19,6 @@ namespace Performance.Model
         public int feedback { get; set; }
         public Nullable<int> calidad { get; set; }
         public string comentario { get; set; }
+        public Nullable<System.DateTime> fecha { get; set; }
     }
 }
