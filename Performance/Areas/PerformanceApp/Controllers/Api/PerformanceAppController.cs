@@ -668,6 +668,12 @@ namespace Performance.Areas.PerformanceApp.Controllers.Api
             Servicios.ServicioPerformance _servicio = new Servicios.ServicioPerformance();
             _servicio.cambiarFeedback(idUsuario, nombreUsuario);
         }
+        //ENCUESTA
+        public void GuardarEncuestaFeedback(EncuestasVM encuesta)
+        {
+            Servicios.ServicioPerformance _servicio = new Servicios.ServicioPerformance();
+            _servicio.GuardarEncuestaFeedback(encuesta);
+        }
         public class DataTableRequestModel
         {
             public int Draw { get; set; }

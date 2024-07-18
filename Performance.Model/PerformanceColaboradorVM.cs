@@ -96,6 +96,7 @@ namespace Performance.Model
         public int? idCalificacion6 { get; set; }
         public bool? eliminado { get; set; }
         public List<PerformanceAutoevaluacionVM> habilidades { get; set; }
+        public bool? tieneEncuesta { get; set; }
     }
     public class PerformanceEstados
     {

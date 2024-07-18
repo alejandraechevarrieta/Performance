@@ -39,6 +39,8 @@ namespace Performance.Servicios
         {
             var tmp = (from p in db.PerformanceColaborador
                        join e in db.Estados on p.estado equals e.id
+                       join en in db.Encuesta on p.idPerformance equals en.idPerformance into encuestas
+                       from en in encuestas.DefaultIfEmpty()
                        select new PerformanceVM
                        {
                            ano = p.ano,
@@ -57,7 +59,8 @@ namespace Performance.Servicios
                            dominio = p.dominio,
                            eliminado = p.eliminado,
                            convenio = p.convenio,
-                       }).Where(x => x.eliminado != true).OrderByDescending(x => x.ano).ThenBy(x => x.nombre);
+                           tieneEncuesta = en.idEncuesta != null ? true : false,
+        }).Where(x => x.eliminado != true).OrderByDescending(x => x.ano).ThenBy(x => x.nombre);
             var algo = tmp.ToList();
             var temp = (IQueryable<PerformanceVM>)tmp;
             temp = temp.Union(temp);
@@ -1428,6 +1431,31 @@ namespace Performance.Servicios
                     db.SaveChanges();
                 }               
             }   
+        }
+        //Encuesta
+        public int GuardarEncuestaFeedback(EncuestasVM encuesta)
+        {
+            try
+            {
+                if (encuesta != null)
+                {
+                    Encuesta nuevaEncuesta = new Encuesta();
+                    nuevaEncuesta.idPerformance = encuesta.idPerformance;
+                    nuevaEncuesta.feedback = encuesta.feedback;
+                    nuevaEncuesta.calidad = encuesta.calidad;
+                    nuevaEncuesta.comentario = encuesta.comentario;
+                    nuevaEncuesta.fecha = DateTime.Now;
+                    db.Encuesta.Add(nuevaEncuesta);
+                    db.SaveChanges();
+                }
+                return 0;
+            }
+            catch (Exception e)
+            {
+                var ex = e.GetBaseException();
+
+                return 1;
+            }
         }
     }
 }

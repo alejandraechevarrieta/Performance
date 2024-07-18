@@ -437,6 +437,99 @@
             align-items: center;
             justify-content: space-around;
         }
+        /*ENCUESTA*/
+        .closeE {
+            color: #888;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+            .closeE:hover,
+            .closeE:focus {
+                color: #000;
+                text-decoration: none;
+            }
+
+        #completarEncuesta {
+            justify-content: flex-start;
+        }
+        .comentario-container {           
+            padding-right: 50px; /* Espacio a la derecha */
+            padding-left: 50px; /* Espacio a la izquierda */
+            box-sizing: border-box; /* Incluye el padding en el cálculo del ancho */
+        }
+
+        .comentario {
+            font-size: 18px;
+            text-align: justify;
+            color: #6c757d;
+            opacity: 1;
+            margin: 0; /* Eliminar márgenes internos del texto */
+        }
+        .form-check-inline {
+            display: inline-flex;
+            align-items: center;
+            margin-right: 100px;
+        }
+
+        .center-container {
+            display: flex;
+            justify-content: center !important;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        /* Estilo para los contenedores de radio */
+        .radio-item {
+            display: inline-block;
+            margin-right: 50px; /* Separación de 50px entre los radios */
+            text-align: center;
+        }
+
+        /* Estilo para el radio button */
+        .radio-button {
+            width: 40px; /* Ajusta el tamaño del radio button según sea necesario */
+            height: 40px; /* Ajusta el tamaño del radio button según sea necesario */
+            border-radius: 50%; /* Hace que el radio button sea redondo */
+            border: 2px solid #000; /* Color del borde del radio button */
+            display: inline-block;
+            margin-bottom: 1px; /* Espacio entre el radio button y el número */
+            position: relative;
+        }
+
+        /* Estilo para el radio button cuando está seleccionado */
+        .radio-item input[type="radio"]:checked + label .radio-button {
+            background-color: #0a2a6c; /* Color de fondo cuando está seleccionado */
+        }
+
+        /* Estilo para el contenedor del número y las estrellas */
+        .radio-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Estilo para el número del radio */
+        .radio-number {
+            font-size: 1.2em; /* Ajusta el tamaño del número según sea necesario */
+            margin-bottom: 5px; /* Espacio entre el número y las estrellas */
+        }
+
+        /* Estilo para las estrellas */
+        .radio-stars {
+            font-size: 1.5em; /* Ajusta el tamaño de las estrellas según sea necesario */
+            color: gold;
+        }
+
+            .radio-stars span {
+                margin: 0 2px; /* Espacio entre estrellas */
+            }
+        .large-radio {
+            transform: scale(1.5); /* Cambia el valor para ajustar el tamaño */
+            margin-right: 10px; /* Ajusta el espacio entre el radio y el texto */
+            margin-left: 10px;
+        }
     </style>
 
 
@@ -447,45 +540,45 @@
     <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg">
         @if (Convert.ToInt32(perfil) == 127 || Convert.ToInt32(perfil) == 128)
         {
-        <div style="margin-left: 2.5%; margin-block: 0.5%">
-            <button id="instructivo" class="btn btn-secondary" onclick="DescargarInstructivo()" title="Instructivo" aria-label="Instructivo"> <i class=" fa fa-info-circle "></i></button>
-            <button id="abrirModalBtn" class="btn btn-primary" title="Instructivo" aria-label="Instructivo"> <i class=" fa fa-video-camera"></i></button>
-        </div>
+            <div style="margin-left: 2.5%; margin-block: 0.5%">
+                <button id="instructivo" class="btn btn-secondary" onclick="DescargarInstructivo()" title="Instructivo" aria-label="Instructivo"> <i class=" fa fa-info-circle "></i></button>
+                <button id="abrirModalBtn" class="btn btn-primary" title="Instructivo" aria-label="Instructivo"> <i class=" fa fa-video-camera"></i></button>
+            </div>
         }
         @if (Convert.ToInt32(perfil) == 129)
         {
-        <div style="margin-left: 2.5%; margin-block: 0.5%; position: relative;">
-            <button id="instructivo" class="btn btn-secondary" onclick="DescargarInstructivo()" title="Instructivo" aria-label="Instructivo"> <i class="fa fa-info-circle"></i></button>
-            <button id="abrirModalBtn" class="btn btn-primary" title="Instructivo" aria-label="Instructivo"> <i class="fa fa-video-camera"></i></button>
-            <button id="altaPerformance" type="button" class="btn btn-block btn-warning" style="width: 200px; cursor: pointer;">
-                Alta Performance @(DateTime.Now.Year)
-            </button>
-            <input type="button" class="btn btn-info boton" onclick="abrirModalFeedback()" title='Cambiar a Feedback' id="btnFeedback" value="Cambiar a Feedback ">
-            <input type="button" class="btn btn-success boton" onclick="GenerarExcelColaboradores()" title='excel' id="btnExcel" value="Reporte Performance ">
-            <div class="tracking" id="progresoPerformance" style="margin-bottom: 20px; margin-left:480px">
-                <div class="text-uppercase text-xl font-weight-bolder opacity-7" id="tituloProgreso" style="width:auto">Progreso Performance @(DateTime.Now.Year)</div>
-            </div>
-            <div class="col-md-2" style="position: absolute; top: 10%; right: 2%; margin-right: 0px;">
-                <div class="d-flex flex-column p-3">
-                    <div id="totalPendiente" class="mb-2"><span class="mr-3" style="width: 20px; height: 20px; display: inline-block; background-color: #7AC11F !important;"></span> Pendiente</div>
-                    <div id="totalCompletado" class="mb-2"><span class="mr-3" style="width: 20px; height: 20px; display: inline-block; background-color: #FFC107 !important;"></span> Completado</div>
-                    <div id="totalEvaluado" class="mb-2"><span class="mr-3" style="width: 20px; height: 20px; display: inline-block; background-color: #69E6FF !important;"></span> Evaluado</div>
-                    <div id="totalFeedback" class="mb-2"><span class="mr-3" style="width: 20px; height: 20px; display: inline-block; background-color: #17AFB6 !important;"></span> Feedback</div>
-                    <div id="totalFinalizado" class="mb-2"><span class="mr-3" style="width: 20px; height: 20px; display: inline-block; background-color: #9b9b9b !important;"></span> Finalizado</div>
+            <div style="margin-left: 2.5%; margin-block: 0.5%; position: relative;">
+                <button id="instructivo" class="btn btn-secondary" onclick="DescargarInstructivo()" title="Instructivo" aria-label="Instructivo"> <i class="fa fa-info-circle"></i></button>
+                <button id="abrirModalBtn" class="btn btn-primary" title="Instructivo" aria-label="Instructivo"> <i class="fa fa-video-camera"></i></button>
+                <button id="altaPerformance" type="button" class="btn btn-block btn-warning" style="width: 200px; cursor: pointer;">
+                    Alta Performance @(DateTime.Now.Year)
+                </button>
+                <input type="button" class="btn btn-info boton" onclick="abrirModalFeedback()" title='Cambiar a Feedback' id="btnFeedback" value="Cambiar a Feedback ">
+                <input type="button" class="btn btn-success boton" onclick="GenerarExcelColaboradores()" title='excel' id="btnExcel" value="Reporte Performance ">
+                <div class="tracking" id="progresoPerformance" style="margin-bottom: 20px; margin-left:480px">
+                    <div class="text-uppercase text-xl font-weight-bolder opacity-7" id="tituloProgreso" style="width:auto">Progreso Performance @(DateTime.Now.Year)</div>
+                </div>
+                <div class="col-md-2" style="position: absolute; top: 10%; right: 2%; margin-right: 0px;">
+                    <div class="d-flex flex-column p-3">
+                        <div id="totalPendiente" class="mb-2"><span class="mr-3" style="width: 20px; height: 20px; display: inline-block; background-color: #7AC11F !important;"></span> Pendiente</div>
+                        <div id="totalCompletado" class="mb-2"><span class="mr-3" style="width: 20px; height: 20px; display: inline-block; background-color: #FFC107 !important;"></span> Completado</div>
+                        <div id="totalEvaluado" class="mb-2"><span class="mr-3" style="width: 20px; height: 20px; display: inline-block; background-color: #69E6FF !important;"></span> Evaluado</div>
+                        <div id="totalFeedback" class="mb-2"><span class="mr-3" style="width: 20px; height: 20px; display: inline-block; background-color: #17AFB6 !important;"></span> Feedback</div>
+                        <div id="totalFinalizado" class="mb-2"><span class="mr-3" style="width: 20px; height: 20px; display: inline-block; background-color: #9b9b9b !important;"></span> Finalizado</div>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="row align-items-center" style="text-align: center; margin-top:20px; margin-left:15px;">
-            <div class="form-group2 col-md-9">
-                <div class="progress" style="margin-bottom: 50px;">
-                    <div id="barraPendiente" class="progress-bar progress-bar-stripeds" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
-                    <div id="barraCompletado" class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
-                    <div id="barraEvaluado" class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
-                    <div id="barraFeedback" class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
-                    <div id="barraFinalizado" class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+            <div class="row align-items-center" style="text-align: center; margin-top:20px; margin-left:15px;">
+                <div class="form-group2 col-md-9">
+                    <div class="progress" style="margin-bottom: 50px;">
+                        <div id="barraPendiente" class="progress-bar progress-bar-stripeds" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                        <div id="barraCompletado" class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                        <div id="barraEvaluado" class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                        <div id="barraFeedback" class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                        <div id="barraFinalizado" class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
                 </div>
             </div>
-        </div>
         }
 
         @*FILTROS SOLICITUDES*@
@@ -493,37 +586,37 @@
         <div class="row m-3" style="overflow: hidden; margin-top: 2% !important;" id="rowFiltro">
             @if (Convert.ToInt32(perfil) == 128 || Convert.ToInt32(perfil) == 129)
             {
-            <div class="form-group2 col-md-2" id="filtroColaborador">
-                <label>Colaborador:</label>
-                <div></div>
-                <div style="font-weight: normal !important;">
-                    <select class="form-control" id="selectColaborador"></select>
+                <div class="form-group2 col-md-2" id="filtroColaborador">
+                    <label>Colaborador:</label>
+                    <div></div>
+                    <div style="font-weight: normal !important;">
+                        <select class="form-control" id="selectColaborador"></select>
+                    </div>
                 </div>
-            </div>
-            <div class="form-group2 col-md-2" id="filtroEstado">
-                <label>Estado:</label>
-                <div></div>
-                <select class="form-control" id="selectEstado">
-                </select>
-            </div>
-            <div class="form-group2 col-md-2" id="filtroAno">
-                <label>Año:</label>
-                <div></div>
-                <div style="font-weight: normal !important;">
-                    <select class="form-control" id="selectAno"></select>
+                <div class="form-group2 col-md-2" id="filtroEstado">
+                    <label>Estado:</label>
+                    <div></div>
+                    <select class="form-control" id="selectEstado">
+                    </select>
                 </div>
-            </div>
-            <div class="form-group2 col-md-2 mt-1 pt-4 d-flex" id="btnBuscarFiltro">
-                <button id="btnFiltrar" type="button" class="btn btn-success me-2" style="width: 120px; cursor: pointer;">
-                    Buscar
-                </button>
-                <button id="btnLimpiar" type="button" class="btn btn-info" style="width: 120px; cursor: pointer;">
-                    Limpiar
-                </button>
-            </div>
-            @*<div class="form-group2 col-md-1 mt-2" style="padding-top: 1.9%; margin-left:10px;" id="btnLimpiar">
+                <div class="form-group2 col-md-2" id="filtroAno">
+                    <label>Año:</label>
+                    <div></div>
+                    <div style="font-weight: normal !important;">
+                        <select class="form-control" id="selectAno"></select>
+                    </div>
+                </div>
+                <div class="form-group2 col-md-2 mt-1 pt-4 d-flex" id="btnBuscarFiltro">
+                    <button id="btnFiltrar" type="button" class="btn btn-success me-2" style="width: 120px; cursor: pointer;">
+                        Buscar
+                    </button>
+                    <button id="btnLimpiar" type="button" class="btn btn-info" style="width: 120px; cursor: pointer;">
+                        Limpiar
+                    </button>
+                </div>
+                @*<div class="form-group2 col-md-1 mt-2" style="padding-top: 1.9%; margin-left:10px;" id="btnLimpiar">
 
-            </div>*@
+                </div>*@
             }
         </div>
         <div class="row m-3" style="overflow: hidden; margin-top: 0% !important; display:none;" id="rowFiltro2">
@@ -555,102 +648,101 @@
             <!-- TABLA COLABORADOR -->
             @if (Convert.ToInt32(perfil) == 127)
             {
-            <div class="row">
-                <div class="col-12">
-                    <div class="card mb-4">
-                        <div class="card-header pb-0">
-                            <div class="text-uppercase text-xl-center  font-weight-bolder opacity-7">Performance Colaborador</div>
-                        </div>
-                        <div class="card-body px-0 pt-0 pb-2">
-                            <div class="table-responsive p-4">
-                                <table class="table align-items-center mb-0" id="tablaColaborador">
-                                    <thead>
-                                        <tr>
-                                            <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Año Performance</th>
-                                            <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Colaborador</th>
-                                            <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Líder</th>
-                                            <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Fecha de Autoevaluación</th>
-                                            <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Fecha de Feedback</th>
-                                            <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Estado</th>
-                                            @*
-                                            <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Acciones</th>*@
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <!-- Los datos de la tabla se agregarán aquí dinámicamente desde JavaScript -->
-                                    </tbody>
-                                </table>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card mb-4">
+                            <div class="card-header pb-0">
+                                <div class="text-uppercase text-xl-center  font-weight-bolder opacity-7">Performance Colaborador</div>
+                            </div>
+                            <div class="card-body px-0 pt-0 pb-2">
+                                <div class="table-responsive p-4">
+                                    <table class="table align-items-center mb-0" id="tablaColaborador">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Año Performance</th>
+                                                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Colaborador</th>
+                                                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Líder</th>
+                                                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Fecha de Autoevaluación</th>
+                                                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Fecha de Feedback</th>
+                                                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Estado</th>
+                                                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Acciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <!-- Los datos de la tabla se agregarán aquí dinámicamente desde JavaScript -->
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
             }
             @if (Convert.ToInt32(perfil) == 128)
             {
-            <div class="row">
-                <div class="col-12">
-                    <div class="card mb-4">
-                        <div class="card-header pb-0">
-                            <div class="text-uppercase text-xl-center  font-weight-bolder opacity-7">Performance Líder</div>
-                        </div>
-                        <div class="card-body px-0 pt-0 pb-2">
-                            <div class="table-responsive p-4">
-                                <table class="table align-items-center mb-0" id="tablaLider">
-                                    <thead>
-                                        <tr>
-                                            <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Año Performance</th>
-                                            <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Colaborador</th>
-                                            <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Fecha de Autoevaluación</th>
-                                            <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Fecha de Evaluación</th>
-                                            <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Fecha de Calibración</th>
-                                            <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Estado</th>                                            
-                                            <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Acciones</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <!-- Los datos de la tabla se agregarán aquí dinámicamente desde JavaScript -->
-                                    </tbody>
-                                </table>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card mb-4">
+                            <div class="card-header pb-0">
+                                <div class="text-uppercase text-xl-center  font-weight-bolder opacity-7">Performance Líder</div>
+                            </div>
+                            <div class="card-body px-0 pt-0 pb-2">
+                                <div class="table-responsive p-4">
+                                    <table class="table align-items-center mb-0" id="tablaLider">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Año Performance</th>
+                                                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Colaborador</th>
+                                                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Fecha de Autoevaluación</th>
+                                                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Fecha de Evaluación</th>
+                                                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Fecha de Calibración</th>
+                                                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Estado</th>
+                                                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Acciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <!-- Los datos de la tabla se agregarán aquí dinámicamente desde JavaScript -->
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
             }
             @if (Convert.ToInt32(perfil) == 129)
             {
-            <div class="row">
-                <div class="col-12">
-                    <div class="card mb-4">
-                        <div class="card-header pb-0">
-                            <div class="text-uppercase text-xl-center  font-weight-bolder opacity-7">Performance Capital Humano</div>
-                        </div>
-                        <div class="card-body px-0 pt-0 pb-2">
-                            <div class="table-responsive p-4">
-                                <table class="table align-items-center mb-0" id="tablaRRHH">
-                                    <thead>
-                                        <tr>
-                                            <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Año Performance</th>
-                                            <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Colaborador</th>
-                                            <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Líder</th>
-                                            <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">F.Autoevaluación</th>
-                                            <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">F.Evaluación</th>
-                                            <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">F.Calibración</th>
-                                            <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">F.Feedback</th>
-                                            <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Estado</th>
-                                            <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Acciones</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <!-- Los datos de la tabla se agregarán aquí dinámicamente desde JavaScript -->
-                                    </tbody>
-                                </table>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card mb-4">
+                            <div class="card-header pb-0">
+                                <div class="text-uppercase text-xl-center  font-weight-bolder opacity-7">Performance Capital Humano</div>
+                            </div>
+                            <div class="card-body px-0 pt-0 pb-2">
+                                <div class="table-responsive p-4">
+                                    <table class="table align-items-center mb-0" id="tablaRRHH">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Año Performance</th>
+                                                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Colaborador</th>
+                                                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Líder</th>
+                                                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">F.Autoevaluación</th>
+                                                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">F.Evaluación</th>
+                                                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">F.Calibración</th>
+                                                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">F.Feedback</th>
+                                                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Estado</th>
+                                                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Acciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <!-- Los datos de la tabla se agregarán aquí dinámicamente desde JavaScript -->
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
             }
         </div>
         @*modal preguntar si esta seguro *@
@@ -744,6 +836,112 @@
                 </div>
             </div>
         </div>
+        @*modal encuesta*@
+        <div class="modal modal-info" id="modalEncuesta" tabindex="-1" aria-labelledby="myLargeModalLabel">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 style="width:95%; text-align:center;">Encuesta sobre tu feedback</h4>
+                        <span style="width:5%;" class="closeE" onclick="CerrarModalEncuesta();">&times;</span>
+                    </div>
+                    <div class="modal-body">
+                        <!-- Primera sección -->
+                        <h6 class="mb-2">- ¿Pudiste coordinar y realizar la reunión de feedback con tu líder?</h6>
+                        <div class="center-container" style="margin-top: 20px;">
+                            <div class="form-check form-check-inline">
+                                <input class="large-radio" type="radio" name="feedback" id="inlineRadio1" value="1" onchange="validarEncuesta('Si')">
+                                <label class="form-check-label" for="inlineRadio1">Sí</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="large-radio" type="radio" name="feedback" id="inlineRadio2" value="0" onchange="validarEncuesta('No')">
+                                <label class="form-check-label" for="inlineRadio2">No</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-body" id="efectividadSection" style="display: none;">
+                        <!-- Segunda sección -->
+                        <h6 class="mb-2">- Si respondiste "Sí", ¿cómo calificarías la efectividad de la retroalimentación recibida para tu desarrollo profesional y creación de tu Plan de Desarrollo Individual?</h6>
+                        <p>( en una escala del 1 al 5, donde 1 es 'nada útil' y 5 es 'muy útil')</p>
+                        <div class="center-container ml-3 mt-3">
+                            <div class="radio-item">
+                                <input type="radio" name="calificacionFeedback" value="1" id="rf1" class="large-radio">
+                                <div class="radio-content">
+                                    <div class="radio-stars">
+                                        <span>★</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" name="calificacionFeedback" value="2" id="rf2" class="large-radio">
+                                <div class="radio-content">
+                                    <div class="radio-stars">
+                                        <span>★</span>
+                                        <span>★</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" name="calificacionFeedback" value="3" id="rf3" class="large-radio">
+                                <div class="radio-content">
+                                    <div class="radio-stars">
+                                        <span>★</span>
+                                        <span>★</span>
+                                        <span>★</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" name="calificacionFeedback" value="4" id="rf4" class="large-radio">
+                                <div class="radio-content">
+                                    <div class="radio-stars">
+                                        <span>★</span>
+                                        <span>★</span>
+                                        <span>★</span>
+                                        <span>★</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" name="calificacionFeedback" value="5" id="rf5" class="large-radio">
+                                <div class="radio-content">
+                                    <div class="radio-stars">
+                                        <span>★</span>
+                                        <span>★</span>
+                                        <span>★</span>
+                                        <span>★</span>
+                                        <span>★</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>   <br /><br />
+                    </div>
+                    <div class="modal-body">
+                        <h5 class="fs-title">Comentarios</h5>
+                        <div class="mt-3">
+                            <textarea id="comentariosFeedback" name="comentarios" rows="4" cols="87" placeholder="Ingrese sus comentarios aquí..."></textarea>
+                        </div>
+                        <div id="completarEncuesta" class="modal-footer" style="display: none;">
+                            <button id="btnEnviarEncuesta" type="button" class="btn btn-primary" style="margin-left:300px;">Enviar Respuesta</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @*modal encuesta realizada*@
+        <div class="modal modal-info" id="modalEncuestaRealizada" tabindex="-1" aria-labelledby="myLargeModalLabel">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 style="width:95%; text-align:center;">Encuesta sobre tu feedback</h4>
+                        <span style="width:5%;" class="closeE" onclick="CerrarModalEncuestaRealizada();">&times;</span>
+                    </div>                    
+                    <div class="modal-body">
+                        <h5 style="width:95%; text-align:center;">La encuesta de esta performance ya fue realizada.</h5>                        
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </main>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
     <!-- DataTables JS CDN -->
@@ -754,6 +952,7 @@
         var perfil = "@perfil";
         var anoActual = new Date().getFullYear();
         var idPerformanceEliminar = 0;
+        var idPerformance = 0;
         $("#divLoading").hide();
     //Codigo para checkbox
     const checkboxes = document.querySelectorAll('.form-check-input');
@@ -878,7 +1077,7 @@ if(perfil == 129){
                     { "width": "13%", "targets": 3 },
                     { "width": "13%", "targets": 4 },
                     { "width": "20%", "targets": 5 },
-                    /*{ "width": "10%", "targets": 6 },*/
+                    { "width": "10%", "targets": 6 },
 
                 ],
                 "columns": [
@@ -975,21 +1174,27 @@ if(perfil == 129){
                             }
                         }
                     },
-                    //{
-                    //    "data": "idEstado",
-                    //    "name": "Acciones",
-                    //    "autoWidth": false,
-                    //    "render": function (data, type, row, meta) {
-                    //        if (data == 2) {
-                    //            return '<div style="text-align: center;" title="Descargar excel AutoEvaluación">' +
-                    //                '<button class="btn btn-primary" onclick="GenerarExcelUnColaborador(' + row.idPerformance + ')"><i class="fas fa-cloud-download-alt"></i></button>' +
-                    //                '</div>';
-                    //        }
-                    //        else {
-                    //            return '';
-                    //        }
-                    //    }
-                    //},
+                    {
+                        "data": "idEstado",
+                        "name": "Acciones",
+                        "autoWidth": false,
+                        "render": function (data, type, row, meta) {
+                            if (data >= 4 && row.tieneEncuesta == false) {
+                                return '<div style="display: flex; justify-content: center;">' +
+                                    "<a href=# class='btn btn-sm btn-success cuadrado-btn' style='color:white;' title='Encuesta' id='btnEncuesta' onclick=\"AbrirEncuesta(" + row.idPerformance + ")\"><i class='fa fa-file-text'></i></a>" +
+                                    '</div>';
+                            }
+                            else {
+                                if (row.tieneEncuesta == true) {
+                                    return '<div style="display: flex; justify-content: center;">' +
+                                        "<a href=# class='btn btn-sm btn-success cuadrado-btn' style='color:white;' title='Encuesta Realizada' id='btnEncuestaRealizada' onclick=\"AbrirEncuestaRealizada()\"><i class='fa fa-file-text'></i></a>" +
+                                        '</div>';
+                                } else {
+                                    return '';
+                                }
+                            }
+                        }
+                    },
                 ],
                 "createdRow": function (row, data, index) {
 
@@ -1161,7 +1366,7 @@ if(perfil == 129){
                                 '</div>';
                         }
                     },
-                   
+
                 ],
                 "createdRow": function (row, data, index) {
                     // Aquí puedes aplicar estilos o clases a las filas según tus datos
@@ -1793,7 +1998,7 @@ function CerrarModalCambiarFeedback() {
     $('#modalDeseaCambiarFeedback').hide();
 }
 
- 
+
  function cambiarFeedback(idPerformance, estado) {
      var url = 'Api/PerformanceApp/cambiarFeedback';
      url = url + "?idUsuario=" + @idUsuario;
@@ -1803,8 +2008,82 @@ function CerrarModalCambiarFeedback() {
             ListarPerformance();
             $('#modalDeseaCambiarFeedback').hide();
         });
-}
-
+        }
+        //ENCUESTA
+        function AbrirEncuesta(id) {
+            $('#modalEncuesta').show();
+            idPerformance = id;
+        }
+        function CerrarModalEncuesta() {
+            $('#modalEncuesta').hide();
+            idPerformance = 0;
+            vaciarEncuesta();
+        }
+        function AbrirEncuestaRealizada() {
+            $('#modalEncuestaRealizada').show();
+        }
+        function CerrarModalEncuestaRealizada() {
+            $('#modalEncuestaRealizada').hide();
+        }
+        function vaciarEncuesta() {
+            $('input[name="feedback"]').prop('checked', false);
+            $('input[name="calificacionFeedback"]').prop('checked', false);
+            $('#comentariosFeedback').val('');
+            var efectividadSection = document.getElementById('efectividadSection');
+            efectividadSection.style.display = 'none';
+        }
+        function validarEncuesta(value) {
+            var efectividadSection = document.getElementById('efectividadSection');
+            var botonEncuesta = document.getElementById('completarEncuesta');
+            if (value === 'Si') {
+                efectividadSection.style.display = 'block';
+                botonEncuesta.style.display = 'block';
+            } else {
+                efectividadSection.style.display = 'none';
+                botonEncuesta.style.display = 'block';
+                // Limpiar la selección en la sección de efectividad si se oculta
+                var efectividadInputs = document.querySelectorAll('input[name="calificacionFeedback"]');
+                efectividadInputs.forEach(input => input.checked = false);
+            }
+        }
+        $('#btnEnviarEncuesta').click(function () {
+            var efectividadInputs = document.querySelectorAll('input[name="calificacionFeedback"]');
+            var algunSeleccionado = Array.from(efectividadInputs).some(input => input.checked);
+            var feedback = $('input[name="feedback"]:checked').val();
+            if (feedback === "0") {
+                enviarEncuesta();
+            }
+            if (feedback === "1") {
+                if (algunSeleccionado) {
+                    enviarEncuesta();
+                } else {
+                    alert("Debe seleccionar alguna respuesta");
+                }
+            }           
+        });
+        function enviarEncuesta() {
+        var encuesta = new Object();
+        encuesta.feedback = $('input[name="feedback"]:checked').val();
+        encuesta.calidad = $('input[name="calificacionFeedback"]:checked').val();
+        encuesta.comentario = $('#comentariosFeedback').val();
+        encuesta.idPerformance = idPerformance;
+        encuesta.idUsuario = @idUsuario;
+    $.ajax({
+    type: "POST",
+        url: "Api/PerformanceApp/GuardarEncuestaFeedback",
+        data: encuesta,
+    dataType: "json",
+    success: function (response) {
+        alert('Gracias por completar la encuesta');
+        window.location.reload();
+    },
+    error: function (jqxhr) {
+        alert('Hubo un error al guardar');
+        window.location.reload();
+    }
+});
+            CerrarModalEncuesta();
+        }
     </script>
 
 </body>
