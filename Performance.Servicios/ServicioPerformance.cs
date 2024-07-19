@@ -1021,41 +1021,44 @@ namespace Performance.Servicios
             using (PerformanceEntities _db = new PerformanceEntities())
             {
                 var query = (from p in _db.PerformanceColaborador
-                           join e in _db.Estados on p.estado equals e.id
-                           select new
-                           {
-                               p.ano,
-                               p.idPerformance,
-                               p.idUsuario,
-                               p.legajo,
-                               p.nombre,
-                               p.edad,
-                               p.sexo,
-                               p.pais,
-                               p.convenio,
-                               p.categoria,
-                               p.dominio,
-                               p.idJefe,
-                               p.nombreJefe,
-                               p.antiguedad,
-                               p.fechaAutoevaluacion,
-                               p.fechaEvaluacion,
-                               p.fechaCalibracion,
-                               p.estado,
-                               p.calificacionFinal,
-                               p.calificacionFinalAntes,
-                               estadoNombre = e.estado,
-                               autoEvaluaciones = _db.AutoEvaluacion
-                                                   .Where(a => a.idPerformance == p.idPerformance)
-                                                   .Select(a => (int?)a.idCalificacion)
-                                                   .Take(6)
-                                                   .ToList(),
-                               evaluaciones = _db.EvaluacionPerformance
-                                                 .Where(ev => ev.idPerformance == p.idPerformance)
-                                                 .Select(ev => (int?)ev.idCalificacion)
-                                                 .Take(6)
-                                                 .ToList()
-                           });
+                             join e in _db.Estados on p.estado equals e.id
+                             select new
+                             {
+                                 p.ano,
+                                 p.idPerformance,
+                                 p.idUsuario,
+                                 p.legajo,
+                                 p.nombre,
+                                 p.edad,
+                                 p.sexo,
+                                 p.pais,
+                                 p.convenio,
+                                 p.categoria,
+                                 p.dominio,
+                                 p.idJefe,
+                                 p.nombreJefe,
+                                 p.antiguedad,
+                                 p.fechaAutoevaluacion,
+                                 p.fechaEvaluacion,
+                                 p.fechaCalibracion,
+                                 p.estado,
+                                 p.calificacionFinal,
+                                 p.calificacionFinalAntes,
+                                 estadoNombre = e.estado,
+                                 encuestas = _db.Encuesta
+                                                    .Where(en => en.idPerformance == p.idPerformance)
+                                                    .FirstOrDefault(),
+                                 autoEvaluaciones = _db.AutoEvaluacion
+                                                    .Where(a => a.idPerformance == p.idPerformance)
+                                                    .Select(a => (int?)a.idCalificacion)
+                                                    .Take(6)
+                                                    .ToList(),
+                                 evaluaciones = _db.EvaluacionPerformance
+                                                  .Where(ev => ev.idPerformance == p.idPerformance)
+                                                  .Select(ev => (int?)ev.idCalificacion)
+                                                  .Take(6)
+                                                  .ToList()
+                             });
                 // Aplicar los filtros según los parámetros proporcionados
                 if (colaborador.HasValue)
                 {
@@ -1093,13 +1096,17 @@ namespace Performance.Servicios
                     fechaCalificacionAutoevaluacion = x.fechaAutoevaluacion,
                     fechaCalificacionEvaluacion = x.fechaEvaluacion,
                     fechaCalibracion = x.fechaCalibracion,
-                    fechaFeedback = null, // cambiar
+                    fechaFeedback = null, // Cambiar si es necesario
                     idEstado = x.estado,
                     estado = x.estadoNombre,
                     autoEvaluaciones = x.autoEvaluaciones,
                     evaluaciones = x.evaluaciones,
                     calificacionFinal = x.calificacionFinal,
                     calificacionFinalAntes = x.calificacionFinalAntes,
+                    feedback = x.encuestas?.feedback,
+                    calidad = x.encuestas?.calidad,
+                    fechaEncuesta = x.encuestas?.fecha,
+                    comentarioEncuesta = x.encuestas?.comentario,
                 }).ToList();
 
                 ReporteExcelVM excel = new ReporteExcelVM();

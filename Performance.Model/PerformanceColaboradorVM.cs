@@ -184,6 +184,12 @@ namespace Performance.Model
         public string calificacion { get; set; }
         public List<int?> autoEvaluaciones { get; set; }
         public List<int?> evaluaciones { get; set; }
+
+        //ENCUESTA
+        public int? feedback { get; set; }
+        public int? calidad { get; set; }
+        public DateTime? fechaEncuesta { get; set; }
+        public string comentarioEncuesta { get; set; }
     }
 
     public class DatosGeneralPerformanceVM

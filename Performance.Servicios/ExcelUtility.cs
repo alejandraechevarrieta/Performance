@@ -362,7 +362,11 @@ namespace Performance.Servicios
                 IRow Row22 = Sheet.CreateRow(22);
                 IRow Row23 = Sheet.CreateRow(23);
                 IRow Row24 = Sheet.CreateRow(24);
-               
+                IRow Row25 = Sheet.CreateRow(25);
+                IRow Row26 = Sheet.CreateRow(26);
+                IRow Row27 = Sheet.CreateRow(27);
+                IRow Row28 = Sheet.CreateRow(28);
+
 
 
                 CreateCell(HeaderRow, 0, "", celdasEncabezado);
@@ -390,7 +394,11 @@ namespace Performance.Servicios
                 CreateCell(HeaderRow, 22, "", celdasEncabezado2);
                 CreateCell(HeaderRow, 23, "", celdasEncabezado2);
                 CreateCell(HeaderRow, 24, "", celdasEncabezado2);
-               
+                CreateCell(HeaderRow, 25, "", celdasEncabezado2);
+                CreateCell(HeaderRow, 26, "", celdasEncabezado2);
+                CreateCell(HeaderRow, 27, "", celdasEncabezado2);
+                CreateCell(HeaderRow, 28, "", celdasEncabezado2);
+
 
                 CreateCell(Row1, 0, "", celdasEncabezado);
                 CreateCell(Row1, 1, "", celdasEncabezado);
@@ -417,7 +425,11 @@ namespace Performance.Servicios
                 CreateCell(Row1, 22, "", celdasEncabezado2);
                 CreateCell(Row1, 23, "", celdasEncabezado2);
                 CreateCell(Row1, 24, "", celdasEncabezado2);
-               
+                CreateCell(Row1, 25, "", celdasEncabezado2);
+                CreateCell(Row1, 26, "", celdasEncabezado2);
+                CreateCell(Row1, 27, "", celdasEncabezado2);
+                CreateCell(Row1, 28, "", celdasEncabezado2);
+
 
                 CreateCell(Row2, 0, "", celdasEncabezado);
                 CreateCell(Row2, 1, "", celdasEncabezado);
@@ -444,7 +456,11 @@ namespace Performance.Servicios
                 CreateCell(Row2, 22, "", celdasEncabezado2);
                 CreateCell(Row2, 23, "", celdasEncabezado2);
                 CreateCell(Row2, 24, "", celdasEncabezado2);
-               
+                CreateCell(Row2, 25, "", celdasEncabezado2);
+                CreateCell(Row2, 26, "", celdasEncabezado2);
+                CreateCell(Row2, 27, "", celdasEncabezado2);
+                CreateCell(Row2, 28, "", celdasEncabezado2);
+
 
                 CreateCell(Row3, 0, "Legajo", celdasData);
                 CreateCell(Row3, 1, "idUsuario", celdasData);
@@ -471,6 +487,10 @@ namespace Performance.Servicios
                 CreateCell(Row3, 22, "Líder Visión Sistémica", celdasData);
                 CreateCell(Row3, 23, "Performance", celdasData);
                 CreateCell(Row3, 24, "Calib. Performance", celdasData);
+                CreateCell(Row3, 25, "Recibe Feedback", celdasData);
+                CreateCell(Row3, 26, "Calidad", celdasData);
+                CreateCell(Row3, 27, "Fecha Encuesta", celdasData);
+                CreateCell(Row3, 28, "Comentario", celdasData);
 
                 setBordersToMergedCells(Sheet);
                 int lastColumNum = Sheet.GetRow(1).LastCellNum;
@@ -481,7 +501,7 @@ namespace Performance.Servicios
                 }
 
                 // Establecer el ancho de las columnas
-                int columnCount = 24; // Número total de columnas
+                int columnCount = 28; // Número total de columnas
                 int columnWidth = 13 * 256;
                 for (int i = 10; i < columnCount; i++)
                 {
@@ -527,10 +547,14 @@ namespace Performance.Servicios
                     CreateCell(RowForeach, 20, item.evaluaciones.Count > 3 ? item.evaluaciones[3]?.ToString() : "", celdasInfo);
                     CreateCell(RowForeach, 21, item.evaluaciones.Count > 4 ? item.evaluaciones[4]?.ToString() : "", celdasInfo);
                     CreateCell(RowForeach, 22, item.evaluaciones.Count > 5 ? item.evaluaciones[5]?.ToString() : "", celdasInfo);
-
+                    //calificacion final
                     CreateCell(RowForeach, 23, item.calificacionFinalAntes != null ? item.calificacionFinalAntes : item.calificacionFinal, celdasInfo);
-                    CreateCell(RowForeach, 24, item.calificacionFinalAntes != null ? item.calificacionFinal : "", celdasInfo);                   
-
+                    CreateCell(RowForeach, 24, item.calificacionFinalAntes != null ? item.calificacionFinal : "", celdasInfo);
+                    //Encuesta
+                    CreateCell(RowForeach, 25, item.feedback == 0 ? "NO" : item.feedback == 1 ? "SI" : "", celdasInfo);
+                    CreateCell(RowForeach, 26, item.calidad.ToString(), celdasInfo);
+                    CreateCell(RowForeach, 27, item.fechaEncuesta.HasValue ? item.fechaEncuesta.Value.ToString("dd-MM-yyyy") : "", celdasInfo);
+                    CreateCell(RowForeach, 28, item.comentarioEncuesta, celdasInfo);
                 }
                 string filePath = HttpContext.Current.Server.MapPath("~/assets/img/performanceIdentidad2024.png");                
                 byte[] data = File.ReadAllBytes(filePath);                
@@ -549,7 +573,7 @@ namespace Performance.Servicios
             
                 //Uniones
                 CellRangeAddress union1 = new CellRangeAddress(0, 2, 0, 2);
-                CellRangeAddress union2 = new CellRangeAddress(0, 2, 3, 24);
+                CellRangeAddress union2 = new CellRangeAddress(0, 2, 3, 28);
 
                 //Completa union
                 Sheet.AddMergedRegion(union1);
