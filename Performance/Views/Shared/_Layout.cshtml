@@ -45,6 +45,9 @@
 <
 <body class="g-sidenav-show  bg-gray-100">
     <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 d-block position-fixed fixed-start ms-3 bg-gray-100" id="sidenav-main">
+        <div style="margin-left: 38%; margin-top: 250px; position: fixed; font-size: 1.3em; background-color: #17AFB6; color: white; border-radius: 15px; box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3); display: none; " id="divRedirigir">Su sesión ha expirado, por favor vuelva a ingresar. Redirigiendo...</div>
+        <div id="divLoading" class="modalLoading"></div>
+
         <div class="sidenav-header">
             <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
             <img src="~/assets/img/performanceIdentidad2024.png" style="height:78px; width:240px" alt="main_logo">
@@ -83,9 +86,9 @@
                 <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
                     <div class="ms-md-auto pe-md-3 d-flex align-items-center">
                         @*<div class="input-group">
-                                <span class="input-group-text text-body"><i class="fas fa-search" aria-hidden="true"></i></span>
-                                <input type="text" class="form-control" placeholder="Buscar aquí...">
-                            </div>*@
+                            <span class="input-group-text text-body"><i class="fas fa-search" aria-hidden="true"></i></span>
+                            <input type="text" class="form-control" placeholder="Buscar aquí...">
+                        </div>*@
                     </div>
                     <ul class="navbar-nav  justify-content-end">
                         <li class="nav-item d-flex align-items-center m-1">
@@ -107,7 +110,6 @@
                 </div>
             </div>
         </nav>
-        <div id="divLoading" class="modalLoading"></div>
         <button id="botonModalBienvenida" type="button" class="btn bg-gradient-primary d-none" data-bs-toggle="modal" data-bs-target="#exampleModal">
             Launch demo modal
         </button>
@@ -255,6 +257,23 @@
                 });
             });
         });
+
+        //Sesión vencida
+var sessionTimeout = @Session.Timeout * 60 * 1000; // Convertir minutos a milisegundos
+
+// Cuando la sesión expire
+setTimeout(function () {    
+    $("#divRedirigir").show();
+    setTimeout(function () {      
+        $("#divLoading").show();
+    }, 2000);   
+    setTimeout(function () {
+        window.location.href = '/Login/Index';
+        $("#divLoading").hide();
+        $("#divRedirigir").hide();
+    }, 4000);
+}, sessionTimeout);
+
 
     </script>
     <!-- Github buttons -->
