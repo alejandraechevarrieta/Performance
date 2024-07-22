@@ -543,6 +543,9 @@
             <div style="margin-left: 2.5%; margin-block: 0.5%">
                 <button id="instructivo" class="btn btn-secondary" onclick="DescargarInstructivo()" title="Instructivo" aria-label="Instructivo"> <i class=" fa fa-info-circle "></i></button>
                 <button id="abrirModalBtn" class="btn btn-primary" title="Instructivo" aria-label="Instructivo"> <i class=" fa fa-video-camera"></i></button>
+                <button id="btnEncuesta" type="button" class="btn btn-block btn-warning" style="width: 200px; cursor: pointer;">
+                   Feedback @(DateTime.Now.Year)
+                </button>
             </div>
         }
         @if (Convert.ToInt32(perfil) == 129)
@@ -550,8 +553,11 @@
             <div style="margin-left: 2.5%; margin-block: 0.5%; position: relative;">
                 <button id="instructivo" class="btn btn-secondary" onclick="DescargarInstructivo()" title="Instructivo" aria-label="Instructivo"> <i class="fa fa-info-circle"></i></button>
                 <button id="abrirModalBtn" class="btn btn-primary" title="Instructivo" aria-label="Instructivo"> <i class="fa fa-video-camera"></i></button>
-                <button id="altaPerformance" type="button" class="btn btn-block btn-warning" style="width: 200px; cursor: pointer;">
+                <button id="altaPerformance" type="button" class="btn btn-block btn-primary" style="width: 200px; cursor: pointer;">
                     Alta Performance @(DateTime.Now.Year)
+                </button>
+                <button id="btnEncuesta" type="button" class="btn btn-block btn-warning" style="width: 200px; cursor: pointer;">
+                    Feedback @(DateTime.Now.Year)
                 </button>
                 <input type="button" class="btn btn-info boton" onclick="abrirModalFeedback()" title='Cambiar a Feedback' id="btnFeedback" value="Cambiar a Feedback ">
                 <input type="button" class="btn btn-success boton" onclick="GenerarExcelColaboradores()" title='excel' id="btnExcel" value="Reporte Performance ">
@@ -664,8 +670,7 @@
                                                 <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Líder</th>
                                                 <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Fecha de Autoevaluación</th>
                                                 <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Fecha de Feedback</th>
-                                                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Estado</th>
-                                                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Acciones</th>
+                                                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Estado</th>                                                
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -1077,8 +1082,6 @@ if(perfil == 129){
                     { "width": "13%", "targets": 3 },
                     { "width": "13%", "targets": 4 },
                     { "width": "20%", "targets": 5 },
-                    { "width": "10%", "targets": 6 },
-
                 ],
                 "columns": [
                     {
@@ -1173,28 +1176,7 @@ if(perfil == 129){
                                 return '<div style="text-align: center;"><a href="#" class="btn btn-sm grilla-btn btn-secondary" title="Proceso de Performance Completado" style="font-size: 100% !important;">' + row.estado + '</a></div>';
                             }
                         }
-                    },
-                    {
-                        "data": "idEstado",
-                        "name": "Acciones",
-                        "autoWidth": false,
-                        "render": function (data, type, row, meta) {
-                            if (data >= 4 && row.tieneEncuesta == false) {
-                                return '<div style="display: flex; justify-content: center;">' +
-                                    "<a href=# class='btn btn-sm btn-success cuadrado-btn' style='color:white;' title='Encuesta' id='btnEncuesta' onclick=\"AbrirEncuesta(" + row.idPerformance + ")\"><i class='fa fa-file-text'></i></a>" +
-                                    '</div>';
-                            }
-                            else {
-                                if (row.tieneEncuesta == true) {
-                                    return '<div style="display: flex; justify-content: center;">' +
-                                        "<a href=# class='btn btn-sm btn-success cuadrado-btn' style='color:white;' title='Encuesta Realizada' id='btnEncuestaRealizada' onclick=\"AbrirEncuestaRealizada()\"><i class='fa fa-file-text'></i></a>" +
-                                        '</div>';
-                                } else {
-                                    return '';
-                                }
-                            }
-                        }
-                    },
+                    },                    
                 ],
                 "createdRow": function (row, data, index) {
 
@@ -2009,19 +1991,35 @@ function CerrarModalCambiarFeedback() {
             $('#modalDeseaCambiarFeedback').hide();
         });
         }
+
+        $('#altaPerformance').click(function () {
+            $('#modalAltas').show();
+        });
         //ENCUESTA
-        function AbrirEncuesta(id) {
+        $('#btnEncuesta').click(function () {
+            var url = 'Api/PerformanceApp/buscarEncuesta';
+            url = url + "?idUsuario=" + @idUsuario;
+            $.getJSON(url)
+                .done(function (data) {
+                    if (data.idEncuesta > 0) {                      
+                        $('#modalEncuestaRealizada').show();
+                    }
+                    if (data.idEncuesta == 0) {
+                        AbrirEncuesta(data.idPerformance);
+                    }                      
+            });
+        });
+      
+        function AbrirEncuesta(idPer) {
             $('#modalEncuesta').show();
-            idPerformance = id;
+            idPerformance = idPer;
         }
         function CerrarModalEncuesta() {
             $('#modalEncuesta').hide();
             idPerformance = 0;
             vaciarEncuesta();
         }
-        function AbrirEncuestaRealizada() {
-            $('#modalEncuestaRealizada').show();
-        }
+       
         function CerrarModalEncuestaRealizada() {
             $('#modalEncuestaRealizada').hide();
         }
@@ -2059,7 +2057,7 @@ function CerrarModalCambiarFeedback() {
                 } else {
                     alert("Debe seleccionar alguna respuesta");
                 }
-            }           
+            }
         });
         function enviarEncuesta() {
         var encuesta = new Object();

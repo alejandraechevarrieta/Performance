@@ -1440,6 +1440,33 @@ namespace Performance.Servicios
             }   
         }
         //Encuesta
+        public EncuestasVM buscarEncuesta(int idUsuario)
+        {
+            int anoActual = DateTime.Now.Year;
+            var performance = db.PerformanceColaborador.Where(x => x.ano == anoActual && x.idUsuario == idUsuario).FirstOrDefault();
+            if (performance != null)
+            {
+                var encuesta = db.Encuesta.Where(x => x.idPerformance == performance.idPerformance).FirstOrDefault();
+                if (encuesta != null)
+                {
+                    var encuestaVM = new EncuestasVM
+                    {                        
+                        idEncuesta = encuesta.idEncuesta,                                    
+                    };
+                    return encuestaVM;
+                }
+                else
+                {
+                    var encuestaVM = new EncuestasVM
+                    {
+                        idPerformance = performance.idPerformance,
+                    };
+                    return encuestaVM;                   
+                }
+            }
+            return null;
+        }
+
         public int GuardarEncuestaFeedback(EncuestasVM encuesta)
         {
             try
@@ -1453,6 +1480,10 @@ namespace Performance.Servicios
                     nuevaEncuesta.comentario = encuesta.comentario;
                     nuevaEncuesta.fecha = DateTime.Now;
                     db.Encuesta.Add(nuevaEncuesta);
+                    db.SaveChanges();
+
+                    var performance = db.PerformanceColaborador.Where(x => x.idPerformance == encuesta.idPerformance).FirstOrDefault();
+                    performance.estado = 5;
                     db.SaveChanges();
                 }
                 return 0;

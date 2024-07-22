@@ -669,6 +669,15 @@ namespace Performance.Areas.PerformanceApp.Controllers.Api
             _servicio.cambiarFeedback(idUsuario, nombreUsuario);
         }
         //ENCUESTA
+        [System.Web.Http.Route("Api/PerformanceApp/buscarEncuesta")]
+        [System.Web.Http.ActionName("buscarEncuesta")]
+        [System.Web.Http.HttpGet]
+        public EncuestasVM buscarEncuesta(int idUsuario)
+        {
+            Servicios.ServicioPerformance _servicio = new Servicios.ServicioPerformance();
+           var encuesta = _servicio.buscarEncuesta(idUsuario);
+            return encuesta;
+        }
         public void GuardarEncuestaFeedback(EncuestasVM encuesta)
         {
             Servicios.ServicioPerformance _servicio = new Servicios.ServicioPerformance();

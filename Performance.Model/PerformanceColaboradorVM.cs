@@ -266,6 +266,7 @@ namespace Performance.Model
     }
     public class EncuestasVM
     {
+        public int idEncuesta{ get; set; }
         public int idUsuario { get; set; }
         public int idPerformance { get; set; }
         public int feedback { get; set; }
