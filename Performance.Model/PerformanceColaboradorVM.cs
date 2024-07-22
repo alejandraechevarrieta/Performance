@@ -273,5 +273,6 @@ namespace Performance.Model
         public Nullable<int> calidad { get; set; }
         public string comentario { get; set; }
         public Nullable<System.DateTime> fecha { get; set; }
+        public string nombreUsuario { get; set; }
     }
 }

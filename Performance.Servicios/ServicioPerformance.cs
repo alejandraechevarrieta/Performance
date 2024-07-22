@@ -79,7 +79,7 @@ namespace Performance.Servicios
                 }
                 if (idPerfil == "128")
                 {
-                    listaPpal = listaPpal.Where(p => p.idJefe == idUsuarioInt).ToList();
+                    listaPpal = listaPpal.Where(p => p.idJefe == idUsuarioInt || p.idUsuario == idUsuarioInt).ToList();
                 }
             }
             if (colaborador != null)
@@ -868,6 +868,7 @@ namespace Performance.Servicios
                          {
                              ano = p.ano,
                              colaborador = p.nombre,
+                             idUsuario = p.idUsuario,
                              lider = p.nombreJefe,
                              idCalificacionFinal = p.idCalificacionFinal,
                              calificacionFinal = p.calificacionFinal,
@@ -1485,6 +1486,14 @@ namespace Performance.Servicios
                     var performance = db.PerformanceColaborador.Where(x => x.idPerformance == encuesta.idPerformance).FirstOrDefault();
                     performance.estado = 5;
                     db.SaveChanges();
+                    Historial historial = new Historial();                  
+                        historial.idPerformance = encuesta.idPerformance;
+                        historial.estado = 5;
+                        historial.idUsuarioCambio = encuesta.idUsuario;
+                        historial.fechaCambio = DateTime.Now;
+                        historial.nombreUsuarioCambio = encuesta.nombreUsuario;
+                        db.Historial.Add(historial);
+                        db.SaveChanges();                   
                 }
                 return 0;
             }
