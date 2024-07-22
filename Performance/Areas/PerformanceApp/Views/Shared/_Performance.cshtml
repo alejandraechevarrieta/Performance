@@ -442,7 +442,7 @@ function CargarDatos() {
                 }
                 if (@perfil != 127) {
                     var comentario = datos.listDatosPerformance.length > 0 ? datos.listDatosPerformance[0].comentario : null;
-                    if (comentario !== null) {
+                    if (comentario !== null && datos.listDatosPerformance[0].idUsuario != idUsuario) {
                         $('#comentario').html("<strong>Comentario Capital Humano:</strong> " + comentario);
                     }
                 }
