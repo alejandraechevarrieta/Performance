@@ -543,7 +543,7 @@
             <div style="margin-left: 2.5%; margin-block: 0.5%">
                 <button id="instructivo" class="btn btn-secondary" onclick="DescargarInstructivo()" title="Instructivo" aria-label="Instructivo"> <i class=" fa fa-info-circle "></i></button>
                 <button id="abrirModalBtn" class="btn btn-primary" title="Instructivo" aria-label="Instructivo"> <i class=" fa fa-video-camera"></i></button>
-                <button id="btnEncuesta" type="button" class="btn btn-block btn-warning" style="width: 200px; cursor: pointer;">
+                <button id="btnEncuesta" type="button" class="btn btn-block btn-warning" style="width: 200px; cursor: pointer; display: none;">
                    Feedback @(DateTime.Now.Year)
                 </button>
             </div>
@@ -556,7 +556,7 @@
                 <button id="altaPerformance" type="button" class="btn btn-block btn-primary" style="width: 200px; cursor: pointer;">
                     Alta Performance @(DateTime.Now.Year)
                 </button>
-                <button id="btnEncuesta" type="button" class="btn btn-block btn-warning" style="width: 200px; cursor: pointer;">
+                <button id="btnEncuesta" type="button" class="btn btn-block btn-warning" style="width: 200px; cursor: pointer; display: none;">
                     Feedback @(DateTime.Now.Year)
                 </button>
                 <input type="button" class="btn btn-info boton" onclick="abrirModalFeedback()" title='Cambiar a Feedback' id="btnFeedback" value="Cambiar a Feedback ">
@@ -1176,7 +1176,7 @@ if(perfil == 129){
                                 return '<div style="text-align: center;"><a href="/PerformanceApp/Index/Crud?view=performance&idPerformance=' + encryptedIdPerformance + '&iv=' + ivBase64 + '" class="btn btn-sm grilla-btn btn-secondary" title="Proceso de Performance Completado" style="font-size: 100% !important;">' + row.estado + '</a></div>';
                             }
                         }
-                    },                    
+                    },
                 ],
                 "createdRow": function (row, data, index) {
 
@@ -1302,23 +1302,43 @@ if(perfil == 129){
                             }
                             if (data == 1) {
                                 if (idEstadoActual == 2 && row.ano == anoActual) {
-                                    return '<div style="text-align: center;"><a href="/PerformanceApp/Index/Crud?view=evaluacion&idPerformance=' + encryptedIdPerformance + '&iv=' + ivBase64 + '" class="btn btn-sm grilla-btn btn-info" title="Autoevaluación sin realizar" style="font-size: 100% !important;">' + row.estado + '</a></div>';
+                                    if (@idUsuario == row.idUsuario) {
+                                        return '<div style="text-align: center;"><a  href="#" class="btn btn-sm grilla-btn btn-info" title="Autoevaluación sin realizar" style="font-size: 100% !important;">' + row.estado + '</a></div>';
+                                    } else {
+                                        return '<div style="text-align: center;"><a href="/PerformanceApp/Index/Crud?view=evaluacion&idPerformance=' + encryptedIdPerformance + '&iv=' + ivBase64 + '" class="btn btn-sm grilla-btn btn-info" title="Autoevaluación sin realizar" style="font-size: 100% !important;">' + row.estado + '</a></div>';
+                                    }
                                 } else {
-                                    return '<div style="text-align: center;"><a href="/PerformanceApp/Index/Crud?view=performance&idPerformance=' + encryptedIdPerformance + '&iv=' + ivBase64 + '" class="btn btn-sm grilla-btn btn-info" title="Autoevaluación sin realizar, fecha vencida" style="font-size: 100% !important;">' + row.estado + '</a></div>';
+                                    if (@idUsuario == row.idUsuario) {
+                                        return '<div style="text-align: center;"><a href="#" class="btn btn-sm grilla-btn btn-info" title="Autoevaluación sin realizar" style="font-size: 100% !important;">' + row.estado + '</a></div>';
+                                    } else {
+                                        return '<div style="text-align: center;"><a href="/PerformanceApp/Index/Crud?view=performance&idPerformance=' + encryptedIdPerformance + '&iv=' + ivBase64 + '" class="btn btn-sm grilla-btn btn-info" title="Autoevaluación sin realizar, fecha vencida" style="font-size: 100% !important;">' + row.estado + '</a></div>';
+                                    }
                                 }
                             }
                             if (data == 2) {
                                 if (idEstadoActual == 2 && row.ano == anoActual) {
-                                    return '<div style="text-align: center;"><a href="/PerformanceApp/Index/Crud?view=evaluacion&idPerformance=' + encryptedIdPerformance + '&iv=' + ivBase64 + '" class="btn grilla-btn btn-warning" title="Autoevaluación realizada, sin Evaluación" style="font-size: 100% !important;">' + row.estado + '</a></div>';
+                                    if (@idUsuario == row.idUsuario) {
+                                        return '<div style="text-align: center;"><a href="#" class="btn btn-sm grilla-btn btn-info" title="Autoevaluación sin realizar" style="font-size: 100% !important;">' + row.estado + '</a></div>';
+                                    } else {
+                                        return '<div style="text-align: center;"><a href="/PerformanceApp/Index/Crud?view=evaluacion&idPerformance=' + encryptedIdPerformance + '&iv=' + ivBase64 + '" class="btn grilla-btn btn-warning" title="Autoevaluación realizada, sin Evaluación" style="font-size: 100% !important;">' + row.estado + '</a></div>';
+                                    }                                   
                                 } else {
-                                    return '<div style="text-align: center;"><a href="/PerformanceApp/Index/Crud?view=evaluacion&idPerformance=' + encryptedIdPerformance + '&iv=' + ivBase64 + '" class="btn grilla-btn btn-warning" title="Autoevaluación realizada, sin Evaluación, fuera de etapa" style="font-size: 100% !important;">' + row.estado + '</a></div>';
+                                    return '<div style="text-align: center;"><a href="#" class="btn grilla-btn btn-warning" title="Autoevaluación realizada, sin Evaluación, fuera de etapa" style="font-size: 100% !important;">' + row.estado + '</a></div>';
                                 }
                             }
                             if (data == 3) {
-                                return '<div style="text-align: center;"><a href="/PerformanceApp/Index/Crud?view=performance&idPerformance=' + encryptedIdPerformance + '&iv=' + ivBase64 + '" class="btn btn-sm grilla-btn btn-success" title="Evaluación del líder realizada" style="font-size: 100% !important;">' + row.estado + '</a></div>';
+                                if (@idUsuario == row.idUsuario) {
+                                    return '<div style="text-align: center;"><a href="#" class="btn btn-sm grilla-btn btn-info" title="Autoevaluación sin realizar" style="font-size: 100% !important;">' + row.estado + '</a></div>';
+                                } else {
+                                    return '<div style="text-align: center;"><a href="/PerformanceApp/Index/Crud?view=performance&idPerformance=' + encryptedIdPerformance + '&iv=' + ivBase64 + '" class="btn btn-sm grilla-btn btn-success" title="Evaluación del líder realizada" style="font-size: 100% !important;">' + row.estado + '</a></div>';
+                                }
                             }
                             if (data == 4) {
-                                return '<div style="text-align: center;"><a href="/PerformanceApp/Index/Crud?view=performance&idPerformance=' + encryptedIdPerformance + '&iv=' + ivBase64 + '" class="btn btn-sm grilla-btn btn-primary" title=" Evaluación realizada, Calibración realizada, Etapa de Feedback Abierta" style="font-size: 100% !important;">' + row.estado + '</a></div>';
+                                if (@idUsuario == row.idUsuario) {
+                                    return '<div style="text-align: center;"><a href="#" class="btn btn-sm grilla-btn btn-primary" title="Autoevaluación sin realizar" style="font-size: 100% !important;">' + row.estado + '</a></div>';
+                                } else {
+                                    return '<div style="text-align: center;"><a href="/PerformanceApp/Index/Crud?view=performance&idPerformance=' + encryptedIdPerformance + '&iv=' + ivBase64 + '" class="btn btn-sm grilla-btn btn-primary" title=" Evaluación realizada, Calibración realizada, Etapa de Feedback Abierta" style="font-size: 100% !important;">' + row.estado + '</a></div>';
+                                }
                             }
                             if (data == 5) {
                                 return '<div style="text-align: center;"><a href="/PerformanceApp/Index/Crud?view=performance&idPerformance=' + encryptedIdPerformance + '&iv=' + ivBase64 + '" class="btn btn-sm grilla-btn btn-secondary" title="Proceso de Performance Completado" style="font-size: 100% !important;">' + row.estado + '</a></div>';
@@ -2001,15 +2021,15 @@ function CerrarModalCambiarFeedback() {
             url = url + "?idUsuario=" + @idUsuario;
             $.getJSON(url)
                 .done(function (data) {
-                    if (data.idEncuesta > 0) {                      
+                    if (data.idEncuesta > 0) {
                         $('#modalEncuestaRealizada').show();
                     }
                     if (data.idEncuesta == 0) {
                         AbrirEncuesta(data.idPerformance);
-                    }                      
+                    }
             });
         });
-      
+
         function AbrirEncuesta(idPer) {
             $('#modalEncuesta').show();
             idPerformance = idPer;
@@ -2019,7 +2039,7 @@ function CerrarModalCambiarFeedback() {
             idPerformance = 0;
             vaciarEncuesta();
         }
-       
+
         function CerrarModalEncuestaRealizada() {
             $('#modalEncuestaRealizada').hide();
         }
