@@ -669,6 +669,37 @@ namespace Performance.Areas.PerformanceApp.Controllers.Api
             _servicio.cambiarFeedback(idUsuario, nombreUsuario);
         }
         //ENCUESTA
+        [System.Web.Http.Route("Api/PerformanceApp/EnviarEncuestaAColaborador")]
+        [System.Web.Http.ActionName("EnviarEncuestaAColaborador")]
+        [System.Web.Http.HttpPost]
+        public int EnviarEncuestaAColaborador(EncuestasVM objeto)
+        {
+            try
+            {
+                using (var db = new PerformanceEntities())
+                {
+                    Servicios.ServicioPerformance _servicio = new Servicios.ServicioPerformance();
+
+                    var tmp = _servicio.EnviarEncuestaAColaborador(objeto);                   
+
+                    return tmp;
+                }
+
+            }
+            catch (Exception e)
+            {
+                return 0;
+            }
+        }
+        [System.Web.Http.Route("Api/PerformanceApp/HabilitarEncuesta")]
+        [System.Web.Http.ActionName("HabilitarEncuesta")]
+        [System.Web.Http.HttpGet]
+        public int HabilitarEncuesta(int idUsuario)
+        {
+            Servicios.ServicioPerformance _servicio = new Servicios.ServicioPerformance();
+            var tmp = _servicio.HabilitarEncuesta(idUsuario);
+            return tmp;
+        }
         [System.Web.Http.Route("Api/PerformanceApp/buscarEncuesta")]
         [System.Web.Http.ActionName("buscarEncuesta")]
         [System.Web.Http.HttpGet]

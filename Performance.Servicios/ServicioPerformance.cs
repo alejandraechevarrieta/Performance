@@ -53,7 +53,7 @@ namespace Performance.Servicios
                            fechaAutoevaluacion = p.fechaAutoevaluacion, 
                            fechaEvaluacion = p.fechaEvaluacion,
                            fechaCalibracion = p.fechaCalibracion,
-                           fechaFeedback = null, //cambiar
+                           fechaFeedback = p.fechaFeedback,
                            idEstado = p.estado,
                            estado = e.estado,
                            dominio = p.dominio,
@@ -809,11 +809,13 @@ namespace Performance.Servicios
             var totalCompletado = 0;
             var totalEvaluado = 0;
             var totalFeedback = 0;
+            var totalFeedbackEnviado = 0;
             var totalFinalizado = 0;
             decimal porcentajePendiente = 0;
             decimal porcentajeCompletado = 0;
             decimal porcentajeEvaluado = 0;
             decimal porcentajeFeedback = 0;
+            decimal porcentajeFeedbackEnviado = 0;
             decimal porcentajeFinalizado = 0;
 
             foreach (var item in tmp)
@@ -829,6 +831,8 @@ namespace Performance.Servicios
                     totalFeedback++;
                 else if (item.idEstado == 5)
                     totalFinalizado++;
+                else if (item.idEstado == 7)
+                    totalFeedbackEnviado++;
             }
             
             if (totalPerformance > 0)
@@ -837,6 +841,7 @@ namespace Performance.Servicios
                 porcentajeCompletado = (decimal)totalCompletado / totalPerformance * 100;
                 porcentajeEvaluado = (decimal)totalEvaluado / totalPerformance * 100;
                 porcentajeFeedback = (decimal)totalFeedback / totalPerformance * 100;
+                porcentajeFeedbackEnviado = (decimal)totalFeedbackEnviado / totalPerformance * 100;
                 porcentajeFinalizado = (decimal)totalFinalizado / totalPerformance * 100;
             }
 
@@ -849,11 +854,13 @@ namespace Performance.Servicios
                 totalCompletado = totalCompletado,
                 totalEvaluado = totalEvaluado,
                 totalFeedback = totalFeedback,
+                totalFeedbackEnviado = totalFeedbackEnviado,
                 totalFinalizado = totalFinalizado,
                 porcentajePendiente = porcentajePendiente,
                 porcentajeCompletado = porcentajeCompletado,
                 porcentajeEvaluado = porcentajeEvaluado,
                 porcentajeFeedback = porcentajeFeedback,
+                porcentajeFeedbackEnviado = porcentajeFeedbackEnviado,
                 porcentajeFinalizado = porcentajeFinalizado
             });
             
@@ -1441,6 +1448,49 @@ namespace Performance.Servicios
             }   
         }
         //Encuesta
+        public int EnviarEncuestaAColaborador(EncuestasVM encuesta)
+        {
+            try
+            {
+                if (encuesta != null)
+                {                   
+                    var performance = db.PerformanceColaborador.Where(x => x.idPerformance == encuesta.idPerformance).FirstOrDefault();
+                    if(performance != null)
+                    {
+                        performance.estado = 7;
+                        performance.fechaFeedback = DateTime.Now;
+                        db.SaveChanges();
+
+                        Historial historial = new Historial();
+                        historial.idPerformance = encuesta.idPerformance;
+                        historial.estado = 7;
+                        historial.idUsuarioCambio = encuesta.idUsuario;
+                        historial.fechaCambio = DateTime.Now;
+                        historial.nombreUsuarioCambio = encuesta.nombreUsuario;
+                        db.Historial.Add(historial);
+                        db.SaveChanges();
+                    }                   
+                }
+                return 0;
+            }
+            catch (Exception e)
+            {
+                var ex = e.GetBaseException();
+
+                return 1;
+            }
+        }
+        public int HabilitarEncuesta(int idUsuario)
+        {
+            int anoActual = DateTime.Now.Year;
+            var performance = db.PerformanceColaborador.Where(x => x.ano == anoActual && x.idUsuario == idUsuario && x.estado > 4).FirstOrDefault();
+            if (performance != null)
+            {
+                return 1; 
+            }
+            return 0;
+        }
+
         public EncuestasVM buscarEncuesta(int idUsuario)
         {
             int anoActual = DateTime.Now.Year;
