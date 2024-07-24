@@ -1428,6 +1428,16 @@ namespace Performance.Servicios
                 return 1;
             }
         }
+        public int EliminarMeta(int idMeta)
+        {           
+            var unMeta = db.PDIColaboradorMetas.Where(x => x.idMeta == idMeta).FirstOrDefault();
+            if(unMeta != null)
+            {
+                db.PDIColaboradorMetas.Remove(unMeta);
+            }
+            db.SaveChanges();
+            return 0;
+        }
         public void cambiarFeedback(int idUsuario, string nombreUsuario)
         {
             int anoActual = DateTime.Now.Year;

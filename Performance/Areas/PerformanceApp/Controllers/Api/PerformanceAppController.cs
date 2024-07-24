@@ -19,6 +19,7 @@ using System.Threading.Tasks;
 using System.Configuration;
 using Newtonsoft.Json.Linq;
 using System.Collections;
+using Org.BouncyCastle.Utilities;
 
 namespace Performance.Areas.PerformanceApp.Controllers.Api
 {
@@ -658,6 +659,24 @@ namespace Performance.Areas.PerformanceApp.Controllers.Api
             catch (Exception e)
             {
                 return 0;
+            }
+        }
+        [System.Web.Http.Route("Api/PerformanceApp/EliminarMeta")]
+        [System.Web.Http.ActionName("EliminarMeta")]
+        [System.Web.Http.HttpGet]
+        public int EliminarMeta(int idMeta)
+        {
+            try
+            {
+                Servicios.ServicioPerformance _servicio = new Servicios.ServicioPerformance();
+
+                var tmp = _servicio.EliminarMeta(idMeta);              
+
+                return 0;
+            }
+            catch (Exception e)
+            {
+                return 1;
             }
         }
         [System.Web.Http.Route("Api/PerformanceApp/cambiarFeedback")]

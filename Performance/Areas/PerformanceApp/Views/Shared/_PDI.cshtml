@@ -197,7 +197,7 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <label>Meta:</label>
-                                <input type="text" class="form-control requeridoPDIEdit" id="metaTedit"/>
+                                <input type="text" class="form-control requeridoPDIEdit" id="metaTedit" />
                             </div>
                             <div class="col-md-3">
                                 <label>Tipo de acción:</label>
@@ -215,7 +215,7 @@
                             </div>
                             <div class="col-md-12">
                                 <label>Descripción de la meta:</label>
-                                <input type="text" class="form-control requeridoPDIEdit" id="metaDedit"/>
+                                <input type="text" class="form-control requeridoPDIEdit" id="metaDedit" />
                             </div>
                             <div class="col-md-3">
                                 <label>Fecha Desde</label>
@@ -235,7 +235,7 @@
                             <div class="col-md-12">
                                 <label>Acciones realizadas:</label>
                                 <input type="text" class="form-control" id="accionRealizadaEdit" />
-                            </div>                           
+                            </div>
                         </div>
                         <div class="row">
                             <div class="row mb-3 pr-2 mt-3">
@@ -246,6 +246,24 @@
                                     <a href="#" role="button" class="btn btn-info btn-sm btn-block" onclick="ValidarDatosFaltantesEdit();" style="margin-left: 10%; width: 30%;">Guardar</a>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @*MODAL DESEA ELIMINAR *@
+        <div class="modal" id="modal-eliminar-meta" style="display: none!important; margin-top: 0%;">
+            <div class="modal-dialog" style="max-width: 900px!important;">
+                <div class="modal-content p-2">
+                    <div class="row mb-3 m-2" style="text-align: center;">
+                        <p class="h4" style="margin: 0;">¿Desea eliminar la meta: <span id="metaTituloEliminar"></span>?</p>
+                    </div>
+                    <div class="row mb-3 pr-2">
+                        <div class="col-md-6">
+                            <a href="#" role="button" class="btn btn-danger btn-sm btn-block" onclick="cerrarModalEliminarMeta();" style="margin-left: 60%; width: 40%;">Cancelar</a>
+                        </div>
+                        <div class="col-md-6">
+                            <a href="#" role="button" class="btn btn-info btn-sm btn-block" onclick="AceptarEliminarMeta();" style="width: 40%;">Aceptar</a>
                         </div>
                     </div>
                 </div>
@@ -275,14 +293,14 @@ function CargarDatos() {
                 // Actualiza los valores de colaborador, líder y dominio
                 $("#datosColaborador").text("Colaborador: " + datosPersonales.colaborador + "  -  Líder: " + datosPersonales.lider + "  -  Dominio/Negocio: " + datosPersonales.dominio + ".");
                 var htmlMetas = "";
-                if (datosPersonales.idUsuario == @idUsuario) {    
+                if (datosPersonales.idUsuario == @idUsuario) {
                     $('#formPDI').show();
                     htmlMetas = `
                         <div class="item">
                             <p><strong>-Título de la meta:</strong> ${data.metaTitulo}</p>
                             <p><strong>-Descripción de la meta:</strong> ${data.metaDescripcion}</p>
                             <p><strong>-Tipo de Acción:</strong> ${data.nombreTipoAccion}<strong style="margin-left: 90px;">-Habilidad relacionada:</strong> ${data.nombreHabilidad}<strong style="margin-left: 90px;">-Status:</strong> ${data.nombreStatus}</p>
-                            <p><strong>-Fecha Desde:</strong> ${moment(data.fechaDesde).format('DD/MM/YYYY')}<strong style="margin-left: 180px;">-Fecha Hasta:</strong> ${moment(data.fechaHasta).format('DD/MM/YYYY')} <i class="lapiz fas fa-pencil-alt" style="margin-left: 600px;" onclick="EditarMeta(${data.idMeta})"></i></p>
+                            <p><strong>-Fecha Desde:</strong> ${moment(data.fechaDesde).format('DD/MM/YYYY')}<strong style="margin-left: 180px;">-Fecha Hasta:</strong> ${moment(data.fechaHasta).format('DD/MM/YYYY')} <i class="lapiz fas fa-pencil-alt" style="margin-left: 550px;" onclick="EditarMeta(${data.idMeta})"></i><i class="lapiz fas fa-trash" style="margin-left: 10px;" onclick="EliminarMeta(${data.idMeta}, '${data.metaTitulo}')"></i></p>
                             <p><strong>-Acciones Realizadas:</strong> ${data.accionesRealizadas ? data.accionesRealizadas : ''}</p>
                             <div class="separator"> </div>
                         </div>
@@ -298,7 +316,7 @@ function CargarDatos() {
                             <div class="separator"> </div>
                         </div>
                     `;
-                }   
+                }
                 var htmlVacio = `
                     <div class="item">
                         <p></p> <br /><br />
@@ -310,7 +328,7 @@ function CargarDatos() {
             });
         });
 }
-      
+
 
         function CargarTiposAccion() {
             var selectTipoAccion = $('#selectTipoAccion');
@@ -529,7 +547,7 @@ function CargarDatos() {
         }
         function BuscarDatosMeta() {
             var url = "/PerformanceApp/Api/PerformanceApp/buscarDatosMeta?idUsuario=" + "@idUsuario" + "&idMeta=" + idMeta;
-           
+
             $.getJSON(url)
                 .done(function (data) {
                     $("#metaTedit").val(data.metaTitulo);
@@ -594,8 +612,8 @@ function CargarDatos() {
         }
         function GuardarMetaEdit() {
             var metaDetalle = new Object();
-            metaDetalle.idMeta = idMeta;     
-            metaDetalle.idUsuario = idUsuario;       
+            metaDetalle.idMeta = idMeta;
+            metaDetalle.idUsuario = idUsuario;
             metaDetalle.metaTitulo = $("#metaTedit").val();
             metaDetalle.tipoAccion = $("#tipoAccionedit").val();
             metaDetalle.habilidad = $("#habilidadEdit").val();
@@ -625,6 +643,30 @@ function CargarDatos() {
                     console.log(jqxhr);
                 }
             });
+        }
+        ///ELIMINAR META
+     
+        function EliminarMeta(idMet, metaTitulo) {
+            $('#modal-eliminar-meta').show();
+            idMeta = idMet;
+            $('#metaTituloEliminar').text('"' + metaTitulo + '"'); 
+        }
+        function cerrarModalEliminarMeta() {
+            $('#modal-eliminar-meta').hide();
+            idMeta = 0;
+        }
+        function AceptarEliminarMeta() {
+            var url = '/PerformanceApp/Api/PerformanceApp/EliminarMeta?idMeta=' + idMeta;           
+
+            $.getJSON(url)
+                .done(function (data) {
+                    if (data == 0) {
+                        CargarDatos();
+                        cerrarModalEliminarMeta();
+                    } else {
+                        alert("Error al eliminar meta");
+                    }                    
+                });
         }
     </script>
 </body>
