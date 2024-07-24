@@ -197,23 +197,25 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <label>Meta:</label>
-                                <input type="text" class="form-control" id="metaTedit" disabled/>
+                                <input type="text" class="form-control requeridoPDIEdit" id="metaTedit"/>
                             </div>
                             <div class="col-md-3">
                                 <label>Tipo de acción:</label>
                                 <div></div>
                                 <div style="font-weight: normal !important;">
-                                    <input type="text" class="form-control" id="tipoAccionedit" disabled/>
+                                    <select class="form-control requeridoPDIEdit" id="tipoAccionedit"></select>
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <label>Habilidad:</label>
                                 <div></div>
-                                <input type="text" class="form-control" id="habilidadEdit" disabled/>
+                                <div style="font-weight: normal !important;">
+                                    <select class="form-control requeridoPDIEdit" id="habilidadEdit"></select>
+                                </div>
                             </div>
                             <div class="col-md-12">
                                 <label>Descripción de la meta:</label>
-                                <input type="text" class="form-control" id="metaDedit" disabled/>
+                                <input type="text" class="form-control requeridoPDIEdit" id="metaDedit"/>
                             </div>
                             <div class="col-md-3">
                                 <label>Fecha Desde</label>
@@ -459,6 +461,8 @@ function CargarDatos() {
             $('#modal-editar').show();
             idMeta = idMet;
             CargarStatusEdicion();
+            CargarTiposAccionEdicion();
+            CargarHabilidadesEdicion();
             BuscarDatosMeta();
         }
         function cerrarModalEditar() {
@@ -491,14 +495,46 @@ function CargarDatos() {
                     });
                 });
         }
+        function CargarTiposAccionEdicion() {
+            var selectTipoAccion = $('#tipoAccionedit');
+            selectTipoAccion.empty();
+            selectTipoAccion.append($('<option/>', { value: '', text: 'Seleccionar' }).hide());
+            var url = "/PerformanceApp/Api/PerformanceApp/ListarTipoAccion";
+            $.getJSON(url)
+                .done(function (data) {
+                    console.log(data);
+                    $.each(data, function (index, result) {
+                        selectTipoAccion.append($('<option/>', {
+                            value: result.idTipoAccion,
+                            text: result.nombre
+                        }));
+                    });
+                });
+        }
+        function CargarHabilidadesEdicion() {
+            var selectHabilidad = $('#habilidadEdit');
+            selectHabilidad.empty();
+            selectHabilidad.append($('<option/>', { value: '', text: 'Seleccionar' }).hide());
+            var url = "/PerformanceApp/Api/PerformanceApp/ListarHabilidades";
+            $.getJSON(url)
+                .done(function (data) {
+                    console.log(data);
+                    $.each(data, function (index, result) {
+                        selectHabilidad.append($('<option/>', {
+                            value: result.idHabilidad,
+                            text: result.habilidad
+                        }));
+                    });
+                });
+        }
         function BuscarDatosMeta() {
             var url = "/PerformanceApp/Api/PerformanceApp/buscarDatosMeta?idUsuario=" + "@idUsuario" + "&idMeta=" + idMeta;
            
             $.getJSON(url)
                 .done(function (data) {
                     $("#metaTedit").val(data.metaTitulo);
-                    $("#tipoAccionedit").val(data.nombreTipoAccion);
-                    $("#habilidadEdit").val(data.nombreHabilidad);
+                    $("#tipoAccionedit").val(data.tipoAccion);
+                    $("#habilidadEdit").val(data.habilidad);
                     $("#metaDedit").val(data.metaDescripcion);
                     $("#selectStatusEdit").val(data.status);
                     loadFecha(data.fechaDesde, $('#fechaDesdeEdit'));
@@ -559,7 +595,11 @@ function CargarDatos() {
         function GuardarMetaEdit() {
             var metaDetalle = new Object();
             metaDetalle.idMeta = idMeta;     
-            metaDetalle.idUsuario = idUsuario;           
+            metaDetalle.idUsuario = idUsuario;       
+            metaDetalle.metaTitulo = $("#metaTedit").val();
+            metaDetalle.tipoAccion = $("#tipoAccionedit").val();
+            metaDetalle.habilidad = $("#habilidadEdit").val();
+            metaDetalle.metaDescripcion = $("#metaDedit").val();
             metaDetalle.fechaDesde = $("#fechaDesdeEdit").val();
             metaDetalle.fechaHasta = $("#fechaHastaEdit").val();
             metaDetalle.status = $("#selectStatusEdit").val();

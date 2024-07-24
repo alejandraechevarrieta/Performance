@@ -1384,6 +1384,7 @@ namespace Performance.Servicios
                                 nombreTipoAccion = ta.nombre,
                                 tipoAccion = ta.idTipoAccion,
                                 nombreHabilidad = ha.habilidad,
+                                habilidad = ha.idHabilidad,
                                 metaTitulo = p.metaTitulo,
                                 metaDescripcion = p.metaDescripcion,
                                 fechaDesde = p.fechaDesde,
@@ -1406,6 +1407,11 @@ namespace Performance.Servicios
                     var pdiColaborador = db.PDIColaboradorMetas.Where(x => x.idMeta == meta.idMeta).FirstOrDefault();
                     if(pdiColaborador != null)
                     {
+                        pdiColaborador.metaTitulo = meta.metaTitulo;
+                        pdiColaborador.tipoAccion = meta.tipoAccion;
+                        pdiColaborador.habilidad = meta.habilidad;
+                        pdiColaborador.metaDescripcion = meta.metaDescripcion;
+
                         pdiColaborador.fechaDesde = meta.fechaDesde;
                         pdiColaborador.fechaHasta = meta.fechaHasta;
                         pdiColaborador.status = meta.status;
