@@ -17,10 +17,10 @@
         <EntityTypeShape EntityType="PerformanceModel.PDIColaborador" Width="1.5" PointX="6.75" PointY="6.75" IsExpanded="true" />
         <EntityTypeShape EntityType="PerformanceModel.PDIStatus" Width="1.5" PointX="8.75" PointY="4.75" IsExpanded="true" />
         <EntityTypeShape EntityType="PerformanceModel.PDItipoAccion" Width="1.5" PointX="8.75" PointY="7.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PerformanceModel.PerformanceColaborador" Width="1.5" PointX="4.75" PointY="9.75" IsExpanded="true" />
         <EntityTypeShape EntityType="PerformanceModel.Habilidades" Width="1.5" PointX="7.375" PointY="10.75" />
         <EntityTypeShape EntityType="PerformanceModel.PDIColaboradorMetas" Width="1.5" PointX="9.375" PointY="0.75" />
         <EntityTypeShape EntityType="PerformanceModel.Encuesta" Width="1.5" PointX="9.375" PointY="10.75" />
+        <EntityTypeShape EntityType="PerformanceModel.PerformanceColaborador" Width="1.5" PointX="11.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

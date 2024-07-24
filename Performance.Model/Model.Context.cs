@@ -37,9 +37,9 @@ namespace Performance.Model
         public virtual DbSet<PDIColaborador> PDIColaborador { get; set; }
         public virtual DbSet<PDIStatus> PDIStatus { get; set; }
         public virtual DbSet<PDItipoAccion> PDItipoAccion { get; set; }
-        public virtual DbSet<PerformanceColaborador> PerformanceColaborador { get; set; }
         public virtual DbSet<Habilidades> Habilidades { get; set; }
         public virtual DbSet<PDIColaboradorMetas> PDIColaboradorMetas { get; set; }
         public virtual DbSet<Encuesta> Encuesta { get; set; }
+        public virtual DbSet<PerformanceColaborador> PerformanceColaborador { get; set; }
     }
 }

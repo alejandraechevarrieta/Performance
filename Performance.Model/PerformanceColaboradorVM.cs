@@ -132,11 +132,13 @@ namespace Performance.Model
         public int totalCompletado { get; set; }
         public int totalEvaluado { get; set; }
         public int totalFeedback { get; set; }
+        public int totalFeedbackEnviado { get; set; }
         public int totalFinalizado { get; set; }      
         public decimal porcentajePendiente { get; set; }
         public decimal porcentajeCompletado { get; set; }
         public decimal porcentajeEvaluado { get; set; }
         public decimal porcentajeFeedback { get; set; }
+        public decimal porcentajeFeedbackEnviado { get; set; }
         public decimal porcentajeFinalizado { get; set; }
 
     }
