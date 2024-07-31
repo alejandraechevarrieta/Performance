@@ -125,7 +125,8 @@
                             <div class="separator"> </div>
                             <div class="col-md-6">
                                 <label>Título de la meta:</label>
-                                <input type="text" class="form-control requeridoPDI" id="metaT" />
+                                <input type="text" class="form-control requeridoPDI" id="metaT" maxlength="100" />
+                                <span id="contadorT" style="font-size: 12px; color: gray;">0/100</span>
                             </div>
                             <div class="col-md-3">
                                 <label>Tipo de acción:</label>
@@ -143,7 +144,8 @@
                             </div>
                             <div class="col-md-6">
                                 <label>Descripción de la meta:</label>
-                                <input type="text" class="form-control requeridoPDI" id="metaD" />
+                                <input type="text" class="form-control requeridoPDI" id="metaD" maxlength="200" />
+                                <span id="contadorD" style="font-size: 12px; color: gray;">0/200</span>
                             </div>
                             <div class="col-md-2">
                                 <label>Fecha Desde</label>
@@ -162,7 +164,8 @@
                             </div>
                             <div class="col-md-12">
                                 <label>Acciones realizadas:</label>
-                                <input type="text" class="form-control" id="accionRealizada" />
+                                <input type="text" class="form-control" id="accionRealizada" maxlength="500" />
+                                <span id="contadorA" style="font-size: 12px; color: gray;">0/500</span>
                             </div>
                             <div class="row mb-3 pr-2 mt-3">
                                 <div class="col-md-6">
@@ -668,6 +671,18 @@ function CargarDatos() {
                     }                    
                 });
         }
+        $('#metaD').on('input', function () {
+            var contadorD = $(this).val().length;
+            $('#contadorD').text(contadorD + '/200');
+        });
+        $('#metaT').on('input', function () {
+            var contadorT = $(this).val().length;
+            $('#contadorT').text(contadorT + '/100');
+        });
+        $('#accionRealizada').on('input', function () {
+            var contadorA = $(this).val().length;
+            $('#contadorA').text(contadorA + '/500');
+        });
     </script>
 </body>
 </html>
