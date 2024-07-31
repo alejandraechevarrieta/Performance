@@ -9,49 +9,27 @@ namespace Performance.Model
     public class ReporteExcelVM
     {
         public List<string> encabezado { get; set; }
-        public List<DetalleExcelVM> filas { get; set; }
-        public List<DetalleRepVM> detalle { get; set; }
         public string filePath { get; set; }
         public string fileName { get; set; }
         public string nombreColaborador { get; set; }
         public int? idSolicitud { get; set; }
-        public bool? activo { get; set; }
-    }
-
-    public class DetalleExcelVM
+        public bool? activo { get; set; }       
+    }   
+    public class ReporteExcelPDIVM
     {
-        public string nombre { get; set; }
-        public string observacion { get; set; }
-        public string coordinador { get; set; }
-        public decimal? HorasRRHH { get; set; }
-        public decimal? HorasING { get; set; }
-        public decimal? HorasCTR { get; set; }
-        public decimal? HorasSca { get; set; }
-        public decimal? HorasGDE { get; set; }
-        public decimal? HorasOtros { get; set; }
-        public decimal? totalHoras { get; set; }
-        public List<string> horasImpu { get; set; }
-        public List<string> horas100 { get; set; }
-        public List<string> horas50 { get; set; }
-        public List<string> desarraigoNR { get; set; }
-        public List<string> desarraigoR { get; set; }
-        public List<string> detalleImputacion { get; set; }
-        public string desde { get; set; }
-        public string hasta { get; set; }
-        public List<string> bono { get; set; }
-        public List<string> diasLic { get; set; }
-        public List<string> motivoLic { get; set; }
-
-    }
-    public class DetalleRepVM
-    {
-        public string tarea { get; set; }
-        public string fecha { get; set; }
-        public string proyecto { get; set; }
-        public string detalleTarea { get; set; }
-        public decimal? horas { get; set; }
-        public string estado { get; set; }
-        public string tipoSis { get; set; }
-
+        public int idUsuario { get; set; }
+        public string colaborador { get; set; }
+        public int idJefe { get; set; }
+        public string lider { get; set; }       
+        public int idMeta { get; set; }
+        public Nullable<int> idPDI { get; set; }
+        public Nullable<int> tipoAccion { get; set; }
+        public Nullable<int> habilidad { get; set; }
+        public string metaTitulo { get; set; }
+        public string metaDescripcion { get; set; }
+        public Nullable<System.DateTime> fechaDesde { get; set; }
+        public Nullable<System.DateTime> fechaHasta { get; set; }
+        public Nullable<int> status { get; set; }
+        public string accionesRealizadas { get; set; }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Performance.Model;
+﻿using NPOI.POIFS.Crypt.Dsig;
+using Performance.Model;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Core.Metadata.Edm;
@@ -100,11 +101,34 @@ namespace Performance.Servicios
             }
             if (dominio != "null" && dominio != null)
             {
-                var dominioNormalizado = normalizarTexto(dominio).Substring(0, 3);
+                var dominioNormalizado = normalizarTexto(dominio);
+               
 
-                listaPpal = listaPpal.Where(p => p.dominio != "null" &&
-                                                  normalizarTexto(p.dominio).Substring(0, 3) == dominioNormalizado).ToList();
+                listaPpal = listaPpal.Where(p =>
+                    p.dominio != null &&
+                    p.dominio != "null"
+                ).ToList();
+                if(dominioNormalizado.Length < 4)
+                {
+                    dominioNormalizado = dominioNormalizado.Length >= 3 ? dominioNormalizado.Substring(0, 3) : dominioNormalizado;
+                    listaPpal = listaPpal.Where(p =>
+                        normalizarTexto(p.dominio).Length >= 3 ?
+                        normalizarTexto(p.dominio).Substring(0, 3) == dominioNormalizado :
+                        normalizarTexto(p.dominio) == dominioNormalizado
+                    ).ToList();
+                }
+                else
+                {
+                    dominioNormalizado = dominioNormalizado.Length >= 6 ? dominioNormalizado.Substring(0, 6) : dominioNormalizado;
+                    listaPpal = listaPpal.Where(p =>
+                        normalizarTexto(p.dominio).Length >= 6 ?
+                        normalizarTexto(p.dominio).Substring(0, 6) == dominioNormalizado :
+                        normalizarTexto(p.dominio) == dominioNormalizado
+                    ).ToList();
+                }
+                
             }
+
             if (convenio != "null" && convenio != null)
             {
                 var convenioNormalizado = normalizarTexto(convenio).Substring(0, 2);
@@ -308,7 +332,7 @@ namespace Performance.Servicios
             lista =
             (from d in db.PerformanceColaborador
              where d.dominio != ""
-             group d by d.dominio.Substring(0, 3) into g
+             group d by d.dominio.Substring(0, 6) into g
              select new ColaboradorVM
              {
                  dominio = g.FirstOrDefault().dominio
@@ -975,55 +999,14 @@ namespace Performance.Servicios
                            }).OrderBy(x => x.idHabilidad);
                 var list = tmp.ToList();
 
-                ReporteExcelVM excel = new ReporteExcelVM();
-                excel.filas = new List<DetalleExcelVM>();
-                excel.encabezado = new List<string>();
-                DetalleExcelVM detalle = new DetalleExcelVM();
-                excel.filas.Add(detalle);
+                ReporteExcelVM excel = new ReporteExcelVM();               
 
                 ExcelUtility excelUtility = new ExcelUtility();
                 excel = excelUtility.GenerarUnReportePerformance(list);
                 return excel;
             }
 
-        }
-        public ReporteExcelVM GenerarExcelReporteColaboradores()
-        {
-            using (PerformanceEntities _db = new PerformanceEntities())
-            {
-                var tmp = (from p in _db.PerformanceColaborador
-                           join e in _db.Estados on p.estado equals e.id
-                           select new DatosPerformanceVM
-                           {
-                               ano = p.ano,
-                               idPerformance = p.idPerformance,
-                               idUsuario = p.idUsuario,
-                               colaborador = p.nombre,
-                               idJefe = p.idJefe,
-                               nombreJefe = p.nombreJefe,
-                               antiguedad = p.antiguedad,
-                               fechaCalificacionAutoevaluacion = p.fechaAutoevaluacion,
-                               fechaCalificacionEvaluacion = p.fechaEvaluacion,
-                               fechaCalibracion = p.fechaCalibracion,
-                               fechaFeedback = null, //cambiar
-                               idEstado = p.estado,
-                               estado = e.estado,
-                               calificacionFinal = p.calificacionFinal,
-                           }).OrderByDescending(x => x.ano).ThenBy(x => x.colaborador);
-                var list = tmp.ToList();
-
-                ReporteExcelVM excel = new ReporteExcelVM();
-                excel.filas = new List<DetalleExcelVM>();
-                excel.encabezado = new List<string>();
-                DetalleExcelVM detalle = new DetalleExcelVM();
-                excel.filas.Add(detalle);
-
-                ExcelUtility excelUtility = new ExcelUtility();
-                excel = excelUtility.GenerarReporteColaboradores(list);
-                return excel;
-            }
-
-        }
+        }      
         public ReporteExcelVM GenerarExcelReportesColaboradores(int? colaborador, int? estado, int? lider, int? ano)
         {
             using (PerformanceEntities _db = new PerformanceEntities())
@@ -1117,14 +1100,59 @@ namespace Performance.Servicios
                     comentarioEncuesta = x.encuestas?.comentario,
                 }).ToList();
 
-                ReporteExcelVM excel = new ReporteExcelVM();
-                excel.filas = new List<DetalleExcelVM>();
-                excel.encabezado = new List<string>();
-                DetalleExcelVM detalle = new DetalleExcelVM();
-                excel.filas.Add(detalle);
+                ReporteExcelVM excel = new ReporteExcelVM();             
 
                 ExcelUtility excelUtility = new ExcelUtility();
                 excel = excelUtility.GenerarReporteColaboradores(list);
+                return excel;
+            }
+        }
+        public ReporteExcelVM GenerarExcelReportesPDI(int? colaborador, int? lider)
+        {
+            using (PerformanceEntities _db = new PerformanceEntities())
+            {
+                var query = (from p in _db.PDIColaboradorMetas
+                             join a in _db.PDItipoAccion on p.tipoAccion equals a.idTipoAccion
+                             join h in _db.Habilidades on p.habilidad equals h.idHabilidad
+                             join s in _db.PDIStatus on p.status equals s.idStatus
+                             join c in _db.PDIColaborador on p.idPDI equals c.idPDI
+                             join d in _db.PerformanceColaborador on c.idUsuario equals d.idUsuario                                                 
+                            select new PDIMetasVM
+                            {
+                                idMeta = p.idMeta,                              
+                                idPDI = p.idPDI,
+                                habilidad = p.habilidad,
+                                nombreHabilidad = h.habilidad,
+                                tipoAccion = p.tipoAccion,
+                                nombreTipoAccion = a.nombre,
+                                metaTitulo = p.metaTitulo,
+                                metaDescripcion = p.metaDescripcion,
+                                fechaDesde = p.fechaDesde,
+                                fechaHasta = p.fechaHasta,
+                                nombreStatus = s.nombre,
+                                status = p.status,
+                                accionesRealizadas = p.accionesRealizadas,   
+                                colaborador = d.nombre,
+                                idJefe = d.idJefe,
+                                lider = d.nombreJefe,
+                                legajo = d.legajo,
+                                dominio = d.dominio,    
+                            });
+                // Aplicar los filtros según los parámetros proporcionados
+                if (colaborador.HasValue)
+                {
+                    query = query.Where(p => p.idUsuario == colaborador);
+                }               
+                if (lider.HasValue)
+                {
+                    query = query.Where(p => p.idJefe == lider);
+                }              
+               
+                var list = query.ToList();
+                ReporteExcelVM excel = new ReporteExcelVM();               
+
+                ExcelUtility excelUtility = new ExcelUtility();
+                excel = excelUtility.GenerarReportePDI(list);
                 return excel;
             }
         }

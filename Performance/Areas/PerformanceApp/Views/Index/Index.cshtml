@@ -110,8 +110,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-        }
-
+        }       
         .progress-bar {
             height: 40px; /* Ajusta la altura según sea necesario */
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
@@ -120,11 +119,21 @@
         .btn-primary {
             background-color: #17AFB6;
         }
-
             .btn-primary:hover,
             .btn-primary:focus,
             .btn-primary:active {
                 background-color: #17AFB6;
+            }
+        .btn-reporte {
+            background-color: #4ec396;
+            color: white;
+        }
+
+            .btn-reporte:hover,
+            .btn-reporte:focus,
+            .btn-reporte:active {
+                background-color: #4ec396;
+                color: white;
             }
         /*VIDEO*/
         .close {
@@ -572,7 +581,8 @@
                     Feedback @(DateTime.Now.Year)
                 </button>
                 <input type="button" class="btn btn-info boton" onclick="abrirModalFeedback()" title='Cambiar a Feedback' id="btnFeedback" value="Cambiar a Feedback ">
-                <input type="button" class="btn btn-success boton" onclick="GenerarExcelColaboradores()" title='excel' id="btnExcel" value="Reporte Performance ">
+                <input type="button" class="btn btn-success boton" onclick="GenerarExcelColaboradores()" title='Reporte Colaboradores' id="btnExcel" value="Reporte Performance ">
+                <input type="button" class="btn btn-reporte boton" onclick="GenerarExcelPDI()" title='Reporte PDI ' value="Reporte PDI ">
                 <div class="tracking" id="progresoPerformance" style="margin-bottom: 20px; margin-left:480px">
                     <div class="text-uppercase text-xl font-weight-bolder opacity-7" id="tituloProgreso" style="width:auto">Progreso Performance @(DateTime.Now.Year)</div>
                 </div>
@@ -1926,6 +1936,15 @@ if(perfil == 129){
             url = url + "&estado=" + estado;
             url = url + "&lider=" + lider;
             url = url + "&ano=" + ano;
+            window.location.href = url;
+        }
+        function GenerarExcelPDI() {
+            var colaborador = $("#selectColaborador").val();           
+            var lider = $("#selectLider").val();
+          
+            var url = 'Api/PerformanceApp/GenerarExcelReportesPDI';
+            url = url + "?colaborador=" + colaborador;           
+            url = url + "&lider=" + lider;
             window.location.href = url;
         }
         function GenerarExcelUnColaborador(idPerformance) {

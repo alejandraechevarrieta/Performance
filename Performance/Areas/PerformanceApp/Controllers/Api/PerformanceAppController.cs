@@ -518,7 +518,7 @@ namespace Performance.Areas.PerformanceApp.Controllers.Api
         /// <summary>
         /// REPORTES
         /// </summary>
-        [System.Web.Http.Route("Api/Viaticos/GenerarExcelReportesColaboradores")]
+        [System.Web.Http.Route("Api/PerformanceApp/GenerarExcelReportesColaboradores")]
         [System.Web.Http.ActionName("GenerarExcelReportesColaboradores")]
         [System.Web.Http.HttpGet]
         public HttpResponseMessage GenerarExcelReportesColaboradores(int? colaborador, int? estado, int? lider, int? ano)
@@ -528,6 +528,17 @@ namespace Performance.Areas.PerformanceApp.Controllers.Api
             var excel = servicio.GenerarExcelReportesColaboradores(colaborador, estado, lider, ano);
                 return DownloadFile(excel.filePath, excel.fileName);
             
+        }
+        [System.Web.Http.Route("Api/PerformanceApp/GenerarExcelReportesPDI")]
+        [System.Web.Http.ActionName("GenerarExcelReportesPDI")]
+        [System.Web.Http.HttpGet]
+        public HttpResponseMessage GenerarExcelReportesPDI(int? colaborador, int? lider)
+        {
+
+            Servicios.ServicioPerformance servicio = new Servicios.ServicioPerformance();
+            var excel = servicio.GenerarExcelReportesPDI(colaborador, lider);
+            return DownloadFile(excel.filePath, excel.fileName);
+
         }
         private HttpResponseMessage DownloadFile(string downloadFilePath, string fileName)
         {

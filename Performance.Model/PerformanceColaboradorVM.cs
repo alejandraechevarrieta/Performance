@@ -235,6 +235,7 @@ namespace Performance.Model
         public string colaborador { get; set; }
         public int idJefe { get; set; }
         public string lider { get; set; }
+        public int? legajo { get; set; }
         public string dominio { get; set; }
         public int idMeta { get; set; }
         public Nullable<int> idPDI { get; set; }

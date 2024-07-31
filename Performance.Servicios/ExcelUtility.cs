@@ -233,18 +233,7 @@ namespace Performance.Servicios
                 // Cantidad de columnas para mas de un tipo de licencia
                 var g = 10;
                 var cantidad = 0;
-                ReporteExcelVM reporteExcelVM = new ReporteExcelVM();
-                List<DetalleExcelVM> list = new List<DetalleExcelVM>();
-                list.Capacity = 30;
-                //foreach (var fila in list)
-                //{
-                //    int nroLic2 = fila.motivoLic.Count;
-                //    if (nroLic2 > (cantidad + 1))
-                //    {
-                //        cantidad = nroLic2 + 1;
-                //    }
-                //}
-                //var col = cantidad + g;
+                ReporteExcelVM reporteExcelVM = new ReporteExcelVM();              
 
                 if (!Directory.Exists(System.Web.HttpContext.Current.Server.MapPath("~/TempFiles/")))
                     Directory.CreateDirectory(System.Web.HttpContext.Current.Server.MapPath("~/TempFiles/"));
@@ -585,9 +574,7 @@ namespace Performance.Servicios
                 // Cantidad de columnas para mas de un tipo de licencia
                 var g = 10;
                 var cantidad = 0;
-                ReporteExcelVM reporteExcelVM = new ReporteExcelVM();
-                List<DetalleExcelVM> list = new List<DetalleExcelVM>();
-                list.Capacity = 24;             
+                ReporteExcelVM reporteExcelVM = new ReporteExcelVM();                     
 
                 if (!Directory.Exists(System.Web.HttpContext.Current.Server.MapPath("~/TempFiles/")))
                     Directory.CreateDirectory(System.Web.HttpContext.Current.Server.MapPath("~/TempFiles/"));
@@ -605,7 +592,257 @@ namespace Performance.Servicios
                 return reporteExcelVM;
             }
         }
+        public ReporteExcelVM GenerarReportePDI(List<PDIMetasVM> lista)
+        {
+            using (var _db = new PerformanceEntities())
+            {
+                IWorkbook workbook = new XSSFWorkbook();
 
+                //Formato fuentes
+                XSSFFont myFontEncabezado = (XSSFFont)workbook.CreateFont();
+                myFontEncabezado.FontHeightInPoints = 12;
+                myFontEncabezado.FontName = "Calibri";
+                myFontEncabezado.Boldweight = (short)FontBoldWeight.Bold;
+
+                XSSFFont myFontEncabezado2 = (XSSFFont)workbook.CreateFont();
+                myFontEncabezado2.FontHeightInPoints = 12;
+                myFontEncabezado2.FontName = "Calibri";
+                myFontEncabezado2.Boldweight = (short)FontBoldWeight.Bold;
+
+                XSSFFont myFontCeldaInfo = (XSSFFont)workbook.CreateFont();
+                myFontCeldaInfo.FontHeightInPoints = 11;
+                myFontCeldaInfo.FontName = "Calibri";
+                myFontCeldaInfo.Color = HSSFColor.Black.Index;
+
+                XSSFFont myFontCeldasData = (XSSFFont)workbook.CreateFont();
+                myFontCeldasData.FontHeightInPoints = 11;
+                myFontCeldasData.FontName = "Calibri";
+                myFontCeldasData.Color = HSSFColor.Black.Index;
+                myFontCeldasData.Boldweight = (short)FontBoldWeight.Bold;
+
+                //Formato celdas
+                XSSFCellStyle celdasInfo = (XSSFCellStyle)workbook.CreateCellStyle();
+                XSSFCellStyle celdasEncabezado = (XSSFCellStyle)workbook.CreateCellStyle();
+                XSSFCellStyle celdasEncabezado2 = (XSSFCellStyle)workbook.CreateCellStyle();
+                XSSFCellStyle celdasData = (XSSFCellStyle)workbook.CreateCellStyle();
+
+                celdasInfo.SetFont(myFontCeldaInfo);
+                celdasEncabezado.SetFont(myFontEncabezado);
+                celdasEncabezado2.SetFont(myFontEncabezado2);
+                celdasData.SetFont(myFontCeldasData);
+
+                //Bordes-Ajustes
+                celdasEncabezado.BorderLeft = BorderStyle.Medium;
+                celdasEncabezado.BorderTop = BorderStyle.Medium;
+                //celdasEncabezado.BorderRight = BorderStyle.Medium;
+                celdasEncabezado.BorderBottom = BorderStyle.Medium;
+                celdasEncabezado.VerticalAlignment = VerticalAlignment.Center;
+                celdasEncabezado.Alignment = HorizontalAlignment.Left;
+
+                //celdasEncabezado2.BorderLeft = BorderStyle.Medium;
+                celdasEncabezado2.BorderTop = BorderStyle.Medium;
+                celdasEncabezado2.BorderRight = BorderStyle.Medium;
+                celdasEncabezado2.BorderBottom = BorderStyle.Medium;
+                celdasEncabezado2.VerticalAlignment = VerticalAlignment.Center;
+                celdasEncabezado2.Alignment = HorizontalAlignment.Left;
+
+                celdasInfo.BorderRight = BorderStyle.Thin;
+                celdasInfo.BorderLeft = BorderStyle.Thin;
+                celdasInfo.BorderBottom = BorderStyle.Thin;
+                celdasInfo.VerticalAlignment = VerticalAlignment.Center;
+                celdasInfo.Alignment = HorizontalAlignment.Center;
+                celdasInfo.WrapText = true;
+
+                celdasData.BorderLeft = BorderStyle.Thin;
+                celdasData.BorderTop = BorderStyle.Thin;
+                celdasData.BorderRight = BorderStyle.Thin;
+                celdasData.BorderBottom = BorderStyle.Thin;
+                celdasData.VerticalAlignment = VerticalAlignment.Center;
+                celdasData.Alignment = HorizontalAlignment.Center;
+                celdasData.FillPattern = FillPattern.SolidForeground;
+                celdasData.WrapText = true;
+                XSSFColor customColor = new XSSFColor(new byte[] { 22, 181, 188 });
+                ((XSSFCellStyle)celdasData).SetFillForegroundColor(customColor);
+
+
+                ISheet Sheet = workbook.CreateSheet("Performance");
+                Sheet.CreateFreezePane(0, 0, 0, 0);
+
+                IRow HeaderRow = Sheet.CreateRow(0);
+                IRow Row1 = Sheet.CreateRow(1);
+                IRow Row2 = Sheet.CreateRow(2);
+                IRow Row3 = Sheet.CreateRow(3);
+                IRow Row4 = Sheet.CreateRow(4);
+                IRow Row5 = Sheet.CreateRow(5);
+                IRow Row6 = Sheet.CreateRow(6);
+                IRow Row7 = Sheet.CreateRow(7);
+                IRow Row8 = Sheet.CreateRow(8);
+                IRow Row9 = Sheet.CreateRow(9);
+                IRow Row10 = Sheet.CreateRow(10);
+                IRow Row11 = Sheet.CreateRow(11);
+                IRow Row12 = Sheet.CreateRow(12);
+                IRow Row13 = Sheet.CreateRow(13);
+               
+
+
+                CreateCell(HeaderRow, 0, "", celdasEncabezado);
+                CreateCell(HeaderRow, 1, "", celdasEncabezado);
+                CreateCell(HeaderRow, 2, "", celdasEncabezado);
+                CreateCell(HeaderRow, 3, "            PLAN DE DESARROLLO INDIVIDUAL COLABORADORES", celdasEncabezado2);
+                CreateCell(HeaderRow, 4, "", celdasEncabezado2);
+                CreateCell(HeaderRow, 5, "", celdasEncabezado2);
+                CreateCell(HeaderRow, 6, "", celdasEncabezado2);
+                CreateCell(HeaderRow, 7, "", celdasEncabezado2);
+                CreateCell(HeaderRow, 8, "", celdasEncabezado2);
+                CreateCell(HeaderRow, 9, "", celdasEncabezado2);
+                CreateCell(HeaderRow, 10, "", celdasEncabezado2);
+                CreateCell(HeaderRow, 11, "", celdasEncabezado2);
+                CreateCell(HeaderRow, 12, "", celdasEncabezado2);
+                CreateCell(HeaderRow, 13, "", celdasEncabezado2);
+              
+
+
+                CreateCell(Row1, 0, "", celdasEncabezado);
+                CreateCell(Row1, 1, "", celdasEncabezado);
+                CreateCell(Row1, 2, "", celdasEncabezado);
+                CreateCell(Row1, 3, "", celdasEncabezado2);
+                CreateCell(Row1, 4, "", celdasEncabezado2);
+                CreateCell(Row1, 5, "", celdasEncabezado2);
+                CreateCell(Row1, 6, "", celdasEncabezado2);
+                CreateCell(Row1, 7, "", celdasEncabezado2);
+                CreateCell(Row1, 8, "", celdasEncabezado2);
+                CreateCell(Row1, 9, "", celdasEncabezado2);
+                CreateCell(Row1, 10, "", celdasEncabezado2);
+                CreateCell(Row1, 11, "", celdasEncabezado2);
+                CreateCell(Row1, 12, "", celdasEncabezado2);
+                CreateCell(Row1, 13, "", celdasEncabezado2);
+               
+
+                CreateCell(Row2, 0, "", celdasEncabezado);
+                CreateCell(Row2, 1, "", celdasEncabezado);
+                CreateCell(Row2, 2, "", celdasEncabezado);
+                CreateCell(Row2, 3, "", celdasEncabezado2);
+                CreateCell(Row2, 4, "", celdasEncabezado2);
+                CreateCell(Row2, 5, "", celdasEncabezado2);
+                CreateCell(Row2, 6, "", celdasEncabezado2);
+                CreateCell(Row2, 7, "", celdasEncabezado2);
+                CreateCell(Row2, 8, "", celdasEncabezado2);
+                CreateCell(Row2, 9, "", celdasEncabezado2);
+                CreateCell(Row2, 10, "", celdasEncabezado2);
+                CreateCell(Row2, 11, "", celdasEncabezado2);
+                CreateCell(Row2, 12, "", celdasEncabezado2);
+                CreateCell(Row2, 13, "", celdasEncabezado2);
+              
+
+
+                CreateCell(Row3, 0, "idMeta", celdasData);
+                CreateCell(Row3, 1, "idUsuario", celdasData);
+                CreateCell(Row3, 2, "Legajo", celdasData);
+                CreateCell(Row3, 3, "         Nombre Colaborador                        ", celdasData);
+                CreateCell(Row3, 4, "          Líder                                        ", celdasData);
+                CreateCell(Row3, 5, "     Dominio                       ", celdasData);
+                CreateCell(Row3, 6, "          Título de Meta                                    ", celdasData);
+                CreateCell(Row3, 7, "        Descripción de Meta                                                           ", celdasData);              
+                CreateCell(Row3, 8, "      Tipo de Acción         ", celdasData);
+                CreateCell(Row3, 9, "      Habilidad                     ", celdasData);
+                CreateCell(Row3, 10, "Fecha Desde", celdasData);
+                CreateCell(Row3, 11, "Fecha Hasta", celdasData);
+                CreateCell(Row3, 12, "    Status                          ", celdasData);
+                CreateCell(Row3, 13, "                    Acciones Realizadas                                                                                                 ", celdasData);
+
+                setBordersToMergedCells(Sheet);
+                int lastColumNum = Sheet.GetRow(1).LastCellNum;
+                for (int i = 0; i <= lastColumNum; i++)
+                {
+                    Sheet.AutoSizeColumn(i, true);
+                    GC.Collect();
+                }
+
+                // Establecer el ancho de las columnas
+                int columnCount = 13; // Número total de columnas
+                int columnWidth = 13 * 256;
+                for (int i = 10; i < columnCount; i++)
+                {
+                    Sheet.SetColumnWidth(i, columnWidth);
+                }
+
+                int rowHeight = 35; // Altura de fila en puntos
+                IRow row = Sheet.GetRow(3); // La fila 3 en base a su índice (0-based)
+
+                if (row != null)
+                {
+                    row.HeightInPoints = rowHeight;
+                }
+
+
+                var contador = 3;
+                foreach (var item in lista)
+                {
+                    contador++;
+                    IRow RowForeach = Sheet.CreateRow(contador);
+                    CreateCell(RowForeach, 0, item.idMeta.ToString(), celdasInfo);
+                    CreateCell(RowForeach, 1, item.idUsuario.ToString(), celdasInfo);
+                    CreateCell(RowForeach, 2, item.legajo.ToString(), celdasInfo);
+                    CreateCell(RowForeach, 3, item.colaborador, celdasInfo);
+                    CreateCell(RowForeach, 4, item.lider, celdasInfo);
+                    CreateCell(RowForeach, 5, item.dominio, celdasInfo);
+                    CreateCell(RowForeach, 6, item.metaTitulo, celdasInfo);
+                    CreateCell(RowForeach, 7, item.metaDescripcion, celdasInfo);                   
+                    CreateCell(RowForeach, 8, item.nombreTipoAccion, celdasInfo);
+                    CreateCell(RowForeach, 9, item.nombreHabilidad, celdasInfo);
+                    CreateCell(RowForeach, 10, item.fechaDesde.HasValue ? item.fechaDesde.Value.ToString("dd-MM-yyyy") : "", celdasInfo);
+                    CreateCell(RowForeach, 11, item.fechaHasta.HasValue ? item.fechaHasta.Value.ToString("dd-MM-yyyy") : "", celdasInfo);
+                    CreateCell(RowForeach, 12, item.nombreStatus, celdasInfo);
+                    CreateCell(RowForeach, 13, item.accionesRealizadas, celdasInfo);
+
+                }
+                string filePath = HttpContext.Current.Server.MapPath("~/assets/img/performanceIdentidad2024.png");
+                byte[] data = File.ReadAllBytes(filePath);
+                int pictureIndex = workbook.AddPicture(data, PictureType.PNG);
+                ICreationHelper helper = workbook.GetCreationHelper();
+                IDrawing drawing = Sheet.CreateDrawingPatriarch();
+                IClientAnchor anchor = helper.CreateClientAnchor();
+                anchor.Col1 = 0; // Columna inicial
+                anchor.Row1 = 0; // Fila inicial
+                anchor.Col2 = 2; // Columna final (ajusta según sea necesario)
+                anchor.Row2 = 2; // Fila final (ajusta según sea necesario)
+
+                IPicture picture = drawing.CreatePicture(anchor, pictureIndex);
+                // Aumentar el tamaño de la imagen al 150% de su tamaño original
+                picture.Resize(1.5);
+
+                //Uniones
+                CellRangeAddress union1 = new CellRangeAddress(0, 2, 0, 2);
+                CellRangeAddress union2 = new CellRangeAddress(0, 2, 3, 13);
+
+                //Completa union
+                Sheet.AddMergedRegion(union1);
+                Sheet.AddMergedRegion(union2);
+
+                //Desactivo linea cuadriculada
+                Sheet.DisplayGridlines = false;
+
+                // Cantidad de columnas para mas de un tipo de licencia
+                var g = 10;
+                var cantidad = 0;
+                ReporteExcelVM reporteExcelVM = new ReporteExcelVM();
+
+                if (!Directory.Exists(System.Web.HttpContext.Current.Server.MapPath("~/TempFiles/")))
+                    Directory.CreateDirectory(System.Web.HttpContext.Current.Server.MapPath("~/TempFiles/"));
+                var pathInic = "~/TempFiles/";
+                var nombreArchivo = "PDI_Colaboradores_" + Convert.ToDateTime(DateTime.Today).ToString("dd-MM-yyyy") + Convert.ToDateTime(DateTime.Now).ToString("HH-mm") + ".xlsx";
+                var path = Path.Combine(System.Web.HttpContext.Current.Server.MapPath(pathInic), nombreArchivo);
+                using (var fileData = new FileStream(path, FileMode.Create))
+                {
+                    workbook.Write(fileData);
+                    fileData.Close();
+                }
+
+                reporteExcelVM.filePath = path;
+                reporteExcelVM.fileName = nombreArchivo;
+                return reporteExcelVM;
+            }
+        }
         private void setBordersToMergedCells(ISheet sheet)
         {
             int numMerged = sheet.NumMergedRegions;
