@@ -1013,6 +1013,7 @@ namespace Performance.Servicios
             {
                 var query = (from p in _db.PerformanceColaborador
                              join e in _db.Estados on p.estado equals e.id
+                             where p.eliminado != true
                              select new
                              {
                                  p.ano,
@@ -1469,27 +1470,44 @@ namespace Performance.Servicios
         public void cambiarFeedback(int idUsuario, string nombreUsuario)
         {
             int anoActual = DateTime.Now.Year;
-            var performance = db.PerformanceColaborador.Where(x => x.ano == anoActual) .ToList();
-            Historial historial = new Historial();
-
+            var performance = db.PerformanceColaborador.Where(x => x.ano == anoActual && x.eliminado != true && x.estado != 4) .ToList();
+           
             foreach (var item  in performance)
             {
                 item.estado = 4;
                 db.SaveChanges();
 
-                //historial guardar si no ha cambiado previamente a feedback
-                var existe = db.Historial.Where(x => x.idPerformance == item.idPerformance && x.estado == 4).FirstOrDefault();
-                if (existe == null)
-                {
-                    historial.idPerformance = item.idPerformance;
+                //Historial
+                Historial historial = new Historial();
+                historial.idPerformance = item.idPerformance;
                     historial.estado = 4;
                     historial.idUsuarioCambio = idUsuario;
                     historial.fechaCambio = DateTime.Now;
                     historial.nombreUsuarioCambio = nombreUsuario;
                     db.Historial.Add(historial);
-                    db.SaveChanges();
-                }               
+                    db.SaveChanges();                            
             }   
+        }
+        public void cambiarFeedbackEnviado(int idUsuario, string nombreUsuario)
+        {
+            int anoActual = DateTime.Now.Year;
+            var performance = db.PerformanceColaborador.Where(x => x.ano == anoActual && x.eliminado != true && x.estado == 4).ToList();
+
+            foreach (var item in performance)
+            {
+                item.estado = 7;
+                db.SaveChanges();
+
+                //Historial
+                Historial historial = new Historial();
+                historial.idPerformance = item.idPerformance;
+                historial.estado = 7;
+                historial.idUsuarioCambio = idUsuario;
+                historial.fechaCambio = DateTime.Now;
+                historial.nombreUsuarioCambio = nombreUsuario;
+                db.Historial.Add(historial);
+                db.SaveChanges();
+            }
         }
         //Encuesta
         public int EnviarEncuestaAColaborador(EncuestasVM encuesta)

@@ -698,6 +698,14 @@ namespace Performance.Areas.PerformanceApp.Controllers.Api
             Servicios.ServicioPerformance _servicio = new Servicios.ServicioPerformance();
             _servicio.cambiarFeedback(idUsuario, nombreUsuario);
         }
+        [System.Web.Http.Route("Api/PerformanceApp/cambiarFeedbackEnviado")]
+        [System.Web.Http.ActionName("cambiarFeedbackEnviado")]
+        [System.Web.Http.HttpGet]
+        public void cambiarFeedbackEnviado(int idUsuario, string nombreUsuario)
+        {
+            Servicios.ServicioPerformance _servicio = new Servicios.ServicioPerformance();
+            _servicio.cambiarFeedbackEnviado(idUsuario, nombreUsuario);
+        }
         //ENCUESTA
         [System.Web.Http.Route("Api/PerformanceApp/EnviarEncuestaAColaborador")]
         [System.Web.Http.ActionName("EnviarEncuestaAColaborador")]

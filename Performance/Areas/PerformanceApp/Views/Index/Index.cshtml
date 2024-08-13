@@ -135,6 +135,17 @@
                 background-color: #4ec396;
                 color: white;
             }
+        .btn-feedbackEnviado {
+            background-color: #5bd9de;
+            color: white;
+        }
+
+            .btn-feedbackEnviado:hover,
+            .btn-feedbackEnviado:focus,
+            .btn-feedbackEnviado:active {
+                background-color: #5bd9de;
+                color: white;
+            }
         /*VIDEO*/
         .close {
             color: #aaa;
@@ -579,6 +590,7 @@
                     Feedback @(DateTime.Now.Year)
                 </button>
                 <input type="button" class="btn btn-info boton" onclick="abrirModalFeedback()" title='Cambiar a Feedback' id="btnFeedback" value="Cambiar a Feedback ">
+                <input type="button" class="btn btn-feedbackEnviado boton" onclick="abrirModalFeedbackEnviado()" title='Cambiar a Feedback Enviado' id="btnFeedbackEnviado" value="Cambiar a Feedback Enviado">
                 <input type="button" class="btn btn-success boton" onclick="GenerarExcelColaboradores()" title='Reporte Colaboradores' id="btnExcel" value="Reporte Performance ">
                 <input type="button" class="btn btn-reporte boton" onclick="GenerarExcelPDI()" title='Reporte PDI ' value="Reporte PDI ">
                 <div class="tracking" id="progresoPerformance" style="margin-bottom: 20px; margin-left:480px">
@@ -850,14 +862,32 @@
             <div class="modal-dialog" style="max-width: 900px!important;">
                 <div class="modal-content p-2">
                     <div class="row mb-3 m-2" style="justify-content:center">
-                        <p class="h4" style="margin-left: 0px; margin-right:0px;">¿Desea cambiar todas las performance al estado Feefback?</p>
+                        <p class="h4" style="margin-left: 0px; margin-right:0px;">¿Desea cambiar todas las performance al estado Feedback?</p>
                     </div>
                     <div class="row mb-3 pr-2">
                         <div class="col-md-6">
-                            <a href="#" role="button" class="btn btn-info btn-sm btn-block" onclick="CerrarModalCambiarFeedback();" style="margin-left: 60%; width: 40%;">Cancelar</a>
+                            <a href="#" role="button" class="btn btn-danger btn-sm btn-block" onclick="CerrarModalCambiarFeedback();" style="margin-left: 60%; width: 40%;">Cancelar</a>
                         </div>
                         <div class="col-md-6">
-                            <a href="#" role="button" class="btn btn-danger btn-sm btn-block" onclick="cambiarFeedback();" style="width: 40%;">Aceptar</a>
+                            <a href="#" role="button" class="btn btn-info btn-sm btn-block" onclick="cambiarFeedback();" style="width: 40%;">Aceptar</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @*modal preguntar si esta seguro cambiar a feedback enviado*@
+        <div class="modal" id="modalDeseaCambiarFeedbackEnviado" style="display: none!important; margin-top: 0%;">
+            <div class="modal-dialog" style="max-width: 900px!important;">
+                <div class="modal-content p-2">
+                    <div class="row mb-3 m-2" style="justify-content:center">
+                        <p class="h4" style="margin-left: 0px; margin-right:0px;">¿Desea cambiar todas las performance en Feedback al estado Feedback Enviado?</p>
+                    </div>
+                    <div class="row mb-3 pr-2">
+                        <div class="col-md-6">
+                            <a href="#" role="button" class="btn btn-danger btn-sm btn-block" onclick="CerrarModalCambiarFeedbackEnviado();" style="margin-left: 60%; width: 40%;">Cancelar</a>
+                        </div>
+                        <div class="col-md-6">
+                            <a href="#" role="button" class="btn btn-info btn-sm btn-block" onclick="cambiarFeedbackEnviado();" style="width: 40%;">Aceptar</a>
                         </div>
                     </div>
                 </div>
@@ -1937,11 +1967,11 @@ if(perfil == 129){
             window.location.href = url;
         }
         function GenerarExcelPDI() {
-            var colaborador = $("#selectColaborador").val();           
+            var colaborador = $("#selectColaborador").val();
             var lider = $("#selectLider").val();
-          
+
             var url = 'Api/PerformanceApp/GenerarExcelReportesPDI';
-            url = url + "?colaborador=" + colaborador;           
+            url = url + "?colaborador=" + colaborador;
             url = url + "&lider=" + lider;
             window.location.href = url;
         }
@@ -2080,23 +2110,39 @@ function abrirModalFeedback() {
 }
 function CerrarModalCambiarFeedback() {
     $('#modalDeseaCambiarFeedback').hide();
+        }
+function cambiarFeedback() {
+    var url = 'Api/PerformanceApp/cambiarFeedback';
+    url = url + "?idUsuario=" + @idUsuario;
+   url = url + "&nombreUsuario=" + localStorage.getItem('nombreUsuario');
+   $.getJSON(url)
+       .done(function (data) {
+           ListarPerformance();
+           $('#modalDeseaCambiarFeedback').hide();
+           $('#btnEncuesta').hide();
+       });
 }
 
 
- function cambiarFeedback(idPerformance, estado) {
-     var url = 'Api/PerformanceApp/cambiarFeedback';
-     url = url + "?idUsuario=" + @idUsuario;
-    url = url + "&nombreUsuario=" + localStorage.getItem('nombreUsuario');
-    $.getJSON(url)
-        .done(function (data) {
+
+ //CAMBIAR ESTADO FEEDBACK ENVIADO
+        function abrirModalFeedbackEnviado() {
+            $('#modalDeseaCambiarFeedbackEnviado').show();
+        }
+        function CerrarModalCambiarFeedbackEnviado() {
+            $('#modalDeseaCambiarFeedbackEnviado').hide();
+        }
+        function cambiarFeedbackEnviado() {
+            var url = 'Api/PerformanceApp/cambiarFeedbackEnviado';
+            url = url + "?idUsuario=" + @idUsuario;
+            url = url + "&nombreUsuario=" + localStorage.getItem('nombreUsuario');
+        $.getJSON(url)
+            .done(function (data) {
             ListarPerformance();
-            $('#modalDeseaCambiarFeedback').hide();
+                $('#modalDeseaCambiarFeedbackEnviado').hide();
         });
         }
 
-        $('#altaPerformance').click(function () {
-            $('#modalAltas').show();
-        });
         //ENVIAR ENCUESTA A COLABORADOR DESDE LIDER
         function AbrirEnviarEncuesta(idPer) {
             $('#modalEnviarEncuestaAColaborador').show();
@@ -2131,7 +2177,7 @@ function CerrarModalCambiarFeedback() {
              console.log("Error en la solicitud AJAX:", jqxhr);
          }
      });
- }
+        }
         //ENCUESTA
         function habilitarEncuesta() {
             var url = "Api/PerformanceApp/HabilitarEncuesta?idUsuario=" + @idUsuario;

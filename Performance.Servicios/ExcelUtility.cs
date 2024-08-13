@@ -355,6 +355,7 @@ namespace Performance.Servicios
                 IRow Row26 = Sheet.CreateRow(26);
                 IRow Row27 = Sheet.CreateRow(27);
                 IRow Row28 = Sheet.CreateRow(28);
+                IRow Row29 = Sheet.CreateRow(29);
 
 
 
@@ -387,6 +388,7 @@ namespace Performance.Servicios
                 CreateCell(HeaderRow, 26, "", celdasEncabezado2);
                 CreateCell(HeaderRow, 27, "", celdasEncabezado2);
                 CreateCell(HeaderRow, 28, "", celdasEncabezado2);
+                CreateCell(HeaderRow, 29, "", celdasEncabezado2);
 
 
                 CreateCell(Row1, 0, "", celdasEncabezado);
@@ -418,6 +420,7 @@ namespace Performance.Servicios
                 CreateCell(Row1, 26, "", celdasEncabezado2);
                 CreateCell(Row1, 27, "", celdasEncabezado2);
                 CreateCell(Row1, 28, "", celdasEncabezado2);
+                CreateCell(Row1, 29, "", celdasEncabezado2);
 
 
                 CreateCell(Row2, 0, "", celdasEncabezado);
@@ -449,6 +452,7 @@ namespace Performance.Servicios
                 CreateCell(Row2, 26, "", celdasEncabezado2);
                 CreateCell(Row2, 27, "", celdasEncabezado2);
                 CreateCell(Row2, 28, "", celdasEncabezado2);
+                CreateCell(Row2, 29, "", celdasEncabezado2);
 
 
                 CreateCell(Row3, 0, "Legajo", celdasData);
@@ -462,24 +466,25 @@ namespace Performance.Servicios
                 CreateCell(Row3, 8, "Sexo", celdasData);
                 CreateCell(Row3, 9, "Antigüedad", celdasData);
                 CreateCell(Row3, 10, "Año", celdasData);
-                CreateCell(Row3, 11, "Auto Aprendizaje Continuo", celdasData);
-                CreateCell(Row3, 12, "Auto Autonomía", celdasData);
-                CreateCell(Row3, 13, "Auto Colaboración", celdasData);
-                CreateCell(Row3, 14, "Auto Comunicación Efectiva", celdasData);
-                CreateCell(Row3, 15, "Auto Gestión del Cambio", celdasData);
-                CreateCell(Row3, 16, "Auto Visión Sistémica", celdasData);
-                CreateCell(Row3, 17, "Líder Aprendizaje Continuo", celdasData);
-                CreateCell(Row3, 18, "Líder Autonomía", celdasData);
-                CreateCell(Row3, 19, "Líder Colaboración", celdasData);
-                CreateCell(Row3, 20, "Líder Comunicación Efectiva", celdasData);
-                CreateCell(Row3, 21, "Líder Gestión del Cambio", celdasData);
-                CreateCell(Row3, 22, "Líder Visión Sistémica", celdasData);
-                CreateCell(Row3, 23, "Performance", celdasData);
-                CreateCell(Row3, 24, "Calib. Performance", celdasData);
-                CreateCell(Row3, 25, "Recibe Feedback", celdasData);
-                CreateCell(Row3, 26, "Calidad", celdasData);
-                CreateCell(Row3, 27, "Fecha Encuesta", celdasData);
-                CreateCell(Row3, 28, "Comentario", celdasData);
+                CreateCell(Row3, 11, "        Estado                    ", celdasData);
+                CreateCell(Row3, 12, "Auto Aprendizaje Continuo", celdasData);
+                CreateCell(Row3, 13, "Auto Autonomía", celdasData);
+                CreateCell(Row3, 14, "Auto Colaboración", celdasData);
+                CreateCell(Row3, 15, "Auto Comunicación Efectiva", celdasData);
+                CreateCell(Row3, 16, "Auto Gestión del Cambio", celdasData);
+                CreateCell(Row3, 17, "Auto Visión Sistémica", celdasData);
+                CreateCell(Row3, 18, "Líder Aprendizaje Continuo", celdasData);
+                CreateCell(Row3, 19, "Líder Autonomía", celdasData);
+                CreateCell(Row3, 20, "Líder Colaboración", celdasData);
+                CreateCell(Row3, 21, "Líder Comunicación Efectiva", celdasData);
+                CreateCell(Row3, 22, "Líder Gestión del Cambio", celdasData);
+                CreateCell(Row3, 23, "Líder Visión Sistémica", celdasData);
+                CreateCell(Row3, 24, "Performance", celdasData);
+                CreateCell(Row3, 25, "Calib. Performance", celdasData);
+                CreateCell(Row3, 26, "Recibe Feedback", celdasData);
+                CreateCell(Row3, 27, "Calidad", celdasData);
+                CreateCell(Row3, 28, "Fecha Encuesta", celdasData);
+                CreateCell(Row3, 29, "                 Comentario                                                    ", celdasData);
 
                 setBordersToMergedCells(Sheet);
                 int lastColumNum = Sheet.GetRow(1).LastCellNum;
@@ -490,7 +495,7 @@ namespace Performance.Servicios
                 }
 
                 // Establecer el ancho de las columnas
-                int columnCount = 28; // Número total de columnas
+                int columnCount = 29; // Número total de columnas
                 int columnWidth = 13 * 256;
                 for (int i = 10; i < columnCount; i++)
                 {
@@ -522,28 +527,29 @@ namespace Performance.Servicios
                     CreateCell(RowForeach, 8, item.sexo, celdasInfo);
                     CreateCell(RowForeach, 9, item.antiguedad.ToString(), celdasInfo);
                     CreateCell(RowForeach, 10, item.ano.ToString(), celdasInfo);
+                    CreateCell(RowForeach, 11, item.estado, celdasInfo);
                     // Autoevaluaciones
-                    CreateCell(RowForeach, 11, item.autoEvaluaciones.Count > 0 ? item.autoEvaluaciones[0]?.ToString() : "", celdasInfo);
-                    CreateCell(RowForeach, 12, item.autoEvaluaciones.Count > 1 ? item.autoEvaluaciones[1]?.ToString() : "", celdasInfo);
-                    CreateCell(RowForeach, 13, item.autoEvaluaciones.Count > 2 ? item.autoEvaluaciones[2]?.ToString() : "", celdasInfo);
-                    CreateCell(RowForeach, 14, item.autoEvaluaciones.Count > 3 ? item.autoEvaluaciones[3]?.ToString() : "", celdasInfo);
-                    CreateCell(RowForeach, 15, item.autoEvaluaciones.Count > 4 ? item.autoEvaluaciones[4]?.ToString() : "", celdasInfo);
-                    CreateCell(RowForeach, 16, item.autoEvaluaciones.Count > 5 ? item.autoEvaluaciones[5]?.ToString() : "", celdasInfo);
+                    CreateCell(RowForeach, 12, item.autoEvaluaciones.Count > 0 ? item.autoEvaluaciones[0]?.ToString() : "", celdasInfo);
+                    CreateCell(RowForeach, 13, item.autoEvaluaciones.Count > 1 ? item.autoEvaluaciones[1]?.ToString() : "", celdasInfo);
+                    CreateCell(RowForeach, 14, item.autoEvaluaciones.Count > 2 ? item.autoEvaluaciones[2]?.ToString() : "", celdasInfo);
+                    CreateCell(RowForeach, 15, item.autoEvaluaciones.Count > 3 ? item.autoEvaluaciones[3]?.ToString() : "", celdasInfo);
+                    CreateCell(RowForeach, 16, item.autoEvaluaciones.Count > 4 ? item.autoEvaluaciones[4]?.ToString() : "", celdasInfo);
+                    CreateCell(RowForeach, 17, item.autoEvaluaciones.Count > 5 ? item.autoEvaluaciones[5]?.ToString() : "", celdasInfo);
                     // Evaluaciones
-                    CreateCell(RowForeach, 17, item.evaluaciones.Count > 0 ? item.evaluaciones[0]?.ToString() : "", celdasInfo);
-                    CreateCell(RowForeach, 18, item.evaluaciones.Count > 1 ? item.evaluaciones[1]?.ToString() : "", celdasInfo);
-                    CreateCell(RowForeach, 19, item.evaluaciones.Count > 2 ? item.evaluaciones[2]?.ToString() : "", celdasInfo);
-                    CreateCell(RowForeach, 20, item.evaluaciones.Count > 3 ? item.evaluaciones[3]?.ToString() : "", celdasInfo);
-                    CreateCell(RowForeach, 21, item.evaluaciones.Count > 4 ? item.evaluaciones[4]?.ToString() : "", celdasInfo);
-                    CreateCell(RowForeach, 22, item.evaluaciones.Count > 5 ? item.evaluaciones[5]?.ToString() : "", celdasInfo);
+                    CreateCell(RowForeach, 18, item.evaluaciones.Count > 0 ? item.evaluaciones[0]?.ToString() : "", celdasInfo);
+                    CreateCell(RowForeach, 19, item.evaluaciones.Count > 1 ? item.evaluaciones[1]?.ToString() : "", celdasInfo);
+                    CreateCell(RowForeach, 20, item.evaluaciones.Count > 2 ? item.evaluaciones[2]?.ToString() : "", celdasInfo);
+                    CreateCell(RowForeach, 21, item.evaluaciones.Count > 3 ? item.evaluaciones[3]?.ToString() : "", celdasInfo);
+                    CreateCell(RowForeach, 22, item.evaluaciones.Count > 4 ? item.evaluaciones[4]?.ToString() : "", celdasInfo);
+                    CreateCell(RowForeach, 23, item.evaluaciones.Count > 5 ? item.evaluaciones[5]?.ToString() : "", celdasInfo);
                     //calificacion final
-                    CreateCell(RowForeach, 23, item.calificacionFinalAntes != null ? item.calificacionFinalAntes : item.calificacionFinal, celdasInfo);
-                    CreateCell(RowForeach, 24, item.calificacionFinalAntes != null ? item.calificacionFinal : "", celdasInfo);
+                    CreateCell(RowForeach, 24, item.calificacionFinalAntes != null ? item.calificacionFinalAntes : item.calificacionFinal, celdasInfo);
+                    CreateCell(RowForeach, 25, item.calificacionFinalAntes != null ? item.calificacionFinal : "", celdasInfo);
                     //Encuesta
-                    CreateCell(RowForeach, 25, item.feedback == 0 ? "NO" : item.feedback == 1 ? "SI" : "", celdasInfo);
-                    CreateCell(RowForeach, 26, item.calidad.ToString(), celdasInfo);
-                    CreateCell(RowForeach, 27, item.fechaEncuesta.HasValue ? item.fechaEncuesta.Value.ToString("dd-MM-yyyy") : "", celdasInfo);
-                    CreateCell(RowForeach, 28, item.comentarioEncuesta, celdasInfo);
+                    CreateCell(RowForeach, 26, item.feedback == 0 ? "NO" : item.feedback == 1 ? "SI" : "", celdasInfo);
+                    CreateCell(RowForeach, 27, item.calidad.ToString(), celdasInfo);
+                    CreateCell(RowForeach, 28, item.fechaEncuesta.HasValue ? item.fechaEncuesta.Value.ToString("dd-MM-yyyy") : "", celdasInfo);
+                    CreateCell(RowForeach, 29, item.comentarioEncuesta, celdasInfo);
                 }
                 string filePath = HttpContext.Current.Server.MapPath("~/assets/img/performanceIdentidad2024.png");                
                 byte[] data = File.ReadAllBytes(filePath);                
@@ -562,7 +568,7 @@ namespace Performance.Servicios
             
                 //Uniones
                 CellRangeAddress union1 = new CellRangeAddress(0, 2, 0, 2);
-                CellRangeAddress union2 = new CellRangeAddress(0, 2, 3, 28);
+                CellRangeAddress union2 = new CellRangeAddress(0, 2, 3, 29);
 
                 //Completa union
                 Sheet.AddMergedRegion(union1);
