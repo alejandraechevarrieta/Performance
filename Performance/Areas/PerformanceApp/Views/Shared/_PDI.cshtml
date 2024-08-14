@@ -103,10 +103,11 @@
 </head>
 <body>
     <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+        <button type="button" style="background-color: #00aec7; margin-left: 40px" class="btn w-auto my-4 mb-2 text-white" id="volver" onclick="volverAtras();">Volver</button>
         @*PDI*@
         <div class="container-fluid" style="max-width: 1300px!important;">
             <div class="row justify-content-center mt-0">
-                <div style="background-color: white; padding: 20px; border: 1px solid #ddd; border-radius: 5px; margin-top: 40px;">
+                <div style="background-color: white; padding: 20px; border: 1px solid #ddd; border-radius: 5px; margin-top: 10px;">
                     <div class="titulo">
                         Plan de Desarrollo Individual – Metas y Acciones (PDI)
                     </div>
@@ -286,6 +287,11 @@
         CargarTiposAccion();
         CargarStatus();
         CargarHabilidades();
+
+        //VOLVER
+        function volverAtras() {
+            window.history.back();
+        }
         //BUSCAR DATOS
 function CargarDatos() {
     var url = "/PerformanceApp/Api/PerformanceApp/buscarDatosPDI?idUsuario=" + "@idUsuario" + "&idPerformance=" + "@idPerformance";
