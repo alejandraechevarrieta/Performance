@@ -560,6 +560,34 @@
             font-size: 100% !important;
             display: inline-block;
         }
+        #referencias {
+            display: none; 
+            position: absolute;
+            background-color: white; 
+            border: 1px solid #ddd; 
+            padding: 10px; 
+            z-index: 1000;          
+            margin-left: 850px;
+            margin-top: 100px;
+        }
+
+        #show-referencias:hover + #referencias {
+            display: block; /* Muestra el div cuando el botón es hover */
+        }
+
+        /* Estilos adicionales para el botón */
+        #show-referencias {
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 4px;
+            background-color: #6294de; 
+            color: white;
+        }
+
+            #show-referencias i {
+                font-size: 18px;
+            }       
+
     </style>
 
 
@@ -593,431 +621,460 @@
                 <input type="button" class="btn btn-feedbackEnviado boton" onclick="abrirModalFeedbackEnviado()" title='Cambiar a Feedback Enviado' id="btnFeedbackEnviado" value="Cambiar a Feedback Enviado">
                 <input type="button" class="btn btn-success boton" onclick="GenerarExcelColaboradores()" title='Reporte Colaboradores' id="btnExcel" value="Reporte Performance ">
                 <input type="button" class="btn btn-reporte boton" onclick="GenerarExcelPDI()" title='Reporte PDI ' value="Reporte PDI ">
+                <button type="button" class="btn btn-sm btn-info btn-square" id="show-referencias">
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                @*REFERENCIAS1*@
+                <div class="col-md-3" id="referencias">
+                    <div class="d-flex flex-column p-3">
+                        <div id="totalPendiente" class="mb-2">
+                            <span class="mr-3" style="width: 20px; height: 20px; display: inline-block; background-color: #7AC11F !important;"></span> Pendiente
+                        </div>
+                        <div id="totalCompletado" class="mb-2">
+                            <span class="mr-3" style="width: 20px; height: 20px; display: inline-block; background-color: #FFC107 !important;"></span> Completado
+                        </div>
+                        <div id="totalEvaluado" class="mb-2">
+                            <span class="mr-3" style="width: 20px; height: 20px; display: inline-block; background-color: #69E6FF !important;"></span> Evaluado
+                        </div>
+                        <div id="totalFeedback" class="mb-2">
+                            <span class="mr-3" style="width: 20px; height: 20px; display: inline-block; background-color: #17AFB6 !important;"></span> Feedback
+                        </div>
+                        <div id="totalFeedbackEnviado" class="mb-2">
+                            <span class="mr-3" style="width: 20px; height: 20px; display: inline-block; background-color: #146064 !important;"></span> Feedback Enviado
+                        </div>
+                        <div id="totalFinalizado" class="mb-2">
+                            <span class="mr-3" style="width: 20px; height: 20px; display: inline-block; background-color: #9b9b9b !important;"></span> Finalizado
+                        </div>
+                    </div>
+                </div>
                 <div class="tracking" id="progresoPerformance" style="margin-bottom: 20px; margin-left:480px">
                     <div class="text-uppercase text-xl font-weight-bolder opacity-7" id="tituloProgreso" style="width:auto">Progreso Performance @(DateTime.Now.Year)</div>
                 </div>
-                <div class="col-md-2" style="position: absolute; top: 10%; right: 2%; margin-right: 0px;">
-                    <div class="d-flex flex-column p-3">
-                        <div id="totalPendiente" class="mb-2"><span class="mr-3" style="width: 20px; height: 20px; display: inline-block; background-color: #7AC11F !important;"></span> Pendiente</div>
-                        <div id="totalCompletado" class="mb-2"><span class="mr-3" style="width: 20px; height: 20px; display: inline-block; background-color: #FFC107 !important;"></span> Completado</div>
-                        <div id="totalEvaluado" class="mb-2"><span class="mr-3" style="width: 20px; height: 20px; display: inline-block; background-color: #69E6FF !important;"></span> Evaluado</div>
-                        <div id="totalFeedback" class="mb-2"><span class="mr-3" style="width: 20px; height: 20px; display: inline-block; background-color: #17AFB6 !important;"></span> Feedback</div>
-                        <div id="totalFeedbackEnviado" class="mb-2"><span class="mr-3" style="width: 20px; height: 20px; display: inline-block; background-color: #146064 !important;"></span> Feedback Enviado</div>
-                        <div id="totalFinalizado" class="mb-2"><span class="mr-3" style="width: 20px; height: 20px; display: inline-block; background-color: #9b9b9b !important;"></span> Finalizado</div>
-                    </div>
-                </div>
             </div>
+            @*BARRA PORCENTAJES*@
             <div class="row align-items-center" style="text-align: center; margin-top:20px; margin-left:15px;">
                 <div class="form-group2 col-md-9">
                     <div class="progress" style="margin-bottom: 50px;">
-                        <div id="barraPendiente" class="progress-bar progress-bar-stripeds" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
-                        <div id="barraCompletado" class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
-                        <div id="barraEvaluado" class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
-                        <div id="barraFeedback" class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
-                        <div id="barraFeedbackEnviado" class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
-                        <div id="barraFinalizado" class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                        <div id="barraPendiente" class="progress-bar progress-bar-stripeds" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" title="Pendiente"></div>
+                        <div id="barraCompletado" class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" title="Completado"></div>
+                        <div id="barraEvaluado" class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" title="Evaluado"></div>
+                        <div id="barraFeedback" class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" title="Feedback"></div>
+                        <div id="barraFeedbackEnviado" class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" title="Feedback Enviado"></div>
+                        <div id="barraFinalizado" class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" title="Finalizado"></div>
                     </div>
+                </div>
+            </div>
+            @*REFERENCIAS2*@
+            <div class="p-3">
+                <div class="d-flex flex-row">
+                <div id="referencias2" class="d-flex flex-row flex-wrap justify-content-center">
+                    <div id="totalPendiente2" class="d-flex align-items-center mr-2 mb-2"></div>
+                    <div id="totalCompletado2" class="d-flex align-items-center mr-2 mb-2"></div>
+                    <div id="totalEvaluado2" class="d-flex align-items-center mr-2 mb-2"></div>
+                    <div id="totalFeedback2" class="d-flex align-items-center mr-2 mb-2"></div>
+                    <div id="totalFeedbackEnviado2" class="d-flex align-items-center mr-2 mb-2"></div>
+                    <div id="totalFinalizado2" class="d-flex align-items-center mb-2"></div>
+                    <div class="text-center mb-2">
+                        <span class="font-weight-bold">(Referencias)</span>
+                    </div>
+                </div>
                 </div>
             </div>
         }
+            @*FILTROS SOLICITUDES*@
 
-        @*FILTROS SOLICITUDES*@
-
-        <div class="row m-3" style="overflow: hidden; margin-top: 2% !important;" id="rowFiltro">
-            @if (Convert.ToInt32(perfil) == 128 || Convert.ToInt32(perfil) == 129)
-            {
-                <div class="form-group2 col-md-2" id="filtroColaborador">
-                    <label>Colaborador:</label>
+            <div class="row m-3" style="overflow: hidden; margin-top: 2% !important;" id="rowFiltro">
+                @if (Convert.ToInt32(perfil) == 128 || Convert.ToInt32(perfil) == 129)
+                {
+                    <div class="form-group2 col-md-2" id="filtroColaborador">
+                        <label>Colaborador:</label>
+                        <div></div>
+                        <div style="font-weight: normal !important;">
+                            <select class="form-control" id="selectColaborador"></select>
+                        </div>
+                    </div>
+                    <div class="form-group2 col-md-2" id="filtroEstado">
+                        <label>Estado:</label>
+                        <div></div>
+                        <select class="form-control" id="selectEstado">
+                        </select>
+                    </div>
+                    <div class="form-group2 col-md-2" id="filtroAno">
+                        <label>Año:</label>
+                        <div></div>
+                        <div style="font-weight: normal !important;">
+                            <select class="form-control" id="selectAno"></select>
+                        </div>
+                    </div>
+                    <div class="form-group2 col-md-2 mt-1 pt-4 d-flex" id="btnBuscarFiltro">
+                        <button id="btnFiltrar" type="button" class="btn btn-success me-2" style="width: 120px; cursor: pointer;">
+                            Buscar
+                        </button>
+                        <button id="btnLimpiar" type="button" class="btn btn-info" style="width: 120px; cursor: pointer;">
+                            Limpiar
+                        </button>
+                    </div>
+                }
+            </div>
+            <div class="row m-3" style="overflow: hidden; margin-top: 0% !important; display:none;" id="rowFiltro2">
+                <div class="form-group2 col-md-2" id="filtroLider">
+                    <label>Líder:</label>
                     <div></div>
                     <div style="font-weight: normal !important;">
-                        <select class="form-control" id="selectColaborador"></select>
+                        <select class="form-control" id="selectLider"></select>
                     </div>
                 </div>
-                <div class="form-group2 col-md-2" id="filtroEstado">
-                    <label>Estado:</label>
-                    <div></div>
-                    <select class="form-control" id="selectEstado">
-                    </select>
-                </div>
-                <div class="form-group2 col-md-2" id="filtroAno">
-                    <label>Año:</label>
+                <div class="form-group2 col-md-2" id="filtroDominio">
+                    <label>Dominio:</label>
                     <div></div>
                     <div style="font-weight: normal !important;">
-                        <select class="form-control" id="selectAno"></select>
+                        <select class="form-control" id="selectDominio"></select>
                     </div>
                 </div>
-                <div class="form-group2 col-md-2 mt-1 pt-4 d-flex" id="btnBuscarFiltro">
-                    <button id="btnFiltrar" type="button" class="btn btn-success me-2" style="width: 120px; cursor: pointer;">
-                        Buscar
-                    </button>
-                    <button id="btnLimpiar" type="button" class="btn btn-info" style="width: 120px; cursor: pointer;">
-                        Limpiar
-                    </button>
+                <div class="form-group2 col-md-2" id="filtroConvenio">
+                    <label>Convenio:</label>
+                    <div></div>
+                    <div style="font-weight: normal !important;">
+                        <select class="form-control" id="selectConvenio"></select>
+                    </div>
                 </div>
-                @*<div class="form-group2 col-md-1 mt-2" style="padding-top: 1.9%; margin-left:10px;" id="btnLimpiar">
+            </div>
 
-                </div>*@
-            }
-        </div>
-        <div class="row m-3" style="overflow: hidden; margin-top: 0% !important; display:none;" id="rowFiltro2">
-            <div class="form-group2 col-md-2" id="filtroLider">
-                <label>Líder:</label>
-                <div></div>
-                <div style="font-weight: normal !important;">
-                    <select class="form-control" id="selectLider"></select>
+            <!-- MultiStep Form -->
+            <div class="container-fluid py-4" id="grad1">
+                <!-- TABLA COLABORADOR -->
+                @if (Convert.ToInt32(perfil) == 127)
+                {
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card mb-4">
+                                <div class="card-header pb-0">
+                                    <div class="text-uppercase text-xl-center  font-weight-bolder opacity-7">Performance Colaborador</div>
+                                </div>
+                                <div class="card-body px-0 pt-0 pb-2">
+                                    <div class="table-responsive p-4">
+                                        <table class="table align-items-center mb-0" id="tablaColaborador">
+                                            <thead>
+                                                <tr>
+                                                    <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Año Performance</th>
+                                                    <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Colaborador</th>
+                                                    <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Líder</th>
+                                                    <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Fecha de Autoevaluación</th>
+                                                    <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Fecha de Feedback</th>
+                                                    <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Estado</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <!-- Los datos de la tabla se agregarán aquí dinámicamente desde JavaScript -->
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+                @if (Convert.ToInt32(perfil) == 128)
+                {
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card mb-4">
+                                <div class="card-header pb-0">
+                                    <div class="text-uppercase text-xl-center  font-weight-bolder opacity-7">Performance Líder</div>
+                                </div>
+                                <div class="card-body px-0 pt-0 pb-2">
+                                    <div class="table-responsive p-4">
+                                        <table class="table align-items-center mb-0" id="tablaLider">
+                                            <thead>
+                                                <tr>
+                                                    <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Año Performance</th>
+                                                    <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Colaborador</th>
+                                                    <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Fecha de Autoevaluación</th>
+                                                    <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Fecha de Evaluación</th>
+                                                    <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Fecha de Calibración</th>
+                                                    <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Estado</th>
+                                                    <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Acciones</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <!-- Los datos de la tabla se agregarán aquí dinámicamente desde JavaScript -->
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+                @if (Convert.ToInt32(perfil) == 129)
+                {
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card mb-4">
+                                <div class="card-header pb-0">
+                                    <div class="text-uppercase text-xl-center  font-weight-bolder opacity-7">Performance Capital Humano</div>
+                                </div>
+                                <div class="card-body px-0 pt-0 pb-2">
+                                    <div class="table-responsive p-4">
+                                        <table class="table align-items-center mb-0" id="tablaRRHH">
+                                            <thead>
+                                                <tr>
+                                                    <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Año Performance</th>
+                                                    <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Colaborador</th>
+                                                    <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Líder</th>
+                                                    <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">F.Autoevaluación</th>
+                                                    <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">F.Evaluación</th>
+                                                    <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">F.Calibración</th>
+                                                    <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">F.Feedback</th>
+                                                    <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Estado</th>
+                                                    <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Acciones</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <!-- Los datos de la tabla se agregarán aquí dinámicamente desde JavaScript -->
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+            @*modal preguntar si esta seguro *@
+            <div class="modal" id="modalAltas" style="display: none!important; margin-top: 0%;">
+                <div class="modal-dialog" style="max-width: 900px!important;">
+                    <div class="modal-content p-2">
+                        <div class="row mb-3 m-2" style="justify-content:center">
+                            <p class="h4" style="margin-left: 0px; margin-right:0px;"> Desea dar de alta las performance @(DateTime.Now.Year) de los colaboradores</p>
+                        </div>
+                        <div class="row mb-3 pr-2">
+                            <div class="col-md-6">
+                                <a href="#" role="button" class="btn btn-danger btn-sm btn-block" id="cerrarAlta" style="margin-left: 60%; width: 40%;">Cancelar</a>
+                            </div>
+                            <div class="col-md-6">
+                                <a href="#" role="button" class="btn btn-info btn-sm btn-block" id="generarAlta" style="width: 40%;">Generar</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="form-group2 col-md-2" id="filtroDominio">
-                <label>Dominio:</label>
-                <div></div>
-                <div style="font-weight: normal !important;">
-                    <select class="form-control" id="selectDominio"></select>
+            @*modal altas ok *@
+            <div class="modal" id="modalAltasOk" style="display: none!important; margin-top: 0%;">
+                <div class="modal-dialog" style="max-width: 900px!important;">
+                    <div class="modal-content p-2">
+                        <div class="row mb-3 m-2" style="justify-content:center">
+                            <p class="h4" style="margin-left: 0px; margin-right:0px;">Se generaron las altas de performance @(DateTime.Now.Year) con éxito</p>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="form-group2 col-md-2" id="filtroConvenio">
-                <label>Convenio:</label>
-                <div></div>
-                <div style="font-weight: normal !important;">
-                    <select class="form-control" id="selectConvenio"></select>
+            @*VIDEO*@
+            <div id="videoModal" class="modalV">
+                <div class="modalV-content">
+                    <span class="close" id="cerrarModalBtn">&times;</span>
+                    <video id="videoPlayer" controls width="560">
+                        <source src="~/Content/img/Performance.mp4" type="video/mp4">
+                        Tu navegador no soporta el tag de video.
+                    </video>
                 </div>
             </div>
-        </div>
+            <div class="modal" id="modalProgressBar" style="display: none!important; overflow-x: hidden; overflow-y:hidden; margin-top: 0%;">
+                <div class="modal-dialog" style="max-width: 900px !important; max-height: 600px !important;">
+                    <div class="modal-content" style="">
+                        <button type="button" class="btn-close text-dark" style="position: absolute; top: 0px; right: 10px; font-size: 1.5rem;" data-bs-dismiss="modal" aria-label="Close" onclick="CerrarModalHistorial();">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <div class="tracking" style="width: 100%; text-align: center;">
+                            <div class="step-title">Historial de Performance</div>
+                        </div>
+                        <div class="modal-body progressVertical" style="overflow-y: auto; max-height: 500px;">
+                            <div id="historialBar" class="step-progress">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-        <!-- MultiStep Form -->
-        <div class="container-fluid py-4" id="grad1">
-            <!-- TABLA COLABORADOR -->
-            @if (Convert.ToInt32(perfil) == 127)
-            {
-                <div class="row">
-                    <div class="col-12">
-                        <div class="card mb-4">
-                            <div class="card-header pb-0">
-                                <div class="text-uppercase text-xl-center  font-weight-bolder opacity-7">Performance Colaborador</div>
+            @*modal preguntar si esta seguro de eliminar performance*@
+            <div class="modal" id="modalDeseaEliminar" style="display: none!important; margin-top: 0%;">
+                <div class="modal-dialog" style="max-width: 900px!important;">
+                    <div class="modal-content p-2">
+                        <div class="row mb-3 m-2" style="justify-content:center">
+                            <p class="h4" style="margin-left: 0px; margin-right:0px;">¿Desea eliminar la Performance?</p>
+                        </div>
+                        <div class="row mb-3 pr-2">
+                            <div class="col-md-6">
+                                <a href="#" role="button" class="btn btn-info btn-sm btn-block" onclick="CerrarModalEliminar();" id="CerrarModalEnviar" style="margin-left: 60%; width: 40%;">Cancelar</a>
                             </div>
-                            <div class="card-body px-0 pt-0 pb-2">
-                                <div class="table-responsive p-4">
-                                    <table class="table align-items-center mb-0" id="tablaColaborador">
-                                        <thead>
-                                            <tr>
-                                                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Año Performance</th>
-                                                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Colaborador</th>
-                                                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Líder</th>
-                                                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Fecha de Autoevaluación</th>
-                                                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Fecha de Feedback</th>
-                                                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Estado</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <!-- Los datos de la tabla se agregarán aquí dinámicamente desde JavaScript -->
-                                        </tbody>
-                                    </table>
+                            <div class="col-md-6">
+                                <a href="#" role="button" class="btn btn-danger btn-sm btn-block" onclick="EliminarPerformance();" id="EliminarPErformance" style="width: 40%;">Eliminar</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @*modal preguntar si esta seguro cambiar a feedback*@
+            <div class="modal" id="modalDeseaCambiarFeedback" style="display: none!important; margin-top: 0%;">
+                <div class="modal-dialog" style="max-width: 900px!important;">
+                    <div class="modal-content p-2">
+                        <div class="row mb-3 m-2" style="justify-content:center">
+                            <p class="h4" style="margin-left: 0px; margin-right:0px;">¿Desea cambiar todas las performance al estado Feedback?</p>
+                        </div>
+                        <div class="row mb-3 pr-2">
+                            <div class="col-md-6">
+                                <a href="#" role="button" class="btn btn-danger btn-sm btn-block" onclick="CerrarModalCambiarFeedback();" style="margin-left: 60%; width: 40%;">Cancelar</a>
+                            </div>
+                            <div class="col-md-6">
+                                <a href="#" role="button" class="btn btn-info btn-sm btn-block" onclick="cambiarFeedback();" style="width: 40%;">Aceptar</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @*modal preguntar si esta seguro cambiar a feedback enviado*@
+            <div class="modal" id="modalDeseaCambiarFeedbackEnviado" style="display: none!important; margin-top: 0%;">
+                <div class="modal-dialog" style="max-width: 900px!important;">
+                    <div class="modal-content p-2">
+                        <div class="row mb-3 m-2" style="justify-content:center">
+                            <p class="h4" style="margin-left: 0px; margin-right:0px;">¿Desea cambiar todas las performance en Feedback al estado Feedback Enviado?</p>
+                        </div>
+                        <div class="row mb-3 pr-2">
+                            <div class="col-md-6">
+                                <a href="#" role="button" class="btn btn-danger btn-sm btn-block" onclick="CerrarModalCambiarFeedbackEnviado();" style="margin-left: 60%; width: 40%;">Cancelar</a>
+                            </div>
+                            <div class="col-md-6">
+                                <a href="#" role="button" class="btn btn-info btn-sm btn-block" onclick="cambiarFeedbackEnviado();" style="width: 40%;">Aceptar</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @*modal ENVIAR ENCUESTA A COLABORADOR DESDE EL LIDER *@
+            <div class="modal" id="modalEnviarEncuestaAColaborador" style="display: none!important; margin-top: 0%;">
+                <div class="modal-dialog" style="max-width: 900px!important;">
+                    <div class="modal-content p-2">
+                        <div class="row mb-3 m-2" style="justify-content:center">
+                            <p class="h4" style="margin-left: 0px; margin-right:0px;">¿Desea dar por finalizado el FEEDBACK y habilitar al colaborador para que vea su performance y responda las preguntas?</p>
+                        </div>
+                        <div class="row mb-3 pr-2">
+                            <div class="col-md-6">
+                                <a href="#" role="button" class="btn btn-danger btn-sm btn-block" onclick="CerrarModalEnviarEncuestaAColaborador();" style="margin-left: 60%; width: 40%;">Cancelar</a>
+                            </div>
+                            <div class="col-md-6">
+                                <a href="#" role="button" class="btn btn-info btn-sm btn-block" onclick="EnviarEncuestaAColaborador();" style="width: 40%;">Aceptar</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @*modal encuesta*@
+            <div class="modal modal-info" id="modalEncuesta" tabindex="-1" aria-labelledby="myLargeModalLabel">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 style="width:95%; text-align:center;">Encuesta sobre tu feedback</h4>
+                            <span style="width:5%;" class="closeE" onclick="CerrarModalEncuesta();">&times;</span>
+                        </div>
+                        <div class="modal-body">
+                            <!-- Primera sección -->
+                            <h6 class="mb-2">- ¿Pudiste coordinar y realizar la reunión de feedback con tu líder?</h6>
+                            <div class="center-container" style="margin-top: 20px;">
+                                <div class="form-check form-check-inline">
+                                    <input class="large-radio" type="radio" name="feedback" id="inlineRadio1" value="1" onchange="validarEncuesta('Si')">
+                                    <label class="form-check-label" for="inlineRadio1">Sí</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="large-radio" type="radio" name="feedback" id="inlineRadio2" value="0" onchange="validarEncuesta('No')">
+                                    <label class="form-check-label" for="inlineRadio2">No</label>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-            }
-            @if (Convert.ToInt32(perfil) == 128)
-            {
-                <div class="row">
-                    <div class="col-12">
-                        <div class="card mb-4">
-                            <div class="card-header pb-0">
-                                <div class="text-uppercase text-xl-center  font-weight-bolder opacity-7">Performance Líder</div>
-                            </div>
-                            <div class="card-body px-0 pt-0 pb-2">
-                                <div class="table-responsive p-4">
-                                    <table class="table align-items-center mb-0" id="tablaLider">
-                                        <thead>
-                                            <tr>
-                                                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Año Performance</th>
-                                                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Colaborador</th>
-                                                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Fecha de Autoevaluación</th>
-                                                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Fecha de Evaluación</th>
-                                                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Fecha de Calibración</th>
-                                                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Estado</th>
-                                                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Acciones</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <!-- Los datos de la tabla se agregarán aquí dinámicamente desde JavaScript -->
-                                        </tbody>
-                                    </table>
+                        <div class="modal-body" id="efectividadSection" style="display: none;">
+                            <!-- Segunda sección -->
+                            <h6 class="mb-2">- Si respondiste "Sí", ¿cómo calificarías la efectividad de la retroalimentación recibida para tu desarrollo profesional y creación de tu Plan de Desarrollo Individual?</h6>
+                            <p>( en una escala del 1 al 5, donde 1 es 'nada útil' y 5 es 'muy útil')</p>
+                            <div class="center-container ml-3 mt-3">
+                                <div class="radio-item">
+                                    <input type="radio" name="calificacionFeedback" value="1" id="rf1" class="large-radio">
+                                    <div class="radio-content">
+                                        <div class="radio-stars">
+                                            <span>★</span>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            }
-            @if (Convert.ToInt32(perfil) == 129)
-            {
-                <div class="row">
-                    <div class="col-12">
-                        <div class="card mb-4">
-                            <div class="card-header pb-0">
-                                <div class="text-uppercase text-xl-center  font-weight-bolder opacity-7">Performance Capital Humano</div>
-                            </div>
-                            <div class="card-body px-0 pt-0 pb-2">
-                                <div class="table-responsive p-4">
-                                    <table class="table align-items-center mb-0" id="tablaRRHH">
-                                        <thead>
-                                            <tr>
-                                                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Año Performance</th>
-                                                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Colaborador</th>
-                                                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Líder</th>
-                                                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">F.Autoevaluación</th>
-                                                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">F.Evaluación</th>
-                                                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">F.Calibración</th>
-                                                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">F.Feedback</th>
-                                                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Estado</th>
-                                                <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Acciones</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <!-- Los datos de la tabla se agregarán aquí dinámicamente desde JavaScript -->
-                                        </tbody>
-                                    </table>
+                                <div class="radio-item">
+                                    <input type="radio" name="calificacionFeedback" value="2" id="rf2" class="large-radio">
+                                    <div class="radio-content">
+                                        <div class="radio-stars">
+                                            <span>★</span>
+                                            <span>★</span>
+                                        </div>
+                                    </div>
                                 </div>
+                                <div class="radio-item">
+                                    <input type="radio" name="calificacionFeedback" value="3" id="rf3" class="large-radio">
+                                    <div class="radio-content">
+                                        <div class="radio-stars">
+                                            <span>★</span>
+                                            <span>★</span>
+                                            <span>★</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="radio-item">
+                                    <input type="radio" name="calificacionFeedback" value="4" id="rf4" class="large-radio">
+                                    <div class="radio-content">
+                                        <div class="radio-stars">
+                                            <span>★</span>
+                                            <span>★</span>
+                                            <span>★</span>
+                                            <span>★</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="radio-item">
+                                    <input type="radio" name="calificacionFeedback" value="5" id="rf5" class="large-radio">
+                                    <div class="radio-content">
+                                        <div class="radio-stars">
+                                            <span>★</span>
+                                            <span>★</span>
+                                            <span>★</span>
+                                            <span>★</span>
+                                            <span>★</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>   <br /><br />
+                        </div>
+                        <div class="modal-body">
+                            <h5 class="fs-title">Comentarios</h5>
+                            <div class="mt-3">
+                                <textarea id="comentariosFeedback" name="comentarios" rows="4" cols="87" placeholder="Ingrese sus comentarios aquí..."></textarea>
+                            </div>
+                            <div id="completarEncuesta" class="modal-footer" style="display: none;">
+                                <button id="btnEnviarEncuesta" type="button" class="btn btn-primary" style="margin-left:300px;">Enviar Respuesta</button>
                             </div>
                         </div>
                     </div>
                 </div>
-            }
-        </div>
-        @*modal preguntar si esta seguro *@
-        <div class="modal" id="modalAltas" style="display: none!important; margin-top: 0%;">
-            <div class="modal-dialog" style="max-width: 900px!important;">
-                <div class="modal-content p-2">
-                    <div class="row mb-3 m-2" style="justify-content:center">
-                        <p class="h4" style="margin-left: 0px; margin-right:0px;"> Desea dar de alta las performance @(DateTime.Now.Year) de los colaboradores</p>
-                    </div>
-                    <div class="row mb-3 pr-2">
-                        <div class="col-md-6">
-                            <a href="#" role="button" class="btn btn-danger btn-sm btn-block" id="cerrarAlta" style="margin-left: 60%; width: 40%;">Cancelar</a>
+            </div>
+            @*modal encuesta realizada*@
+            <div class="modal modal-info" id="modalEncuestaRealizada" tabindex="-1" aria-labelledby="myLargeModalLabel">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 style="width:95%; text-align:center;">Encuesta sobre tu feedback</h4>
+                            <span style="width:5%;" class="closeE" onclick="CerrarModalEncuestaRealizada();">&times;</span>
                         </div>
-                        <div class="col-md-6">
-                            <a href="#" role="button" class="btn btn-info btn-sm btn-block" id="generarAlta" style="width: 40%;">Generar</a>
+                        <div class="modal-body">
+                            <h5 style="width:95%; text-align:center;">La encuesta de esta performance ya fue realizada.</h5>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        @*modal altas ok *@
-        <div class="modal" id="modalAltasOk" style="display: none!important; margin-top: 0%;">
-            <div class="modal-dialog" style="max-width: 900px!important;">
-                <div class="modal-content p-2">
-                    <div class="row mb-3 m-2" style="justify-content:center">
-                        <p class="h4" style="margin-left: 0px; margin-right:0px;">Se generaron las altas de performance @(DateTime.Now.Year) con éxito</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        @*VIDEO*@
-        <div id="videoModal" class="modalV">
-            <div class="modalV-content">
-                <span class="close" id="cerrarModalBtn">&times;</span>
-                <video id="videoPlayer" controls width="560">
-                    <source src="~/Content/img/Performance.mp4" type="video/mp4">
-                    Tu navegador no soporta el tag de video.
-                </video>
-            </div>
-        </div>
-        <div class="modal" id="modalProgressBar" style="display: none!important; overflow-x: hidden; overflow-y:hidden; margin-top: 0%;">
-            <div class="modal-dialog" style="max-width: 900px !important; max-height: 600px !important;">
-                <div class="modal-content" style="">
-                    <button type="button" class="btn-close text-dark" style="position: absolute; top: 0px; right: 10px; font-size: 1.5rem;" data-bs-dismiss="modal" aria-label="Close" onclick="CerrarModalHistorial();">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    <div class="tracking" style="width: 100%; text-align: center;">
-                        <div class="step-title">Historial de Performance</div>
-                    </div>
-                    <div class="modal-body progressVertical" style="overflow-y: auto; max-height: 500px;">
-                        <div id="historialBar" class="step-progress">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
 
-        @*modal preguntar si esta seguro de eliminar performance*@
-        <div class="modal" id="modalDeseaEliminar" style="display: none!important; margin-top: 0%;">
-            <div class="modal-dialog" style="max-width: 900px!important;">
-                <div class="modal-content p-2">
-                    <div class="row mb-3 m-2" style="justify-content:center">
-                        <p class="h4" style="margin-left: 0px; margin-right:0px;">¿Desea eliminar la Performance?</p>
-                    </div>
-                    <div class="row mb-3 pr-2">
-                        <div class="col-md-6">
-                            <a href="#" role="button" class="btn btn-info btn-sm btn-block" onclick="CerrarModalEliminar();" id="CerrarModalEnviar" style="margin-left: 60%; width: 40%;">Cancelar</a>
-                        </div>
-                        <div class="col-md-6">
-                            <a href="#" role="button" class="btn btn-danger btn-sm btn-block" onclick="EliminarPerformance();" id="EliminarPErformance" style="width: 40%;">Eliminar</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        @*modal preguntar si esta seguro cambiar a feedback*@
-        <div class="modal" id="modalDeseaCambiarFeedback" style="display: none!important; margin-top: 0%;">
-            <div class="modal-dialog" style="max-width: 900px!important;">
-                <div class="modal-content p-2">
-                    <div class="row mb-3 m-2" style="justify-content:center">
-                        <p class="h4" style="margin-left: 0px; margin-right:0px;">¿Desea cambiar todas las performance al estado Feedback?</p>
-                    </div>
-                    <div class="row mb-3 pr-2">
-                        <div class="col-md-6">
-                            <a href="#" role="button" class="btn btn-danger btn-sm btn-block" onclick="CerrarModalCambiarFeedback();" style="margin-left: 60%; width: 40%;">Cancelar</a>
-                        </div>
-                        <div class="col-md-6">
-                            <a href="#" role="button" class="btn btn-info btn-sm btn-block" onclick="cambiarFeedback();" style="width: 40%;">Aceptar</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        @*modal preguntar si esta seguro cambiar a feedback enviado*@
-        <div class="modal" id="modalDeseaCambiarFeedbackEnviado" style="display: none!important; margin-top: 0%;">
-            <div class="modal-dialog" style="max-width: 900px!important;">
-                <div class="modal-content p-2">
-                    <div class="row mb-3 m-2" style="justify-content:center">
-                        <p class="h4" style="margin-left: 0px; margin-right:0px;">¿Desea cambiar todas las performance en Feedback al estado Feedback Enviado?</p>
-                    </div>
-                    <div class="row mb-3 pr-2">
-                        <div class="col-md-6">
-                            <a href="#" role="button" class="btn btn-danger btn-sm btn-block" onclick="CerrarModalCambiarFeedbackEnviado();" style="margin-left: 60%; width: 40%;">Cancelar</a>
-                        </div>
-                        <div class="col-md-6">
-                            <a href="#" role="button" class="btn btn-info btn-sm btn-block" onclick="cambiarFeedbackEnviado();" style="width: 40%;">Aceptar</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        @*modal ENVIAR ENCUESTA A COLABORADOR DESDE EL LIDER *@
-        <div class="modal" id="modalEnviarEncuestaAColaborador" style="display: none!important; margin-top: 0%;">
-            <div class="modal-dialog" style="max-width: 900px!important;">
-                <div class="modal-content p-2">
-                    <div class="row mb-3 m-2" style="justify-content:center">
-                        <p class="h4" style="margin-left: 0px; margin-right:0px;">¿Desea dar por finalizado el FEEDBACK y habilitar al colaborador para que vea su performance y responda las preguntas?</p>
-                    </div>
-                    <div class="row mb-3 pr-2">
-                        <div class="col-md-6">
-                            <a href="#" role="button" class="btn btn-danger btn-sm btn-block" onclick="CerrarModalEnviarEncuestaAColaborador();" style="margin-left: 60%; width: 40%;">Cancelar</a>
-                        </div>
-                        <div class="col-md-6">
-                            <a href="#" role="button" class="btn btn-info btn-sm btn-block" onclick="EnviarEncuestaAColaborador();" style="width: 40%;">Aceptar</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        @*modal encuesta*@
-        <div class="modal modal-info" id="modalEncuesta" tabindex="-1" aria-labelledby="myLargeModalLabel">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 style="width:95%; text-align:center;">Encuesta sobre tu feedback</h4>
-                        <span style="width:5%;" class="closeE" onclick="CerrarModalEncuesta();">&times;</span>
-                    </div>
-                    <div class="modal-body">
-                        <!-- Primera sección -->
-                        <h6 class="mb-2">- ¿Pudiste coordinar y realizar la reunión de feedback con tu líder?</h6>
-                        <div class="center-container" style="margin-top: 20px;">
-                            <div class="form-check form-check-inline">
-                                <input class="large-radio" type="radio" name="feedback" id="inlineRadio1" value="1" onchange="validarEncuesta('Si')">
-                                <label class="form-check-label" for="inlineRadio1">Sí</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="large-radio" type="radio" name="feedback" id="inlineRadio2" value="0" onchange="validarEncuesta('No')">
-                                <label class="form-check-label" for="inlineRadio2">No</label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-body" id="efectividadSection" style="display: none;">
-                        <!-- Segunda sección -->
-                        <h6 class="mb-2">- Si respondiste "Sí", ¿cómo calificarías la efectividad de la retroalimentación recibida para tu desarrollo profesional y creación de tu Plan de Desarrollo Individual?</h6>
-                        <p>( en una escala del 1 al 5, donde 1 es 'nada útil' y 5 es 'muy útil')</p>
-                        <div class="center-container ml-3 mt-3">
-                            <div class="radio-item">
-                                <input type="radio" name="calificacionFeedback" value="1" id="rf1" class="large-radio">
-                                <div class="radio-content">
-                                    <div class="radio-stars">
-                                        <span>★</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="radio-item">
-                                <input type="radio" name="calificacionFeedback" value="2" id="rf2" class="large-radio">
-                                <div class="radio-content">
-                                    <div class="radio-stars">
-                                        <span>★</span>
-                                        <span>★</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="radio-item">
-                                <input type="radio" name="calificacionFeedback" value="3" id="rf3" class="large-radio">
-                                <div class="radio-content">
-                                    <div class="radio-stars">
-                                        <span>★</span>
-                                        <span>★</span>
-                                        <span>★</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="radio-item">
-                                <input type="radio" name="calificacionFeedback" value="4" id="rf4" class="large-radio">
-                                <div class="radio-content">
-                                    <div class="radio-stars">
-                                        <span>★</span>
-                                        <span>★</span>
-                                        <span>★</span>
-                                        <span>★</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="radio-item">
-                                <input type="radio" name="calificacionFeedback" value="5" id="rf5" class="large-radio">
-                                <div class="radio-content">
-                                    <div class="radio-stars">
-                                        <span>★</span>
-                                        <span>★</span>
-                                        <span>★</span>
-                                        <span>★</span>
-                                        <span>★</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>   <br /><br />
-                    </div>
-                    <div class="modal-body">
-                        <h5 class="fs-title">Comentarios</h5>
-                        <div class="mt-3">
-                            <textarea id="comentariosFeedback" name="comentarios" rows="4" cols="87" placeholder="Ingrese sus comentarios aquí..."></textarea>
-                        </div>
-                        <div id="completarEncuesta" class="modal-footer" style="display: none;">
-                            <button id="btnEnviarEncuesta" type="button" class="btn btn-primary" style="margin-left:300px;">Enviar Respuesta</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        @*modal encuesta realizada*@
-        <div class="modal modal-info" id="modalEncuestaRealizada" tabindex="-1" aria-labelledby="myLargeModalLabel">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 style="width:95%; text-align:center;">Encuesta sobre tu feedback</h4>
-                        <span style="width:5%;" class="closeE" onclick="CerrarModalEncuestaRealizada();">&times;</span>
-                    </div>
-                    <div class="modal-body">
-                        <h5 style="width:95%; text-align:center;">La encuesta de esta performance ya fue realizada.</h5>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </main>
+        </main>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
     <!-- DataTables JS CDN -->
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
@@ -1946,6 +2003,15 @@ if(perfil == 129){
                     $("#totalFeedback").html('<span class="mr-3" style="width: 20px; height: 20px; display: inline-block; background-color: #17AFB6 !important;"></span> Feedback: ' + totalFeedback);
                     $("#totalFeedbackEnviado").html('<span class="mr-3" style="width: 20px; height: 20px; display: inline-block; background-color: #146064 !important;"></span> Feedback Enviado: ' + totalFeedbackEnviado);
                     $("#totalFinalizado").html('<span class="mr-3" style="width: 20px; height: 20px; display: inline-block; background-color: #9b9b9b !important;"></span> Finalizado: ' + totalFinalizado);
+
+                    //completo el total en las referencias 2
+                    $("#totalPendiente2").html('<span style="padding: 2px 35px; font-size: 12px; display: inline-block; background-color: #FFC107 !important; color: black; border-radius: 15px 0 0 15px;">Pendiente: ' + totalPendiente + '</span>');
+                    $("#totalCompletado2").html('<span style="padding: 2px 35px; font-size: 12px; display: inline-block; background-color: #7AC11F !important; color: white;">Completado: ' + totalCompletado + '</span>');
+                    $("#totalEvaluado2").html('<span style="padding: 2px 35px; font-size: 12px; display: inline-block; background-color: #69E6FF !important; color: black;">Evaluado: ' + totalEvaluado + '</span>');
+                    $("#totalFeedback2").html('<span style="padding: 2px 35px; font-size: 12px; display: inline-block; background-color: #17AFB6 !important; color: white;">Feedback: ' + totalFeedback + '</span>');
+                    $("#totalFeedbackEnviado2").html('<span style="padding: 2px 35px; font-size: 12px; display: inline-block; background-color: #146064 !important; color: white;">Feedback Enviado: ' + totalFeedbackEnviado + '</span>');
+                    $("#totalFinalizado2").html('<span style="padding: 2px 35px; font-size: 12px; display: inline-block; background-color: #9b9b9b !important; color: white; border-radius: 0 15px 15px 0;">Finalizado: ' + totalFinalizado + '</span>');
+
                 });
         }
         ////INSTRUCTIVO
