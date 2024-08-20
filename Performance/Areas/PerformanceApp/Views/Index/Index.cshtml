@@ -74,18 +74,7 @@
             display: flex; /* Utilizar flexbox para alinear los botones */
             justify-content: space-between; /* Espaciar uniformemente los botones */
         }
-
-        .modalLoading {
-            position: fixed;
-            z-index: 1000;
-            top: 0;
-            left: 0;
-            height: 100%;
-            width: 100%;
-            background: rgba(214, 214, 214, 0.8) url('../../Content/img/puntos.gif') 50% 50% no-repeat;
-            background-size: 300px 240px;
-        }
-
+       
         .modal {
             background-color: rgba(0, 0, 0, 0.5);
         }
@@ -1085,7 +1074,10 @@
         var anoActual = new Date().getFullYear();
         var idPerformanceEliminar = 0;
         var idPerformance = 0;
-        $("#divLoading").hide();
+        $(document).ready(function () {
+            $("#divLoading").hide();
+        });
+
     //Codigo para checkbox
     const checkboxes = document.querySelectorAll('.form-check-input');
 
