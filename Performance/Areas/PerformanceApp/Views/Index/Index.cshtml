@@ -780,7 +780,7 @@
                                                     <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Colaborador</th>
                                                     <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Fecha de Autoevaluación</th>
                                                     <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Fecha de Evaluación</th>
-                                                    <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Fecha de Calibración</th>
+                                                    <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Fecha de Calibración</th>                                                   
                                                     <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Estado</th>
                                                     <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Acciones</th>
                                                 </tr>
@@ -815,6 +815,7 @@
                                                     <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">F.Evaluación</th>
                                                     <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">F.Calibración</th>
                                                     <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">F.Feedback</th>
+                                                    <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Calificación Final</th>
                                                     <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Estado</th>
                                                     <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Acciones</th>
                                                 </tr>
@@ -1403,7 +1404,7 @@ if(perfil == 129){
                                 return '';
                             }
                         }
-                    },
+                    },                    
                     {
                         "data": "idEstado",
                         "name": "Estado",
@@ -1567,8 +1568,9 @@ if(perfil == 129){
                     { "width": "5%", "targets": 4 },
                     { "width": "5%", "targets": 5 },
                     { "width": "5%", "targets": 6 },
-                    { "width": "10%", "targets": 7 },
-                    { "width": "7%", "targets": 8 },
+                    { "width": "5%", "targets": 7 },
+                    { "width": "10%", "targets": 8 },
+                    { "width": "7%", "targets": 9 },
                 ],
                 "columns": [
                     {
@@ -1639,6 +1641,19 @@ if(perfil == 129){
                             if (data !== null) {
                                 return '<div style="text-align: center;">' + moment(data).format('DD/MM/YYYY') + '</div>'
                             } else {
+                                return '';
+                            }
+                        }
+                    },
+                    {
+                        "data": "calificacionFinal",
+                        "name": "Calificación Final",
+                        "autoWidth": false,
+                        "render": function (data, type, row, meta) {
+                            if (data !== null) {
+                                return '<div style="text-align: center;">' + data + '</div>'
+                            }
+                            else {
                                 return '';
                             }
                         }

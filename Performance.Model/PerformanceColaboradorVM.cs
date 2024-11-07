@@ -97,6 +97,7 @@ namespace Performance.Model
         public bool? eliminado { get; set; }
         public List<PerformanceAutoevaluacionVM> habilidades { get; set; }
         public bool? tieneEncuesta { get; set; }
+        public string calificacionFinal { get; set; }
     }
     public class PerformanceEstados
     {

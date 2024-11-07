@@ -61,6 +61,7 @@ namespace Performance.Servicios
                            eliminado = p.eliminado,
                            convenio = p.convenio,
                            tieneEncuesta = en.idEncuesta != null ? true : false,
+                           calificacionFinal = p.calificacionFinal,
         }).Where(x => x.eliminado != true).OrderByDescending(x => x.ano).ThenBy(x => x.nombre);
             var algo = tmp.ToList();
             var temp = (IQueryable<PerformanceVM>)tmp;
