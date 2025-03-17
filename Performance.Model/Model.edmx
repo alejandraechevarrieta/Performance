@@ -140,6 +140,24 @@
           <Property Name="status" Type="int" />
           <Property Name="accionesRealizadas" Type="varchar" MaxLength="500" />
         </EntityType>
+        <EntityType Name="PDILogs">
+          <Key>
+            <PropertyRef Name="idLog" />
+          </Key>
+          <Property Name="idLog" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idMeta" Type="int" />
+          <Property Name="idPDI" Type="int" />
+          <Property Name="tipoAccion" Type="int" />
+          <Property Name="habilidad" Type="int" />
+          <Property Name="metaTitulo" Type="varchar" MaxLength="500" />
+          <Property Name="metaDescripcion" Type="varchar" MaxLength="1000" />
+          <Property Name="fechaDesde" Type="date" />
+          <Property Name="fechaHasta" Type="date" />
+          <Property Name="status" Type="int" />
+          <Property Name="accionesRealizadas" Type="varchar" MaxLength="500" />
+          <Property Name="fecha" Type="date" />
+          <Property Name="idUsuario" Type="int" />
+        </EntityType>
         <EntityType Name="PDIStatus">
           <Key>
             <PropertyRef Name="idStatus" />
@@ -198,6 +216,7 @@
           <EntitySet Name="MenuPerfil" EntityType="Self.MenuPerfil" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PDIColaborador" EntityType="Self.PDIColaborador" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PDIColaboradorMetas" EntityType="Self.PDIColaboradorMetas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PDILogs" EntityType="Self.PDILogs" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PDIStatus" EntityType="Self.PDIStatus" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PDItipoAccion" EntityType="Self.PDItipoAccion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PerformanceColaborador" EntityType="Self.PerformanceColaborador" Schema="dbo" store:Type="Tables" />
@@ -337,6 +356,7 @@
           <EntitySet Name="PDIColaboradorMetas" EntityType="PerformanceModel.PDIColaboradorMetas" />
           <EntitySet Name="Encuesta" EntityType="PerformanceModel.Encuesta" />
           <EntitySet Name="PerformanceColaborador" EntityType="PerformanceModel.PerformanceColaborador" />
+          <EntitySet Name="PDILogs" EntityType="PerformanceModel.PDILogs" />
         </EntityContainer>
         <EntityType Name="Habilidades">
           <Key>
@@ -402,6 +422,24 @@
           <Property Name="idCalificacionFinalAntes" Type="Int32" />
           <Property Name="calificacionFinalAntes" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="fechaFeedback" Type="DateTime" Precision="0" />
+        </EntityType>
+        <EntityType Name="PDILogs">
+          <Key>
+            <PropertyRef Name="idLog" />
+          </Key>
+          <Property Name="idLog" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idMeta" Type="Int32" />
+          <Property Name="idPDI" Type="Int32" />
+          <Property Name="tipoAccion" Type="Int32" />
+          <Property Name="habilidad" Type="Int32" />
+          <Property Name="metaTitulo" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="metaDescripcion" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="fechaDesde" Type="DateTime" Precision="0" />
+          <Property Name="fechaHasta" Type="DateTime" Precision="0" />
+          <Property Name="status" Type="Int32" />
+          <Property Name="accionesRealizadas" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="fecha" Type="DateTime" Precision="0" />
+          <Property Name="idUsuario" Type="Int32" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -601,6 +639,25 @@
                 <ScalarProperty Name="legajo" ColumnName="legajo" />
                 <ScalarProperty Name="idUsuario" ColumnName="idUsuario" />
                 <ScalarProperty Name="idPerformance" ColumnName="idPerformance" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PDILogs">
+            <EntityTypeMapping TypeName="PerformanceModel.PDILogs">
+              <MappingFragment StoreEntitySet="PDILogs">
+                <ScalarProperty Name="idUsuario" ColumnName="idUsuario" />
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+                <ScalarProperty Name="accionesRealizadas" ColumnName="accionesRealizadas" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="fechaHasta" ColumnName="fechaHasta" />
+                <ScalarProperty Name="fechaDesde" ColumnName="fechaDesde" />
+                <ScalarProperty Name="metaDescripcion" ColumnName="metaDescripcion" />
+                <ScalarProperty Name="metaTitulo" ColumnName="metaTitulo" />
+                <ScalarProperty Name="habilidad" ColumnName="habilidad" />
+                <ScalarProperty Name="tipoAccion" ColumnName="tipoAccion" />
+                <ScalarProperty Name="idPDI" ColumnName="idPDI" />
+                <ScalarProperty Name="idMeta" ColumnName="idMeta" />
+                <ScalarProperty Name="idLog" ColumnName="idLog" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

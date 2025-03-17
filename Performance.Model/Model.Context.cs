@@ -41,5 +41,6 @@ namespace Performance.Model
         public virtual DbSet<PDIColaboradorMetas> PDIColaboradorMetas { get; set; }
         public virtual DbSet<Encuesta> Encuesta { get; set; }
         public virtual DbSet<PerformanceColaborador> PerformanceColaborador { get; set; }
+        public virtual DbSet<PDILogs> PDILogs { get; set; }
     }
 }

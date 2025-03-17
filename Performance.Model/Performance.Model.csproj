@@ -211,6 +211,9 @@
     <Compile Include="PDIColaboradorMetas.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="PDILogs.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="PDIStatus.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
