@@ -2,6 +2,7 @@
 using Performance.Model;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Data.Entity.Core.Metadata.Edm;
 using System.Globalization;
 using System.Linq;
@@ -1250,71 +1251,111 @@ namespace Performance.Servicios
         /// <param name="idUsuario"></param>
         /// <param name="idPerformance"></param>
         /// <returns></returns>
-        public List<PDIMetasVM> buscarDatosPDI(int idUsuario, int idPerformance)
-        {           
-            //si no envia idPerformance buscar idUsuario logueado
+        public async Task<List<PDIMetasVM>> buscarDatosPDI(int idUsuario, int idPerformance, ColaboradorVM datosUsuario)
+        {
             var idUsuarioPDI = idUsuario;
+
+            //Si `idPerformance` no es 0, buscar el usuario asociado a la performance
             if (idPerformance != 0)
             {
-                var performance = db.PerformanceColaborador.Where(x => x.idPerformance == idPerformance).FirstOrDefault();
-                idUsuarioPDI = performance.idUsuario;
+                var performance = await db.PerformanceColaborador
+                    .Where(x => x.idPerformance == idPerformance)
+                    .FirstOrDefaultAsync();
+
+                if (performance != null)
+                {
+                    idUsuarioPDI = performance.idUsuario;
+                }
             }
 
-            //si no tiene PDI agregar uno     
-            var plan = db.PDIColaborador.Where(x => x.idUsuario == idUsuarioPDI).FirstOrDefault();
-            var idPdi = 0;
+            //Buscar PDI del usuario, si no existe, crearlo
+            var plan = await db.PDIColaborador
+                .Where(x => x.idUsuario == idUsuarioPDI)
+                .FirstOrDefaultAsync();
+
+            int idPdi;
+
             if (plan != null)
             {
                 idPdi = plan.idPDI;
             }
             else
             {
-                PDIColaborador nuevoPDI = new PDIColaborador();
-                nuevoPDI.idUsuario = idUsuarioPDI;
+                PDIColaborador nuevoPDI = new PDIColaborador
+                {
+                    idUsuario = idUsuarioPDI
+                };
+
                 db.PDIColaborador.Add(nuevoPDI);
-                db.SaveChanges();
-                var pdiNuevo = db.PDIColaborador.Where(x => x.idUsuario == idUsuarioPDI).FirstOrDefault();
-                idPdi = pdiNuevo.idPDI;
-            }               
-           
-            var datosPDI = (from p in db.PerformanceColaborador
-                            join pf in db.PDIColaborador on p.idUsuario equals pf.idUsuario
-                            where p.idUsuario == idUsuarioPDI
-                            select new PDIMetasVM
-                            {
-                                idUsuario = p.idUsuario,
-                                colaborador = p.nombre,
-                                lider = p.nombreJefe,
-                                dominio = p.dominio,
+                await db.SaveChangesAsync();
 
-                            }).ToList();
-            var acciones = (from p in db.PDIColaboradorMetas
-                            join t in db.PDItipoAccion on p.tipoAccion equals t.idTipoAccion into tipoAccion
-                            from ta in tipoAccion.DefaultIfEmpty()
-                            join h in db.Habilidades on p.habilidad equals h.idHabilidad into habilidades
-                            from ha in habilidades.DefaultIfEmpty()
-                            join s in db.PDIStatus on p.status equals s.idStatus into status
-                            from st in status.DefaultIfEmpty()
-                            where p.idPDI == idPdi
-                            select new PDIMetasVM
-                            {
-                                idPDI = p.idPDI,
-                                idMeta = p.idMeta,
-                                nombreTipoAccion = ta.nombre,
-                                tipoAccion = ta.idTipoAccion,
-                                nombreHabilidad = ha.habilidad,
-                                metaTitulo = p.metaTitulo,
-                                metaDescripcion = p.metaDescripcion,
-                                fechaDesde = p.fechaDesde,
-                                fechaHasta = p.fechaHasta,
-                                nombreStatus = st.nombre,
-                                accionesRealizadas = p.accionesRealizadas,
-                            }).ToList();
+                // Obtener el PDI recién creado
+                idPdi = await db.PDIColaborador
+                    .Where(x => x.idUsuario == idUsuarioPDI)
+                    .Select(x => x.idPDI)
+                    .FirstOrDefaultAsync();
+            }
 
+            //Si hay una performance, usar sus datos. Si no, usar los datos de `datosUsuario`
+            List<PDIMetasVM> datosPDI;
+                        
+            if (datosUsuario == null)
+            {
+                datosPDI = await (from p in db.PerformanceColaborador
+                                  join pf in db.PDIColaborador on p.idUsuario equals pf.idUsuario
+                                  where p.idUsuario == idUsuarioPDI
+                                  select new PDIMetasVM
+                                  {
+                                      idUsuario = p.idUsuario,
+                                      colaborador = p.nombre,
+                                      lider = p.nombreJefe,
+                                      dominio = p.dominio,
+                                  }).ToListAsync();
+            }
+            else
+            {
+                //Si no hay performance, usar los datos de `datosUsuario`
+                datosPDI = new List<PDIMetasVM>
+        {
+            new PDIMetasVM
+            {
+                idUsuario = datosUsuario.idUsuario,
+                colaborador = datosUsuario.nombre,
+                lider = datosUsuario.nombreJefe,
+                dominio = datosUsuario.dominio
+            }
+        };
+            }
+
+            //Buscar acciones relacionadas al PDI
+            var acciones = await (from p in db.PDIColaboradorMetas
+                                  join t in db.PDItipoAccion on p.tipoAccion equals t.idTipoAccion into tipoAccion
+                                  from ta in tipoAccion.DefaultIfEmpty()
+                                  join h in db.Habilidades on p.habilidad equals h.idHabilidad into habilidades
+                                  from ha in habilidades.DefaultIfEmpty()
+                                  join s in db.PDIStatus on p.status equals s.idStatus into status
+                                  from st in status.DefaultIfEmpty()
+                                  where p.idPDI == idPdi
+                                  select new PDIMetasVM
+                                  {
+                                      idPDI = p.idPDI,
+                                      idMeta = p.idMeta,
+                                      nombreTipoAccion = ta != null ? ta.nombre : "Sin tipo de acción",
+                                      tipoAccion = ta != null ? ta.idTipoAccion : 0,
+                                      nombreHabilidad = ha != null ? ha.habilidad : "Sin habilidad",
+                                      metaTitulo = p.metaTitulo,
+                                      metaDescripcion = p.metaDescripcion,
+                                      fechaDesde = p.fechaDesde,
+                                      fechaHasta = p.fechaHasta,
+                                      nombreStatus = st != null ? st.nombre : "Sin estado",
+                                      accionesRealizadas = p.accionesRealizadas,
+                                  }).ToListAsync();
+
+            // Agregar las acciones a la lista de datos PDI
             datosPDI.AddRange(acciones);
             return datosPDI;
         }
-      
+
         public List<TipoAccionVM> ListarTipoAccion()
         {
             List<TipoAccionVM> lista = null;
@@ -1395,7 +1436,7 @@ namespace Performance.Servicios
             PDIMetasVM objeto = new PDIMetasVM();
             var datos = (from p in db.PDIColaboradorMetas
                             join pf in db.PDIColaborador on p.idPDI equals pf.idPDI
-                            join c in db.PerformanceColaborador on pf.idUsuario equals c.idUsuario
+                            //join c in db.PerformanceColaborador on pf.idUsuario equals c.idUsuario
                             join t in db.PDItipoAccion on p.tipoAccion equals t.idTipoAccion into tipoAccion
                             from ta in tipoAccion.DefaultIfEmpty()
                             join h in db.Habilidades on p.habilidad equals h.idHabilidad into habilidades
@@ -1405,10 +1446,10 @@ namespace Performance.Servicios
                             where p.idMeta == idMeta
                             select new PDIMetasVM
                             {
-                                idUsuario = c.idUsuario,
-                                colaborador = c.nombre,
-                                lider = c.nombreJefe,
-                                dominio = c.dominio,                             
+                                //idUsuario = c.idUsuario,
+                                //colaborador = c.nombre,
+                                //lider = c.nombreJefe,
+                                //dominio = c.dominio,                             
                                 idPDI = p.idPDI,
                                 idMeta = p.idMeta,
                                 nombreTipoAccion = ta.nombre,
@@ -1435,7 +1476,8 @@ namespace Performance.Servicios
                 {
 
                     var pdiColaborador = db.PDIColaboradorMetas.Where(x => x.idMeta == meta.idMeta).FirstOrDefault();
-                    if(pdiColaborador != null)
+                    GuardarMetaLogs(meta, pdiColaborador);
+                    if (pdiColaborador != null)
                     {
                         pdiColaborador.metaTitulo = meta.metaTitulo;
                         pdiColaborador.tipoAccion = meta.tipoAccion;
@@ -1446,7 +1488,7 @@ namespace Performance.Servicios
                         pdiColaborador.fechaHasta = meta.fechaHasta;
                         pdiColaborador.status = meta.status;
                         pdiColaborador.accionesRealizadas = meta.accionesRealizadas;
-                        db.SaveChanges();
+                        db.SaveChanges();                       
                     }                   
                 }
                 return 0;
@@ -1467,6 +1509,87 @@ namespace Performance.Servicios
             }
             db.SaveChanges();
             return 0;
+        }
+        public int GuardarMetaLogs(PDIMetasVM meta, PDIColaboradorMetas pdiColaborador)
+        {
+            try
+            {
+                if (meta.idUsuario != null)
+                {     
+                    if (pdiColaborador != null)
+                    {
+                        PDILogs nuevoLog = new PDILogs();
+                        bool huboCambio = false;
+
+                        // Comparar y registrar cambios
+                        if (pdiColaborador.tipoAccion != meta.tipoAccion)
+                        {
+                            nuevoLog.tipoAccion = pdiColaborador.tipoAccion;
+                            huboCambio = true;
+                        }
+                        if (pdiColaborador.habilidad != meta.habilidad)
+                        {
+                            nuevoLog.habilidad = pdiColaborador.habilidad;
+                            huboCambio = true;
+                        }
+                        if (pdiColaborador.metaTitulo != meta.metaTitulo)
+                        {
+                            nuevoLog.metaTitulo = pdiColaborador.metaTitulo;
+                            huboCambio = true;
+                        }
+                        if (pdiColaborador.metaDescripcion != meta.metaDescripcion)
+                        {
+                            nuevoLog.metaDescripcion = pdiColaborador.metaDescripcion;
+                            huboCambio = true;
+                        }
+                        if (pdiColaborador.fechaDesde != meta.fechaDesde)
+                        {
+                            nuevoLog.fechaDesde = pdiColaborador.fechaDesde;
+                            huboCambio = true;
+                        }
+                        if (pdiColaborador.fechaHasta != meta.fechaHasta)
+                        {
+                            nuevoLog.fechaHasta = pdiColaborador.fechaHasta;
+                            huboCambio = true;
+                        }
+                        if (pdiColaborador.status != meta.status)
+                        {
+                            nuevoLog.status = pdiColaborador.status;
+                            huboCambio = true;
+                        }
+                        if (pdiColaborador.accionesRealizadas != meta.accionesRealizadas)
+                        {
+                            nuevoLog.accionesRealizadas = pdiColaborador.accionesRealizadas;
+                            huboCambio = true;
+                        }
+
+                        // Si hubo cambios, guardar el log
+                        if (huboCambio)
+                        {
+                            nuevoLog.idMeta = pdiColaborador.idMeta;
+                            nuevoLog.idPDI = pdiColaborador.idPDI;
+                            nuevoLog.fecha = DateTime.Now; 
+                            nuevoLog.idUsuario = meta.idUsuario;
+                            db.PDILogs.Add(nuevoLog);
+                            db.SaveChanges();
+                        }
+                    }
+                }
+                return 0;
+            }
+            catch (Exception e)
+            {
+                return 1;
+            }
+        }
+        public bool tienePerformance(int idUsuario)
+        {
+            var existePerformance = db.PerformanceColaborador.Where(x => x.idUsuario == idUsuario).FirstOrDefault();
+            if(existePerformance != null)
+            {
+                return true;
+            }
+            return false;
         }
         public void cambiarFeedback(int idUsuario, string nombreUsuario)
         {

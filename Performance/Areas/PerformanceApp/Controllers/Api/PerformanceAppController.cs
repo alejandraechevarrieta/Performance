@@ -515,7 +515,7 @@ namespace Performance.Areas.PerformanceApp.Controllers.Api
                 return BadRequest();
             }
         }
-        /// <summary>
+        /// <summary>      
         /// REPORTES
         /// </summary>
         [System.Web.Http.Route("Api/PerformanceApp/GenerarExcelReportesColaboradores")]
@@ -592,10 +592,19 @@ namespace Performance.Areas.PerformanceApp.Controllers.Api
         [System.Web.Http.Route("Api/PerformanceApp/buscarDatosPDI")]
         [System.Web.Http.ActionName("buscarDatosPDI")]
         [System.Web.Http.HttpGet]
-        public List<PDIMetasVM> buscarDatosPDI(int idUsuario, int idPerformance)
+        public async Task<List<PDIMetasVM>> buscarDatosPDI(int idUsuario, int idPerformance)
         {
             Servicios.ServicioPerformance servicio = new Servicios.ServicioPerformance();
-            return servicio.buscarDatosPDI(idUsuario, idPerformance);
+
+            var tienePerformance = servicio.tienePerformance(idUsuario);
+            ColaboradorVM datosUsuario = null;
+
+            if (!tienePerformance)
+            {
+                datosUsuario = await BuscarDatosUsuario(idUsuario);
+            }
+
+            return await servicio.buscarDatosPDI(idUsuario, idPerformance, datosUsuario);
         }
         [System.Web.Http.Route("/ListarTipoAccion/")]
         [System.Web.Http.ActionName("ListarTipoAccion")]
